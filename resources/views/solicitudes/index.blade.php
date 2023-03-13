@@ -22,9 +22,10 @@
                                         <th scope="col" class="px-6 py-3">
                                             Fecha Salida
                                         </th>
-                                        <th scope="col" class="px-6 py-3">
-                                            Origen
+                                        <th scope="col" class="px-6 py-3 gap 6">
+                                            Origen  
                                         </th>
+
                                         <th scope="col" class="px-6 py-3">
                                             Fecha Llegada
                                         </th>
@@ -38,37 +39,84 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($solicitudes as $solicitud)
-                                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                            {{-- <td class="w-4 p-4">
-                                                <div class="flex items-center">
-                                                    <input id="checkbox-table-search-1" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                                    <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
-                                                </div>
-                                            </td> --}}
-                                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                {{$solicitud->dia1}}
-                                            </th>
-                                            <td class="px-6 py-4">
-                                                {{$solicitud->salida}}
-                                            </td>
-                                            <td class="px-6 py-4">
-                                                {{$solicitud->dia2}}
-                                            </td>
-                                            <td class="px-6 py-4">
-                                                {{$solicitud->llegada}}
-                                            </td>
-                                            <td class="px-6 py-4">
-                                                {{-- <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a> --}}
-                                                <button type="submit" class="btn btn-success">Aceptar</button>
 
-                                                {{ Form::open(array('url' => 'solicitudes' . $solicitud->id, 'class' => 'pull-right')) }}
-                                                {{ Form::hidden('_method', 'DELETE') }}
-                                                {{ Form::submit('Eliminar', array('class' => 'btn btn-warning')) }}
-                                                {{ Form::close() }}
+                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    {{$solicitud->dia1}}
+                                                </th>
+                                                <td class="px-6 py-4">
+                                                    {{$solicitud->salida}}
 
+                                                    <button id="botonOrigen" type="button" class="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800">
+                                                        <svg aria-hidden="true" class="w-2 h-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                                                        <span class="sr-only">Icon description</span>
+                                                    </button> 
 
-                                            </td>
-                                        </tr>
+                                                    <script>
+                                                        // Get the button element by its ID
+                                                        const myButton = document.getElementById('botonOrigen');
+                                                        
+                                                        // Add a click event listener to the button
+                                                        myButton.addEventListener('click', () => {
+                                                            // Show the alert dialog with a message and an OK button
+                                                            alert('Observaciones: {{ $solicitud->observacion1 }} ');
+                                                        });
+                                                    </script>
+
+                                                </td>
+                                                <td class="px-6 py-4">
+                                                    {{$solicitud->dia2}}
+                                                </td>
+                                                <td class="px-6 py-4">
+                                                    {{$solicitud->llegada}}
+
+                                                    <button id="botonDestino" type="button" class="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800">
+                                                        <svg aria-hidden="true" class="w-2 h-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                                                        <span class="sr-only">Icon description</span>
+                                                    </button> 
+
+                                                    <script>
+                                                        // Get the button element by its ID
+                                                        const myButton2 = document.getElementById('botonDestino');
+                                                        
+                                                        // Add a click event listener to the button
+                                                        myButton2.addEventListener('click', () => {
+                                                            // Show the alert dialog with a message and an OK button
+                                                            alert('Observaciones: {{ $solicitud->observacion2 }} ');
+                                                        });
+                                                    </script>
+
+                                                </td>
+                                                <td class="px-6 py-4 space-y-6">
+
+                                                    {{-- <form method="POST" action="/truck_driver/solicitudes/{{$solicitud->id}}">
+                                                        @csrf
+                                                        @method('PUT')
+
+                                                        <button type="submit" class="btn btn-primary">Aceptar</button>
+                                                    </form> --}}
+                                                    
+                                                    <form method="POST" action="{{ route('truck_driver.crearViaje', ['id' => $solicitud->id]) }}">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <button type="submit">Call Update Function</button>
+                                                    </form>
+
+                                                    <form action="/truck_driver/solicitudes/{{$solicitud->id}}" method="POST" >
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        
+                                                        <button type="submit" class="btn btn-danger">Cancelar</button>
+                                                    </form>
+
+                                                    {{-- <form method="POST" action="solicitudes">
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-success">Aceptar</button>
+                                                    </form> --}}
+                                                
+                                                </td>
+                                            </tr>
+                                        
                                     @endforeach
                                 </tbody>
                             </table>

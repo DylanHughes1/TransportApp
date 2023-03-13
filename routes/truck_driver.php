@@ -12,6 +12,7 @@ use App\Http\Controllers\TruckDriver\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Models\TruckDriver;
 use App\Http\Controllers\ViajesController;
+use App\Http\Controllers\SolicitudesController;
 
 Route::prefix('truck_driver')->name('truck_driver.')->group(function () {
 
@@ -82,12 +83,12 @@ Route::prefix('truck_driver')->name('truck_driver.')->group(function () {
     // Route::resource('viajes', 'App\Http\Controllers\ViajesController')->middleware(['auth:truck_driver']);
 
     Route::get('viajes', [ViajesController::class, 'index'])->middleware('auth:truck_driver');
-    Route::get('viajes/{id}', [ViajesController::class, 'edit'])->middleware('auth:truck_driver');
+    Route::get('viajes/{id}', [ViajesController::class, 'edit'])->middleware('auth:truck_driver');   
+    Route::get('viajes/b/{id}', [ViajesController::class, 'editStepTwo'])->middleware('auth:truck_driver');
     Route::put('viajes/{id}', [ViajesController::class, 'update'])->middleware('auth:truck_driver');
 
-    Route::post('solicitudes', [ViajesController::class, 'store'])->middleware('auth:truck_driver');
-
-    // Route::delete('solicitudes', [ViajesController::class, 'destroy'])->middleware('auth:truck_driver');
+    Route::put('solicitudes/{id}', [SolicitudesController::class, 'crearViaje'])->name('crearViaje');
+    Route::delete('solicitudes', [SolicitudesController::class, 'destroy'])->middleware('auth:truck_driver')->name('solicitudes.destroy');
     
 
 });

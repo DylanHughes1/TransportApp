@@ -11,7 +11,6 @@
                         
                         <form action="viajes/{{ $viaje->id }}" method="POST">
                             @csrf
-                            @method('PUT')
                             <div class="grid gap-6 mb-6 md:grid-cols-3">
                                 <div>
                                     <label for="Fecha Salida" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fecha Salida</label>
@@ -52,32 +51,55 @@
  
                                     <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Km 1,2</label>
                                     <input type="text" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
- 
-                                </div>
-                                <div class="space-x-6">                                         
-                                        <button type="submit" class="btn btn-success">Guardar</button>
-                                       
-                                        <button type="submit" class="btn btn-warning">Guardar</button>
-                                                                        
-                                        <button type="submit" class="btn btn-danger">Cancelar</button>
+                                    
+                                    {{-- <div class="row mt-3">
+                                    <!-- Next button below the grid -->
+                                    <div class="col-md-12 text-right">
+                                        <button type="button" id="nextButton" class="btn btn-primary">Next</button>
+                                    </div> --}}
+                                    {{-- <!-- Next Button -->--}}
+                                <a href="b/{{$viaje->id}}" class="inline-flex items-center px-4 py-2 ml-3 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                                    Siguiente
+                                </a>  
                                 </div>
                                 
-                              </div>
-                              
-                        </form>
-
-                        {{-- <!-- Previous Button -->
-                        <a href="#" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                            Previous
-                        </a>
+                                
+                            </div>
+                            <div class="space-x-6">                                         
+                                    <button type="submit" class="btn btn-success">Guardar</button>
+                                   
+                                    <button type="submit" class="btn btn-warning">Guardar</button>
+                                                                    
+                                    <button type="submit" class="btn btn-danger">Cancelar</button>
+                            </div>
                             
-                        <!-- Next Button -->
-                        <a href="#" class="inline-flex items-center px-4 py-2 ml-3 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                            Next --}}
-                        </a>                     
-                    </div>
+                          </div>
+                          
+                    </form>
+
+                    {{-- <!-- Previous Button -->
+                    <a href="#" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                        Previous
+                    </a>
+                        
+                    <!-- Next Button -->
+                    <a href="#" class="inline-flex items-center px-4 py-2 ml-3 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                        Next --}}
+                    {{-- </a>                      --}}
                 </div>
             </div>
         </div>
+    </div>
+    {{-- <script>
+        // Get the button element by its ID
+        const nextButton = document.getElementById('nextButton');
+    
+        // Add a click event listener to the button
+        nextButton.addEventListener('click', () => {
+            // Redirect to the next grid with more input data
+            // window.location.href = '{{$viaje->id}}b';
+            window.location.href = 'ParteDos';
+        });
+    </script> --}}
 
 </x-truck-driver-app-layout>

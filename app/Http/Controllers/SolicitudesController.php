@@ -21,6 +21,8 @@ class SolicitudesController extends Controller
      */
     public function index()
     {
+        $output = new \Symfony\Component\Console\Output\ConsoleOutput(2);
+        $output->writeln('hello');
         $solicitudes = Solicitudes::all()->where('truckdriver_id',auth()->user()->id);
 
         return view ('solicitudes.index')->with('solicitudes',$solicitudes);
@@ -64,10 +66,28 @@ class SolicitudesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
+    // public function edit($id)
+    // {
 
+    // }
+
+    public function crearViaje(Request $request, $id){
+
+        dd("Hello World");
+        $solicitud = Solicitudes::find($id);
+        
+        $viaje = new viajes();
+        $viaje->fecha_salida = $solicitud->dia1;
+        $viaje->origen = $solicitud->salida;
+        $viaje->observacion1 = $solicitud->observacion1;
+        $viaje->fecha_llegada = $solicitud->dia2;
+        $viaje->destino = $solicitud->llegada;
+        $viaje->observacion2 = $solicitud->observacion2;
+        $viaje->save();
+        
+        return redirect()->route('solicitudes.index');
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -78,7 +98,7 @@ class SolicitudesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
     }
 
     /**
@@ -87,8 +107,10 @@ class SolicitudesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Solicitudes $solicitud)
+    public function destroy($id)
     {
+        
+        $solicitud = Solicitudes::find($id);
         $solicitud->delete();
 
         // redirect
