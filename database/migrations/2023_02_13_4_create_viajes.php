@@ -16,11 +16,11 @@ return new class extends Migration
         Schema::create('viajes', function (Blueprint $table) {
             $table->id();
             $table->date('fecha_salida')->nullable();
-            $table->string('origen');
+            $table->string('origen')->default("");
             $table->date('fecha_llegada')->nullable();          
-            $table->integer('km_viaje');
+            $table->integer('km_viaje')->nullable(); ;
 
-            $table->string('destino');
+            $table->string('destino')->default("");
             $table->integer('km_salida')->nullable();
             $table->integer('c_porte')->nullable();
             $table->string('producto')->nullable();
@@ -35,7 +35,7 @@ return new class extends Migration
             $table->integer('peaje')->default(0);  
             $table->boolean('arreglo_pinchadura')->default(false);
             $table->integer('retiro_plata_adelanto')->default(0);
-            $table->longText('observacion');
+            $table->longText('observacion')->nullable();
             
             $table->unsignedBigInteger('solicitudes_id')->nullable();
             $table->foreign('solicitudes_id')->references('id')->on('solicitudes')->onDelete('cascade');

@@ -89,18 +89,18 @@
                                                 </td>
                                                 <td class="px-6 py-4 space-y-6">
 
-                                                    {{-- <form method="POST" action="/truck_driver/solicitudes/{{$solicitud->id}}">
+                                                    <form method="POST" action="/truck_driver/solicitudes/{{$solicitud->id}}">
                                                         @csrf
                                                         @method('PUT')
 
                                                         <button type="submit" class="btn btn-primary">Aceptar</button>
-                                                    </form> --}}
+                                                    </form>
                                                     
-                                                    <form method="POST" action="{{ route('truck_driver.crearViaje', ['id' => $solicitud->id]) }}">
+                                                    {{-- <form method="POST" action="{{ route('truck_driver.crearViaje', ['id' => $solicitud->id]) }}">
                                                         @csrf
                                                         @method('PUT')
                                                         <button type="submit">Call Update Function</button>
-                                                    </form>
+                                                    </form> --}}
 
                                                     <form action="/truck_driver/solicitudes/{{$solicitud->id}}" method="POST" >
                                                         @csrf

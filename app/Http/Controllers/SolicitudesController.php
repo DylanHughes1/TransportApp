@@ -73,19 +73,20 @@ class SolicitudesController extends Controller
 
     public function crearViaje(Request $request, $id){
 
-        dd("Hello World");
+       
         $solicitud = Solicitudes::find($id);
         
         $viaje = new viajes();
         $viaje->fecha_salida = $solicitud->dia1;
         $viaje->origen = $solicitud->salida;
-        $viaje->observacion1 = $solicitud->observacion1;
         $viaje->fecha_llegada = $solicitud->dia2;
         $viaje->destino = $solicitud->llegada;
-        $viaje->observacion2 = $solicitud->observacion2;
         $viaje->save();
+       
+
+        $solicitud->delete();
         
-        return redirect()->route('solicitudes.index');
+        return redirect("/truck_driver/solicitudes");
     }
 
 
@@ -114,6 +115,6 @@ class SolicitudesController extends Controller
         $solicitud->delete();
 
         // redirect
-        return redirect()->route('solicitudes.index');
+        return redirect("/truck_driver/solicitudes");
     }
 }
