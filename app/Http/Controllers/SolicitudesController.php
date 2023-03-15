@@ -21,8 +21,6 @@ class SolicitudesController extends Controller
      */
     public function index()
     {
-        $output = new \Symfony\Component\Console\Output\ConsoleOutput(2);
-        $output->writeln('hello');
         $solicitudes = Solicitudes::all()->where('truckdriver_id',auth()->user()->id);
 
         return view ('solicitudes.index')->with('solicitudes',$solicitudes);

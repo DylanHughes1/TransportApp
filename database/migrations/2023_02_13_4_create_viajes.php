@@ -16,11 +16,11 @@ return new class extends Migration
         Schema::create('viajes', function (Blueprint $table) {
             $table->id();
             $table->date('fecha_salida')->nullable();
-            $table->string('origen')->default("");
+            $table->string('origen')->nullable();
             $table->date('fecha_llegada')->nullable();          
             $table->integer('km_viaje')->nullable(); ;
 
-            $table->string('destino')->default("");
+            $table->string('destino')->nullable();
             $table->integer('km_salida')->nullable();
             $table->integer('c_porte')->nullable();
             $table->string('producto')->nullable();

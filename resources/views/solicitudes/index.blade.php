@@ -95,25 +95,14 @@
 
                                                         <button type="submit" class="btn btn-primary">Aceptar</button>
                                                     </form>
-                                                    
-                                                    {{-- <form method="POST" action="{{ route('truck_driver.crearViaje', ['id' => $solicitud->id]) }}">
-                                                        @csrf
-                                                        @method('PUT')
-                                                        <button type="submit">Call Update Function</button>
-                                                    </form> --}}
-
+                                                                                                        
                                                     <form action="/truck_driver/solicitudes/{{$solicitud->id}}" method="POST" >
                                                         @csrf
                                                         @method('DELETE')
                                                         
                                                         <button type="submit" class="btn btn-danger">Cancelar</button>
                                                     </form>
-
-                                                    {{-- <form method="POST" action="solicitudes">
-                                                        @csrf
-                                                        <button type="submit" class="btn btn-success">Aceptar</button>
-                                                    </form> --}}
-                                                
+                                                                                                                                                        
                                                 </td>
                                             </tr>
                                         
