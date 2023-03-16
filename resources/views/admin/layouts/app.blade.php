@@ -1,3 +1,5 @@
+@extends('layouts.template')
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -9,9 +11,15 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
+        <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+        <script src="https://cdn.tailwindcss.com"></script>
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+        
+        <!-- Custom CSS -->
+        <link href="{{asset('/css/styles.css') }}" rel="stylesheet">
+        <link href="/css/app.css" rel="stylesheet">
 
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
@@ -32,5 +40,7 @@
                 {{ $slot }}
             </main>
         </div>
+
+        <script src="https://unpkg.com/flowbite@1.5.1/dist/flowbite.js"></script>
     </body>
 </html>
