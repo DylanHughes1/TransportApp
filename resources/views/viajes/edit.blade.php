@@ -67,16 +67,15 @@
                                     <div class="row mt-3">
                                     <!-- Next button below the grid -->
                                     <a href="b/{{$viaje->id}}" class="col-md-12 text-right">
-                                        <button type="button" id="nextButton" class="btn btn-primary">Next</button>
+                                        <button type="button" id="nextButton" class="btn btn-primary">Siguiente</button>
                                     </a> 
-                                                            
-                                </div>
+                                    </div>                    
+                                </div>                 
                                 
-                                
                                 </div>
+
                                 <div class="space-x-6">                                         
-                                {{-- <button type="submit" class="btn btn-success">Finalizar</button> --}}
-                                                        
+                                {{-- <button type="submit" class="btn btn-success">Finalizar</button> --}}                                                       
                             
                                 <button type="submit" class="btn btn-warning">Guardar</button>
                             </form>

@@ -134,24 +134,17 @@ class ViajesController extends Controller
         dd("Hello World");
         $viaje = viajes::find($id);
 
-        if($viaje==null)
-            abort(404);
-
-            $viaje->km_viaje = $request->input('km_salida');
-            $viaje->c_porte = $request->input('c_porte');
-            $viaje->update();
               
-            return redirect("/truck_driver/viajes/$id");
+        return redirect("/truck_driver/viajes/$id");
     }
 
     public function storeCombustible(Request $request, $id){
-
-       
+     
         $request->validate([
             'Km' => 'required|integer',
             'fecha' => 'required|date',
             'litros' => 'required|integer',
-            'lugar_carga' => 'nullable|max:255',
+            'lugar_carga' => 'required|max:255',
         ]);
         
         $registro = new Combustible();
@@ -165,7 +158,6 @@ class ViajesController extends Controller
         $viaje = viajes::find($id);
         $viaje->registro_combustible_id = $registro->id;
         $viaje->save();
-        dd("adas");
         
 
         return redirect("/truck_driver/viajes/$id")->with('status','Cambios Guardados');

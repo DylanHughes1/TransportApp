@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Combustible extends Model
 {
     use HasFactory;
+    public $table = "registro_combustible";
 
     public function solicitudes()
     {

@@ -9,8 +9,9 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">               
                     
-                    <form action="viajes/{{ $viaje->id }}" method="POST">
+                    <form action="/truck_driver/viajes/b/{{$viaje->id}}" method="POST">
                         @csrf
+                        @method('PUT')
                         <div class="grid gap-6 mb-6 md:grid-cols-3">
                             <div>
                                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -30,9 +31,7 @@
                                                 $('#myModal').modal('show');                                               
                                             }                                       
                                     });
-                                </script>
-
-                                
+                                </script>                               
 
                                 <label for="Peaje" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gasto en Peaje?</label>
                                 <select id="peaje" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
@@ -51,26 +50,28 @@
                                 <label for="gasto" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ingrese algun gasto extra</label>
                                 <input type="text" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ej. Arreglo pinchadura" required>
 
+                                {{-- <!-- Previous Button -->--}}
+                                <div class="row mt-3">
+                                <a href="/truck_driver/viajes/{{$viaje->id}}" class="col-md-12 text-right">
+                                    <button type="button" id="nextButton" class="btn btn-primary">Anterior</button>
+                                </a>
+                                </div>
                             </div>
                             <div>         
-                                {{-- <!-- Previous Button -->--}}
-                            <a href="/truck_driver/viajes/{{$viaje->id}}" class="inline-flex items-center px-4 py-2 ml-3 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                                Anterior
-                            </a>  
+                                 
                             </div>                       
                             
                         </div>
                         <div class="space-x-6">                                         
-                                <button type="submit" class="btn btn-success">Guardar</button>
+                                {{-- <button type="submit" class="btn btn-success">Guardar</button> --}}
                                
                                 <button type="submit" class="btn btn-warning">Guardar</button>
-                                                                
+                        </form>                                      
                                 <button type="submit" class="btn btn-danger">Cancelar</button>
                         </div>
                         
-                      </div>
-                      
-                </form>
+                      </div>                      
+                
             </div>
         </div>
     </div>
