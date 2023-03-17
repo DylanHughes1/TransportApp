@@ -17,8 +17,8 @@ class DashboardController extends Controller
 
 
     public function index(){
-        $viajes = viajes::all();
+        // $viajes = viajes::all();
         
-        return view ('truck_driver.dashboard')-> with('viajes',$viajes); 
+        return view ('truck_driver.dashboard'); 
     }
 }

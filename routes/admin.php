@@ -72,4 +72,19 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
         ->middleware('auth:admin')
         ->name('logout');
+
+    //Route::get('dashboard', [DashboardController::class, 'create'])->middleware('auth:admin');
+    Route::get('create', [DashboardController::class, 'create'])
+        ->middleware('auth:admin')
+        ->name('create');
+
+    Route::post('create', [DashboardController::class, 'store'])
+        ->middleware('auth:admin')
+        ->name('store');
+
+    Route::get('viajes', [DashboardController::class, 'createSolicitudes'])
+        ->middleware('auth:admin')
+        ->name('create2');    
+
+
 });

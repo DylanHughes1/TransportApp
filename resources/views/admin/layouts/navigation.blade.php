@@ -5,7 +5,7 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
-                    <a href="/truck_driver/dashboard" >
+                    <a href="/admin/dashboard" >
                         <img src="/truck.png" alt="logo" id="logo" style="width: 80px;">
                     </a>
                 </div>
