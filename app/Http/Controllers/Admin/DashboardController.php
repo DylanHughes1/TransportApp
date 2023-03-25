@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\ViajeInicial;
 use App\Models\TruckDriver;
+use App\Models\Solicitudes;
 
 
 class DashboardController extends Controller
@@ -36,8 +37,11 @@ class DashboardController extends Controller
     public function createSolicitudes()
     {      
         $truck_drivers = TruckDriver::all();
+        $viajes_inicial = ViajeInicial::all();
        
-        return view('admin.create2')->with('truck_drivers',$truck_drivers);
+        return view('admin.create2')
+            ->with('truck_drivers',$truck_drivers)
+            ->with('viajes_inicial',$viajes_inicial);
     }
 
      /**
@@ -69,6 +73,28 @@ class DashboardController extends Controller
 
     public function storeSolicitudes(Request $request){
 
+        $request->validate([
+            'dia1' => 'required|date',
+            'observacion1' => 'nullable',
+            'salida' => 'required|max:255',
+            'dia2' => 'required|date',
+            'llegada' => 'required|max:255',
+            'observacion2' => 'nullable'
+        ]);
+
+        $solicitud = new Solicitudes();
+        $solicitud->dia1 = $request->get('dia1');
+        $solicitud->salida = $request->get('salida');
+        $solicitud->observacion1 = $request->get('observacion1');
+        $solicitud->dia2 = $request->get('dia2');
+        $solicitud->llegada = $request->get('llegada');
+        $solicitud->observacion2 = $request->get('observacion2');
+        $solicitud->truckdriver_id = $request->get('truck_driver_id');
+
+        $solicitud->save();
+
+        return redirect('/admin/dashboard');
+
     }
 
 
@@ -80,6 +106,15 @@ class DashboardController extends Controller
      */
     public function show($id)
     {
+
+    }
+
+    public function showViajes()
+    {
+        $truck_drivers = TruckDriver::all();
+       
+        return view('admin.show')
+            ->with('truck_drivers',$truck_drivers);
     }
     /**
      * Show the form for editing the specified resource.

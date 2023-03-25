@@ -86,5 +86,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
         ->middleware('auth:admin')
         ->name('create2');    
 
+    Route::post('viajes', [DashboardController::class, 'storeSolicitudes'])
+        ->middleware('auth:admin')
+        ->name('store2');    
+
+    Route::get('show', [DashboardController::class, 'showViajes'])
+        ->middleware('auth:admin')
+        ->name('show');    
 
 });
