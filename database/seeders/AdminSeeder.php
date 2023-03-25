@@ -17,8 +17,8 @@ class AdminSeeder extends Seeder
     {
         $data = [
             [
-                'name' => 'Lucas Vazquez Conti',
-                'email' => 'lucas_vazquez@gmail.com',
+                'name' => 'Lucas Vasquez Conti',
+                'email' => 'lucas_vasquez@gmail.com',
                 'password' => bcrypt('password1'),
             ],
         ];

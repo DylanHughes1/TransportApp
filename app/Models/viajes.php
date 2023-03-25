@@ -13,4 +13,9 @@ class viajes extends Model
     {
         return $this->belongsTo(Solicitudes::class); 
     }
+
+    public function chofer()
+    {
+        return $this->solicitud()->belongsTo(TruckDriver::class);
+    }
 }

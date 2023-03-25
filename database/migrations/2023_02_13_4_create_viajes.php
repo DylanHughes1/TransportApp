@@ -39,7 +39,13 @@ return new class extends Migration
             
             $table->unsignedBigInteger('solicitudes_id')->nullable();
             $table->foreign('solicitudes_id')->references('id')->on('solicitudes')->onDelete('cascade');
-           
+   
+            $table->unsignedBigInteger('truckdriver_id')->nullable();
+            $table->foreign('truckdriver_id')
+                ->references('id')
+                ->on('truck_drivers')
+                ->onDelete('cascade');
+
             $table->unsignedBigInteger('registro_combustible_id')->nullable();
             $table->foreign('registro_combustible_id')->references('id')->on('registro_combustible')->onDelete('cascade');
            
