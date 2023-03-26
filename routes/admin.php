@@ -92,6 +92,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::get('show', [DashboardController::class, 'showViajes'])
         ->middleware('auth:admin')
-        ->name('show');    
+        ->name('show');  
+        
+    Route::get('{id}', [DashboardController::class, 'show'])
+        ->middleware('auth:admin')
+        ->name('showViajes');      
 
 });

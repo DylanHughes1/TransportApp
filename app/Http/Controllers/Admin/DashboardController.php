@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\ViajeInicial;
 use App\Models\TruckDriver;
 use App\Models\Solicitudes;
+use App\Models\viajes;
 
 
 class DashboardController extends Controller
@@ -106,7 +107,13 @@ class DashboardController extends Controller
      */
     public function show($id)
     {
+        $truck_driver = TruckDriver::find($id);
+        $Viajes = viajes::where('truckdriver_id', $truck_driver->id)->get();
 
+        
+        return view('admin.showViaje')
+            ->with('truck_driver', $truck_driver)
+            ->with('viajes', $Viajes);
     }
 
     public function showViajes()
