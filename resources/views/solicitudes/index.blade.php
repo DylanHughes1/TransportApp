@@ -9,6 +9,8 @@
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 bg-white border-b border-gray-200">
                         
+                        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
                         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -59,10 +61,10 @@
                                                         // Add a click event listener to the button
                                                         myButton.addEventListener('click', () => {
                                                             // Show the alert dialog with a message and an OK button
-                                                            alert('Observaciones: {{ $solicitud->observacion1 }} ');
+                                                            $('#myModal').modal('show'); 
                                                         });
                                                     </script>
-
+                                                
                                                 </td>
                                                 <td class="px-6 py-4">
                                                     {{$solicitud->dia2}}
@@ -82,7 +84,7 @@
                                                         // Add a click event listener to the button
                                                         myButton2.addEventListener('click', () => {
                                                             // Show the alert dialog with a message and an OK button
-                                                            alert('Observaciones: {{ $solicitud->observacion2 }} ');
+                                                            $('#myModal2').modal('show'); 
                                                         });
                                                     </script>
 
@@ -112,6 +114,34 @@
                         </div>
    
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade text-dark" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Observación </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        {{ $solicitud->observacion1 }} 
+                    </div>           
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade text-dark" id="myModal2" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel2">Observación 2 </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        {{ $solicitud->observacion2 }} 
+                    </div>           
                 </div>
             </div>
         </div>
