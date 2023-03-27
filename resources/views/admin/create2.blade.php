@@ -35,7 +35,7 @@
                                                 }                                       
                                             });
                                         </script>
-
+                                    @if(count($viajes_inicial) > 0)
                                         <div>
                                             <label for="viajes" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Seleccione un Viaje para Asignar</label>                                    
                                             <select id="viajes" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">                                  
@@ -50,57 +50,64 @@
 
                                         
                                     </div>
+                                    
+                                        <div id="myForm" class="grid grid-cols-1 gap-4" style="display:none;">
+                                                
+                                                <div>
+                                                    <label for="dia1" class=" block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fecha Salida</label>
+                                                    <input type="date" name="dia1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                    value="{{$viaje_inicial->dia1}}">
+                                                </div>
+                                                
+                                                <div>
+                                                    <label for="salida" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Origen</label>
+                                                    <input type="text" name="salida" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                    value="{{$viaje_inicial->salida}}">
+                                                </div>
 
-                                    <div id="myForm" class="grid grid-cols-1 gap-4" style="display:none;">
-                                            
-                                            <div>
-                                                <label for="dia1" class=" block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fecha Salida</label>
-                                                <input type="date" name="dia1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                value="{{$viaje_inicial->dia1}}">
-                                            </div>
-                                            
-                                            <div>
-                                                <label for="salida" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Origen</label>
-                                                <input type="text" name="salida" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                value="{{$viaje_inicial->salida}}">
-                                            </div>
+                                                <div>
+                                                    <label for="observacion" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Observación</label>
+                                                    <input type="text" name="observacion1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                    value="">
+                                                </div>
 
-                                            <div>
-                                                <label for="observacion" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Observación</label>
-                                                <input type="text" name="observacion1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                value="">
-                                            </div>
+                                                <div>
+                                                    <label for="dia2" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fecha Llegada</label>
+                                                    <input type="date" name="dia2" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                    value="{{$viaje_inicial->dia2}}">
+                                                </div>
+                                                
+                                                <div>
+                                                    <label for="llegada" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Destino</label>
+                                                    <input type="text" name="llegada" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                    value="{{$viaje_inicial->llegada}}">
+                                                </div>
 
-                                            <div>
-                                                <label for="dia2" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fecha Llegada</label>
-                                                <input type="date" name="dia2" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                value="{{$viaje_inicial->dia2}}">
-                                            </div>
-                                            
-                                            <div>
-                                                <label for="llegada" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Destino</label>
-                                                <input type="text" name="llegada" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                value="{{$viaje_inicial->llegada}}">
-                                            </div>
+                                                <div>
+                                                    <label for="observacion" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Observación</label>
+                                                    <input type="text" name="observacion2" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                    value="">
+                                                </div>
 
+                                                <div style="display:none;">
+                                                    <label for="observacion" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Observación</label>
+                                                    <input type="text" name="truck_driver_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                    value="{{$truck_driver->id}}">
+                                                </div>
+
+                                                <input type="hidden" name="id_viaje" value="{{ $viaje_inicial->id}}">
+
+                                                <div class="space-x-6">
+                                                <button type="submit" class="btn btn-success">Guardar</button>
+                                        </div>  
+                                    @else  
+                                        <div id="myForm" class="grid grid-cols-1 gap-4" style="display:none;">
+                                                    
                                             <div>
-                                                <label for="observacion" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Observación</label>
-                                                <input type="text" name="observacion2" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                value="">
+                                                <label for="Warning" class=" block mb-2 text-sm font-medium text-gray-900 dark:text-white">No hay viajes para asignar!</label>
                                             </div>
-
-                                            <div style="display:none;">
-                                                <label for="observacion" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Observación</label>
-                                                <input type="text" name="truck_driver_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                value="{{$truck_driver->id}}">
-                                            </div>
-
-                                            <div class="space-x-6">
-                                            <button type="submit" class="btn btn-success">Guardar</button>
-                                    </div>  
-                                        
+                                    @endif
                                 </form>  
-
                         </div>
                     </div>
                 </div>

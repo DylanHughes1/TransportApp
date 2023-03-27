@@ -74,14 +74,18 @@ class DashboardController extends Controller
 
     public function storeSolicitudes(Request $request){
 
+        
         $request->validate([
             'dia1' => 'required|date',
             'observacion1' => 'nullable',
             'salida' => 'required|max:255',
             'dia2' => 'required|date',
             'llegada' => 'required|max:255',
-            'observacion2' => 'nullable'
+            'observacion2' => 'nullable',
+            'id_viaje' => 'nullable'
         ]);
+
+        $viaje_inicial = ViajeInicial::find($request->get('id_viaje'));
 
         $solicitud = new Solicitudes();
         $solicitud->dia1 = $request->get('dia1');
@@ -93,6 +97,7 @@ class DashboardController extends Controller
         $solicitud->truckdriver_id = $request->get('truck_driver_id');
 
         $solicitud->save();
+        $viaje_inicial->delete();
 
         return redirect('/admin/dashboard');
 
