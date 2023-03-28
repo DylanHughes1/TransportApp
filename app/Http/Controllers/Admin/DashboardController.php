@@ -113,8 +113,7 @@ class DashboardController extends Controller
     public function show($id)
     {
         $truck_driver = TruckDriver::find($id);
-        $Viajes = viajes::where('truckdriver_id', $truck_driver->id)->get();
-
+        $Viajes = viajes::where('truckdriver_id', $truck_driver->id)->get();        
         
         return view('admin.showViaje')
             ->with('truck_driver', $truck_driver)
