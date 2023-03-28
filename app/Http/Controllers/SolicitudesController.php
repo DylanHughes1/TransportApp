@@ -23,7 +23,8 @@ class SolicitudesController extends Controller
     {
         $solicitudes = Solicitudes::all()->where('truckdriver_id',auth()->user()->id);
 
-        return view ('solicitudes.index')->with('solicitudes',$solicitudes);
+        return view ('solicitudes.index')
+            ->with('solicitudes',$solicitudes);
     }
 
     /**
@@ -79,6 +80,7 @@ class SolicitudesController extends Controller
         $viaje->origen = $solicitud->salida;
         $viaje->fecha_llegada = $solicitud->dia2;
         $viaje->destino = $solicitud->llegada;
+        $viaje->truckdriver_id = auth()->user()->id;
         $viaje->save();
        
 
