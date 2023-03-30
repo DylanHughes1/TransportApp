@@ -1,7 +1,7 @@
 <x-admin-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Ver Viajes
+            Viajes de {{$truck_driver->name}}
         </h2>
     </x-slot>
 
@@ -12,21 +12,40 @@
                     <div class="p-6 bg-white border-b border-gray-200">
                         <div class="p-6 bg-white border-b border-gray-200">   
                             <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-                            
-                            <div>
-                                <tbody>
-                                    <label for="viajes" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Seleccione el Viaje</label>                                    
-                                   
-                                    <select id="viajes" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">                                  
-                                        <option value="-" selected>-</option>
-                                        @foreach ($viajes as $viaje)
+
+                              <div class="overflow-x-auto">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th class="px-6 py-2 ">Fecha Salida</th>
+                                        <th class="px-6 py-2 ">Origen</th>
+                                        <th class="px-6 py-2 ">Km Viaje</th>
+                                        <th class="px-6 py-2 ">Destino</th>
+                                        <th class="px-6 py-2 ">KM Salida</th>
+                                        <th class="px-6 py-2 ">C/Porte</th>
+                                        <th class="px-6 py-2 ">Producto</th>
+                                        <th class="px-6 py-2 ">Carga (Kg)</th>
+                                        <th class="px-6 py-2 ">Descarga (Kg)</th>
+                                        <th class="px-6 py-2 ">Control Descarga</th>
+                                        <th class="px-6 py-2 ">KM 1.2</th>
+                                        <th class="px-6 py-2 ">KM Vacíos</th>
+                                        <th class="px-6 py-2 ">Gasto en Peaje</th>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody class="border divide-y divide-gray-200">
+                                    @foreach ($viajes as $viaje)
                                         <tr>
-                                            <option value="{{$viaje->id}}" name="viaje_id">{{$viaje->fecha_salida}}</option>
+                                        <td class="px-6 py-2 ">{{ $viaje->fecha_salida }}</td>
+                                        <td class="px-6 py-2 ">{{ $viaje->origen }}</td>
+                                        <td class="px-6 py-2 ">{{ $viaje->fecha_llegada }}</td>
                                         </tr>
-                                        @endforeach
-                                    </select>
-                                </tbody>
-                            </div>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div> 
+
+                           
 
                         </div>
                     </div>
