@@ -74,13 +74,30 @@
                                 
                                 </div>
 
-                                <div class="space-x-6">                                         
-                                {{-- <button type="submit" class="btn btn-success">Finalizar</button> --}}                                                       
+                                <div class="space-x-6">  
+                                    
+                                <input type="hidden" name="finalizar" value="1">
+                                <button type="submit" name="finalizar" class="btn btn-success">Finalizar</button>                                                       
+                                <button type="submit" name="guardar"class="btn btn-warning">Guardar</button>
+                                <a href="/truck_driver/dashboard" class="col-md-12 text-right">
+                                    <button type="button" id="nextButton" class="btn btn-danger">Cancelar</button>
+                                </a>
+
+                                <div class="space-y-6">
+                                @if ($errors->any())
+                                
+                                <div class="flex p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800" role="alert">
+                                    <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+                                    <span class="sr-only">Info</span>
+                                    <div>
+                                      <span class="font-medium">Error!</span> Debe completar todos los datos para poder continuar.
+                                    </div>
+                                </div>
+                                @endif
                             
-                                <button type="submit" class="btn btn-warning">Guardar</button>
                             </form>
                                                                     
-                                    <button type="submit" class="btn btn-danger">Cancelar</button>
+                                    
                             </div>
                             
                           </div>

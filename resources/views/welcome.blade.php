@@ -37,7 +37,7 @@
                 @auth
                 @else
                     <div class="flex justify-center">
-                        <a href="{{ route('truck_driver.login') }}" class="px-4 text-white">Camionero</a>
+                        <a href="{{ route('truck_driver.login') }}" class="px-4 text-white">Chofer</a>
                         <a href="{{ route('admin.login') }}" class="px-4 text-white">Admin</a>
                     </div>
                 @endauth

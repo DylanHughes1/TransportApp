@@ -94,22 +94,29 @@ class ViajesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
-        $request->validate([
-            'fecha_salida' => 'nullable|date',
-            'origen' => 'nullable|max:255',
-            'fecha_llegada' => 'nullable|date',
-            'km_viaje' => 'nullable|integer',
-            'destino' => 'nullable|max:255',
-            'km_salida' => 'nullable|integer',
-            'c_porte' => 'nullable|integer',            
-            'producto' => 'nullable|max:255',
-            'carga_kg' => 'nullable|integer',
-            'descarga_kg' => 'nullable|integer',
-            'km_llegada' => 'nullable|integer',
-            'km_1_2' => 'nullable|integer',
+        if ($request->input('finalizar') == 1){
+            $request->validate([
+                'fecha_salida' => 'nullable|date',
+                'origen' => 'nullable|max:255',
+                'fecha_llegada' => 'nullable|date',
+                'km_viaje' => 'nullable|integer',
+                'destino' => 'nullable|max:255',
+                'km_salida' => 'nullable|integer',
+                'c_porte' => 'nullable|integer',            
+                'producto' => 'nullable|max:255',
+                'carga_kg' => 'nullable|integer',
+                'descarga_kg' => 'nullable|integer',
+                'km_llegada' => 'nullable|integer',
+                'km_1_2' => 'nullable|integer',
+                
+            ]);
+        }
 
-        ]);
+        else if ($request->input('finalizar') == null) {
+            $this->validarInputObligatorio($request);
+            
+            
+        }
         
         $viaje = viajes::find($id);
         
@@ -126,16 +133,56 @@ class ViajesController extends Controller
         $viaje->km_llegada = $request->input('km_llegada');
         $viaje->km_1_2 = $request->input('km_1_2');    
         $viaje->update();
-        
-        return redirect("/truck_driver/viajes/$id")->with('status','Cambios Guardados');
+
+        if($request->input('finalizar') == null)
+            return redirect("/truck_driver/viajes/$id/foto")->with('status','Cambios Guardados');
+        else 
+            return redirect("/truck_driver/viajes/$id")->with('status','Cambios Guardados');
     }
     public function updateSecondPart(Request $request, $id)
     {
-        dd("Hello World");
-        $viaje = viajes::find($id);
+        
+        $request->validate([
+            'Peaje' => 'nullable|integer'
+        ]);
 
-              
+        if ($request->input('finalizar') == null) {
+            $this->validarInputObligatorio($request);
+        }
+
+        $viaje = viajes::find($id);
+        $viaje->peaje = $request->input('Peaje');
+
+        if ($request->input('tipo_viaje') == "Viaje con carga") {
+            $carga = 1;
+        }
+        else{
+            $carga = 0;
+        }
+
+        $viaje->km_vacios = $carga;
+        $viaje->update();
+        
         return redirect("/truck_driver/viajes/$id");
+    }
+
+    public function validarInputObligatorio(Request $request){
+
+        $validator = $request->validate([
+            'fecha_salida' => 'required|date',
+            'origen' => 'required|max:255',
+            'fecha_llegada' => 'required|date',
+            'km_viaje' => 'required|integer',
+            'destino' => 'required|max:255',
+            'km_salida' => 'required|integer',
+            'c_porte' => 'required|integer',            
+            'producto' => 'required|max:255',
+            'carga_kg' => 'required|integer',
+            'descarga_kg' => 'required|integer',
+            'km_llegada' => 'integer',
+            'km_1_2' => 'integer',
+            ]);
+            return redirect()->back()->withErrors($validator)->withInput();
     }
 
     public function storeCombustible(Request $request, $id){

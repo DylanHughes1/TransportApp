@@ -31,10 +31,10 @@ return new class extends Migration
             $table->integer('control_desc')->nullable();
             $table->integer('km_1_2')->nullable();     
             
-            $table->boolean('km_vacios')->default(false);  
-            $table->integer('peaje')->default(0);  
-            $table->boolean('arreglo_pinchadura')->default(false);
-            $table->integer('retiro_plata_adelanto')->default(0);
+            $table->boolean('km_vacios')->nullable();  
+            $table->integer('peaje')->nullable();  
+            $table->boolean('arreglo_pinchadura')->nullable();
+            $table->integer('retiro_plata_adelanto')->nullable();
             $table->longText('observacion')->nullable();
             
             $table->unsignedBigInteger('solicitudes_id')->nullable();
