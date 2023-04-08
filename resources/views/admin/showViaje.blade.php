@@ -38,67 +38,113 @@
                                     </tr>
                                     </thead>
                                     <tbody class="border divide-y divide-gray-200">
-                                    @foreach ($viajes as $viaje)
-                                        <tr>
-                                        <td class="px-6 py-2 w-32">{{ $viaje->fecha_salida }}</td>
-                                        <td class="px-6 py-2 w-32">{{ $viaje->origen }}</td>
-                                        <td class="px-6 py-2 w-32">{{ $viaje->fecha_llegada }}</td>
-                                        <td class="px-6 py-2 w-32">{{ $viaje->km_viaje }}</td>
-                                        <td class="px-6 py-2 w-32">{{ $viaje->destino }}</td>
-                                        <td class="px-6 py-2 w-32">{{ $viaje->km_salida }}</td>
-                                        <td class="px-6 py-2 w-32">{{ $viaje->c_porte }}</td>
-                                        <td class="px-6 py-2 w-32">{{ $viaje->producto }}</td>
-                                        <td class="px-6 py-2 w-32">{{ $viaje->carga_kg }}</td>
-                                        <td class="px-6 py-2 w-32">{{ $viaje->descarga_kg }}</td>
-                                        <td class="px-6 py-2 w-32">{{ $viaje->km_llegada }}</td>
-                                        <td class="px-6 py-2 w-32">{{ $viaje->control_desc }}</td>
-                                        <td class="px-6 py-2 w-32">{{ $viaje->km_1_2 }}</td>
-                                        {{-- <td class="px-6 py-2 w-32">{{ $viaje->km_vacios == 1 ? 'Si' : 'No'  }}</td> --}}
-                                        <td class="px-4 py-2 {{ $viaje->km_vacios == 0 ? 'modal-trigger text-blue-600 underline cursor-pointer' : '' }}">{{ $viaje->peaje == 1 ? 'Si' : 'No' }}</td>
+                                        @foreach ($viajes as $viaje)
+                                            <tr>
+                                                <td class="validate px-6 py-2 w-32">{{ $viaje->fecha_salida }}</td>
+                                                <td class="validate px-6 py-2 w-32">{{ $viaje->origen }}</td>
+                                                <td class="validate px-6 py-2 w-32">{{ $viaje->fecha_llegada }}</td>
+                                                <td class="validate px-6 py-2 w-32">{{ $viaje->km_viaje }}</td>
+                                                <td class="validate px-6 py-2 w-32">{{ $viaje->destino }}</td>
+                                                <td class="validate px-6 py-2 w-32">{{ $viaje->km_salida }}</td>
+                                                <td class="validate px-6 py-2 w-32">{{ $viaje->c_porte }}</td>
+                                                <td class="validate px-6 py-2 w-32">{{ $viaje->producto }}</td>
+                                                <td class="validate px-6 py-2 w-32">{{ $viaje->carga_kg }}</td>
+                                                <td class="validate px-6 py-2 w-32">{{ $viaje->descarga_kg }}</td>
+                                                <td class="validate px-6 py-2 w-32">{{ $viaje->km_llegada }}</td>
+                                                <td class="validate px-6 py-2 w-32">{{ $viaje->control_desc }}</td>
+                                                <td class="validate px-6 py-2 w-32">{{ $viaje->km_1_2 }}</td>
+                                                <td class="validate px-4 py-2 {{ $viaje->km_vacios == 0 ? 'modal-trigger text-blue-600 underline cursor-pointer' : '' }}">{{ $viaje->peaje == 1 ? 'Si' : 'No' }}</td>
 
-                                        {{-- <td class="px-4 py-2 {{ $viaje->peaje == 0 ? 'modal-trigger text-blue-600 underline cursor-pointer' : '' }}">{{ $viaje->peaje == 1 ? 'Si' : 'No' }}</td> --}}
-                                        <td class="px-4 py-2 w-32">{{ $viaje->peaje }}</td>
-                                        <td class="px-6 py-2 w-32">{{ $viaje->arreglo_pinchadura == 1 ? 'Si' : 'No' }}</td>
-                                        <td class="px-6 py-2 w-32">{{ $viaje->retiro_plata_adelanto == 1 ? 'Si' : 'No' }}</td>
+                                                <td class="validate px-4 py-2 w-32">{{ $viaje->peaje }}</td>
+                                                <td class="validate px-6 py-2 w-32">{{ $viaje->arreglo_pinchadura == 1 ? 'Si' : 'No' }}</td>
+                                                <td class="validate px-6 py-2 w-32">{{ $viaje->retiro_plata_adelanto == 1 ? 'Si' : 'No' }}</td>
 
-                                        <script>
-                                            // Busca todos los elementos con la clase "modal-trigger"
-                                            const modalTriggerElements = document.querySelectorAll('.modal-trigger');
-                                        
-                                            // Agrega un evento clic a cada elemento
-                                            modalTriggerElements.forEach((element) => {
-                                                element.addEventListener('click', (event) => {
-                                                    event.preventDefault(); // previene la acción predeterminada del enlace
-                                                    // Muestra el modal correspondiente
-                                                    $('#myModal').modal('show');
-                                                });
-                                            });
-                                        </script>
+                                                <button id="boton-validar">Validar campos</button>
 
-                                        <div class="modal fade text-dark" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel">Observación </h5>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                <script>
+                                                    // Script para chequear los campos vacíos y aplicar el estilo rojo
+                                                   
+                                                        function validarCampos() {
+                                                            var elementos = document.getElementsByClassName("validate");
+                                                            var todosVacios = true;
+                                                            var cont = 0;
+                                                            
+                                                            for (var i = 0; i < elementos.length && todosVacios; i++) {
+                                                                console.log(elementos[i].textContent);
+
+                                                                if(i != 0 && i != 1 && i != 2 & i != 4 && i != 13 && i != 15 && i != 16){
+                                                                    
+                                                                    if (elementos[i].textContent !== null && elementos[i].textContent !== "") {
+                                                                        todosVacios = false;
+                                                                    }
+                                                                }
+                                                            }
+
+                                                            for (var i = 0; i < 13; i++) {                             
+                                                                    if (elementos[i].textContent !== null && elementos[i].textContent !== "") {
+                                                                        cont++;
+                                                                    }
+                                                            }
+                                                            
+                                                            
+                                                            if (todosVacios) {
+                                                                for (var i = 0; i < elementos.length; i++) {
+                                                                    elementos[i].style.backgroundColor = "red";
+                                                                    elementos[i].style.color = "white";
+                                                                }
+                                                            }
+                                                            else if(cont < 13 && !todosVacios) {
+                                                                for (var i = 0; i < elementos.length; i++) {
+                                                                    elementos[i].style.backgroundColor = "yellow";
+                                                                    elementos[i].style.color = "white";
+                                                                }
+                                                            }
+                                                            else if(cont === 13 && !todosVacios){
+                                                                for (var i = 0; i < elementos.length; i++) {
+                                                                    elementos[i].style.backgroundColor = "green";
+                                                                    elementos[i].style.color = "white";
+                                                                }
+                                                            }
+                                                        }
+                                                       document.getElementById("boton-validar").addEventListener("click", validarCampos);
+
+                                                 
+                                                </script>
+
+                                                <script>
+                                                    // Busca todos los elementos con la clase "modal-trigger"
+                                                    const modalTriggerElements = document.querySelectorAll('.modal-trigger');
+                                                
+                                                    // Agrega un evento clic a cada elemento
+                                                    modalTriggerElements.forEach((element) => {
+                                                        element.addEventListener('click', (event) => {
+                                                            event.preventDefault(); // previene la acción predeterminada del enlace
+                                                            // Muestra el modal correspondiente
+                                                            $('#myModal').modal('show');
+                                                        });
+                                                    });
+                                                </script>
+
+                                                <div class="modal fade text-dark" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">Observación </h5>
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    
+                                                                    Hola
+                                                                    
+                                                                </div>           
+                                                            </div>
                                                         </div>
-                                                        <div class="modal-body">
-                                                            
-                                                               Hola
-                                                            
-                                                        </div>           
-                                                    </div>
                                                 </div>
-                                            </div>
-
-                                        </tr>
-                                    @endforeach
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div> 
-
-                           
-
                         </div>
                     </div>
                 </div>

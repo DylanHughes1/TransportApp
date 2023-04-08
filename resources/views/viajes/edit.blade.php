@@ -7,7 +7,9 @@
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 bg-white border-b border-gray-200">               
+                    <div class="p-6 bg-white border-b border-gray-200">          
+                        
+                        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
                         
                         <form method="POST" action="/truck_driver/viajes/{{$viaje->id}}">
                             @csrf
@@ -77,12 +79,11 @@
                                 <div class="space-x-6">  
                                     
                                 <input type="hidden" name="finalizar" value="1">
-                                <button type="submit" name="finalizar" class="btn btn-success">Finalizar</button>                                                       
+                                <button type="submit" name="finalizar" class="btn btn-success"onclick="return confirm('¿Estás seguro que deseas finalizar?')">Finalizar</button>                                                       
                                 <button type="submit" name="guardar"class="btn btn-warning">Guardar</button>
                                 <a href="/truck_driver/dashboard" class="col-md-12 text-right">
                                     <button type="button" id="nextButton" class="btn btn-danger">Cancelar</button>
                                 </a>
-
                                 <div class="space-y-6">
                                 @if ($errors->any())
                                 
