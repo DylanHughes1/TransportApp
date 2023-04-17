@@ -31,11 +31,10 @@ return new class extends Migration
             $table->integer('control_desc')->nullable();
             $table->integer('km_1_2')->nullable();     
             
-            $table->boolean('km_vacios')->nullable();  
-            $table->integer('peaje')->nullable();  
-            $table->boolean('arreglo_pinchadura')->nullable();
-            $table->integer('retiro_plata_adelanto')->nullable();
+            $table->integer('km_vacios')->nullable();  
             $table->longText('observacion')->nullable();
+
+            $table->boolean('enCurso')->nullable()->default(false);
             
             $table->unsignedBigInteger('solicitudes_id')->nullable();
             $table->foreign('solicitudes_id')->references('id')->on('solicitudes')->onDelete('cascade');
