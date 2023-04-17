@@ -81,6 +81,7 @@ class SolicitudesController extends Controller
         $viaje->fecha_llegada = $solicitud->dia2;
         $viaje->destino = $solicitud->llegada;
         $viaje->truckdriver_id = auth()->user()->id;
+        $viaje->enCurso = true;
         $viaje->save();
        
 
