@@ -12,6 +12,7 @@
                     <div class="p-6 bg-white border-b border-gray-200">
                         <div class="p-6 bg-white border-b border-gray-200">   
                             <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+                            <meta name="csrf-token" content="{{ csrf_token() }}">
 
                                 <form method="POST" action="/admin/viajes">
                                 @csrf
@@ -23,7 +24,7 @@
                                             <select id="choferes" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">                                  
                                                 <option value="-" selected>-</option>
                                                 @foreach ($truck_drivers as $truck_driver)
-                                                    <option value="{{$truck_driver->id}}" name="truck_driver_id">{{$truck_driver->name}}</option>
+                                                    <option value="{{$truck_driver->id}}" id="{{$truck_driver->id}}" name="truck_driver_id">{{$truck_driver->name}}</option>
                                                 @endforeach
                                             </select> 
                                         </div>
@@ -55,51 +56,83 @@
                                                 
                                                 <div>
                                                     <label for="dia1" class=" block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fecha Salida</label>
-                                                    <input type="date" name="dia1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                    value="{{$viaje_inicial->dia1}}">
+                                                    <input type="date" id="dia1" name="dia1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                    value="">
                                                 </div>
                                                 
                                                 <div>
                                                     <label for="salida" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Origen</label>
-                                                    <input type="text" name="salida" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                    value="{{$viaje_inicial->salida}}">
+                                                    <input type="text" id="salida" name="salida" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                    value="">
                                                 </div>
 
                                                 <div>
                                                     <label for="observacion" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Observación</label>
-                                                    <input type="text" name="observacion1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                    <input type="text" id="observacion" name="observacion1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                     value="">
                                                 </div>
 
                                                 <div>
                                                     <label for="dia2" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fecha Llegada</label>
-                                                    <input type="date" name="dia2" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                    value="{{$viaje_inicial->dia2}}">
+                                                    <input type="date" id="dia2" name="dia2" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                    value="">
                                                 </div>
                                                 
                                                 <div>
                                                     <label for="llegada" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Destino</label>
-                                                    <input type="text" name="llegada" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                    value="{{$viaje_inicial->llegada}}">
+                                                    <input type="text" id="llegada" name="llegada" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                    value="">
                                                 </div>
 
                                                 <div>
                                                     <label for="observacion" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Observación</label>
-                                                    <input type="text" name="observacion2" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                    <input type="text" id="observacion2" name="observacion2" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                     value="">
                                                 </div>
 
                                                 <div style="display:none;">
                                                     <label for="observacion" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Observación</label>
                                                     <input type="text" name="truck_driver_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                    value="{{$truck_driver->id}}">
+                                                    value="">
                                                 </div>
 
                                                 <input type="hidden" name="id_viaje" value="{{ $viaje_inicial->id}}">
+                                                <input type="hidden" name="truck_driver_id" value="{{ $truck_driver->id}}">
 
                                                 <div class="space-x-6">
                                                 <button type="submit" class="btn btn-success">Guardar</button>
                                         </div>  
+
+                                        <script>
+                                            $('#viajes').on('change', function() {
+                                               
+                                                var opcionSeleccionada = this.value;
+                                                var url = 'viajes';
+                                                if(opcionSeleccionada != '-'){    
+                                                    $.ajax({
+                                                        url: '/admin/viajes/' + opcionSeleccionada,
+                                                        type: 'GET',
+                                                        dataType: 'json',
+                                                        success: function(data) {
+
+                                                            document.getElementById('dia1').value = data.data.dia1;
+                                                            document.getElementById('salida').value = data.data.salida;
+                                                            document.getElementById('observacion').value = '';
+                                                            document.getElementById('dia2').value = data.data.dia2;
+                                                            document.getElementById('llegada').value = data.data.llegada;
+                                                            document.getElementById('observacion2').value = '';
+                                                        },
+                                                        error: function(xhr, textStatus, error) {
+                                                            
+                                                            console.error('Error en la petición AJAX: ' + error);
+                                                            console.error(xhr.responseText);             
+                                                            alert('Ocurrió un error al obtener los datos del viaje seleccionado. Por favor, intenta nuevamente más tarde.');
+                                                        }
+                                                    });
+                                                };
+                                            });
+                                        </script>
+                                                                                  
                                     @else  
                                         <div id="myForm" class="grid grid-cols-1 gap-4" style="display:none;">
                                                     

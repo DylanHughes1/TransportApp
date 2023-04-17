@@ -45,6 +45,26 @@ class DashboardController extends Controller
             ->with('viajes_inicial',$viajes_inicial);
     }
 
+    
+    public function getInfo($id)
+    {      
+        $viaje_inicial = ViajeInicial::find($id);
+       
+        if ($viaje_inicial) {
+            // Construye la respuesta HTTP con los datos del viaje
+            return response()->json([
+                'success' => true,
+                'data' => $viaje_inicial
+            ]);
+        } else {
+            // Si no se encontró el viaje, devuelve una respuesta de error
+            return response()->json([
+                'success' => false,
+                'message' => 'El viaje no fue encontrado.'
+            ], 404);
+        }
+    }
+
      /**
      * Store a newly created resource in storage.
      *
@@ -103,29 +123,14 @@ class DashboardController extends Controller
 
     }
 
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $truck_driver = TruckDriver::find($id);
-        $Viajes = viajes::where('truckdriver_id', $truck_driver->id)->get();        
-        
-        return view('admin.showViaje')
-            ->with('truck_driver', $truck_driver)
-            ->with('viajes', $Viajes);
-    }
-
     public function showViajes()
     {
         $truck_drivers = TruckDriver::all();
+        $Viajes = Viajes::all();
        
         return view('admin.show')
-            ->with('truck_drivers',$truck_drivers);
+            ->with('truck_drivers',$truck_drivers)
+            ->with('viajes', $Viajes);
     }
     /**
      * Show the form for editing the specified resource.

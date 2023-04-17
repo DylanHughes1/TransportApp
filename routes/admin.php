@@ -86,16 +86,15 @@ Route::prefix('admin')->name('admin.')->group(function () {
         ->middleware('auth:admin')
         ->name('create2');    
 
+    Route::get('viajes/{id}', [DashboardController::class, 'getInfo'])
+        ->middleware('auth:admin')
+        ->name('create3');  
+
     Route::post('viajes', [DashboardController::class, 'storeSolicitudes'])
         ->middleware('auth:admin')
         ->name('store2');    
 
     Route::get('show', [DashboardController::class, 'showViajes'])
         ->middleware('auth:admin')
-        ->name('show');  
-        
-    Route::get('{id}', [DashboardController::class, 'show'])
-        ->middleware('auth:admin')
-        ->name('showViajes');      
-
+        ->name('show');   
 });
