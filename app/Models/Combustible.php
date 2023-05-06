@@ -10,8 +10,9 @@ class Combustible extends Model
     use HasFactory;
     public $table = "registro_combustible";
 
-    public function solicitudes()
+    public function viaje()
     {
-        return $this->belongsTo(Solicitudes::class); 
+        return $this->belongsTo(viajes::class); 
     }
+
 }

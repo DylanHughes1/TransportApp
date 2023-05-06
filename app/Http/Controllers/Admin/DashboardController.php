@@ -9,6 +9,7 @@ use App\Models\ViajeInicial;
 use App\Models\TruckDriver;
 use App\Models\Solicitudes;
 use App\Models\viajes;
+use App\Models\Combustible;
 
 
 class DashboardController extends Controller
@@ -127,10 +128,12 @@ class DashboardController extends Controller
     {
         $truck_drivers = TruckDriver::all();
         $Viajes = Viajes::all();
+        $combustible = Combustible::all();
        
         return view('admin.show')
             ->with('truck_drivers',$truck_drivers)
-            ->with('viajes', $Viajes);
+            ->with('viajes', $Viajes)
+            ->with('combustibles', $combustible);
     }
     /**
      * Show the form for editing the specified resource.

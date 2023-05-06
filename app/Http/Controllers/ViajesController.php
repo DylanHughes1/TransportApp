@@ -141,26 +141,15 @@ class ViajesController extends Controller
     }
     public function updateSecondPart(Request $request, $id)
     {
-        
-        $request->validate([
-            'Peaje' => 'nullable|integer'
-        ]);
 
         if ($request->input('finalizar') == null) {
             $this->validarInputObligatorio($request);
         }
 
         $viaje = viajes::find($id);
-        $viaje->peaje = $request->input('Peaje');
 
-        if ($request->input('tipo_viaje') == "Viaje con carga") {
-            $carga = 1;
-        }
-        else{
-            $carga = 0;
-        }
-
-        $viaje->km_vacios = $carga;
+        $viaje->km_vacios = $request->input('km_vacios');
+        $viaje->observacion = $request->input('observacion');
         $viaje->update();
         
         return redirect("/truck_driver/viajes/$id");
@@ -186,7 +175,7 @@ class ViajesController extends Controller
     }
 
     public function storeCombustible(Request $request, $id){
-     
+
         $request->validate([
             'Km' => 'required|integer',
             'fecha' => 'required|date',
