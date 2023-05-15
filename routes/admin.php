@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Admin\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\Auth\VerifyEmailController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\SueldoController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -97,4 +98,21 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('show', [DashboardController::class, 'showViajes'])
         ->middleware('auth:admin')
         ->name('show');   
+
+    Route::get('planilla', [DashboardController::class, 'indexPlanilla'])
+    ->middleware('auth:admin');
+    Route::get('planilla/{id}', [DashboardController::class, 'showPlanilla'])
+    ->middleware('auth:admin');
+
+    Route::get('sueldo', [SueldoController::class, 'index'])
+    ->middleware('auth:admin');
+    
+    Route::get('sueldo/datos', [SueldoController::class, 'showDatos'])
+    ->middleware('auth:admin');
+    
+    Route::get('sueldo/calcular', [SueldoController::class, 'indexCalcular'])
+    ->middleware('auth:admin');
+
+    Route::get('sueldo/calcular/{id}', [SueldoController::class, 'showCalcular'])
+    ->middleware('auth:admin');
 });

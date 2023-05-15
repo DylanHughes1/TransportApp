@@ -129,7 +129,9 @@
                                                     </div>
                                                     <!-- Modal body -->
                                                     <div class="p-6 space-y-6">
-                                                        {{$viaje->registro_combustible_id}}
+                                                        @if(count($viajes) > 0)
+                                                            {{$viaje->registro_combustible_id}}
+                                                        @endif
                                                     </div>
                                                 </div>
                                             </div>
@@ -151,7 +153,9 @@
                                                     </div>
                                                     <!-- Modal body -->
                                                     <div class="p-6 space-y-6">
-                                                        {{$viaje->observacion}}
+                                                        @if(count($viajes) > 0)
+                                                            {{$viaje->observacion}}
+                                                        @endif
                                                     </div>
                                                 </div>
                                             </div>

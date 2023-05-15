@@ -34,14 +34,14 @@ class DashboardController extends Controller
      */
     public function create()
     {      
-        return view('admin.create');
+        return view('admin.nuevos_viajes.create');
     }
     public function createSolicitudes()
     {      
         $truck_drivers = TruckDriver::all();
         $viajes_inicial = ViajeInicial::all();
        
-        return view('admin.create2')
+        return view('admin.nuevos_viajes.create2')
             ->with('truck_drivers',$truck_drivers)
             ->with('viajes_inicial',$viajes_inicial);
     }
@@ -129,9 +129,31 @@ class DashboardController extends Controller
         $truck_drivers = TruckDriver::all();
         $Viajes = Viajes::all();
         $combustible = Combustible::all();
-       
+
         return view('admin.show')
             ->with('truck_drivers',$truck_drivers)
+            ->with('viajes', $Viajes)
+            ->with('combustibles', $combustible);
+    }
+
+    public function indexPlanilla()
+    {
+        $truck_drivers = TruckDriver::all();
+       
+        return view('admin.planilla.indexPlanilla')
+            ->with('truck_drivers',$truck_drivers);
+    }
+
+    public function showPlanilla($id)
+    {
+
+        $truck_driver = TruckDriver::find($id);
+        $Viajes = viajes::where('truckdriver_id',$id)
+                        ->where(['enCurso' => false]);
+        $combustible = Combustible::all();
+       
+        return view('admin.planilla.showPlanilla')
+            ->with('truck_driver',$truck_driver)
             ->with('viajes', $Viajes)
             ->with('combustibles', $combustible);
     }
