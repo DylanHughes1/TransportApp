@@ -27,9 +27,11 @@ class SueldoController extends Controller
     public function showCalcular($id)
     {
         $truck_driver = TruckDriver::find($id);
+        $datos = DatosSueldo::find($id);
 
         return view ('admin.sueldo.showCalculo')
-            ->with('truck_driver',$truck_driver);
+            ->with('truck_driver',$truck_driver)
+            ->with('datos',$datos);
     }
 
     public function showDatos()

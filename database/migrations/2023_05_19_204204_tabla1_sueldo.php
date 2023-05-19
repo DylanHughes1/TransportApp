@@ -13,33 +13,26 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('datos_sueldo', function (Blueprint $table) {
+        Schema::create('tabla1_sueldo', function (Blueprint $table) {
+
             $table->id();
             $table->decimal('sueldo_basico');
 
             $table->decimal('hs_ext_km_recorrido');
+            $table->decimal('hs_ext_km_recorrido_100');
             $table->decimal('perm_f_res');
             $table->decimal('c_descarga');
-            $table->decimal('km_1_2');
-
-            $table->decimal('comida');
-            $table->decimal('especial');
-            $table->decimal('pernoctada');
-
-            $table->decimal('kms_rec');
-            $table->decimal('perm_f_res_larga_distancia');
-            $table->decimal('cruce_frontera');
-
-            $table->decimal('dia_camionero');
-            $table->decimal('vacaciones_anual_x_dia');
-
             $table->decimal('hs_50');
             $table->decimal('hs_100');
-            $table->decimal('valor_x_dia');
-            $table->decimal('hora_comun');
+            $table->decimal('inasistencias_inj');
+            $table->decimal('subtotal1');
 
+            $table->decimal('antig');
+            $table->decimal('vacaciones');
 
-
+            $table->decimal('total_remun1');
+            
+            $table->decimal('truckdriver_id');
 
         });
     }
@@ -51,6 +44,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('datos_sueldo');
+        Schema::dropIfExists('tabla1_sueldo');
     }
 };

@@ -30,6 +30,10 @@ class datosSueldoSeeder extends Seeder
                 'cruce_frontera' => 3818.08,
                 'dia_camionero' => 4277.81,
                 'vacaciones_anual_x_dia' => 2398.23,
+                'hs_50' => 802.09,
+                'hs_100' => 1069.45,
+                'valor_x_dia' => 4277.81,
+                'hora_comun' => 534.72,
                 
             ],
         ];
