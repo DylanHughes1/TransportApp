@@ -16,23 +16,22 @@ return new class extends Migration
         Schema::create('tabla3_sueldo', function (Blueprint $table) {
             
             $table->id();
-            $table->decimal('sueldo_basico');
-
-            $table->decimal('viatico_x_km');
-            $table->decimal('cruce_frontera');
-            $table->decimal('comida');
-            $table->decimal('especial');
-            $table->decimal('pernoctada');
-            $table->decimal('permanencia_fuera_rec');
-            $table->decimal('viatico_km_1_2');
-            $table->decimal('adicional_vacas_anuales');
-            $table->decimal('asignacion_no_remuner');
             
-            $table->decimal('total_remun2');
+            $table->decimal('viatico_x_km')->nullable();
+            $table->decimal('cruce_frontera')->nullable();
+            $table->decimal('comida')->nullable();
+            $table->decimal('especial')->nullable();
+            $table->decimal('pernoctada')->nullable();
+            $table->decimal('permanencia_fuera_rec')->nullable();
+            $table->decimal('viatico_km_1_2')->nullable();
+            $table->decimal('adicional_vacas_anuales')->nullable();
+            $table->decimal('asignacion_no_remuner')->nullable();
             
-            $table->decimal('adelantos');
-            $table->decimal('celular');
-            $table->decimal('gastos');
+            $table->decimal('total_remun2')->nullable();
+            
+            $table->decimal('adelantos')->nullable();
+            $table->decimal('celular')->nullable();
+            $table->decimal('gastos')->nullable();
 
             $table->decimal('truckdriver_id');
 

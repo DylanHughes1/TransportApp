@@ -16,21 +16,20 @@ return new class extends Migration
         Schema::create('tabla1_sueldo', function (Blueprint $table) {
 
             $table->id();
-            $table->decimal('sueldo_basico');
 
-            $table->decimal('hs_ext_km_recorrido');
-            $table->decimal('hs_ext_km_recorrido_100');
-            $table->decimal('perm_f_res');
-            $table->decimal('c_descarga');
-            $table->decimal('hs_50');
-            $table->decimal('hs_100');
-            $table->decimal('inasistencias_inj');
-            $table->decimal('subtotal1');
+            $table->decimal('hs_ext_km_recorrido')->nullable();
+            $table->decimal('hs_ext_km_recorrido_100')->nullable();
+            $table->decimal('perm_f_res')->nullable();
+            $table->decimal('c_descarga')->nullable();
+            $table->decimal('hs_50')->nullable();
+            $table->decimal('hs_100')->nullable();
+            $table->decimal('inasistencias_inj')->nullable();
+            $table->decimal('subtotal1')->nullable();
 
-            $table->decimal('antig');
-            $table->decimal('vacaciones');
+            $table->decimal('antig')->nullable();
+            $table->decimal('vacaciones')->nullable();
 
-            $table->decimal('total_remun1');
+            $table->decimal('total_remun1')->nullable();
             
             $table->decimal('truckdriver_id');
 

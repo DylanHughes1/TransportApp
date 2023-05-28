@@ -22,8 +22,12 @@
                                     <span class="text-gray-500">Kilómetros:</span>
                                     <span class="dark:text-white">$8.226,00</span>
                                 </h5>
-                            </div>                      
+                            </div>      
+                            <div class="flex justify-end mb-4">
+                                <button type="button" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">Editar</button>
+                            </div>                
                         </div>
+
                         
                         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -43,6 +47,8 @@
                                         </th>
                                     </tr>
                                 </thead>
+                                
+
                                 <tbody class="text-justify">
                                     <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -64,7 +70,7 @@
                                             Hs Extraordinarias por km recorrido
                                         </th>
                                         <td class="px-6 py-4">
-                                            8226
+                                            {{$tabla1->hs_ext_km_recorrido}}
                                         </td>
                                         <td class="px-6 py-4">
                                             {{$datos->hs_ext_km_recorrido}}
@@ -82,7 +88,7 @@
                                             Hs Extraord. por km recorrido – 100%
                                         </th>
                                         <td class="px-6 py-4">
-                                            337
+                                            {{$tabla1->hs_ext_km_recorrido_100}}
                                         </td>
                                         <td class="px-6 py-4">
                                             {{$datos->hs_ext_km_recorrido}}
@@ -100,7 +106,7 @@
                                             Permanencia fuera Resid. Habit inc.b)
                                         </th>
                                         <td class="px-6 py-4">
-                                            0
+                                            {{$tabla1->perm_f_res}}
                                         </td>
                                         <td class="px-6 py-4">
                                             {{$datos->perm_f_res}}
@@ -118,7 +124,7 @@
                                             Control descarga
                                         </th>
                                         <td class="px-6 py-4">
-                                            4
+                                            {{$tabla1->c_descarga}}
                                         </td>
                                         <td class="px-6 py-4">
                                             {{$datos->c_descarga}}
@@ -136,7 +142,7 @@
                                             Horas extras al 50%
                                         </th>
                                         <td class="px-6 py-4">
-                                            0
+                                            {{$tabla1->hs_50}}
                                         </td>
                                         <td class="px-6 py-4">
                                             {{$datos->hs_50}}
@@ -154,7 +160,7 @@
                                             Horas extras al 100%
                                         </th>
                                         <td class="px-6 py-4">
-                                            0
+                                            {{$tabla1->hs_100}}
                                         </td>
                                         <td class="px-6 py-4">
                                             {{$datos->hs_100}}
@@ -172,10 +178,10 @@
                                             Inasistencias Injustificadas
                                         </th>
                                         <td class="px-6 py-4">
-                                            
+                                            Días
                                         </td>
                                         <td class="px-6 py-4">
-                                            
+                                            {{$tabla1->inasistencias_inj}}
                                         </td>
                                         <td class="px-6 py-4">
                                             -

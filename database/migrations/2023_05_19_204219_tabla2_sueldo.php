@@ -16,18 +16,17 @@ return new class extends Migration
         Schema::create('tabla2_sueldo', function (Blueprint $table) {
             
             $table->id();
-            $table->decimal('sueldo_basico');
 
-            $table->decimal('jubilacion');
-            $table->decimal('obra_social');
-            $table->decimal('cuota_solidaria');
-            $table->decimal('ley_19032');
-            $table->decimal('seguro_sepelio');
-            $table->decimal('aju_apo_dto');
-            $table->decimal('asoc_mut_1nov');
-            $table->decimal('total_descuento');
+            $table->decimal('jubilacion')->nullable();
+            $table->decimal('obra_social')->nullable();
+            $table->decimal('cuota_solidaria')->nullable();
+            $table->decimal('ley_19032')->nullable();
+            $table->decimal('seguro_sepelio')->nullable();
+            $table->decimal('aju_apo_dto')->nullable();
+            $table->decimal('asoc_mut_1nov')->nullable();
+            $table->decimal('total_descuento')->nullable();
             
-            $table->decimal('subtotal2');
+            $table->decimal('subtotal2')->nullable();
 
             $table->decimal('truckdriver_id');
 

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Tabla3 extends Model
 {
     use HasFactory;
-
+    public $table = "tabla3_sueldo";
     public function truckdriver()
     {
         return $this->belongsTo(TruckDriver::class); 
