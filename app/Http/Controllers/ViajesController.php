@@ -134,10 +134,12 @@ class ViajesController extends Controller
         $viaje->km_1_2 = $request->input('km_1_2');    
         $viaje->update();
 
-        if($request->input('finalizar') == null)
-            return redirect("/truck_driver/viajes/$id/foto")->with('status','Cambios Guardados');
-        else 
-            return redirect("/truck_driver/viajes/$id")->with('status','Cambios Guardados');
+        if($request->input('finalizar') == null){
+            $viaje->enCurso = false;
+            $viaje->update();
+            return redirect("/truck_driver/viajes/image/$id")->with('status','Cambios Guardados');
+        }else {
+            return redirect("/truck_driver/viajes/$id")->with('status','Cambios Guardados');}
     }
     public function updateSecondPart(Request $request, $id)
     {
@@ -197,6 +199,11 @@ class ViajesController extends Controller
         
 
         return redirect("/truck_driver/viajes/$id")->with('status','Cambios Guardados');
+    }
+
+    public function showImage($id)
+    {
+        return view('viajes.image');
     }
 
     /**
