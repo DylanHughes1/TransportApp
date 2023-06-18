@@ -50,4 +50,24 @@ class SueldoController extends Controller
         return view ('admin.sueldo.showDatos')
             ->with('datos', $datos);
     }
+
+    public function updateDatos(Request $request, $id)
+    {
+        
+        $tabla1 = Tabla1::where('truckdriver_id', $id)->first();
+        $tabla1->hs_ext_km_recorrido = $request->input('hs_ext_km_recorrido');
+        $tabla1->hs_ext_km_recorrido_100 = $request->input('hs_ext_km_recorrido_100');
+        $tabla1->c_descarga = $request->input('c_descarga');
+        $tabla1->hs_50 = $request->input('hs_50');
+        $tabla1->hs_100 = $request->input('hs_100');
+        $tabla1->inasistencias_inj = $request->input('inasistencias_inj');
+
+        $tabla1->total_remun1 = $request->input('totalR');
+
+
+        $tabla1->update();
+
+        return redirect("/admin/sueldo/calcular/$id")->with('status','Cambios Guardados');
+    }
+
 }

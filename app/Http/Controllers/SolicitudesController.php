@@ -111,7 +111,7 @@ class SolicitudesController extends Controller
      */
     public function destroy($id)
     {
-        
+
         $solicitud = Solicitudes::find($id);
         $solicitud->delete();
 
