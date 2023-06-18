@@ -74,12 +74,12 @@ class DashboardController extends Controller
      */
     public function store(Request $request)
     {
-        
         $request->validate([
             'dia1' => 'required|date',
             'salida' => 'required|max:255',
             'dia2' => 'required|date',
             'llegada' => 'required|max:255',
+            '$/TN' => 'required|integer',
         ]);
         
         $viaje_inicial = new ViajeInicial();
@@ -87,6 +87,7 @@ class DashboardController extends Controller
         $viaje_inicial->salida = $request->get('salida');
         $viaje_inicial->dia2 = $request->get('dia2');
         $viaje_inicial->llegada = $request->get('llegada');
+        $viaje_inicial->{'$/TN'} = $request->get('$/TN');
         
         $viaje_inicial->save();
 
@@ -115,6 +116,7 @@ class DashboardController extends Controller
         $solicitud->dia2 = $request->get('dia2');
         $solicitud->llegada = $request->get('llegada');
         $solicitud->observacion2 = $request->get('observacion2');
+        $solicitud->{'$/TN'} = $request->get('$/TN');
         $solicitud->truckdriver_id = $request->get('truck_driver_id');
 
         $solicitud->save();

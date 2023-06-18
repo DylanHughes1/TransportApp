@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('salida');
             $table->date('dia2')->nullable();
             $table->string('llegada');
+            $table->integer('$/TN');
             $table->timestamps();
         });
     }

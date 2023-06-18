@@ -21,6 +21,7 @@ return new class extends Migration
             $table->date('dia2')->nullable();
             $table->string('llegada');
             $table->longText('observacion2')->nullable();
+            $table->integer('$/TN')->nullable();
             $table->timestamps();
 
             $table->unsignedBigInteger('truckdriver_id')->nullable();
