@@ -100,7 +100,7 @@
                                                                         elementos[i].style.color = "black";
                                                                     }
                                                                 }
-                                                                else if(cont === 14 && !todosVacios){
+                                                                else if(cont === 15 && !todosVacios){
                                                                     for (var i = 0; i < elementos.length; i++) {
                                                                         elementos[i].style.backgroundColor = "green";
                                                                         elementos[i].style.color = "white";

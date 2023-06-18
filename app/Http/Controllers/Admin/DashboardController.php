@@ -146,15 +146,18 @@ class DashboardController extends Controller
 
     public function showPlanilla($id)
     {
-
+        
         $truck_driver = TruckDriver::find($id);
-        $Viajes = viajes::where('truckdriver_id',$id)
-                        ->where(['enCurso' => false]);
+        
+        $viajes = Viajes::where('truckdriver_id', $id)
+                        ->where('enCurso', false)
+                        ->get();
+
         $combustible = Combustible::all();
        
         return view('admin.planilla.showPlanilla')
             ->with('truck_driver',$truck_driver)
-            ->with('viajes', $Viajes)
+            ->with('viajes', $viajes)
             ->with('combustibles', $combustible);
     }
     /**

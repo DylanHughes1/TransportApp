@@ -9,6 +9,7 @@ class Tabla2 extends Model
 {
     use HasFactory;
     public $table = "tabla2_sueldo";
+    public $timestamps = false;
     public function truckdriver()
     {
         return $this->belongsTo(TruckDriver::class); 
