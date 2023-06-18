@@ -115,4 +115,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::get('sueldo/calcular/{id}', [SueldoController::class, 'showCalcular'])
     ->middleware('auth:admin');
+
+    Route::post('sueldo/calcular/{id}', [SueldoController::class, 'updateDatos'])
+    ->middleware('auth:admin');
 });

@@ -85,10 +85,13 @@ Route::prefix('truck_driver')->name('truck_driver.')->group(function () {
     Route::post('viajes/b/{id}', [ViajesController::class, 'storeCombustible'])->middleware('auth:truck_driver')->name('combustible');
     Route::put('viajes/{id}', [ViajesController::class, 'update'])->middleware('auth:truck_driver');
     Route::put('viajes/b/{id}', [ViajesController::class, 'updateSecondPart'])->middleware('auth:truck_driver')->name('viaje');
+    Route::get('viajes/image/{id}', [ViajesController::class, 'showImage'])->middleware('auth:truck_driver');
+
+
 
     Route::get('solicitudes', [SolicitudesController::class, 'index'])->middleware('auth:truck_driver')->name('solicitudes.index');
     Route::put('solicitudes/{id}', [SolicitudesController::class, 'crearViaje'])->middleware('auth:truck_driver')->name('crearViaje');
-    Route::delete('solicitudes', [SolicitudesController::class, 'destroy'])->middleware('auth:truck_driver')->name('solicitudes.destroy');
+    Route::delete('solicitudes/{id}', [SolicitudesController::class, 'destroy'])->middleware('auth:truck_driver')->name('solicitudes.destroy');
     
 
 });
