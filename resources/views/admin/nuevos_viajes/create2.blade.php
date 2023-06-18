@@ -96,7 +96,7 @@
                                                     value="">
                                                 </div>
 
-                                                <input type="hidden" id="$/TN" name="$/TN" value="">
+                                                <input type="hidden" id="TN" name="TN" value="">
 
                                                 <input type="hidden" name="id_viaje" value="{{ $viaje_inicial->id}}">
                                                 <input type="hidden" name="truck_driver_id" value="{{ $truck_driver->id}}">
@@ -123,7 +123,7 @@
                                                             document.getElementById('dia2').value = data.data.dia2;
                                                             document.getElementById('llegada').value = data.data.llegada;
                                                             document.getElementById('observacion2').value = '';
-                                                            document.getElementById('$/TN').value = data.data.$/TN;
+                                                            document.getElementById('TN').value = data.data.TN;
                                                         },
                                                         error: function(xhr, textStatus, error) {
                                                             

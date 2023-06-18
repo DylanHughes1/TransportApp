@@ -82,7 +82,7 @@ class SolicitudesController extends Controller
         $viaje->destino = $solicitud->llegada;
         $viaje->truckdriver_id = auth()->user()->id;
         $viaje->enCurso = true;
-        $viaje->{'$/TN'} = $solicitud->{'$/TN'};
+        $viaje->TN = $solicitud->TN;
         $viaje->save();
        
 
