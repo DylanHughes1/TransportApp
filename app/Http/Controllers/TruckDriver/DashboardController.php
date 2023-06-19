@@ -15,10 +15,12 @@ class DashboardController extends Controller
         //$this->middleware('verified:truck_driver.verification.notice');
     }
 
+    /**
+     * Muestra el inicio del chofer.
+     */
+    public function index()
+    {
 
-    public function index(){
-        // $viajes = viajes::all();
-        
-        return view ('truck_driver.dashboard'); 
+        return view('truck_driver.dashboard');
     }
 }

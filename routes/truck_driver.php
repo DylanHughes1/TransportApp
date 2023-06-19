@@ -11,13 +11,12 @@ use App\Http\Controllers\TruckDriver\Auth\VerifyEmailController;
 use App\Http\Controllers\TruckDriver\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Models\TruckDriver;
-use App\Http\Controllers\ViajesController;
-use App\Http\Controllers\SolicitudesController;
+use App\Http\Controllers\TruckDriver\ViajesController;
+use App\Http\Controllers\TruckDriver\SolicitudesController;
 
 Route::prefix('truck_driver')->name('truck_driver.')->group(function () {
 
-    Route::get('/', [DashboardController::class, 'index'])
-        ->middleware('auth:truck_driver');
+    // Rutas asociadas al logueo
 
     Route::get('/dashboard', [DashboardController::class, 'index'])
         ->middleware('auth:truck_driver')
@@ -76,22 +75,21 @@ Route::prefix('truck_driver')->name('truck_driver.')->group(function () {
         ->middleware('auth:truck_driver')
         ->name('logout');
 
-    //Route::resource('solicitudes', 'App\Http\Controllers\SolicitudesController')->middleware(['auth:truck_driver']); 
-    //Route::resource('viajes', 'App\Http\Controllers\ViajesController')->middleware(['auth:truck_driver']);
+    // Rutas sobre el chofer
+    Route::get('/', [DashboardController::class, 'index'])
+        ->middleware('auth:truck_driver');
 
-    Route::get('viajes', [ViajesController::class, 'index'])->middleware('auth:truck_driver');
-    Route::get('viajes/{id}', [ViajesController::class, 'edit'])->middleware('auth:truck_driver');   
-    Route::get('viajes/b/{id}', [ViajesController::class, 'editStepTwo'])->middleware('auth:truck_driver');
-    Route::post('viajes/b/{id}', [ViajesController::class, 'storeCombustible'])->middleware('auth:truck_driver')->name('combustible');
-    Route::put('viajes/{id}', [ViajesController::class, 'update'])->middleware('auth:truck_driver');
-    Route::put('viajes/b/{id}', [ViajesController::class, 'updateSecondPart'])->middleware('auth:truck_driver')->name('viaje');
-    Route::get('viajes/image/{id}', [ViajesController::class, 'showImage'])->middleware('auth:truck_driver');
-
-
-
+    // Rutas sobre las solicitudes
     Route::get('solicitudes', [SolicitudesController::class, 'index'])->middleware('auth:truck_driver')->name('solicitudes.index');
     Route::put('solicitudes/{id}', [SolicitudesController::class, 'crearViaje'])->middleware('auth:truck_driver')->name('crearViaje');
     Route::delete('solicitudes/{id}', [SolicitudesController::class, 'destroy'])->middleware('auth:truck_driver')->name('solicitudes.destroy');
-    
 
+    // Rutas sobre los viajes
+    Route::get('viajes', [ViajesController::class, 'index'])->middleware('auth:truck_driver');
+    Route::get('viajes/{id}', [ViajesController::class, 'showViaje'])->middleware('auth:truck_driver');
+    Route::get('viajes/b/{id}', [ViajesController::class, 'showViajePartTwo'])->middleware('auth:truck_driver');
+    Route::post('viajes/b/{id}', [ViajesController::class, 'storeCombustible'])->middleware('auth:truck_driver')->name('combustible');
+    Route::put('viajes/{id}', [ViajesController::class, 'updateViaje'])->middleware('auth:truck_driver');
+    Route::put('viajes/b/{id}', [ViajesController::class, 'updateViajeSecondPart'])->middleware('auth:truck_driver')->name('viaje');
+    Route::get('viajes/image/{id}', [ViajesController::class, 'showImage'])->middleware('auth:truck_driver');
 });

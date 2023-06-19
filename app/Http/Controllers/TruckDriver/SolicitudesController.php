@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\TruckDriver;
 use App\Models\Solicitudes;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -14,62 +14,21 @@ class SolicitudesController extends Controller
     {
         $this->middleware('auth');
     }
+
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Muestra todas las solicitudes asociadas al chofer.
      */
     public function index()
     {
         $solicitudes = Solicitudes::all()->where('truckdriver_id',auth()->user()->id);
 
-        return view ('solicitudes.index')
+        return view ('truck_driver.solicitudes.index')
             ->with('solicitudes',$solicitudes);
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Crea el nuevo viaje asociada a la solicitud aceptada.
      */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    // public function edit($id)
-    // {
-
-    // }
-
     public function crearViaje(Request $request, $id){
 
        
@@ -91,24 +50,8 @@ class SolicitudesController extends Controller
         return redirect("/truck_driver/solicitudes");
     }
 
-
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * Elimina la solicitud.
      */
     public function destroy($id)
     {

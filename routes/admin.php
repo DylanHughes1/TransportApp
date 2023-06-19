@@ -9,7 +9,7 @@ use App\Http\Controllers\Admin\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Admin\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\Auth\VerifyEmailController;
 use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\SueldoController;
+use App\Http\Controllers\Admin\SueldoController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -17,9 +17,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])
         ->middleware('auth:admin');
 
-    Route::get('/dashboard', [DashboardController::class, 'index'])
-        ->middleware('auth:admin')
-        ->name('dashboard');
+    // Rutas asociadas al logueo
 
     Route::get('/register', [RegisteredUserController::class, 'create'])
         ->middleware('guest:admin')
@@ -74,12 +72,17 @@ Route::prefix('admin')->name('admin.')->group(function () {
         ->middleware('auth:admin')
         ->name('logout');
 
-    //Route::get('dashboard', [DashboardController::class, 'create'])->middleware('auth:admin');
-    Route::get('create', [DashboardController::class, 'create'])
+    // Rutas asociadas al controlador del admin
+
+    Route::get('/dashboard', [DashboardController::class, 'index'])
+        ->middleware('auth:admin')
+        ->name('dashboard');
+
+    Route::get('create', [DashboardController::class, 'createViajeInicial'])
         ->middleware('auth:admin')
         ->name('create');
 
-    Route::post('create', [DashboardController::class, 'store'])
+    Route::post('create', [DashboardController::class, 'storeViajeInicial'])
         ->middleware('auth:admin')
         ->name('store');
 
@@ -87,7 +90,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         ->middleware('auth:admin')
         ->name('create2');    
 
-    Route::get('viajes/{id}', [DashboardController::class, 'getInfo'])
+    Route::get('viajes/{id}', [DashboardController::class, 'getInfoViajeInicial'])
         ->middleware('auth:admin')
         ->name('create3');  
 
@@ -101,19 +104,23 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::get('planilla', [DashboardController::class, 'indexPlanilla'])
     ->middleware('auth:admin');
+
     Route::get('planilla/{id}', [DashboardController::class, 'showPlanilla'])
     ->middleware('auth:admin');
+
+
+    // Rutas asociadas al sueldo
 
     Route::get('sueldo', [SueldoController::class, 'index'])
     ->middleware('auth:admin');
     
-    Route::get('sueldo/datos', [SueldoController::class, 'showDatos'])
+    Route::get('sueldo/datos', [SueldoController::class, 'showDatosBasicos'])
     ->middleware('auth:admin');
     
-    Route::get('sueldo/calcular', [SueldoController::class, 'indexCalcular'])
+    Route::get('sueldo/calcular', [SueldoController::class, 'indexCalcularSueldo'])
     ->middleware('auth:admin');
 
-    Route::get('sueldo/calcular/{id}', [SueldoController::class, 'showCalcular'])
+    Route::get('sueldo/calcular/{id}', [SueldoController::class, 'showCalcularSueldo'])
     ->middleware('auth:admin');
 
     Route::post('sueldo/calcular/{id}', [SueldoController::class, 'updateDatos'])
