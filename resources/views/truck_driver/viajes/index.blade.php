@@ -14,7 +14,6 @@
                         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                             <div class="p-6 bg-white border-b border-gray-200">               
                                 
-
                                 @if(count($viajes) > 0)
                                     @foreach ($viajes as $viaje)
                                         <div>
@@ -26,6 +25,7 @@
                                 @else
                                         No hay viajes Disponibles
                                 @endif
+                                
                             </div>
                         </div>
                     </div>
