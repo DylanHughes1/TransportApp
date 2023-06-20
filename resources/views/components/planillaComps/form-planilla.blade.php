@@ -37,13 +37,13 @@
                                                 {{$viaje->km_vacios}}
                                             </td>
                                             <td class="px-6 py-4">
-                                                $99
+                                                {{$viaje->TN}}
                                             </td>
                                             <td class="px-6 py-4">
-                                                {{-- FAC.= kg * $/TN --}}
+                                                {{$viaje->carga_kg * $viaje->km_vacios}}
                                             </td>
                                             <td class="px-6 py-4">
-                                                {{-- $/KM = FAC/DIST --}}
+                                                {{ ($viaje->carga_kg * $viaje->km_vacios) / ($viaje->km_llegada - $viaje->km_salida) }}
                                             </td>
                                         </tr>
                                     @endforeach

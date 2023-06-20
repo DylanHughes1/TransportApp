@@ -62,17 +62,16 @@
             <input type="number" name="km_1_2" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             value="{{ $viaje->km_1_2 }}">
         </div>
-        {{-- <div></div>
-        <div></div> --}}
-        <div class="text-center"> 
-            <a href="b/{{$viaje->id}}" class="col-md-12 justify-content-end">
-                <button type="button" id="nextButton" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Siguiente</button>
-            </a>  
+    </div>
+        <div class="col-span-4 md:col-span-1 flex justify-end"> 
+            <a href="b/{{$viaje->id}}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                Siguiente
+                <svg aria-hidden="true" class="w-5 h-5 ml-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+            </a>
         </div>
-        <div></div>
-        <div></div>
-        <div>
-            <td class="flex items-center px-6 py-4 space-x-3">
+
+        <div class="col-span-4 mt-4 md:mt-0">
+            <td class="flex justify-between">
                 <input type="hidden" name="finalizar" value="1">
                 <button type="submit" name="finalizar" class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"onclick="return confirm('¿Estás seguro que deseas finalizar?')">Finalizar</button>                                                       
                 <button type="submit" name="guardar"class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:focus:ring-yellow-900">Guardar</button>
@@ -92,5 +91,5 @@
                 @endif
             <td>
         </div>
-    </div>
+
 </form>             
