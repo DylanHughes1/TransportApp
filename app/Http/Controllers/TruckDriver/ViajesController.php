@@ -182,10 +182,10 @@ class ViajesController extends Controller
     public function storeImage(Request $request, $id)
     {
 
-        // $request->validate([,
-        //     'image' => 'required|image|max:1000'
-        // ]);
-    //    dd($request->image);
+        $request->validate([
+            'image' => 'required|image|max:1000'
+        ]);
+
         try{
             $image = $request->file('image');
             $uploadedFile = $image->storeOnCloudinary('/recibos');

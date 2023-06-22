@@ -20,7 +20,7 @@
                                 
                                     <div class="flex flex-col items-center justify-center w-full space-y-6">
                                         <label class="block mb-4 text-lg font-medium text-gray-900 dark:text-white" for="default_size">Ingrese el recibo</label>
-                                        <input name="image" class="block w-full mb-5 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="image" type="file">
+                                        <input name="image" class="block w-full mb-5 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="image" type="file"  accept=".png, .jpg" required>
 
                                 
                                         <div class="flex items-center justify-center">
