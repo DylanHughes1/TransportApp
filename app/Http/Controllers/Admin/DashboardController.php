@@ -165,6 +165,7 @@ class DashboardController extends Controller
 
         $viajes = Viajes::where('truckdriver_id', $id)
             ->where('enCurso', false)
+            // ->whereNotNull('image_link')
             ->get();
 
         $combustible = Combustible::all();

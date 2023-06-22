@@ -12,7 +12,7 @@
         Intermedios
     </th>
     <th scope="col" class="px-6 py-3">
-        KM
+        KM Salida
     </th>
     <th scope="col" class="px-6 py-3">
         Destino
@@ -21,13 +21,13 @@
         Fecha Llegada
     </th>
     <th scope="col" class="px-6 py-3">
-        KM
+        KM Llegada
     </th>
     <th scope="col" class="px-6 py-3">
         Producto
     </th>
     <th scope="col" class="px-6 py-3">
-        KG
+        Carga (kg)
     </th>
     <th scope="col" class="px-6 py-3">
         Distancia
@@ -43,5 +43,8 @@
     </th>
     <th scope="col" class="px-6 py-3">
         $/KM
+    </th>
+    <th scope="col" class="px-6 py-3">
+        Registro Combustible
     </th>
 </tr>
