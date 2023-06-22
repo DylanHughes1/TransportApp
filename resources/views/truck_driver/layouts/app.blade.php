@@ -40,5 +40,7 @@
         </div>
 
         <script src="https://unpkg.com/flowbite@1.5.1/dist/flowbite.js"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.css"  rel="stylesheet" />
+
     </body>
 </html>

@@ -92,4 +92,6 @@ Route::prefix('truck_driver')->name('truck_driver.')->group(function () {
     Route::put('viajes/{id}', [ViajesController::class, 'updateViaje'])->middleware('auth:truck_driver');
     Route::put('viajes/b/{id}', [ViajesController::class, 'updateViajeSecondPart'])->middleware('auth:truck_driver')->name('viaje');
     Route::get('viajes/image/{id}', [ViajesController::class, 'showImage'])->middleware('auth:truck_driver');
+    Route::put('viajes/image/{id}', [ViajesController::class, 'storeImage'])->middleware('auth:truck_driver');
+
 });

@@ -38,7 +38,7 @@
 
                                 <div>
                                     <label for="km_vacios" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ingrese la cantidad de Km vacíos</label>
-                                    <input type="number" id="km_vacios" name="km_vacios" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    <input type="number" id="km_vacios" name="km_vacios" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-80 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 </div>
                                 <div>
                                     <label for="gasto" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ingrese cualquier gasto extra</label>
@@ -54,25 +54,20 @@
 
                                 <div>
                                     <td class="flex items-center px-6 py-4 space-x-3">
-                                        <input type="hidden" name="finalizar" value="1">
-                                        <button type="submit" name="finalizar" class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"onclick="return confirm('¿Estás seguro que deseas finalizar?')">Finalizar</button>                                                       
                                         <button type="submit" name="guardar"class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:focus:ring-yellow-900">Guardar</button>
                                         <a href="/truck_driver/dashboard" class="col-md-12 text-right">
                                             <button type="button" id="nextButton" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Cancelar</button>
                                         </a>
-                                        <div class="space-y-6">
-                                        @if ($errors->any())
-                                        
-                                        <div class="flex p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800" role="alert">
-                                            <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
-                                            <span class="sr-only">Info</span>
-                                            <div>
-                                            <span class="font-medium">Error!</span> Debe completar todos los datos para poder continuar.
-                                            </div>
-                                        </div>
-                                        @endif
                                     <td>
                                 </div>
+
+                                <div class="flex p-4 mb-4 text-sm text-yellow-800 rounded-lg bg-yellow-50 dark:bg-gray-800 dark:text-yellow-300" role="alert">
+                                    <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+                                    <span class="sr-only">Info</span>
+                                    <div>
+                                        Recuerde guardar los cambios antes de avanzar a la siguiente página.
+                                    </div>
+                                </div> 
                             </div>
                             </form>                                       
                         </div>

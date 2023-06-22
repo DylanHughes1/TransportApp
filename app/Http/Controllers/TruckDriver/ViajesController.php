@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\viajes;
 use App\Models\Combustible;
 use Illuminate\Http\Request;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
+use Exception;
 
 class ViajesController extends Controller
 {
@@ -52,6 +54,7 @@ class ViajesController extends Controller
     public function updateViaje(Request $request, $id)
     {
         if ($request->input('finalizar') == 1) {
+            
             $request->validate([
                 'fecha_salida' => 'nullable|date',
                 'origen' => 'nullable|max:255',
@@ -85,6 +88,7 @@ class ViajesController extends Controller
         $viaje->descarga_kg = $request->input('descarga_kg');
         $viaje->km_llegada = $request->input('km_llegada');
         $viaje->km_1_2 = $request->input('km_1_2');
+        $viaje->km_1_2 = $request->input('control_desc');
         $viaje->update();
 
         if ($request->input('finalizar') == null) {
@@ -101,10 +105,6 @@ class ViajesController extends Controller
      */
     public function updateViajeSecondPart(Request $request, $id)
     {
-
-        if ($request->input('finalizar') == null) {
-            $this->validarInputObligatorio($request);
-        }
 
         $viaje = viajes::find($id);
 
@@ -131,6 +131,7 @@ class ViajesController extends Controller
             'descarga_kg' => 'required|integer',
             'km_llegada' => 'integer',
             'km_1_2' => 'integer',
+            'conrol_desc' => 'integer',
         ]);
         return redirect()->back()->withErrors($validator)->withInput();
     }
@@ -169,7 +170,37 @@ class ViajesController extends Controller
      */
     public function showImage($id)
     {
-        return view('truck_driver.viajes.image');
+        $viaje = viajes::find($id);
+        if($viaje->enCurso == false){
+            return view('truck_driver.viajes.image')
+                ->with('viaje', $viaje);
+        }else{
+            return view("truck_driver.viajes.permiso-denegado");
+        }
+    }
+
+    public function storeImage(Request $request, $id)
+    {
+
+        // $request->validate([,
+        //     'image' => 'required|image|max:1000'
+        // ]);
+    //    dd($request->image);
+        try{
+            $image = $request->file('image');
+            $uploadedFile = $image->storeOnCloudinary('/recibos');
+        }catch (Exception $e){
+            
+            return redirect("/truck_driver/viajes/image/$id")->withErrors("Ocurrió un error al almacenar la imagen\n");
+        }
+        
+        $viaje = viajes::find($id);
+        $viaje->image_link = $uploadedFile->getPath();
+        $viaje->image_path = $uploadedFile->getPublicId();
+            
+        $viaje->save();
+
+        return redirect("/truck_driver/dashboard");
     }
 
 }
