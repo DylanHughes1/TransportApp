@@ -32,9 +32,9 @@
     <th scope="col" class="px-6 py-3">
         Distancia
     </th>
-    <th scope="col" class="px-6 py-3">
+    {{-- <th scope="col" class="px-6 py-3">
         KM Vacíos
-    </th>
+    </th> --}}
     <th scope="col" class="px-6 py-3">
         $/TN
     </th>
@@ -46,5 +46,8 @@
     </th>
     <th scope="col" class="px-6 py-3">
         Registro Combustible
+    </th>
+    <th scope="col" class="px-6 py-3">
+        Imagen Remito
     </th>
 </tr>
