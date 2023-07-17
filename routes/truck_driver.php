@@ -82,7 +82,7 @@ Route::prefix('truck_driver')->name('truck_driver.')->group(function () {
     // Rutas sobre las solicitudes
     Route::get('solicitudes', [SolicitudesController::class, 'index'])->middleware('auth:truck_driver')->name('solicitudes.index');
     Route::put('solicitudes/{id}', [SolicitudesController::class, 'crearViaje'])->middleware('auth:truck_driver')->name('crearViaje');
-    Route::delete('solicitudes/{id}', [SolicitudesController::class, 'destroy'])->middleware('auth:truck_driver')->name('solicitudes.destroy');
+    Route::put('solicitudes/{id}/cancelar', [SolicitudesController::class, 'cancelarViaje'])->middleware('auth:truck_driver')->name('solicitudes.destroy');
 
     // Rutas sobre los viajes
     Route::get('viajes', [ViajesController::class, 'index'])->middleware('auth:truck_driver');

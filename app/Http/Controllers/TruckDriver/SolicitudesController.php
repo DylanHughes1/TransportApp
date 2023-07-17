@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\viajes;
 use Illuminate\Support\Facades\DB;
+use App\Models\ViajeInicial;
 
 class SolicitudesController extends Controller
 {
@@ -53,11 +54,21 @@ class SolicitudesController extends Controller
     /**
      * Elimina la solicitud.
      */
-    public function destroy($id)
+    public function cancelarViaje($id)
     {
 
         $solicitud = Solicitudes::find($id);
+
+
+        $viaje_inicial = new ViajeInicial();
+        $viaje_inicial->dia1 = $solicitud->dia1;
+        $viaje_inicial->salida = $solicitud->salida;
+        $viaje_inicial->dia2 = $solicitud->dia2;
+        $viaje_inicial->llegada = $solicitud->llegada;
+        $viaje_inicial->TN = $solicitud->TN;
+
         $solicitud->delete();
+        $viaje_inicial->save();
 
         // redirect
         return redirect("/truck_driver/solicitudes");

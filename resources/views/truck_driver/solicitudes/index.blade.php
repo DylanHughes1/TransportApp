@@ -69,9 +69,9 @@
                                                         <button type="submit" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Aceptar</button>
                                                     </form>
                                                 
-                                                    <form action="/truck_driver/solicitudes/{{$solicitud->id}}" method="POST" class="inline-block">
+                                                    <form action="/truck_driver/solicitudes/{{$solicitud->id}}/cancelar" method="POST" class="inline-block">
                                                         @csrf
-                                                        @method('DELETE')
+                                                        @method('PUT')
                                                         <button type="submit" class="font-medium text-red-600 dark:text-red-500 hover:underline">Cancelar</button> 
                                                     </form>
                                                 </td>
