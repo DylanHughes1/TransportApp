@@ -141,7 +141,7 @@ class ViajesController extends Controller
      */
     public function storeCombustible(Request $request, $id)
     {
-        
+        dd("ENTRE MAL");
         $request->validate([
             'Km' => 'required|integer',
             'fecha' => 'required|date',
@@ -163,6 +163,25 @@ class ViajesController extends Controller
 
 
         return redirect("/truck_driver/viajes/b/$id")->with('status', 'Cambios Guardados');
+    }
+
+    public function crearViajeVacio(Request $request, $id){
+
+        $viaje = new viajes();
+        $viaje->fecha_salida = $request->fecha_salida;
+        $viaje->origen = $request->origen;
+        $viaje->fecha_llegada = $request->fecha_llegada;
+        $viaje->destino = $request->destino;   
+        $viaje->km_salida = $request->km_salida;
+        $viaje->km_llegada = $request->km_llegada;
+        $viaje->km_viaje = $request->km_viaje;
+        $viaje->km_1_2 = $request->km_1_2;
+
+        $viaje->truckdriver_id = auth()->user()->id;
+        $viaje->enCurso = false;
+        $viaje->save();
+       
+        return redirect("/truck_driver/viajes/b/$id");
     }
 
     /**
