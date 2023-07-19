@@ -30,8 +30,7 @@ return new class extends Migration
 
             $table->integer('control_desc')->nullable();
             $table->integer('km_1_2')->nullable();     
-            
-            $table->integer('km_vacios')->nullable();  
+             
             $table->longText('observacion')->nullable();
 
             $table->boolean('enCurso')->nullable()->default(false);
@@ -49,9 +48,6 @@ return new class extends Migration
                 ->references('id')
                 ->on('truck_drivers')
                 ->onDelete('cascade');
-
-            $table->unsignedBigInteger('registro_combustible_id')->nullable();
-            $table->foreign('registro_combustible_id')->references('id')->on('registro_combustible')->onDelete('cascade');
            
             $table->timestamps();
         });

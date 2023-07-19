@@ -15,7 +15,6 @@
             <th scope="col" class="px-6 py-3">Km Llegada</th>
             <th scope="col" class="px-6 py-3">Control Descarga</th>
             <th scope="col" class="px-6 py-3">KM 1.2</th>
-            <th scope="col" class="px-6 py-3">KM Vacíos</th>
             <th scope="col" class="px-6 py-3">Combustible</th>
             <th scope="col" class="px-6 py-3">Gastos Extra</th>
 
@@ -39,7 +38,6 @@
                     <td class="validate px-6 py-4">{{ $viaje->km_llegada }}</td>
                     <td class="validate px-6 py-4">{{ $viaje->control_desc }}</td>
                     <td class="validate px-6 py-4">{{ $viaje->km_1_2 }}</td>
-                    <td class="validate px-6 py-4"> {{ $viaje->km_vacios }}</td>
                     <td class="validate px-6 py-4"><a href="#" data-modal-toggle="modalCombustible" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" id="verMasLink">Ver más</a></td>   
                     <td class="validate px-6 py-4"><a href="#" data-modal-toggle="modalGastos" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" id="verMasLink2" style="white-space: nowrap;">Ver más</a></td>                                               
 
@@ -54,7 +52,7 @@
                                 for (var i = 0; i < elementos.length && todosVacios; i++) {
                                     
 
-                                    if(i != 0 && i != 1 && i != 2 && i != 3 && i != 5 && i != 13 && i != 15 && i != 16){
+                                    if(i != 0 && i != 1 && i != 2 && i != 3 && i != 5 && i != 13 && i != 14 && i != 15){
                                         
                                         if (elementos[i].textContent !== null && elementos[i].textContent !== "" && elementos[i].textContent !== " ") {
                                             todosVacios = false;
@@ -62,7 +60,7 @@
                                     }
                                 }
 
-                                for (var i = 0; i < 15; i++) {                             
+                                for (var i = 0; i < 14; i++) {                             
                                         if (elementos[i].textContent !== null && elementos[i].textContent !== "" && elementos[i].textContent !== " ") {
                                             console.log(elementos[i].textContent);
                                             cont++;
@@ -76,13 +74,13 @@
                                         elementos[i].style.color = "black";
                                     }
                                 }
-                                else if(cont < 15 && !todosVacios) {
+                                else if(cont < 14 && !todosVacios) {
                                     for (var i = 0; i < elementos.length; i++) {
                                         elementos[i].style.backgroundColor = "yellow";
                                         elementos[i].style.color = "black";
                                     }
                                 }
-                                else if(cont === 15 && !todosVacios){
+                                else if(cont === 14 && !todosVacios){
                                     for (var i = 0; i < elementos.length; i++) {
                                         elementos[i].style.backgroundColor = "green";
                                         elementos[i].style.color = "white";
@@ -110,11 +108,21 @@
                         </button>
                     </div>
                     <!-- Modal body -->
-                    <div class="p-6 space-y-6">
+                    <div class="p-6 space-y-6 text-center text-lg font-medium text-gray-800">
                         @if(count($viajes) > 0)
-                            {{$viaje->registro_combustible_id}}
+                            <ul>
+                                @foreach($viaje->combustibles as $combustible)
+                                    <li>Km: {{$combustible->Km}}</li>
+                                    <li>Fecha: {{$combustible->fecha}}</li>
+                                    <li>Litros: {{$combustible->litros}}</li>
+                                    <li>Lugar de carga: {{$combustible->lugar_carga}}</li>
+                                    <hr> 
+                                @endforeach
+                            </ul>
+                        @else
+                            <p>No se ha cargado combustible</p>
                         @endif
-                    </div>
+                    </div>                    
                 </div>
             </div>
         </div>

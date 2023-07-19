@@ -19,7 +19,7 @@
                                     @endcomponent
                                 </thead>
                                 <tbody>
-                                    @component('components.planillaComps.form-planilla', ['viajes' => $viajes, 'combustibles' => $combustibles])
+                                    @component('components.planillaComps.form-planilla', ['viajes' => $viajes])
                                     @endcomponent
                                 </tbody>
                             </table>

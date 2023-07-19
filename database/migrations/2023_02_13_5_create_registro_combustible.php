@@ -22,8 +22,8 @@ return new class extends Migration
             $table->String('lugar_carga')->nullable();
             $table->timestamps();
 
-            // $table->unsignedBigInteger('viaje_id')->nullable();
-            // $table->foreign('viaje_id')->references('id')->on('viajes')->onDelete('cascade');
+            $table->unsignedBigInteger('viaje_id')->nullable();
+            $table->foreign('viaje_id')->references('id')->on('viajes')->onDelete('cascade');
         });
     }
 

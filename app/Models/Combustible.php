@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\viajes;
 
 class Combustible extends Model
 {
@@ -12,7 +13,7 @@ class Combustible extends Model
 
     public function viaje()
     {
-        return $this->belongsTo(viajes::class); 
+        return $this->belongsTo(viajes::class, 'viaje_id'); 
     }
 
 }

@@ -13,6 +13,7 @@ use App\Models\Combustible;
 
 class DashboardController extends Controller
 {
+    protected $registro_combustible_id;
     public function __construct()
     {
         /*
@@ -135,13 +136,11 @@ class DashboardController extends Controller
     public function showViajes()
     {
         $truck_drivers = TruckDriver::all();
-        $Viajes = Viajes::all();
-        $combustible = Combustible::all();
+        $Viajes = Viajes::with('combustibles')->get();
 
         return view('admin.viajes_asignados.showViajes')
             ->with('truck_drivers', $truck_drivers)
-            ->with('viajes', $Viajes)
-            ->with('combustibles', $combustible);
+            ->with('viajes', $Viajes);
     }
 
     /**
@@ -165,13 +164,11 @@ class DashboardController extends Controller
 
         $viajes = Viajes::where('truckdriver_id', $id)
             ->where('enCurso', false)
+            ->with('combustibles')
             ->get();
-
-        $combustible = Combustible::all();
 
         return view('admin.planilla.showPlanilla')
             ->with('truck_driver', $truck_driver)
-            ->with('viajes', $viajes)
-            ->with('combustibles', $combustible);
+            ->with('viajes', $viajes);
     }
 }

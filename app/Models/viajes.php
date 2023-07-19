@@ -20,4 +20,10 @@ class viajes extends Model
         return $this->solicitud()->belongsTo(TruckDriver::class);
     }
 
+    public function combustibles()
+    {
+        return $this->hasMany(Combustible::class, 'viaje_id');
+    }
+    
+
 }
