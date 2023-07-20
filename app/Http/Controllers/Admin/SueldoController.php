@@ -61,12 +61,35 @@ class SueldoController extends Controller
             ->with('datos', $datos);
     }
 
+        /**
+     * Actualiza la tabla con los datos base para el sueldo.
+     */
+    public function updateDatosBasicos(Request $request)
+    {
+        $datos = DatosSueldo::all()->first();
+        
+        $datos->sueldo_basico = $request->input('sueldo_basico');
+        $datos->hs_ext_km_recorrido = $request->input('hs_ext_km_recorrido');
+        $datos->perm_f_res = $request->input('perm_f_res');
+        $datos->c_descarga = $request->input('c_descarga');
+        $datos->comida = $request->input('comida');
+        $datos->especial = $request->input('especial');
+        $datos->pernoctada = $request->input('pernoctada');
+        $datos->kms_rec = $request->input('kms_rec');
+        $datos->perm_f_res_larga_distancia = $request->input('perm_f_res_larga_distancia');
+        $datos->cruce_frontera = $request->input('cruce_frontera');
+        $datos->dia_camionero = $request->input('dia_camionero');
+        $datos->vacaciones_anual_x_dia = $request->input('vacaciones_anual_x_dia');
+
+        $datos->save();
+        return redirect("/admin/sueldo/datos")->with('status', 'Cambios Guardados');
+    }
+
     /**
      * Actualiza los datos de la tabla del sueldo de un chofer seleccionado.
      */
     public function updateDatos(Request $request, $id)
     {
-
         $tabla1 = Tabla1::where('truckdriver_id', $id)->first();
         $tabla1->hs_ext_km_recorrido = $request->input('hs_ext_km_recorrido');
         $tabla1->hs_ext_km_recorrido_100 = $request->input('hs_ext_km_recorrido_100');

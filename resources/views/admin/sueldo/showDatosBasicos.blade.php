@@ -13,7 +13,7 @@
                        
                         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
                         
-                        <form method="POST" action="/admin/sueldo/datos">
+                        <form method="POST" action="/admin/sueldo/datos/">
                             @csrf
                             @method('PUT')
                             @foreach($datos as $dato)
@@ -21,7 +21,7 @@
 
                                     <div>
                                         <label for="Basico" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sueldo Básico</label>
-                                        <input type="text" name="Basico" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        <input type="text" name="sueldo_basico" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                         value="{{$dato->sueldo_basico}}">
                                     </div>
                                     <div>
@@ -37,56 +37,56 @@
 
                                     <div>      
                                         <h2 class="text-lg font-bold dark:text-white text-center">Remuneraciones Complementarias</h2>                         
-                                        <label for="blank" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">&nbsp;</label>
+                                        <label for="blank" class="block mb-0 text-sm font-medium text-gray-900 dark:text-white">&nbsp;</label>
                                         
                                         <label for="HS.EXT.KM.RECOR" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">HS.EXT.KM.RECOR</label>
-                                        <input type="text" name="HS.EXT.KM.RECOR" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                                        <input type="text" name="hs_ext_km_recorrido" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                                         value="{{$dato->hs_ext_km_recorrido}}" required>
                                     </div>
                                     <div>
                                         <h2 class="text-lg font-bold dark:text-white text-center">Viáticos Corta y Local</h2>                         
-                                        <label for="blank" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">&nbsp;</label>
+                                        <label for="blank" class="block mb-0 text-sm font-medium text-gray-900 dark:text-white">&nbsp;</label>
                                         
                                         <label for="Comida" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Comida</label>
-                                        <input type="text" name="Comida" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                                        <input type="text" name="comida" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                                         value="{{$dato->comida}}"required="false">
                                     </div>
                                     <div>
                                         <h2 class="text-lg font-bold dark:text-white text-center">Larga Distancia</h2>   
-                                        <label for="blank" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">&nbsp;</label>
+                                        <label for="blank" class="block mb-0 text-sm font-medium text-gray-900 dark:text-white">&nbsp;</label>
                                         
                                         <label for="KMS.REC" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">KMS.REC</label>
-                                        <input type="text" name="KMS.REC" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        <input type="text" name="kms_rec" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                         value="{{$dato->kms_rec}}">
                                     </div>
                                     <div>
                                         <label for="PERM,F/RES" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">PERM,F/RES</label>
-                                        <input type="text" name="PERM,F/RES" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                                        <input type="text" name="perm_f_res" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                                         value="{{$dato->perm_f_res}}" required="false">
                                     </div>
                                     <div>
                                         <label for="Especial" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Especial</label>
-                                        <input type="text" name="Especial" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        <input type="text" name="especial" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                         value="{{$dato->especial}}">
                                     </div>
                                     <div>
                                         <label for="PERM.F/RES" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">PERM.F/RES</label>
-                                        <input type="text" name="PERM.F/RES" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        <input type="text" name="perm_f_res_larga_distancia" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                         value="{{$dato->perm_f_res_larga_distancia}}">
                                     </div>
                                     <div>
                                         <label for="C.DESCARGA" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">C.Descarga</label>
-                                        <input type="text" name="C.DESCARGA" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                                        <input type="text" name="c_descarga" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                                         value="{{$dato->c_descarga}}" required="false">
                                     </div>
                                     <div>
                                         <label for="Pernoctada" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pernoctada</label>
-                                        <input type="text" name="Pernoctada" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        <input type="text" name="pernoctada" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                         value="{{$dato->pernoctada}}">
                                     </div>
                                     <div>
                                         <label for="Cruce Frontera" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cruce Frontera</label>
-                                        <input type="text" name="Cruce Frontera" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        <input type="text" name="cruce_frontera" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                         value="{{$dato->cruce_frontera}}">
                                     </div>
 
