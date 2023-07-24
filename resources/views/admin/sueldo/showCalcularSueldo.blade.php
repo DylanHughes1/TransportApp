@@ -21,7 +21,7 @@
                                 </h5>
                                 <h5>
                                     <span class="text-gray-500">Kilómetros:</span>
-                                    <span class="dark:text-white">$8.226,00</span>
+                                    <span class="dark:text-white">8.226,00</span>
                                 </h5>
                             </div>   
                      
@@ -96,7 +96,7 @@
                                         </th>
                                         <td class="px-6 py-3">
                                             
-                                            <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="hs_ext_km_recorrido_100" value=" {{$tabla1->hs_ext_km_recorrido_100}}" disabled>
+                                            <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="hs_ext_km_recorrido_100" value="{{ $tabla1->hs_ext_km_recorrido_100 }}" disabled>
                                         </td>
                                         <td class="mr-6 py-3">
                                             {{$datos->hs_ext_km_recorrido}}
@@ -114,7 +114,7 @@
                                             Permanencia fuera Resid. Habit inc.b)
                                         </th>
                                         <td class="px-6 py-3">
-                                            <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="perm_f_res" value=" {{$tabla1->perm_f_res}}" disabled>
+                                            <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="perm_f_res" value=" {{ $tabla1->perm_f_res }}" disabled>
                                         </td>
                                         <td class="mr-6 py-3">
                                             {{$datos->perm_f_res}}
@@ -133,7 +133,7 @@
                                         </th>
                                         <td class="px-6 py-3">
                                             
-                                            <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="c_descarga" value=" {{$tabla1->c_descarga}}" disabled>
+                                            <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="c_descarga" value="{{ $tabla1->c_descarga }}" disabled>
                                         </td>
                                         <td class="mr-6 py-3">
                                             {{$datos->c_descarga}}
@@ -209,7 +209,7 @@
                                         <td class="px-6 py-3">
                                             
                                         </td>
-                                        <td class="px-6 py-3">
+                                        <td class="px-6 py-8">
                                             
                                         </td>
                                         <td class="columna-total px-6 py-3">
@@ -251,7 +251,7 @@
                                         </td>
                                         <td class="w-48"></td> 
                                         <td class="px-4 py-3">
-                                            <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-14 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="antig" value=" {{$tabla1->antig}}"disabled>
+                                            <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-14 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="antig" value="{{intval($tabla1->antig)}}"disabled>
                                         </td>
                                         <td class="subtotal1 px-6 py-3">
                                             @php
@@ -262,7 +262,7 @@
                                     
                                     </tr>
                                     <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                                        <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        <th scope="row" class="px-6 py-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             Vacaciones Anuales
                                         </th>
                                         <td class="w-24"></td> 
@@ -279,7 +279,7 @@
                                 </tbody>
                                 <tfoot>
                                     <tr class="font-semibold bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white">
-                                        <th scope="row" class="px-6 py-3 text-base">TOTAL REMUNERATIVO</th>
+                                        <th scope="row" class="px-6 py-6 text-base">TOTAL REMUNERATIVO</th>
                                         <td class="px-6 py-3"></td>
                                         <td class="px-6 py-3"></td>
                                         <td class="px-6 py-3"></td>
@@ -326,7 +326,7 @@
                                                     Jubilación
                                                 </th>
                                                 <td class="px-6 py-3">
-                                                    <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="jubilacion" value=" {{floatval($tabla2->jubilacion)}}%"disabled>
+                                                    <input  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="jubilacion" value=" {{floatval($tabla2->jubilacion)}}%"disabled>
                                                 </td>
                                                 <td class="px-6 py-3">
                                                     -
@@ -344,7 +344,7 @@
                                                     Obra Social
                                                 </th>
                                                 <td class="px-6 py-3">
-                                                    <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="obra_social" value=" {{floatval($tabla2->obra_social)}}%"disabled>
+                                                    <input  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="obra_social" value=" {{floatval($tabla2->obra_social)}}%"disabled>
                                                 </td>
                                                 <td class="px-6 py-3">
                                                     
@@ -362,7 +362,7 @@
                                                     Cuota Solidaria
                                                 </th>
                                                 <td class="px-6 py-3">
-                                                    <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="cuota_solidaria" value=" {{floatval($tabla2->cuota_solidaria)}}%"disabled>
+                                                    <input  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="cuota_solidaria" value=" {{floatval($tabla2->cuota_solidaria)}}%"disabled>
                                                 </td>
                                                 <td class="px-6 py-3">
                                                     
@@ -380,7 +380,7 @@
                                                     Ley 19.032
                                                 </th>
                                                 <td class="px-6 py-3">
-                                                    <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="ley_19032" value=" {{floatval($tabla2->ley_19032)}}%"disabled>
+                                                    <input  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="ley_19032" value=" {{floatval($tabla2->ley_19032)}}%"disabled>
                                                 </td>
                                                 <td class="px-6 py-3">
                                                     
@@ -398,7 +398,7 @@
                                                     Seguro Sepelio
                                                 </th>
                                                 <td class="px-6 py-3">
-                                                    <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="seguro_sepelio" value=" {{floatval($tabla2->seguro_sepelio)}}%"disabled>
+                                                    <input  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="seguro_sepelio" value=" {{floatval($tabla2->seguro_sepelio)}}%"disabled>
                                                 </td>
                                                 <td class="px-6 py-3">
                                                     
@@ -416,7 +416,7 @@
                                                     AJU.APO.DTO.561/19
                                                 </th>
                                                 <td class="px-6 py-3">
-                                                    <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="aju_apo_dto" value=" {{floatval($tabla2->aju_apo_dto)}}%"disabled>
+                                                    <input  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="aju_apo_dto" value=" {{floatval($tabla2->aju_apo_dto)}}%"disabled>
                                                 </td>
                                                 <td class="px-6 py-3">
                                                     
@@ -434,7 +434,7 @@
                                                     ASOC.MUT.1NOV.PMOS
                                                 </th>
                                                 <td class="px-6 py-3">
-                                                    <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="asoc_mut_1nov" value=" {{floatval($tabla2->asoc_mut_1nov)}}%"disabled>
+                                                    <input  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="asoc_mut_1nov" value=" {{floatval($tabla2->asoc_mut_1nov)}}%"disabled>
                                                 </td>
                                                 <td class="px-6 py-3">
                                                     
@@ -508,7 +508,7 @@
                                             Viático por Km recorrido cohef. 1
                                         </th>
                                         <td class="px-6 py-3">
-                                            <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="viatico_x_km" value=" {{floatval($tabla3->viatico_x_km)}}"disabled>
+                                            <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="viatico_x_km" value="{{$tabla3->viatico_x_km}}"disabled>
                                         </td>
                                         <td class="px-6 py-3">
                                             {{$datos->kms_rec}}
@@ -523,7 +523,7 @@
                                             Cruce Frontera
                                         </th>
                                         <td class="px-6 py-3">
-                                            <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="cruce_frontera" value=" {{floatval($tabla3->cruce_frontera)}}"disabled>
+                                            <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="cruce_frontera" value="{{$tabla3->cruce_frontera}}"disabled>
                                         </td>
                                         <td class="px-6 py-3">
                                             {{$datos->cruce_frontera}}
@@ -538,7 +538,7 @@
                                             Comida
                                         </th>
                                         <td class="px-6 py-3">
-                                            <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="comida" value=" {{floatval($tabla3->comida)}}"disabled>
+                                            <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="comida" value="{{$tabla3->comida}}"disabled>
                                         </td>
                                         <td class="px-6 py-3">
                                             {{$datos->comida}}
@@ -553,7 +553,7 @@
                                             Especial
                                         </th>
                                         <td class="px-6 py-3">
-                                            <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="especial" value=" {{floatval($tabla3->especial)}}"disabled>
+                                            <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="especial" value="{{$tabla3->especial}}"disabled>
                                         </td>
                                         <td class="px-6 py-3">
                                             {{$datos->especial}}
@@ -568,7 +568,7 @@
                                             Pernoctada
                                         </th>
                                         <td class="px-6 py-3">
-                                            <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="pernoctada" value=" {{floatval($tabla3->pernoctada)}}"disabled>
+                                            <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="pernoctada" value="{{$tabla3->pernoctada}}"disabled>
                                         </td>
                                         <td class="px-6 py-3">
                                             {{$datos->pernoctada}}
@@ -583,7 +583,7 @@
                                             Permanencia fuera residencia habit inc. a)
                                         </th>
                                         <td class="px-6 py-3">
-                                            <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="permanencia_fuera_rec" value=" {{floatval($tabla3->permanencia_fuera_rec)}}"disabled>
+                                            <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="permanencia_fuera_rec" value="{{$tabla3->permanencia_fuera_rec}}"disabled>
                                         </td>
                                         <td class="px-6 py-3">
                                             {{$datos->perm_f_res}}
@@ -598,7 +598,7 @@
                                             Viático KM recorri 1,2
                                         </th>
                                         <td class="px-6 py-3">
-                                            <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="viatico_km_1_2" value=" {{floatval($tabla3->viatico_km_1_2)}}"disabled>
+                                            <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="viatico_km_1_2" value="{{$tabla3->viatico_km_1_2}}"disabled>
                                         </td>
                                         <td class="px-6 py-3">
                                             {{$datos->km_1_2}}
@@ -613,7 +613,7 @@
                                             Adicional Vacaciones Anuales 2022
                                         </th>
                                         <td class="px-6 py-3">
-                                            <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="adicional_vacas_anuales" value=" {{floatval($tabla3->adicional_vacas_anuales)}}"disabled>
+                                            <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="adicional_vacas_anuales" value="{{$tabla3->adicional_vacas_anuales}}"disabled>
                                         </td>
                                         <td class="px-6 py-3">
                                             {{$datos->vacaciones_anual_x_dia}}
@@ -679,15 +679,15 @@
                                 <table class="w-auto bg-gray-200 border border-gray-300">
                                   <tr>
                                     <td class="px-4 py-2 text-center border-b">Adelantos:</td>
-                                    <td class="px-4 py-2 text-center border-b"> <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="adelantos" value=" {{floatval($tabla3->adelantos)}}"disabled></td>
+                                    <td class="px-4 py-2 text-center border-b"> <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="adelantos" value="{{$tabla3->adelantos}}"disabled></td>
                                   </tr>
                                   <tr>
                                     <td class="px-4 py-2 text-center border-b">Celular:</td>
-                                    <td class="px-4 py-2 text-center border-b"><input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="celular" value=" {{floatval($tabla3->celular)}}"disabled></td>
+                                    <td class="px-4 py-2 text-center border-b"><input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="celular" value="{{$tabla3->celular}}"disabled></td>
                                   </tr>
                                   <tr>
                                     <td class="px-4 py-2 text-center border-b">Gastos:</td>
-                                    <td class="px-4 py-2 text-center border-b"><input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="gastos" value=" {{floatval($tabla3->gastos)}}"disabled></td>
+                                    <td class="px-4 py-2 text-center border-b"><input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="gastos" value="{{$tabla3->gastos}}"disabled></td>
                                   </tr>
                                   <tr>
                                     <td class="px-4 py-2 text-center border-b font-bold">Subtotal:</td>
@@ -714,7 +714,7 @@
                                             <td class="px-6 py-3"></td><td class="px-6 py-3"></td><td class="px-6 py-3"></td>
                                             <td class="px-6 py-3"></td><td class="px-6 py-3">
                                             
-                                            <td class="px-6 py-3 text-center text-base">$230.243</td>
+                                            <td class="px-6 py-3 text-center text-base">{{$tabla3->total_remun2 - $tabla3->adelantos - $tabla3->celular - $tabla3->gastos}}</td>
                                         </tr>
                                     </tfoot>
                                     </tbody>
