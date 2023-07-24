@@ -26,11 +26,11 @@
                             </div>   
                      
                             <div class="flex justify-end mb-4">
-                                <button id="editButton" type="button" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">Editar</button>
+                                <button id="editButton2" type="button" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">Editar</button>
                     
                     <form id="myForm" action="/admin/sueldo/calcular/{{$truck_driver->id}}"  method="POST">  
                         @csrf
-                                <button id="saveButton" type="submit" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">Guardar</button>
+                                <button id="saveButton" type="submit" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" disabled>Guardar</button>
                             </div>                
                         </div>
 
@@ -44,7 +44,7 @@
                                         <th scope="col" class="px-6 py-3">
                                             Cantidad
                                         </th>
-                                        <th scope="col" class="px-6 py-3">
+                                        <th scope="col" class="mr-6 py-3">
                                             Valor
                                         </th>
                                         <th scope="col" class="px-6 py-3">
@@ -56,32 +56,33 @@
 
                                 <tbody class="text-justify">
                                     <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        <th scope="row" class="px-6 py-5 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             Sueldo Básico
                                         </th>
-                                        <td class="px-6 py-4">
+                                        <td class="px-6 py-3">
                                             Días
                                         </td>
-                                        <td class="px-6 py-4">
+                                        <td class="mr-6 py-3">
                                             30
                                         </td>
-                                        <td class="columna-total px-6 py-4">
+                                        <td class="columna-total px-6 py-3">
                                             {{$datos->sueldo_basico}}
                                         </td>
                                     
                                     </tr>
                                 
                                     <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             Hs Extraordinarias por km recorrido
                                         </th>
-                                        <td class="px-6 py-4">
-                                            <input name="hs_ext_km_recorrido" value="{{$tabla1->hs_ext_km_recorrido}}" disabled>
+                                        <td class="px-6 py-3">
+                                            <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="hs_ext_km_recorrido" value="{{ $tabla1->hs_ext_km_recorrido }}" disabled>
                                         </td>
-                                        <td class="px-6 py-4">
+                                        
+                                        <td class="mr-6 py-3">
                                             {{$datos->hs_ext_km_recorrido}}
                                         </td>
-                                        <td class="columna-total px-6 py-4">
+                                        <td class="columna-total px-6 py-3">
                                             @php
                                                 $producto = $tabla1->hs_ext_km_recorrido * $datos->hs_ext_km_recorrido;
                                                 echo $producto;
@@ -90,17 +91,17 @@
                                     
                                     </tr>
                                     <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             Hs Extraord. por km recorrido – 100%
                                         </th>
-                                        <td class="px-6 py-4">
+                                        <td class="px-6 py-3">
                                             
-                                            <input name="hs_ext_km_recorrido_100" value=" {{$tabla1->hs_ext_km_recorrido_100}}" disabled>
+                                            <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="hs_ext_km_recorrido_100" value=" {{$tabla1->hs_ext_km_recorrido_100}}" disabled>
                                         </td>
-                                        <td class="px-6 py-4">
+                                        <td class="mr-6 py-3">
                                             {{$datos->hs_ext_km_recorrido}}
                                         </td>
-                                        <td class="columna-total px-6 py-4">
+                                        <td class="columna-total px-6 py-3">
                                             @php
                                                 $producto = $tabla1->hs_ext_km_recorrido_100 * $datos->hs_ext_km_recorrido;
                                                 echo $producto;
@@ -109,16 +110,16 @@
                                     
                                     </tr>
                                     <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             Permanencia fuera Resid. Habit inc.b)
                                         </th>
-                                        <td class="px-6 py-4">
-                                            <input name="perm_f_res" value=" {{$tabla1->perm_f_res}}" disabled>
+                                        <td class="px-6 py-3">
+                                            <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="perm_f_res" value=" {{$tabla1->perm_f_res}}" disabled>
                                         </td>
-                                        <td class="px-6 py-4">
+                                        <td class="mr-6 py-3">
                                             {{$datos->perm_f_res}}
                                         </td>
-                                        <td class="columna-total px-6 py-4">
+                                        <td class="columna-total px-6 py-3">
                                             @php
                                                 $producto = $tabla1->perm_f_res * $datos->perm_f_res;
                                                 echo $producto;
@@ -127,17 +128,17 @@
                                     
                                     </tr>
                                     <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             Control descarga
                                         </th>
-                                        <td class="px-6 py-4">
+                                        <td class="px-6 py-3">
                                             
-                                            <input name="c_descarga" value=" {{$tabla1->c_descarga}}" disabled>
+                                            <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="c_descarga" value=" {{$tabla1->c_descarga}}" disabled>
                                         </td>
-                                        <td class="px-6 py-4">
+                                        <td class="mr-6 py-3">
                                             {{$datos->c_descarga}}
                                         </td>
-                                        <td class="columna-total px-6 py-4">
+                                        <td class="columna-total px-6 py-3">
                                             @php
                                                 $producto = $tabla1->c_descarga * $datos->c_descarga;
                                                 echo $producto;
@@ -146,17 +147,17 @@
                                     
                                     </tr>
                                     <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             Horas extras al 50%
                                         </th>
-                                        <td class="px-6 py-4">
+                                        <td class="px-6 py-3">
                                             
-                                            <input name="hs_50" value=" {{$tabla1->hs_50}}"disabled>
+                                            <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="hs_50" value=" {{$tabla1->hs_50}}"disabled>
                                         </td>
-                                        <td class="px-6 py-4">
+                                        <td class="mr-6 py-3">
                                             {{$datos->hs_50}}
                                         </td>
-                                        <td class="columna-total px-6 py-4">
+                                        <td class="columna-total px-6 py-3">
                                             @php
                                                 $producto = $tabla1->hs_50 * $datos->hs_50;
                                                 echo $producto;
@@ -165,17 +166,17 @@
                                     
                                     </tr>
                                     <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             Horas extras al 100%
                                         </th>
-                                        <td class="px-6 py-4">
+                                        <td class="px-6 py-3">
                                             
-                                            <input name="hs_100" value=" {{$tabla1->hs_100}}"disabled>
+                                            <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="hs_100" value=" {{$tabla1->hs_100}}"disabled>
                                         </td>
-                                        <td class="px-6 py-4">
+                                        <td class="mr-6 py-3">
                                             {{$datos->hs_100}}
                                         </td>
-                                        <td class="columna-total px-6 py-4">
+                                        <td class="columna-total px-6 py-3">
                                             @php
                                                 $producto = $tabla1->hs_100 * $datos->hs_100;
                                                 echo $producto;
@@ -184,40 +185,43 @@
                                     
                                     </tr>
                                     <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             Inasistencias Injustificadas
                                         </th>
-                                        <td class="px-6 py-4">
+                                        <td class="px-6 py-3">
                                             Días
                                         </td>
-                                        <td name="inasistencias_inj" class="px-6 py-4">
-                                            {{$tabla1->inasistencias_inj}}
+                                        <td name="inasistencias_inj" class="mr-6 py-3">
+                                            <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-14 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="inasistencias_inj" value="{{$tabla1->inasistencias_inj}}" disabled>
                                         </td>
-                                        <td class="px-6 py-4">
-                                            -
+                                        <td class="columna-total px-6 py-3">
+                                            @php
+                                                $producto = -1*($tabla1->inasistencias_inj * ($datos->sueldo_basico/30));
+                                                echo ($producto == 0) ? '0' : $producto;
+                                            @endphp
                                         </td>
                                     
                                     </tr>
                                     <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             Dia del Camionero (15 diciembre)
                                         </th>
-                                        <td class="px-6 py-4">
+                                        <td class="px-6 py-3">
                                             
                                         </td>
-                                        <td class="px-6 py-4">
+                                        <td class="px-6 py-3">
                                             
                                         </td>
-                                        <td class="px-6 py-4">
-                                            -
+                                        <td class="columna-total px-6 py-3">
+                                            {{$datos->dia_camionero}}
                                         </td>           
                                     </tr>
                                     <tfoot>
                                         <tr class="font-semibold border-b bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white">
-                                            <th scope="row" class="px-6 py-3 text-base">SUBTOTAL 1</th>
-                                            <td class="px-6 py-4"></td>
-                                            <td class="px-6 py-4"></td>
-                                            <td id="total" class="subtotal1 px-6 py-4"></td>
+                                            <th scope="row" class="px-6 py-3 text-base text">SUBTOTAL 1</th>
+                                            <td class="px-6 py-3"></td>
+                                            <td class="px-6 py-3"></td>
+                                           <td class="px-6 py-5"> {{$tabla1->subtotal1}} </td>
                                         </tr>
                                     </tfoot>
                                 </tbody>
@@ -226,8 +230,9 @@
                     
                             
                         <script>
-                            $('#editButton').click(function() {
+                            $('#editButton2').click(function() {
                                 $('input[disabled]').prop('disabled', false);
+                                $('button[disabled]').prop('disabled', false);
                             });                           
                         </script>
 {{-- ---------------------------------------------------------------------------------------- --}}
@@ -237,31 +242,37 @@
                             <table class="w-full text-sm text-justify text-gray-500 dark:text-gray-400">
                                 <tbody>
                                     <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white w-150">
                                             Antigüedad
-                                        </th>
-                                        <td class="px-6 py-4">
-                                            Años
+                                        </th>      
+                                        <td class="w-24"></td>                                  
+                                        <td class="px-6 py-3">
+                                            Años:
                                         </td>
-                                        <td class="px-6 py-4">
-                                            15
+                                        <td class="w-48"></td> 
+                                        <td class="px-4 py-3">
+                                            <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-14 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="antig" value=" {{$tabla1->antig}}"disabled>
                                         </td>
-                                        <td class="subtotal1 px-6 py-4">
-                                            30441.72
+                                        <td class="subtotal1 px-6 py-3">
+                                            @php
+                                                $producto = ($tabla1->antig * $datos->subtotal1 * 0.01);
+                                                echo $producto;
+                                            @endphp
                                         </td>
                                     
                                     </tr>
                                     <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             Vacaciones Anuales
                                         </th>
-                                        <td class="px-6 py-4">
-                                            Días
+                                        <td class="w-24"></td> 
+                                        <td class="px-6 py-3">
+                                            Días:
                                         </td>
-                                        <td class="px-6 py-4">
+                                        <td class="px-6 py-3">
                                             
                                         </td>
-                                        <td class="subtotal1 px-6 py-4">
+                                        <td class="subtotal1 px-6 py-3">
                                             0
                                         </td>                                
                                     </tr>                             
@@ -269,12 +280,12 @@
                                 <tfoot>
                                     <tr class="font-semibold bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white">
                                         <th scope="row" class="px-6 py-3 text-base">TOTAL REMUNERATIVO</th>
-                                        <td class="px-6 py-4"></td>
-                                        <td class="px-6 py-4"></td>
-                                        <td class="px-6 py-4"></td>
-                                        <td class="px-6 py-4"></td>
-                                        <td class="px-6 py-4">
-                                            <input id="totalR" name="totalR" value="" disabled>
+                                        <td class="px-6 py-3"></td>
+                                        <td class="px-6 py-3"></td>
+                                        <td class="px-6 py-3"></td>
+                                        <td class="px-6 py-3"></td>
+                                        <td class="px-6 py-3">
+                                            {{$tabla1->total_remun1}}
                                         </td>
                                     </tr>
                                 </tfoot>
@@ -284,221 +295,194 @@
 {{-- ---------------------------------------------------------------------------------------- --}}
                         <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700">
 
-                        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 border-b">
-                                    <tr>
-                                        <th scope="col" class="px-6 py-3">
-                                            Descuentos
-                                        </th>
-                                        <th scope="col" class="px-6 py-3">
-                                            Porcentaje
-                                        </th>
-                                        <th scope="col" class="px-6 py-3">
-                                            
-                                        </th>
-                                        <th scope="col" class="px-6 py-3">
-                                            Total
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            Jubilación
-                                        </th>
-                                        <td class="px-6 py-4">
-                                            <input name="jubilacion" value=" {{intval($tabla2->jubilacion)}}%"disabled>
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            -
-                                        </td>
-                                        <td class="descuento px-6 py-4">
-                                            @php
-                                              $producto = ($tabla2->jubilacion/100) * $tabla1->total_remun1;
-                                              echo str_replace(',', '', number_format($producto, 2));
-                                            @endphp
-                                        </td>
-                                    
-                                    </tr>
-                                    <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            Obra Social
-                                        </th>
-                                        <td class="px-6 py-4">
-                                            <input name="obra_social" value=" {{intval($tabla2->obra_social)}}%"disabled>
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            
-                                        </td>
-                                        <td class="descuento px-6 py-4">
-                                            @php
-                                              $producto = ($tabla2->obra_social/100) * $tabla1->total_remun1;
-                                              echo str_replace(',', '', number_format($producto, 2));
-                                            @endphp
-                                        </td>
-                                    
-                                    </tr>
-                                    <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            Cuota Solidaria
-                                        </th>
-                                        <td class="px-6 py-4">
-                                            <input name="cuota_solidaria" value=" {{intval($tabla2->cuota_solidaria)}}%"disabled>
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            
-                                        </td>
-                                        <td class="descuento px-6 py-4">
-                                            @php
-                                              $producto = ($tabla2->cuota_solidaria/100) * $tabla1->total_remun1;
-                                              echo str_replace(',', '', number_format($producto, 2));
-                                            @endphp
-                                        </td>
-                                    
-                                    </tr>
-                                    <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            Ley 19.032
-                                        </th>
-                                        <td class="px-6 py-4">
-                                            <input name="ley_19032" value=" {{intval($tabla2->ley_19032)}}%"disabled>
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            
-                                        </td>
-                                        <td class="descuento px-6 py-4">
-                                            @php
-                                              $producto = ($tabla2->ley_19032/100) * $tabla1->total_remun1;
-                                              echo str_replace(',', '', number_format($producto, 2));
-                                            @endphp
-                                        </td>
-                                    
-                                    </tr>
-                                    <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            Seguro Sepelio
-                                        </th>
-                                        <td class="px-6 py-4">
-                                            <input name="seguro_sepelio" value=" {{intval($tabla2->seguro_sepelio)}}%"disabled>
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            
-                                        </td>
-                                        <td class="descuento px-6 py-4">
-                                            @php
-                                              $producto = ($tabla2->seguro_sepelio/100) * $tabla1->total_remun1;
-                                              echo str_replace(',', '', number_format($producto, 2));
-                                            @endphp
-                                        </td>
-                                    
-                                    </tr>
-                                    <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            AJU.APO.DTO.561/19
-                                        </th>
-                                        <td class="px-6 py-4">
-                                            <input name="aju_apo_dto" value=" {{intval($tabla2->aju_apo_dto)}}%"disabled>
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            
-                                        </td>
-                                        <td class="descuento px-6 py-4">
-                                            @php
-                                              $producto = ($tabla2->aju_apo_dto/100) * $tabla1->total_remun1;
-                                              echo str_replace(',', '', number_format($producto, 2));
-                                            @endphp
-                                        </td>
-                                    
-                                    </tr>
-                                    <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            ASOC.MUT.1NOV.PMOS
-                                        </th>
-                                        <td class="px-6 py-4">
-                                            <input name="asoc_mut_1nov" value=" {{intval($tabla2->asoc_mut_1nov)}}%"disabled>
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            
-                                        </td>
-                                        <td class="descuento px-6 py-4">
-                                            @php
-                                              $producto = ($tabla2->asoc_mut_1nov/100) * $tabla1->total_remun1;
-                                              echo str_replace(',', '', number_format($producto, 2));
-                                            @endphp
-                                        </td>
-                                    
-                                    </tr>
-                                    <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            TOTAL DE DESCUENTO
-                                        </th>
-                                        <td class="px-6 py-4">
-                                            
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            
-                                        </td>
-                                        <td class="px-6 py-4 text-red-500 font-bold">
-                                            <input id="totalDesc" name="totalDesc" value="" disabled>
-                                        </td>
-                                    </tr>
-                                    <tfoot>
-                                        <tr class="font-semibold border-b bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white">
-                                            <th scope="row" class="px-6 py-3 text-base">SUBTOTAL 2</th>
-                                            <td class="px-6 py-4"></td>
-                                            <td class="px-6 py-4"></td>
-                                            <td class="px-6 py-4">$182.808,41</td>
-                                        </tr>
-                                    </tfoot>
-                                </tbody>
-                            </table>
-                        </div>
+                        <div class="flex justify-end mb-4 mr-4">
+                
+                        <form id="myForm" action="/admin/sueldo/calcular/{{$truck_driver->id}}/2"  method="POST">  
+                            @csrf
+                                    <button id="saveButton2" type="submit" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" disabled>Guardar</button>
+                                </div>  
 
-                        <script>
-                            // Calcula el total al cargar la página
-                            window.onload = function() {
-                                calcularTotal();
-                                calcularDescuento();
-                            };
-                            function calcularTotal() {
-                                
-                                var total1 = 0;
-                                var columnasTotal = document.getElementsByClassName('columna-total');
-                                for (var i = 0; i < columnasTotal.length; i++) {
-                                total1 += parseFloat(columnasTotal[i].textContent);
-                                }
-                                document.getElementById('total').textContent = total1.toFixed(2);
-
-                                var total2 = 0;
-                                var columnasTotal = document.getElementsByClassName('subtotal1');
-                                for (var i = 0; i < columnasTotal.length; i++) {                                 
-                                    total2 += parseFloat(columnasTotal[i].textContent);
-                                }
-                                document.getElementById('totalR').value = total2.toFixed(2);
-                            }
-                            
-                            function calcularDescuento() {
-                                
-                                var total1 = 0;
-                                var columnasTotal = document.getElementsByClassName('descuento');
-                                for (var i = 0; i < columnasTotal.length; i++) {
-                                    console.log(parseFloat(columnasTotal[i].textContent));
-                                    total1 += parseFloat(columnasTotal[i].textContent);
-                                }
-                                document.getElementById('totalDesc').value = "-" + total1.toFixed(2);
-
-                                // var total2 = 0;
-                                // var columnasTotal = document.getElementsByClassName('subtotal1');
-                                // for (var i = 0; i < columnasTotal.length; i++) {                                 
-                                //     total2 += parseFloat(columnasTotal[i].textContent);
-                                // }
-                                // document.getElementById('totalR').value = total2.toFixed(2);
-                            }
-                        </script>
-
+                                <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 border-b">
+                                            <tr>
+                                                <th scope="col" class="px-6 py-3">
+                                                    Descuentos
+                                                </th>
+                                                <th scope="col" class="px-6 py-3">
+                                                    Porcentaje
+                                                </th>
+                                                <th scope="col" class="px-6 py-3">
+                                                    
+                                                </th>
+                                                <th scope="col" class="px-6 py-3">
+                                                    Total
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                                                <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    Jubilación
+                                                </th>
+                                                <td class="px-6 py-3">
+                                                    <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="jubilacion" value=" {{floatval($tabla2->jubilacion)}}%"disabled>
+                                                </td>
+                                                <td class="px-6 py-3">
+                                                    -
+                                                </td>
+                                                <td class="descuento px-6 py-3">
+                                                    @php
+                                                    $producto = ($tabla2->jubilacion/100) * $tabla1->total_remun1;
+                                                    echo str_replace(',', '', number_format($producto, 2));
+                                                    @endphp
+                                                </td>
+                                            
+                                            </tr>
+                                            <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                                                <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    Obra Social
+                                                </th>
+                                                <td class="px-6 py-3">
+                                                    <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="obra_social" value=" {{floatval($tabla2->obra_social)}}%"disabled>
+                                                </td>
+                                                <td class="px-6 py-3">
+                                                    
+                                                </td>
+                                                <td class="descuento px-6 py-3">
+                                                    @php
+                                                    $producto = ($tabla2->obra_social/100) * $tabla1->total_remun1;
+                                                    echo str_replace(',', '', number_format($producto, 2));
+                                                    @endphp
+                                                </td>
+                                            
+                                            </tr>
+                                            <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                                                <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    Cuota Solidaria
+                                                </th>
+                                                <td class="px-6 py-3">
+                                                    <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="cuota_solidaria" value=" {{floatval($tabla2->cuota_solidaria)}}%"disabled>
+                                                </td>
+                                                <td class="px-6 py-3">
+                                                    
+                                                </td>
+                                                <td class="descuento px-6 py-3">
+                                                    @php
+                                                    $producto = ($tabla2->cuota_solidaria/100) * $tabla1->total_remun1;
+                                                    echo str_replace(',', '', number_format($producto, 2));
+                                                    @endphp
+                                                </td>
+                                            
+                                            </tr>
+                                            <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                                                <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    Ley 19.032
+                                                </th>
+                                                <td class="px-6 py-3">
+                                                    <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="ley_19032" value=" {{floatval($tabla2->ley_19032)}}%"disabled>
+                                                </td>
+                                                <td class="px-6 py-3">
+                                                    
+                                                </td>
+                                                <td class="descuento px-6 py-3">
+                                                    @php
+                                                    $producto = ($tabla2->ley_19032/100) * $tabla1->total_remun1;
+                                                    echo str_replace(',', '', number_format($producto, 2));
+                                                    @endphp
+                                                </td>
+                                            
+                                            </tr>
+                                            <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                                                <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    Seguro Sepelio
+                                                </th>
+                                                <td class="px-6 py-3">
+                                                    <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="seguro_sepelio" value=" {{floatval($tabla2->seguro_sepelio)}}%"disabled>
+                                                </td>
+                                                <td class="px-6 py-3">
+                                                    
+                                                </td>
+                                                <td class="descuento px-6 py-3">
+                                                    @php
+                                                    $producto = ($tabla2->seguro_sepelio/100) * $tabla1->total_remun1;
+                                                    echo str_replace(',', '', number_format($producto, 2));
+                                                    @endphp
+                                                </td>
+                                            
+                                            </tr>
+                                            <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                                                <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    AJU.APO.DTO.561/19
+                                                </th>
+                                                <td class="px-6 py-3">
+                                                    <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="aju_apo_dto" value=" {{floatval($tabla2->aju_apo_dto)}}%"disabled>
+                                                </td>
+                                                <td class="px-6 py-3">
+                                                    
+                                                </td>
+                                                <td class="descuento px-6 py-3">
+                                                    @php
+                                                    $producto = ($tabla2->aju_apo_dto/100) * $tabla1->total_remun1;
+                                                    echo str_replace(',', '', number_format($producto, 2));
+                                                    @endphp
+                                                </td>
+                                            
+                                            </tr>
+                                            <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                                                <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    ASOC.MUT.1NOV.PMOS
+                                                </th>
+                                                <td class="px-6 py-3">
+                                                    <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="asoc_mut_1nov" value=" {{floatval($tabla2->asoc_mut_1nov)}}%"disabled>
+                                                </td>
+                                                <td class="px-6 py-3">
+                                                    
+                                                </td>
+                                                <td class="descuento px-6 py-3">
+                                                    @php
+                                                    $producto = ($tabla2->asoc_mut_1nov/100) * $tabla1->total_remun1;
+                                                    echo str_replace(',', '', number_format($producto, 2));
+                                                    @endphp
+                                                </td>
+                                            
+                                            </tr>
+                                            <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                                                <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    TOTAL DE DESCUENTO
+                                                </th>
+                                                <td class="px-6 py-3">
+                                                    
+                                                </td>
+                                                <td class="px-6 py-3">
+                                                    
+                                                </td>
+                                                <td class="px-6 py-3 text-red-500 font-bold">
+                                                   - {{$tabla2->total_descuento}}
+                                                </td>
+                                            </tr>
+                                            <tfoot>
+                                                <tr class="font-semibold border-b bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white">
+                                                    <th scope="row" class="px-6 py-3 text-base">SUBTOTAL 2</th>
+                                                    <td class="px-6 py-3"></td>
+                                                    <td class="px-6 py-3"></td>
+                                                    <td class="px-6 py-3">
+                                                        {{$tabla2->subtotal2}}</td>
+                                                </tr>
+                                            </tfoot>
+                                        </tbody>
+                                    </table>
+                                </div>
+                        </form>
 {{-- ---------------------------------------------------------------------------------------- --}}
-                        <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700">
+                        <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700"> 
+
+                        <div class="flex justify-end mb-4 mr-4">
+                
+                            <form id="myForm" action="/admin/sueldo/calcular/{{$truck_driver->id}}/3"  method="POST">  
+                                @csrf
+                                        <button id="saveButton3" type="submit" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" disabled>Guardar</button>
+                                    </div> 
 
                         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -515,155 +499,158 @@
                                         </th>
                                         <th scope="col" class="px-6 py-3">
                                             Total
-                                        </th>
+                                        </th> 
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             Viático por Km recorrido cohef. 1
                                         </th>
-                                        <td class="px-6 py-4">
-                                            8226
+                                        <td class="px-6 py-3">
+                                            <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="viatico_x_km" value=" {{floatval($tabla3->viatico_x_km)}}"disabled>
                                         </td>
-                                        <td class="px-6 py-4">
-                                            8.21356
+                                        <td class="px-6 py-3">
+                                            {{$datos->kms_rec}}
                                         </td>
-                                        <td class="px-6 py-4">
-                                            $ 67564.74
+                                        <td class="px-6 py-3">
+                                            {{$tabla3->viatico_x_km * $datos->kms_rec}}
                                         </td>
                                     
                                     </tr>
                                     <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             Cruce Frontera
                                         </th>
-                                        <td class="px-6 py-4">
-                                            0
+                                        <td class="px-6 py-3">
+                                            <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="cruce_frontera" value=" {{floatval($tabla3->cruce_frontera)}}"disabled>
                                         </td>
-                                        <td class="px-6 py-4">
-                                            3818.08
+                                        <td class="px-6 py-3">
+                                            {{$datos->cruce_frontera}}
                                         </td>
-                                        <td class="px-6 py-4">
-                                            
+                                        <td class="px-6 py-3">
+                                            {{$tabla3->cruce_frontera * $datos->cruce_frontera}}
                                         </td>
                                     
                                     </tr>
                                     <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             Comida
                                         </th>
-                                        <td class="px-6 py-4">
-                                            0
+                                        <td class="px-6 py-3">
+                                            <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="comida" value=" {{floatval($tabla3->comida)}}"disabled>
                                         </td>
-                                        <td class="px-6 py-4">
-                                            1570.98
+                                        <td class="px-6 py-3">
+                                            {{$datos->comida}}
                                         </td>
-                                        <td class="px-6 py-4">
-                                            0
+                                        <td class="px-6 py-3">
+                                            {{$tabla3->comida * $datos->comida}}
                                         </td>
                                     
                                     </tr>
                                     <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             Especial
                                         </th>
-                                        <td class="px-6 py-4">
-                                            0
+                                        <td class="px-6 py-3">
+                                            <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="especial" value=" {{floatval($tabla3->especial)}}"disabled>
                                         </td>
-                                        <td class="px-6 py-4">
-                                            788.31
+                                        <td class="px-6 py-3">
+                                            {{$datos->especial}}
                                         </td>
-                                        <td class="px-6 py-4">
-                                            -
+                                        <td class="px-6 py-3">
+                                            {{$tabla3->especial * $datos->especial}}
                                         </td>
                                     
                                     </tr>
                                     <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             Pernoctada
                                         </th>
-                                        <td class="px-6 py-4">
-                                            0
+                                        <td class="px-6 py-3">
+                                            <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="pernoctada" value=" {{floatval($tabla3->pernoctada)}}"disabled>
                                         </td>
-                                        <td class="px-6 py-4">
-                                            1829.75
+                                        <td class="px-6 py-3">
+                                            {{$datos->pernoctada}}
                                         </td>
-                                        <td class="px-6 py-4">
-                                            -
+                                        <td class="px-6 py-3">
+                                            {{$tabla3->pernoctada * $datos->pernoctada}}
                                         </td>
                                     
                                     </tr>
                                     <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             Permanencia fuera residencia habit inc. a)
                                         </th>
-                                        <td class="px-6 py-4">
-                                            0
+                                        <td class="px-6 py-3">
+                                            <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="permanencia_fuera_rec" value=" {{floatval($tabla3->permanencia_fuera_rec)}}"disabled>
                                         </td>
-                                        <td class="px-6 py-4">
-                                            5544.20
+                                        <td class="px-6 py-3">
+                                            {{$datos->perm_f_res}}
                                         </td>
-                                        <td class="px-6 py-4">
-                                            0
+                                        <td class="px-6 py-3">
+                                            {{$tabla3->permanencia_fuera_rec * $datos->perm_f_res}}
                                         </td>
                                     
                                     </tr>
                                     <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             Viático KM recorri 1,2
                                         </th>
-                                        <td class="px-6 py-4">
-                                            0
+                                        <td class="px-6 py-3">
+                                            <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="viatico_km_1_2" value=" {{floatval($tabla3->viatico_km_1_2)}}"disabled>
                                         </td>
-                                        <td class="px-6 py-4">
-                                            9.85627
+                                        <td class="px-6 py-3">
+                                            {{$datos->km_1_2}}
                                         </td>
-                                        <td class="px-6 py-4">
-                                            0
+                                        <td class="px-6 py-3">
+                                            {{$tabla3->viatico_km_1_2 * $datos->km_1_2}}
                                         </td>
                                     
                                     </tr>
                                     <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             Adicional Vacaciones Anuales 2022
                                         </th>
-                                        <td class="px-6 py-4">
-                                            0
+                                        <td class="px-6 py-3">
+                                            <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="adicional_vacas_anuales" value=" {{floatval($tabla3->adicional_vacas_anuales)}}"disabled>
                                         </td>
-                                        <td class="px-6 py-4">
-                                            2389.23
+                                        <td class="px-6 py-3">
+                                            {{$datos->vacaciones_anual_x_dia}}
                                         </td>
-                                        <td class="px-6 py-4">
-                                            $
+                                        <td class="px-6 py-3">
+                                            {{$tabla3->adicional_vacas_anuales * $datos->vacaciones_anual_x_dia}}
                                         </td>
                                     
                                     </tr>
                                     <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             Asignación No remuner Cuota - Acuerdo 151221
                                         </th>
-                                        <td class="px-6 py-4">
+                                        <td class="px-6 py-3">
+                                            {{-- <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="asignacion_no_remuner" value=" {{($tabla3->asignacion_no_remuner)}}"disabled> --}}
                                             -
                                         </td>
-                                        <td class="px-6 py-4">
+                                        <td class="px-6 py-3">
                                             -
                                         </td>
-                                        <td class="px-6 py-4">
+                                        <td class="px-6 py-3">
                                             0
                                         </td>
                                     </tr>
                                     <tfoot>
                                         <tr class="font-semibold border-b bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white">
                                             <th scope="row" class="px-6 py-3 text-base">TOTAL REMUNERATIVO</th>
-                                            <td class="px-6 py-4"></td>
-                                            <td class="px-6 py-4"></td>
-                                            <td class="px-6 py-4">$67564.74</td>
+                                            <td class="px-6 py-3"></td>
+                                            <td class="px-6 py-3"></td>
+                                            <td class="px-6 py-3">{{$tabla3->total_remun2 - $tabla2->subtotal2}}</td>
                                         </tr>
                                     </tfoot>
                                 </tbody>
                             </table>
                         </div>
+
+                    
 {{-- ---------------------------------------------------------------------------------------- --}}
                         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                             <label for="blank" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">&nbsp;</label>
@@ -674,10 +661,10 @@
                                         <tfoot>
                                         <tr class="font-semibold border-b bg-yellow-200 dark:bg-gray-800 text-gray-900 dark:text-white">
                                             <th scope="row" class="px-6 py-3 text-base">TOTAL FINAL</th>
-                                            <td class="px-6 py-4"></td><td class="px-6 py-4"></td><td class="px-6 py-4"></td>
-                                            <td class="px-6 py-4"></td><td class="px-6 py-4"></td><td class="px-6 py-4"></td>
+                                            <td class="px-6 py-3"></td><td class="px-6 py-3"></td><td class="px-6 py-3"></td>
+                                            <td class="px-6 py-3"></td><td class="px-6 py-3"></td><td class="px-6 py-3"></td>
                                             
-                                            <td class="px-6 py-4 text-center text-base">$250.373,16</td>
+                                            <td class="px-6 py-3 text-center text-base">{{$tabla3->total_remun2}}</td>
                                         </tr>
                                     </tfoot>
                                     </tbody>
@@ -692,24 +679,29 @@
                                 <table class="w-auto bg-gray-200 border border-gray-300">
                                   <tr>
                                     <td class="px-4 py-2 text-center border-b">Adelantos:</td>
-                                    <td class="px-4 py-2 text-center border-b">-19000</td>
+                                    <td class="px-4 py-2 text-center border-b"> <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="adelantos" value=" {{floatval($tabla3->adelantos)}}"disabled></td>
                                   </tr>
                                   <tr>
                                     <td class="px-4 py-2 text-center border-b">Celular:</td>
-                                    <td class="px-4 py-2 text-center border-b">-4330</td>
+                                    <td class="px-4 py-2 text-center border-b"><input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="celular" value=" {{floatval($tabla3->celular)}}"disabled></td>
                                   </tr>
                                   <tr>
                                     <td class="px-4 py-2 text-center border-b">Gastos:</td>
-                                    <td class="px-4 py-2 text-center border-b">3200</td>
+                                    <td class="px-4 py-2 text-center border-b"><input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="gastos" value=" {{floatval($tabla3->gastos)}}"disabled></td>
                                   </tr>
                                   <tr>
                                     <td class="px-4 py-2 text-center border-b font-bold">Subtotal:</td>
-                                    <td class="px-4 py-2 text-center border-b text-red-500 font-bold">-20130</td>
+                                    <td class="px-4 py-2 text-center border-b text-red-500 font-bold">
+                                        @if($tabla3->adelantos + $tabla3->celular + $tabla3->gastos !== 0)
+                                            -{{ $tabla3->adelantos + $tabla3->celular + $tabla3->gastos }}
+                                        @else {{ $tabla3->adelantos + $tabla3->celular + $tabla3->gastos }}
+                                        @endif
+                                    </td>
                                   </tr>
                                 </table>
                             </div>                   
                         </div>
-
+                    </form>
                         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                             <label for="blank" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">&nbsp;</label>
 
@@ -719,10 +711,10 @@
                                         <tfoot>
                                         <tr class="font-semibold border-b bg-green-200 dark:bg-gray-800 text-gray-900 dark:text-white">
                                             <th scope="row" class="px-6 py-3 text-base">TOTAL A DEPOSITAR</th>
-                                            <td class="px-6 py-4"></td><td class="px-6 py-4"></td><td class="px-6 py-4"></td>
-                                            <td class="px-6 py-4"></td><td class="px-6 py-4">
+                                            <td class="px-6 py-3"></td><td class="px-6 py-3"></td><td class="px-6 py-3"></td>
+                                            <td class="px-6 py-3"></td><td class="px-6 py-3">
                                             
-                                            <td class="px-6 py-4 text-center text-base">$230.243</td>
+                                            <td class="px-6 py-3 text-center text-base">$230.243</td>
                                         </tr>
                                     </tfoot>
                                     </tbody>

@@ -128,4 +128,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::post('sueldo/calcular/{id}', [SueldoController::class, 'updateDatos'])
     ->middleware('auth:admin');
+
+    Route::post('sueldo/calcular/{id}/2', [SueldoController::class, 'updateDatosTabla2'])
+    ->middleware('auth:admin');
+
+    Route::post('sueldo/calcular/{id}/3', [SueldoController::class, 'updateDatosTabla3'])
+    ->middleware('auth:admin');
 });

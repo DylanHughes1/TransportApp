@@ -61,13 +61,13 @@ class SueldoController extends Controller
             ->with('datos', $datos);
     }
 
-        /**
+    /**
      * Actualiza la tabla con los datos base para el sueldo.
      */
     public function updateDatosBasicos(Request $request)
     {
         $datos = DatosSueldo::all()->first();
-        
+
         $datos->sueldo_basico = $request->input('sueldo_basico');
         $datos->hs_ext_km_recorrido = $request->input('hs_ext_km_recorrido');
         $datos->perm_f_res = $request->input('perm_f_res');
@@ -86,23 +86,140 @@ class SueldoController extends Controller
     }
 
     /**
-     * Actualiza los datos de la tabla del sueldo de un chofer seleccionado.
+     * Actualiza los datos de la primer tabla del sueldo de un chofer seleccionado.
      */
     public function updateDatos(Request $request, $id)
     {
+        $subtotal1 = $this->obtenerSubtotal1($request);
+
         $tabla1 = Tabla1::where('truckdriver_id', $id)->first();
         $tabla1->hs_ext_km_recorrido = $request->input('hs_ext_km_recorrido');
         $tabla1->hs_ext_km_recorrido_100 = $request->input('hs_ext_km_recorrido_100');
         $tabla1->c_descarga = $request->input('c_descarga');
         $tabla1->hs_50 = $request->input('hs_50');
         $tabla1->hs_100 = $request->input('hs_100');
+        $tabla1->antig = $request->input('antig');
         $tabla1->inasistencias_inj = $request->input('inasistencias_inj');
+        $tabla1->subtotal1 = $subtotal1;
 
-        $tabla1->total_remun1 = $request->input('totalR');
-
+        $tabla1->total_remun1 = $subtotal1 + $subtotal1 * $request->antig * 0.01;
 
         $tabla1->update();
 
         return redirect("/admin/sueldo/calcular/$id")->with('status', 'Cambios Guardados');
+    }
+
+    public function obtenerSubtotal1(Request $request)
+    {
+
+        $subtotal1 = 0;
+
+        $datos = DatosSueldo::all()->first();
+        $inasistencias = ($datos->sueldo_basico / 30) * $request->inasistencias_inj;
+
+        $subtotal1 = $datos->sueldo_basico +
+            $datos->hs_ext_km_recorrido * $request->input('hs_ext_km_recorrido') +
+            $datos->hs_ext_km_recorrido * $request->input('hs_ext_km_recorrido_100') +
+            $datos->perm_f_res * $request->input('perm_f_res') +
+            $datos->c_descarga * $request->input('c_descarga') +
+            ($datos->hs_50) * ($request->input('hs_50') ?? 0) +
+            ($datos->hs_100) * ($request->input('hs_100') ?? 0) -
+            // + $datos->dia_camionero + 
+            $inasistencias;
+
+        return $subtotal1;
+    }
+
+    /**
+     * Actualiza los datos de la segunda tabla del sueldo de un chofer seleccionado.
+     */
+    public function updateDatosTabla2(Request $request, $id)
+    {
+        $tabla1 = Tabla1::where('truckdriver_id', $id)->first();
+        $tabla2 = Tabla2::where('truckdriver_id', $id)->first();
+        $tabla2->jubilacion = floatval(str_replace('%', '',$request->input('jubilacion')));
+        $tabla2->obra_social = floatval(str_replace('%', '',$request->input('obra_social')));
+        $tabla2->cuota_solidaria = floatval(str_replace('%', '',$request->input('cuota_solidaria')));
+        $tabla2->ley_19032 = floatval(str_replace('%', '',$request->input('ley_19032')));
+        $tabla2->seguro_sepelio = floatval(str_replace('%', '',$request->input('seguro_sepelio')));
+        $tabla2->aju_apo_dto = floatval(str_replace('%', '',$request->input('aju_apo_dto')));
+        $tabla2->asoc_mut_1nov = floatval(str_replace('%', '',$request->input('asoc_mut_1nov')));
+
+        $tabla2->total_descuento =  $this->obtenerTotalDescuento($request, $tabla1->total_remun1);
+
+        $tabla2->subtotal2 = $tabla1->total_remun1 - $tabla2->total_descuento;
+
+        $tabla2->update();
+
+        return redirect("/admin/sueldo/calcular/$id")->with('status', 'Cambios Guardados');
+    }
+
+    public function obtenerTotalDescuento(Request $request, $total_remun1){
+
+        $descuento = 0;
+        
+        $descuento = floatval(str_replace('%', '',$request->input('jubilacion')))/100 * $total_remun1 +
+            floatval(str_replace('%', '',$request->input('obra_social')))/100 * $total_remun1 +
+            floatval(str_replace('%', '',$request->input('cuota_solidaria')))/100 * $total_remun1 +
+            floatval(str_replace('%', '',$request->input('ley_19032')))/100 * $total_remun1 +
+            floatval(str_replace('%', '',$request->input('seguro_sepelio')))/100 * $total_remun1 +
+            floatval(str_replace('%', '',$request->input('aju_apo_dto')))/100 * $total_remun1 +
+            floatval(str_replace('%', '',$request->input('asoc_mut_1nov')))/100 * $total_remun1;
+
+
+        return $descuento;
+
+    }
+
+    /**
+     * Actualiza los datos de la tercer tabla del sueldo de un chofer seleccionado.
+     */
+    public function updateDatosTabla3(Request $request, $id)
+    {
+        $tabla2 = Tabla2::where('truckdriver_id', $id)->first();
+        $tabla3 = Tabla3::where('truckdriver_id', $id)->first();
+
+        
+        $tabla3->viatico_x_km = $request->input('viatico_x_km');
+        $tabla3->cruce_frontera = $request->input('cruce_frontera');
+        $tabla3->comida = $request->input('comida');
+        $tabla3->especial = $request->input('especial');
+        $tabla3->pernoctada = $request->input('pernoctada');
+        $tabla3->permanencia_fuera_rec = $request->input('permanencia_fuera_rec');
+        $tabla3->viatico_km_1_2 = $request->input('viatico_km_1_2');
+        $tabla3->adicional_vacas_anuales = $request->input('adicional_vacas_anuales');
+        $tabla3->asignacion_no_remuner = $request->input('asignacion_no_remuner');
+        
+        $totalR = $this->obtenerTotalRemun2($request);
+        $tabla3->total_remun2 = $totalR + $tabla2->subtotal2;
+
+        $tabla3->adelantos = $request->input('adelantos');
+        $tabla3->celular = $request->input('celular');
+        $tabla3->gastos = $request->input('gastos');
+
+
+        $tabla3->update();
+
+        return redirect("/admin/sueldo/calcular/$id")->with('status', 'Cambios Guardados');
+    }
+
+    public function obtenerTotalRemun2(Request $request)
+    {
+
+        $totalR = 0;
+
+        $datos = DatosSueldo::all()->first();
+
+        $totalR = $datos->kms_rec * ($request->input('viatico_x_km') ?? 0) +
+            $datos->cruce_frontera * ($request->input('cruce_frontera')?? 0) +
+            $datos->comida * ($request->input('comida')?? 0) +
+            $datos->especial * ($request->input('especial')?? 0) +
+            $datos->pernoctada * ($request->input('pernoctada')?? 0) +
+            $datos->perm_f_res * ($request->input('permanencia_fuera_rec')?? 0) +
+            $datos->km_1_2 * ($request->input('viatico_km_1_2')?? 0)+
+            $datos->vacaciones_anual_x_dia * ($request->input('adicional_vacas_anuales')?? 0) +
+            ($request->input('asignacion_no_remuner')?? 0);
+
+        return $totalR;
     }
 }
