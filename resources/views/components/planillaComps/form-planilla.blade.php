@@ -1,7 +1,7 @@
 @foreach ($viajes as $viaje)                                   
         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                {{$viaje->fecha_salida}}
+                {{ \Carbon\Carbon::parse($viaje->fecha_salida)->format('d/m/y') }}
             </th>
             <td class="px-6 py-4">
                 {{$viaje->origen}}
@@ -10,16 +10,13 @@
                 {{$viaje->km_viaje}}
             </td>
             <td class="px-6 py-4">
-                -
-            </td>
-            <td class="px-6 py-4">
                 {{$viaje->km_salida}}
             </td>
             <td class="px-6 py-4">
                 {{$viaje->destino}}
             </td>
             <td class="px-6 py-4 whitespace-nowrap">
-                {{$viaje->fecha_llegada}}
+                {{ \Carbon\Carbon::parse($viaje->fecha_llegada)->format('d/m/y') }}
             </td>
             <td class="px-6 py-4">
                 {{$viaje->km_llegada}}

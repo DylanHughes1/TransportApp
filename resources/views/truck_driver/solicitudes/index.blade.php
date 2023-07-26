@@ -38,7 +38,8 @@
 
                                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                    {{$solicitud->dia1}}
+                                                    {{-- {{$solicitud->dia1}} --}}
+                                                    {{ \Carbon\Carbon::parse($solicitud->dia1)->format('d/m/y') }}
                                                 </th>
                                                 <td class="px-6 py-4">
                                                     {{$solicitud->salida}}
@@ -50,7 +51,8 @@
                                                 
                                                 </td>
                                                 <td class="px-6 py-4">
-                                                    {{$solicitud->dia2}}
+                                                    {{-- {{$solicitud->dia2}} --}}
+                                                    {{ \Carbon\Carbon::parse($solicitud->dia2)->format('d/m/y') }}
                                                 </td>
                                                 <td class="px-6 py-4">
                                                     {{$solicitud->llegada}}

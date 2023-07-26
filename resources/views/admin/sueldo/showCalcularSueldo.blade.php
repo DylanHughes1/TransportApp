@@ -15,9 +15,19 @@
 
                         <div class="flex flex-col px-4 py-3 space-y-3 lg:flex-row lg:items-center lg:justify-between lg:space-y-0 lg:space-x-4">
                             <div class="flex items-center flex-1 space-x-4">
+
+                                @php
+                                    // Establecer la configuración regional en español
+                                    setlocale(LC_TIME, 'spanish');
+                                    
+                                    // Obtener el nombre del mes actual en español
+                                    $mesActual = strftime('%B');
+
+                                    $mesActual = ucfirst($mesActual);
+                                @endphp
                                 <h5>
                                     <span class="text-gray-500">Fecha:</span>
-                                    <span class="dark:text-white">Mayo de 2023</span>
+                                    <span class="dark:text-white">{{ $mesActual }} de {{ date('Y') }}</span>
                                 </h5>
                                 <h5>
                                     <span class="text-gray-500">Kilómetros:</span>
@@ -255,7 +265,7 @@
                                         </td>
                                         <td class="subtotal1 px-6 py-3">
                                             @php
-                                                $producto = ($tabla1->antig * $datos->subtotal1 * 0.01);
+                                                $producto = ($tabla1->antig * $tabla1->subtotal1 * 0.01);
                                                 echo $producto;
                                             @endphp
                                         </td>

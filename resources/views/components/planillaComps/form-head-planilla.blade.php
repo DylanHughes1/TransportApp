@@ -9,9 +9,6 @@
         KM
     </th>
     <th scope="col" class="px-6 py-3">
-        Intermedios
-    </th>
-    <th scope="col" class="px-6 py-3">
         KM Salida
     </th>
     <th scope="col" class="px-6 py-3">
