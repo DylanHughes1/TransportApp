@@ -24,6 +24,11 @@ class viajes extends Model
     {
         return $this->hasMany(Combustible::class, 'viaje_id');
     }
+
+    public function imagenesViajes()
+    {
+        return $this->hasMany(ImagenViaje::class, 'viaje_id');
+    }
     
 
 }

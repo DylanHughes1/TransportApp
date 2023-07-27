@@ -22,7 +22,9 @@
                                         </div>
                                     @endforeach
                                 @else
-                                        No hay viajes Disponibles
+                                    <div class="p-6 font-semibold text-xl text-gray-800 leading-tightbg-white border-b border-gray-200">
+                                            No hay viajes Disponibles
+                                    </div>
                                 @endif
                                 
                         </div>

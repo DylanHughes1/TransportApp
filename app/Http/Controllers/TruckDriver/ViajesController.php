@@ -8,6 +8,7 @@ use App\Models\Combustible;
 use Illuminate\Http\Request;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Exception;
+use App\Models\ImagenViaje;
 
 class ViajesController extends Controller
 {
@@ -54,7 +55,7 @@ class ViajesController extends Controller
     public function updateViaje(Request $request, $id)
     {
         if ($request->input('finalizar') == 1) {
-            
+
             $request->validate([
                 'fecha_salida' => 'nullable|date',
                 'origen' => 'nullable|max:255',
@@ -147,14 +148,14 @@ class ViajesController extends Controller
             'litros' => 'required|integer',
             'lugar_carga' => 'required|max:255',
         ]);
-        
+
         $registro = new Combustible();
 
         $registro->Km = $request->input('Km');
         $registro->fecha = $request->input('fecha');
         $registro->litros = $request->input('litros');
         $registro->lugar_carga = $request->input('lugar_carga');
-        
+
         $viaje = viajes::find($id);
         $registro->viaje_id = $viaje->id;
         $viaje->save();
@@ -163,13 +164,14 @@ class ViajesController extends Controller
         return redirect("/truck_driver/viajes/b/$id")->with('status', 'Cambios Guardados');
     }
 
-    public function crearViajeVacio(Request $request, $id){
+    public function crearViajeVacio(Request $request, $id)
+    {
 
         $viaje = new viajes();
         $viaje->fecha_salida = $request->fecha_salida;
         $viaje->origen = $request->origen;
         $viaje->fecha_llegada = $request->fecha_llegada;
-        $viaje->destino = $request->destino;   
+        $viaje->destino = $request->destino;
         $viaje->km_salida = $request->km_salida;
         $viaje->km_llegada = $request->km_llegada;
         $viaje->km_viaje = $request->km_viaje;
@@ -178,7 +180,7 @@ class ViajesController extends Controller
         $viaje->truckdriver_id = auth()->user()->id;
         $viaje->enCurso = false;
         $viaje->save();
-       
+
         return redirect("/truck_driver/viajes/b/$id");
     }
 
@@ -188,10 +190,10 @@ class ViajesController extends Controller
     public function showImage($id)
     {
         $viaje = viajes::find($id);
-        if($viaje->enCurso == false){
+        if ($viaje->enCurso == false) {
             return view('truck_driver.viajes.image')
                 ->with('viaje', $viaje);
-        }else{
+        } else {
             return view("truck_driver.viajes.permiso-denegado");
         }
     }
@@ -200,24 +202,40 @@ class ViajesController extends Controller
     {
 
         $request->validate([
-            'image' => 'required|image|max:1000'
+            'image1' => 'required|image|max:1000'
         ]);
 
-        try{
-            $image = $request->file('image');
-            $uploadedFile = $image->storeOnCloudinary('/recibos');
-        }catch (Exception $e){
-            
+        try {
+            if ($request->hasFile('image1')) {
+                
+                $uploadedFile1 = $request->file('image1')->storeOnCloudinary('/recibos');
+                $imagenViaje1 = new ImagenViaje();
+                $imagenViaje1->image_link = $uploadedFile1->getPath();
+                $imagenViaje1->image_path = $uploadedFile1->getPublicId();
+            }
+            if ($request->hasFile('image2')) {
+               
+                $uploadedFile2 = $request->file('image2')->storeOnCloudinary('/recibos');
+                $imagenViaje2 = new ImagenViaje();
+                $imagenViaje2->image_link = $uploadedFile2->getPath();
+                $imagenViaje2->image_path = $uploadedFile2->getPublicId();
+            }
+            if ($request->hasFile('image3')) {
+                $uploadedFile3 = $request->file('image3')->storeOnCloudinary('/recibos');
+                $imagenViaje3 = new ImagenViaje();
+                $imagenViaje3->image_link = $uploadedFile3->getPath();
+                $imagenViaje3->image_path = $uploadedFile3->getPublicId();
+            }
+        } catch (Exception $e) {
+
             return redirect("/truck_driver/viajes/image/$id")->withErrors("Ocurrió un error al almacenar la imagen\n");
         }
-        
+
         $viaje = viajes::find($id);
-        $viaje->image_link = $uploadedFile->getPath();
-        $viaje->image_path = $uploadedFile->getPublicId();
-            
-        $viaje->save();
+        $viaje->imagenesViajes()->save($imagenViaje1);
+        $viaje->imagenesViajes()->save($imagenViaje2);
+        $viaje->imagenesViajes()->save($imagenViaje3);
 
         return redirect("/truck_driver/dashboard");
     }
-
 }

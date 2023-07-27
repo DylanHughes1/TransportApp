@@ -36,9 +36,6 @@ return new class extends Migration
             $table->boolean('enCurso')->nullable()->default(false);
 
             $table->integer('TN')->nullable();
-
-            $table->string('image_link')->nullable();
-            $table->string('image_path')->nullable();
             
             $table->unsignedBigInteger('solicitudes_id')->nullable();
             $table->foreign('solicitudes_id')->references('id')->on('solicitudes')->onDelete('cascade');

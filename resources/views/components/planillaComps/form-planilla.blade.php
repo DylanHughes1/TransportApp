@@ -78,12 +78,27 @@
                         </div>
                         <!-- Modal body -->
                         <div class="p-6 space-y-6">
-                            @if ($viaje->image_link)
-                                <img class="rounded-t-lg" id="image" src="{{ $viaje->image_link }}" alt="imagen del remito">
+                            @if ($viaje->imagenesViajes->count() > 0)
+                                <div class="grid grid-cols-3 gap-4">
+                                    @foreach ($viaje->imagenesViajes as $imagenViaje)
+                                        <div class="relative bg-white rounded-lg shadow-md dark:bg-gray-700">
+                                            <img class="rounded-t-lg" src="{{ $imagenViaje->image_link }}" alt="Imagen del remito">
+                                            <div class="absolute bottom-2 right-2">
+                                                <a href="{{ $imagenViaje->image_link }}" download>
+                                                    <button class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700">
+                                                        Descargar
+                                                    </button>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
                             @else
-                                <p>No hay imagen</p>
+                                <p>No hay imágenes asociadas</p>
                             @endif
                         </div>
+                        
+                        
                     </div>
                 </div>
             </div>
