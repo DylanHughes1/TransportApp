@@ -90,6 +90,11 @@ class ViajesController extends Controller
         $viaje->km_llegada = $request->input('km_llegada');
         $viaje->km_1_2 = $request->input('km_1_2');
         $viaje->control_desc = $request->input('control_desc');
+
+        if($viaje->progreso == 0){
+            $viaje->progreso = 1;
+        }
+
         $viaje->update();
 
         if ($request->input('finalizar') == null) {

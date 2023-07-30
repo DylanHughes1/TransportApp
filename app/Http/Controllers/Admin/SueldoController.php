@@ -179,6 +179,7 @@ class SueldoController extends Controller
         $tabla2 = Tabla2::where('truckdriver_id', $id)->first();
         $tabla3 = Tabla3::where('truckdriver_id', $id)->first();
 
+        $this->actualizarNombres($request, $tabla3);
         
         $tabla3->viatico_x_km = $request->input('viatico_x_km');
         $tabla3->cruce_frontera = $request->input('cruce_frontera');
@@ -201,6 +202,22 @@ class SueldoController extends Controller
         $tabla3->update();
 
         return redirect("/admin/sueldo/calcular/$id")->with('status', 'Cambios Guardados');
+    }
+
+    public function actualizarNombres(Request $request, Tabla3 $tabla3){
+
+        $tabla3->viatico_x_km_name = $request->input('viatico_x_km_name');
+        $tabla3->cruce_frontera_name = $request->input('cruce_frontera_name');
+        $tabla3->comida_name = $request->input('comida_name');
+        $tabla3->especial_name = $request->input('especial_name');
+        $tabla3->pernoctada_name = $request->input('pernoctada_name');
+        $tabla3->permanencia_fuera_rec_name = $request->input('permanencia_fuera_rec_name');
+        $tabla3->viatico_km_1_2_name = $request->input('viatico_km_1_2_name');
+        $tabla3->adicional_vacas_anuales_name = $request->input('adicional_vacas_anuales_name');
+        $tabla3->asignacion_no_remuner_name = $request->input('asignacion_no_remuner_name');
+
+        $tabla3->save();
+
     }
 
     public function obtenerTotalRemun2(Request $request)

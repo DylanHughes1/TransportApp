@@ -16,6 +16,16 @@ return new class extends Migration
         Schema::create('tabla3_sueldo', function (Blueprint $table) {
             
             $table->id();
+
+            $table->string('viatico_x_km_name')->default('Viático por Km recorrido cohef. 1');
+            $table->string('cruce_frontera_name')->default('Cruce Frontera');
+            $table->string('comida_name')->default('Comida');
+            $table->string('especial_name')->default('Especial');
+            $table->string('pernoctada_name')->default('Pernoctada');
+            $table->string('permanencia_fuera_rec_name')->default('Permanencia fuera residencia habit inc. a)');
+            $table->string('viatico_km_1_2_name')->default('Viático KM recorri 1,2');
+            $table->string('adicional_vacas_anuales_name')->default('Adicional Vacaciones Anuales 2023');
+            $table->string('asignacion_no_remuner_name')->default('Asignación No remuner Cuota - Acuerdo 151221');
             
             $table->decimal('viatico_x_km')->nullable();
             $table->decimal('cruce_frontera')->nullable();
