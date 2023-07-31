@@ -11,24 +11,47 @@
             <div class="relative flex items-top justify-center min-h-screen sm:items-top py-4 sm:pt-0">    
                 <div class="py-12">
                     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">         
-                                
-                                @if(count($viajes) > 0)
-                                    @foreach ($viajes as $viaje)
-                                    <div class="p-6 bg-white border-b border-gray-200">
-                                            <a href="viajes/{{$viaje->id}}" style="text-decoration:none" class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-                                                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Viaje {{ \Carbon\Carbon::parse($viaje->fecha_salida)->format('d/m/y') }}</h5>
-                                            </a>     
+                        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                            @if(count($viajes) > 0)
+                                <div class="grid grid-cols-2 gap-6 px-6 py-4">
+                                    @php
+                                        $viajesPorMes = $viajes->groupBy(function ($viaje) {
+                                            return \Carbon\Carbon::parse($viaje->fecha_salida)->format('m');
+                                        });
+
+                                    @endphp
+
+                    
+                                    @foreach ($viajesPorMes as $mes => $viajesMes)
+                                    @php
+                                        // Establecer la configuración regional en español
+                                        setlocale(LC_TIME, 'spanish');
+                                        $nombreMes = \Carbon\Carbon::parse($viajesMes->first()->fecha_salida)->formatLocalized('%B');
+                                        $nombreMes = ucfirst($nombreMes);
+                                    @endphp
+                                    <div class="bg-gray-100 p-4 rounded-lg">
+                                        <h2 class="font-semibold text-xl text-gray-800 text-center mb-2">{{ $nombreMes }}</h2>
+                                        <div class="space-y-4">
+                                            @foreach ($viajesMes as $viaje)
+                                                <a href="viajes/{{$viaje->id}}" style="text-decoration:none" class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                                                    <h5 class="mb-2 text-base font-bold tracking-tight text-gray-900 dark:text-white">Viaje {{ \Carbon\Carbon::parse($viaje->fecha_salida)->format('d/m/y') }}</h5>
+                                                </a>
+                                            @endforeach
                                         </div>
-                                    @endforeach
-                                @else
-                                    <div class="p-6 font-semibold text-xl text-gray-800 leading-tightbg-white border-b border-gray-200">
-                                            No hay viajes Disponibles
                                     </div>
-                                @endif
-                                
+                                    @endforeach
+
+
+                                </div>
+                            @else
+                                <div class="p-6 font-semibold text-xl text-gray-800 leading-tight bg-white border-b border-gray-200">
+                                    No hay viajes Disponibles
+                                </div>
+                            @endif
                         </div>
                     </div>
+                    
+                    
                 </div>
             </div>
         </body>

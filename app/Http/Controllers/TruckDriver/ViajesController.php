@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Exception;
 use App\Models\ImagenViaje;
+use \Carbon\Carbon;
 
 class ViajesController extends Controller
 {
@@ -18,7 +19,14 @@ class ViajesController extends Controller
      */
     public function index()
     {
-        $viajes = Viajes::all();
+        $fechaActual = Carbon::now();
+        $fechaDosMesesAtras = $fechaActual->subMonths(2);
+        
+        // Obtener los viajes correspondientes a los últimos tres meses
+        $viajes = Viajes::where('fecha_salida', '>=', $fechaDosMesesAtras)->get();
+        
+        // Eliminar los viajes más antiguos que tres meses de la base de datos
+        Viajes::where('fecha_salida', '<', $fechaDosMesesAtras)->delete();
 
         return view('truck_driver.viajes.index')->with('viajes', $viajes);
     }
