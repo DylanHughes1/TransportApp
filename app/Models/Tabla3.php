@@ -14,4 +14,9 @@ class Tabla3 extends Model
     {
         return $this->belongsTo(TruckDriver::class); 
     }
+
+    public function nuevasFilas()
+    {
+        return $this->hasMany(nuevaFila::class, 'tabla3_id');
+    }
 }

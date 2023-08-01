@@ -9,6 +9,9 @@ use App\Models\DatosSueldo;
 use App\Models\Tabla1;
 use App\Models\Tabla2;
 use App\Models\Tabla3;
+use App\Models\viajes;
+use Carbon\Carbon;
+use App\Models\nuevaFila;
 
 class SueldoController extends Controller
 {
@@ -36,27 +39,40 @@ class SueldoController extends Controller
      */
     public function showCalcularSueldo($id)
     {
+
         $truck_driver = TruckDriver::find($id);
         $datos = DatosSueldo::find($id);
         $tabla1 = Tabla1::where('truckdriver_id', $id)->first();
         $tabla2 = Tabla2::where('truckdriver_id', $id)->first();
         $tabla3 = Tabla3::where('truckdriver_id', $id)->first();
 
+        // Obtener el mes actual
+        $mesActual = Carbon::now()->format('m');
+
+        // Filtrar los viajes del mes actual
+        $viajesMesActual = viajes::whereMonth('fecha_salida', $mesActual)->get();
+    
+        // Calcular la suma de las diferencias de kilómetros
+        $sumaKilometros = $viajesMesActual->sum(function ($viaje) {
+            return $viaje->km_llegada - $viaje->km_salida;
+        });
+
         return view('admin.sueldo.showCalcularSueldo')
             ->with('truck_driver', $truck_driver)
             ->with('datos', $datos)
             ->with('tabla1', $tabla1)
             ->with('tabla2', $tabla2)
-            ->with('tabla3', $tabla3);
+            ->with('tabla3', $tabla3)
+            ->with('sumaKilometros', $sumaKilometros);;
     }
-
     /**
      * Muestra la tabla con los datos base para el sueldo.
      */
     public function showDatosBasicos()
     {
-
         $datos = DatosSueldo::all();
+    
+    
         return view('admin.sueldo.showDatosBasicos')
             ->with('datos', $datos);
     }
@@ -237,6 +253,30 @@ class SueldoController extends Controller
             $datos->vacaciones_anual_x_dia * ($request->input('adicional_vacas_anuales')?? 0) +
             ($request->input('asignacion_no_remuner')?? 0);
 
+
+        $inputs = $request->all();
+        foreach ($inputs as $key => $value) {
+            if (strpos($key, 'valor') === 0) {
+                $totalR += (float) $value;
+            }
+        }    
+
         return $totalR;
+    }
+
+    public function agregarNuevaFila(Request $request, $id){
+
+
+        $nuevaFila = new nuevaFila();
+        $nuevaFila->nombre = $request->input('nombre');
+        $nuevaFila->valor = $request->input('valor');
+
+        $tabla3 = Tabla3::where('truckdriver_id', $id)->first();
+        $tabla3->nuevasFilas()->save($nuevaFila);
+        $tabla3->total_remun2 += $nuevaFila->valor;
+        $tabla3->save();
+
+        return redirect("/admin/sueldo/calcular/$id")->with('status', 'Cambios Guardados');
+
     }
 }

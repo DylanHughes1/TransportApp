@@ -134,4 +134,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::post('sueldo/calcular/{id}/3', [SueldoController::class, 'updateDatosTabla3'])
     ->middleware('auth:admin');
+
+    Route::post('sueldo/calcular/{id}/4', [SueldoController::class, 'agregarNuevaFila'])
+    ->middleware('auth:admin');
 });
