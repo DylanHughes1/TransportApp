@@ -42,16 +42,27 @@ class SueldoController extends Controller
 
         $truck_driver = TruckDriver::find($id);
         $datos = DatosSueldo::find($id);
-        $tabla1 = Tabla1::where('truckdriver_id', $id)->first();
-        $tabla2 = Tabla2::where('truckdriver_id', $id)->first();
-        $tabla3 = Tabla3::where('truckdriver_id', $id)->first();
+        $tabla1 = Tabla1::firstOrCreate(['truckdriver_id' => $id]);
+        $tabla2 = Tabla2::firstOrCreate(['truckdriver_id' => $id]);
+        $tabla3 = Tabla3::firstOrCreate(
+            ['truckdriver_id' => $id],
+            ['viatico_x_km_name' => 'Viático por Km recorrido cohef. 1'],
+            ['cruce_frontera_name' => 'Cruce Frontera'],
+            ['comida_name' => 'Comida'],
+            ['especial_name' => 'Especial'],
+            ['pernoctada_name' => 'Pernoctada'],
+            ['permanencia_fuera_rec_name' => 'Permanencia fuera residencia habit inc. a)'],
+            ['viatico_km_1_2_name' => 'Viático KM recorri 1,2'],
+            ['adicional_vacas_anuales_name' => 'Adicional Vacaciones Anuales 2023'],
+            ['asignacion_no_remuner_name' => 'Asignación No remuner Cuota - Acuerdo 151221'],
+        );
 
         // Obtener el mes actual
         $mesActual = Carbon::now()->format('m');
 
         // Filtrar los viajes del mes actual
         $viajesMesActual = viajes::whereMonth('fecha_salida', $mesActual)->get();
-    
+
         // Calcular la suma de las diferencias de kilómetros
         $sumaKilometros = $viajesMesActual->sum(function ($viaje) {
             return $viaje->km_llegada - $viaje->km_salida;
@@ -71,8 +82,8 @@ class SueldoController extends Controller
     public function showDatosBasicos()
     {
         $datos = DatosSueldo::all();
-    
-    
+
+
         return view('admin.sueldo.showDatosBasicos')
             ->with('datos', $datos);
     }
@@ -153,13 +164,13 @@ class SueldoController extends Controller
     {
         $tabla1 = Tabla1::where('truckdriver_id', $id)->first();
         $tabla2 = Tabla2::where('truckdriver_id', $id)->first();
-        $tabla2->jubilacion = floatval(str_replace('%', '',$request->input('jubilacion')));
-        $tabla2->obra_social = floatval(str_replace('%', '',$request->input('obra_social')));
-        $tabla2->cuota_solidaria = floatval(str_replace('%', '',$request->input('cuota_solidaria')));
-        $tabla2->ley_19032 = floatval(str_replace('%', '',$request->input('ley_19032')));
-        $tabla2->seguro_sepelio = floatval(str_replace('%', '',$request->input('seguro_sepelio')));
-        $tabla2->aju_apo_dto = floatval(str_replace('%', '',$request->input('aju_apo_dto')));
-        $tabla2->asoc_mut_1nov = floatval(str_replace('%', '',$request->input('asoc_mut_1nov')));
+        $tabla2->jubilacion = floatval(str_replace('%', '', $request->input('jubilacion')));
+        $tabla2->obra_social = floatval(str_replace('%', '', $request->input('obra_social')));
+        $tabla2->cuota_solidaria = floatval(str_replace('%', '', $request->input('cuota_solidaria')));
+        $tabla2->ley_19032 = floatval(str_replace('%', '', $request->input('ley_19032')));
+        $tabla2->seguro_sepelio = floatval(str_replace('%', '', $request->input('seguro_sepelio')));
+        $tabla2->aju_apo_dto = floatval(str_replace('%', '', $request->input('aju_apo_dto')));
+        $tabla2->asoc_mut_1nov = floatval(str_replace('%', '', $request->input('asoc_mut_1nov')));
 
         $tabla2->total_descuento =  $this->obtenerTotalDescuento($request, $tabla1->total_remun1);
 
@@ -170,21 +181,21 @@ class SueldoController extends Controller
         return redirect("/admin/sueldo/calcular/$id")->with('status', 'Cambios Guardados');
     }
 
-    public function obtenerTotalDescuento(Request $request, $total_remun1){
+    public function obtenerTotalDescuento(Request $request, $total_remun1)
+    {
 
         $descuento = 0;
-        
-        $descuento = floatval(str_replace('%', '',$request->input('jubilacion')))/100 * $total_remun1 +
-            floatval(str_replace('%', '',$request->input('obra_social')))/100 * $total_remun1 +
-            floatval(str_replace('%', '',$request->input('cuota_solidaria')))/100 * $total_remun1 +
-            floatval(str_replace('%', '',$request->input('ley_19032')))/100 * $total_remun1 +
-            floatval(str_replace('%', '',$request->input('seguro_sepelio')))/100 * $total_remun1 +
-            floatval(str_replace('%', '',$request->input('aju_apo_dto')))/100 * $total_remun1 +
-            floatval(str_replace('%', '',$request->input('asoc_mut_1nov')))/100 * $total_remun1;
+
+        $descuento = floatval(str_replace('%', '', $request->input('jubilacion'))) / 100 * $total_remun1 +
+            floatval(str_replace('%', '', $request->input('obra_social'))) / 100 * $total_remun1 +
+            floatval(str_replace('%', '', $request->input('cuota_solidaria'))) / 100 * $total_remun1 +
+            floatval(str_replace('%', '', $request->input('ley_19032'))) / 100 * $total_remun1 +
+            floatval(str_replace('%', '', $request->input('seguro_sepelio'))) / 100 * $total_remun1 +
+            floatval(str_replace('%', '', $request->input('aju_apo_dto'))) / 100 * $total_remun1 +
+            floatval(str_replace('%', '', $request->input('asoc_mut_1nov'))) / 100 * $total_remun1;
 
 
         return $descuento;
-
     }
 
     /**
@@ -196,7 +207,7 @@ class SueldoController extends Controller
         $tabla3 = Tabla3::where('truckdriver_id', $id)->first();
 
         $this->actualizarNombres($request, $tabla3);
-        
+
         $tabla3->viatico_x_km = $request->input('viatico_x_km');
         $tabla3->cruce_frontera = $request->input('cruce_frontera');
         $tabla3->comida = $request->input('comida');
@@ -206,7 +217,7 @@ class SueldoController extends Controller
         $tabla3->viatico_km_1_2 = $request->input('viatico_km_1_2');
         $tabla3->adicional_vacas_anuales = $request->input('adicional_vacas_anuales');
         $tabla3->asignacion_no_remuner = $request->input('asignacion_no_remuner');
-        
+
         $totalR = $this->obtenerTotalRemun2($request);
         $tabla3->total_remun2 = $totalR + $tabla2->subtotal2;
 
@@ -220,7 +231,8 @@ class SueldoController extends Controller
         return redirect("/admin/sueldo/calcular/$id")->with('status', 'Cambios Guardados');
     }
 
-    public function actualizarNombres(Request $request, Tabla3 $tabla3){
+    public function actualizarNombres(Request $request, Tabla3 $tabla3)
+    {
 
         $tabla3->viatico_x_km_name = $request->input('viatico_x_km_name');
         $tabla3->cruce_frontera_name = $request->input('cruce_frontera_name');
@@ -233,7 +245,6 @@ class SueldoController extends Controller
         $tabla3->asignacion_no_remuner_name = $request->input('asignacion_no_remuner_name');
 
         $tabla3->save();
-
     }
 
     public function obtenerTotalRemun2(Request $request)
@@ -244,14 +255,14 @@ class SueldoController extends Controller
         $datos = DatosSueldo::all()->first();
 
         $totalR = $datos->kms_rec * ($request->input('viatico_x_km') ?? 0) +
-            $datos->cruce_frontera * ($request->input('cruce_frontera')?? 0) +
-            $datos->comida * ($request->input('comida')?? 0) +
-            $datos->especial * ($request->input('especial')?? 0) +
-            $datos->pernoctada * ($request->input('pernoctada')?? 0) +
-            $datos->perm_f_res * ($request->input('permanencia_fuera_rec')?? 0) +
-            $datos->km_1_2 * ($request->input('viatico_km_1_2')?? 0)+
-            $datos->vacaciones_anual_x_dia * ($request->input('adicional_vacas_anuales')?? 0) +
-            ($request->input('asignacion_no_remuner')?? 0);
+            $datos->cruce_frontera * ($request->input('cruce_frontera') ?? 0) +
+            $datos->comida * ($request->input('comida') ?? 0) +
+            $datos->especial * ($request->input('especial') ?? 0) +
+            $datos->pernoctada * ($request->input('pernoctada') ?? 0) +
+            $datos->perm_f_res * ($request->input('permanencia_fuera_rec') ?? 0) +
+            $datos->km_1_2 * ($request->input('viatico_km_1_2') ?? 0) +
+            $datos->vacaciones_anual_x_dia * ($request->input('adicional_vacas_anuales') ?? 0) +
+            ($request->input('asignacion_no_remuner') ?? 0);
 
 
         $inputs = $request->all();
@@ -259,12 +270,13 @@ class SueldoController extends Controller
             if (strpos($key, 'valor') === 0) {
                 $totalR += (float) $value;
             }
-        }    
+        }
 
         return $totalR;
     }
 
-    public function agregarNuevaFila(Request $request, $id){
+    public function agregarNuevaFila(Request $request, $id)
+    {
 
 
         $nuevaFila = new nuevaFila();
@@ -277,6 +289,5 @@ class SueldoController extends Controller
         $tabla3->save();
 
         return redirect("/admin/sueldo/calcular/$id")->with('status', 'Cambios Guardados');
-
     }
 }

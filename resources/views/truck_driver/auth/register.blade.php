@@ -3,7 +3,7 @@
         <x-slot name="logo">
             <a href="/">
                 <img src="/truck.png" alt="logo" id="logo" style="width: 200px;">
-                <div class="fs-3 text-center">Camionero</div>
+                <div class="fs-3 text-center">Chofer</div>
             </a>
         </x-slot>
 
