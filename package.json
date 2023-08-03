@@ -15,5 +15,8 @@
         "postcss-import": "^12.0.1",
         "tailwindcss": "^2.0.2",
         "vite": "^4.0.0"
+    },
+    "dependencies": {
+        "flowbite": "^1.8.1"
     }
 }

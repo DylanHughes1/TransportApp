@@ -42,25 +42,4 @@ class TruckDriver extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::created(function ($chofer) {
-            // Crear una nueva instancia de tabla1 y asignar el ID del chofer
-            $tabla1 = new Tabla1();
-            $tabla1->chofer_id = $chofer->id;
-            $tabla1->save();
-
-            // Crear una nueva instancia de tabla2 y asignar el ID del chofer
-            $tabla2 = new Tabla2();
-            $tabla2->chofer_id = $chofer->id;
-            $tabla2->save();
-
-            // Crear una nueva instancia de tabla3 y asignar el ID del chofer
-            $tabla3 = new Tabla3();
-            $tabla3->chofer_id = $chofer->id;
-            $tabla3->save();
-        });
-    }
 }
