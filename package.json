@@ -3,7 +3,7 @@
     "scripts": {
         "dev": "vite",
         "build": "vite build",
-        "start": "php artisan serve"
+        "start": "php C:\\Program Files\\php-8.2.1\\php.exe artisan serve"
     },
     "devDependencies": {
         "@tailwindcss/forms": "^0.2.1",
