@@ -2,7 +2,7 @@
     <x-auth-card>
         <x-slot name="logo">
             <a href="/">
-                <img src="/truck.png" alt="logo" id="logo" style="width: 200px;">
+                <img src="https://res.cloudinary.com/dkfj6dqh2/image/upload/v1691175028/truck_tqj1yi.png" alt="logo" id="logo" style="width: 200px;">
                 <div class="fs-3 text-center">Chofer</div>
             </a>
         </x-slot>

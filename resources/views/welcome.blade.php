@@ -32,7 +32,7 @@
             @endif
             <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
                 <div class="flex justify-center pt-8 sm:justify-start sm:pt-0">
-                    <img src="/truck.png" alt="logo" id="logo" style="width: 400px;">
+                    <img src="https://res.cloudinary.com/dkfj6dqh2/image/upload/v1691175028/truck_tqj1yi.png" alt="logo" id="logo" style="width: 400px;">
                 </div>
                 @auth
                 @else
