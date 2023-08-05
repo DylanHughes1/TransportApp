@@ -6,7 +6,7 @@
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
                     <a href="/admin/dashboard" >
-                        <img src="/truck.png" alt="logo" id="logo" style="width: 80px;">
+                        <img src="https://res.cloudinary.com/dkfj6dqh2/image/upload/v1691175028/truck_tqj1yi.png" alt="logo" id="logo" style="width: 80px;">
                     </a>
                 </div>
 
