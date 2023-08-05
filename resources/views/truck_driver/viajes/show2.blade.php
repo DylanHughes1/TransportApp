@@ -1,7 +1,7 @@
 <x-truck_driver-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Viaje {{$viaje->fecha_salida}}
+            Viaje {{ \Carbon\Carbon::parse($viaje->fecha_salida)->format('d/m/y') }}
         </h2>
     </x-slot>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
