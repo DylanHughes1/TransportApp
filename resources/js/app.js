@@ -1,5 +1,5 @@
 import 'flowbite';
 
-// require('./bootstrap');
+require('./bootstrap');
 
 require('alpinejs');
