@@ -24,22 +24,22 @@
         @foreach ($viajes as $key => $viaje)
             @if($viaje->enCurso)
                 <tr class="{{ $viaje->progreso === 0 ? 'bg-red-300' : ($viaje->progreso === 1 ? 'bg-yellow-100' : '') }}">
-                    <th cope="row" class="border-b bg-black bg-opacity-50 px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ \App\Models\TruckDriver::find($viaje->truckdriver_id)->name }}</th>
-                    <td class="border-b bg-black bg-opacity-50 px-6 py-4  text-gray-900">{{ \Carbon\Carbon::parse($viaje->fecha_salida)->format('d/m/y') }}</td>
-                    <td class="border-b bg-black bg-opacity-50 px-6 py-4  text-gray-900">{{ $viaje->origen }}</td>
-                    <td class="border-b bg-black bg-opacity-50 px-6 py-4  text-gray-900">{{ \Carbon\Carbon::parse($viaje->fecha_llegada)->format('d/m/y') }}</td>
-                    <td class="border-b bg-black bg-opacity-50 px-6 py-4  text-gray-900">{{ $viaje->km_viaje }}</td>
-                    <td class="border-b bg-black bg-opacity-50 px-6 py-4  text-gray-900">{{ $viaje->destino }}</td>
-                    <td class="border-b bg-black bg-opacity-50 px-6 py-4  text-gray-900">{{ $viaje->km_salida }}</td>
-                    <td class="border-b bg-black bg-opacity-50 px-6 py-4  text-gray-900">{{ $viaje->c_porte }}</td>
-                    <td class="border-b bg-black bg-opacity-50 px-6 py-4  text-gray-900">{{ $viaje->producto }}</td>
-                    <td class="border-b bg-black bg-opacity-50 px-6 py-4  text-gray-900">{{ $viaje->carga_kg }}</td>
-                    <td class="border-b bg-black bg-opacity-50 px-6 py-4  text-gray-900">{{ $viaje->descarga_kg }}</td>
-                    <td class="border-b bg-black bg-opacity-50 px-6 py-4  text-gray-900">{{ $viaje->km_llegada }}</td>
-                    <td class="border-b bg-black bg-opacity-50 px-6 py-4  text-gray-900">{{ $viaje->control_desc }}</td>
-                    <td class="border-b bg-black bg-opacity-50 px-6 py-4  text-gray-900">{{ $viaje->km_1_2 }}</td>
-                    <td class="border-b bg-black bg-opacity-50 px-6 py-4  text-gray-900"><a href="#" data-modal-toggle="modalCombustible{{ $key }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" id="verMasLink">Ver más</a></td>   
-                    <td class="border-b bg-black bg-opacity-50 px-6 py-4  text-gray-900"><a href="#" data-modal-toggle="modalGastos{{ $key }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" id="verMasLink2" style="white-space: nowrap;">Ver más</a></td>                                               
+                    <th cope="row" class="border-b bg-opacity-50 px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ \App\Models\TruckDriver::find($viaje->truckdriver_id)->name }}</th>
+                    <td class="border-b bg-opacity-50 px-6 py-4  text-gray-900">{{ \Carbon\Carbon::parse($viaje->fecha_salida)->format('d/m/y') }}</td>
+                    <td class="border-b bg-opacity-50 px-6 py-4  text-gray-900">{{ $viaje->origen }}</td>
+                    <td class="border-b bg-opacity-50 px-6 py-4  text-gray-900">{{ \Carbon\Carbon::parse($viaje->fecha_llegada)->format('d/m/y') }}</td>
+                    <td class="border-b bg-opacity-50 px-6 py-4  text-gray-900">{{ $viaje->km_viaje }}</td>
+                    <td class="border-b bg-opacity-50 px-6 py-4  text-gray-900">{{ $viaje->destino }}</td>
+                    <td class="border-b bg-opacity-50 px-6 py-4  text-gray-900">{{ $viaje->km_salida }}</td>
+                    <td class="border-b bg-opacity-50 px-6 py-4  text-gray-900">{{ $viaje->c_porte }}</td>
+                    <td class="border-b bg-opacity-50 px-6 py-4  text-gray-900">{{ $viaje->producto }}</td>
+                    <td class="border-b bg-opacity-50 px-6 py-4  text-gray-900">{{ $viaje->carga_kg }}</td>
+                    <td class="border-b bg-opacity-50 px-6 py-4  text-gray-900">{{ $viaje->descarga_kg }}</td>
+                    <td class="border-b bg-opacity-50 px-6 py-4  text-gray-900">{{ $viaje->km_llegada }}</td>
+                    <td class="border-b bg-opacity-50 px-6 py-4  text-gray-900">{{ $viaje->control_desc }}</td>
+                    <td class="border-b bg-opacity-50 px-6 py-4  text-gray-900">{{ $viaje->km_1_2 }}</td>
+                    <td class="border-b bg-opacity-50 px-6 py-4  text-gray-900"><a href="#" data-modal-toggle="modalCombustible{{ $key }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" id="verMasLink">Ver más</a></td>   
+                    <td class="border-b bg-opacity-50 px-6 py-4  text-gray-900"><a href="#" data-modal-toggle="modalGastos{{ $key }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" id="verMasLink2" style="white-space: nowrap;">Ver más</a></td>                                               
                    
                 </tr>
             @endIf
