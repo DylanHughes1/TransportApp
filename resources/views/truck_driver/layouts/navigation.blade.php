@@ -33,11 +33,11 @@
                             </svg>
                         </div>
                     </button>
-                    <div x-show="open" x-cloak x-transition:enter="transition ease-out duration-200" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="origin-bottom-right absolute right-0 w-48 mt-2 rounded-md shadow-lg z-10">
+                    <div x-show="open" x-cloak class="origin-bottom-right absolute right-0 mt-2 w-48 rounded-md shadow-lg z-10">
                         <div class="py-1 bg-white rounded-md shadow-xs">
                             <form method="POST" action="{{ route('truck_driver.logout') }}">
                                 @csrf
-                                <button type="submit" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 w-full text-left">
+                                <button type="submit" class="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 text-left">
                                     {{ __('Cerrar Sesión') }}
                                 </button>
                             </form>
