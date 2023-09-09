@@ -38,9 +38,6 @@ return new class extends Migration
             $table->decimal('valor_x_dia');
             $table->decimal('hora_comun');
 
-
-
-
         });
     }
 

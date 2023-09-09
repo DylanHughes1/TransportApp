@@ -21,21 +21,21 @@ return new class extends Migration
             $table->integer('km_viaje')->nullable(); ;
 
             $table->string('destino')->nullable();
-            $table->integer('km_salida')->nullable();
-            $table->integer('c_porte')->nullable();
+            $table->decimal('km_salida')->nullable();
+            $table->decimal('c_porte')->nullable();
             $table->string('producto')->nullable();
-            $table->integer('carga_kg')->nullable();
-            $table->integer('descarga_kg')->nullable();
-            $table->integer('km_llegada')->nullable();
+            $table->decimal('carga_kg')->nullable();
+            $table->decimal('descarga_kg')->nullable();
+            $table->decimal('km_llegada')->nullable();
 
-            $table->integer('control_desc')->nullable();
-            $table->integer('km_1_2')->nullable();     
+            $table->decimal('control_desc')->nullable();
+            $table->decimal('km_1_2')->nullable();     
              
             $table->longText('observacion')->nullable();
 
             $table->boolean('enCurso')->nullable()->default(false);
 
-            $table->integer('TN')->nullable();
+            $table->decimal('TN')->nullable();
 
             $table->integer('progreso')->default(0);
             

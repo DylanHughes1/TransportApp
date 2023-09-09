@@ -68,15 +68,15 @@ class ViajesController extends Controller
                 'fecha_salida' => 'nullable|date',
                 'origen' => 'nullable|max:255',
                 'fecha_llegada' => 'nullable|date',
-                'km_viaje' => 'nullable|integer',
+                'km_viaje' => 'nullable',
                 'destino' => 'nullable|max:255',
-                'km_salida' => 'nullable|integer',
-                'c_porte' => 'nullable|integer',
+                'km_salida' => 'nullable',
+                'c_porte' => 'nullable',
                 'producto' => 'nullable|max:255',
-                'carga_kg' => 'nullable|integer',
-                'descarga_kg' => 'nullable|integer',
-                'km_llegada' => 'nullable|integer',
-                'km_1_2' => 'nullable|integer',
+                'carga_kg' => 'nullable',
+                'descarga_kg' => 'nullable',
+                'km_llegada' => 'nullable',
+                'km_1_2' => 'nullable',
 
             ]);
         } else if ($request->input('finalizar') == null) {
@@ -135,16 +135,16 @@ class ViajesController extends Controller
             'fecha_salida' => 'required|date',
             'origen' => 'required|max:255',
             'fecha_llegada' => 'required|date',
-            'km_viaje' => 'required|integer',
+            'km_viaje' => 'required|decimal',
             'destino' => 'required|max:255',
-            'km_salida' => 'required|integer',
-            'c_porte' => 'required|integer',
+            'km_salida' => 'required|decimal',
+            'c_porte' => 'required|decimal',
             'producto' => 'required|max:255',
-            'carga_kg' => 'required|integer',
-            'descarga_kg' => 'required|integer',
-            'km_llegada' => 'integer',
-            'km_1_2' => 'integer',
-            'conrol_desc' => 'integer',
+            'carga_kg' => 'required|decimal',
+            'descarga_kg' => 'required|decimal',
+            'km_llegada' => 'decimal',
+            'km_1_2' => 'decimal',
+            'conrol_desc' => 'decimal',
         ]);
         return redirect()->back()->withErrors($validator)->withInput();
     }
@@ -156,9 +156,9 @@ class ViajesController extends Controller
     {
 
         $request->validate([
-            'Km' => 'required|integer',
+            'Km' => 'required|decimal',
             'fecha' => 'required|date',
-            'litros' => 'required|integer',
+            'litros' => 'required|decimal',
             'lugar_carga' => 'required|max:255',
         ]);
 

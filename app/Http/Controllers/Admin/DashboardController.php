@@ -76,13 +76,12 @@ class DashboardController extends Controller
      */
     public function storeViajeInicial(Request $request)
     {
-        
         $request->validate([
             'dia1' => 'required',
             'salida' => 'required|max:255',
             'dia2' => 'required',
             'llegada' => 'required|max:255',
-            'TN' => 'required|integer',
+            'TN' => 'required',
         ]);
         
         $viaje_inicial = new ViajeInicial();

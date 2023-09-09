@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('registro_combustible', function (Blueprint $table) {
             $table->id();
-            $table->integer('Km')->nullable();
+            $table->decimal('Km')->nullable();
             $table->date('fecha')->nullable();
-            $table->integer('litros')->nullable();
+            $table->decimal('litros')->nullable();
             $table->boolean('lleno')->nullable();
             $table->String('lugar_carga')->nullable();
             $table->timestamps();
