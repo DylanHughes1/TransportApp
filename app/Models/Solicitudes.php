@@ -13,4 +13,9 @@ class Solicitudes extends Model
     {
         return $this->belongsTo(TruckDriver::class); 
     }
+
+    public function viaje()
+    {
+        return $this->belongsTo(viajes::class); 
+    }
 }

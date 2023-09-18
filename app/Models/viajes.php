@@ -10,14 +10,9 @@ class viajes extends Model
 {
     use HasFactory;
 
-    public function solicitudes()
-    {
-        return $this->belongsTo(Solicitudes::class); 
-    }
-
     public function chofer()
     {
-        return $this->solicitud()->belongsTo(TruckDriver::class);
+        return $this->hasOne(TruckDriver::class);
     }
 
     public function combustibles()

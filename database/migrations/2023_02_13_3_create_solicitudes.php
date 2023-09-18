@@ -24,6 +24,9 @@ return new class extends Migration
             $table->decimal('TN')->nullable();
             $table->timestamps();
 
+            $table->unsignedBigInteger('viaje_id')->nullable();
+            $table->foreign('viaje_id')->references('id')->on('viajes')->onDelete('cascade');
+
             $table->unsignedBigInteger('truckdriver_id')->nullable();
             $table->foreign('truckdriver_id')->references('id')->on('truck_drivers')->onDelete('cascade');
         });

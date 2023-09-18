@@ -33,15 +33,13 @@ return new class extends Migration
              
             $table->longText('observacion')->nullable();
 
-            $table->boolean('enCurso')->nullable()->default(false);
+            $table->boolean('enCurso')->nullable()->default(true);
 
             $table->decimal('TN')->nullable();
 
             $table->integer('progreso')->default(0);
+            $table->integer('progresoSolicitud')->default(0);
             
-            $table->unsignedBigInteger('solicitudes_id')->nullable();
-            $table->foreign('solicitudes_id')->references('id')->on('solicitudes')->onDelete('cascade');
-   
             $table->unsignedBigInteger('truckdriver_id')->nullable();
             $table->foreign('truckdriver_id')
                 ->references('id')

@@ -15,18 +15,19 @@ class SolicitudesSeeder extends Seeder
      */
     public function run()
     {
-        $data = [
-            [
-                'dia1' => '2022-02-20',
-                'salida' => 'Bahia Blanca',
-                'observacion1' => 'A la noche',
-                'dia2' => '2022-02-21',
-                'llegada' => 'Buenos Aires',
-                'observacion2' => 'A la mañana',
-                'truckdriver_id' => 1
-            ],
-        ];
+        // $data = [
+        //     [
+        //         'dia1' => '2022-02-20',
+        //         'salida' => 'Bahia Blanca',
+        //         'observacion1' => 'A la noche',
+        //         'dia2' => '2022-02-21',
+        //         'llegada' => 'Buenos Aires',
+        //         'observacion2' => 'A la mañana',
+        //         'truckdriver_id' => 1,
+        //         'viaje_id' => 1,
+        //     ],
+        // ];
 
-        DB::table('solicitudes')->insert($data);
+        // DB::table('solicitudes')->insert($data);
     }
 }
