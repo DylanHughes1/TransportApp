@@ -34,15 +34,10 @@ class SolicitudesController extends Controller
 
        
         $solicitud = Solicitudes::find($id);
-        
-        $viaje = new viajes();
-        $viaje->fecha_salida = $solicitud->dia1;
-        $viaje->origen = $solicitud->salida;
-        $viaje->fecha_llegada = $solicitud->dia2;
-        $viaje->destino = $solicitud->llegada;
-        $viaje->truckdriver_id = auth()->user()->id;
-        $viaje->enCurso = true;
-        $viaje->TN = $solicitud->TN;
+        $viaje = viajes::find($solicitud->viaje->id);
+        $viaje->truckdriver_id = $solicitud->truckdriver_id;
+        $viaje->progreso = 1;
+        $viaje->progresoSolicitud = 1;
         $viaje->save();
        
 

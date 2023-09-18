@@ -84,16 +84,16 @@ class DashboardController extends Controller
             'TN' => 'required',
         ]);
         
-        $viaje_inicial = new ViajeInicial();
-        $viaje_inicial->dia1 = $request->get('dia1');
-        $viaje_inicial->salida = $request->get('salida');
-        $viaje_inicial->dia2 = $request->get('dia2');
-        $viaje_inicial->llegada = $request->get('llegada');
+        $viaje_inicial = new viajes();
+        $viaje_inicial->fecha_salida = $request->get('dia1');
+        $viaje_inicial->origen = $request->get('salida');
+        $viaje_inicial->fecha_llegada = $request->get('dia2');
+        $viaje_inicial->destino = $request->get('llegada');
         $viaje_inicial->TN = $request->get('TN');
 
         $viaje_inicial->save();
 
-        return redirect("/admin/dashboard");
+        return redirect("/admin/show");
     }
 
     /**
@@ -102,32 +102,26 @@ class DashboardController extends Controller
     public function storeSolicitudes(Request $request)
     {
 
-        $request->validate([
-            'dia1' => 'required|date',
-            'observacion1' => 'nullable',
-            'salida' => 'required|max:255',
-            'dia2' => 'required|date',
-            'llegada' => 'required|max:255',
-            'observacion2' => 'nullable',
-            'id_viaje' => 'nullable'
-        ]);
+        // dd($request);
 
-        $viaje_inicial = ViajeInicial::find($request->get('id_viaje'));
+        $viaje = viajes::find($request->get('id_viaje'));
+        $viaje->progresoSolicitud = 1;
 
         $solicitud = new Solicitudes();
-        $solicitud->dia1 = $request->get('dia1');
-        $solicitud->salida = $request->get('salida');
+        $solicitud->dia1 = $viaje->fecha_salida;
+        $solicitud->salida = $viaje->origen;
         $solicitud->observacion1 = $request->get('observacion1');
-        $solicitud->dia2 = $request->get('dia2');
-        $solicitud->llegada = $request->get('llegada');
+        $solicitud->dia2 = $viaje->fecha_llegada;
+        $solicitud->llegada = $viaje->destino;
         $solicitud->observacion2 = $request->get('observacion2');
-        $solicitud->TN = $request->get('TN');
-        $solicitud->truckdriver_id = $request->get('truck_driver_id');
+        $solicitud->TN = $viaje->TN;
+        $solicitud->truckdriver_id = $request->get('truckdriver_id');
+        $solicitud->viaje_id = $request->get('id_viaje');
 
         $solicitud->save();
-        $viaje_inicial->delete();
+        $viaje->save();
 
-        return redirect('/admin/dashboard');
+        return redirect('/admin/show');
     }
 
     /**
