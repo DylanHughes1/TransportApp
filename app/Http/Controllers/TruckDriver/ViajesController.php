@@ -21,9 +21,13 @@ class ViajesController extends Controller
     {
         $fechaActual = Carbon::now();
         $fechaDosMesesAtras = $fechaActual->subMonths(2);
+
+        $truck_driver_id = auth()->user()->id;
         
         // Obtener los viajes correspondientes a los últimos tres meses
-        $viajes = Viajes::where('fecha_salida', '>=', $fechaDosMesesAtras)->get();
+        $viajes = Viajes::where('fecha_salida', '>=', $fechaDosMesesAtras)
+                ->where('truckdriver_id',$truck_driver_id)
+                ->get();
         
         // Eliminar los viajes más antiguos que tres meses de la base de datos
         Viajes::where('fecha_salida', '<', $fechaDosMesesAtras)->delete();
