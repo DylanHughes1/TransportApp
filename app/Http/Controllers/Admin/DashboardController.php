@@ -130,7 +130,9 @@ class DashboardController extends Controller
     public function showViajes()
     {
         $truck_drivers = TruckDriver::all();
-        $Viajes = Viajes::with('combustibles')->get();
+        $Viajes = Viajes::with('combustibles')
+                ->orderBy('fecha_salida','asc')
+                ->get();
 
         return view('admin.viajes_asignados.showViajes')
             ->with('truck_drivers', $truck_drivers)
@@ -159,6 +161,7 @@ class DashboardController extends Controller
         $viajes = Viajes::where('truckdriver_id', $id)
             ->where('enCurso', false)
             ->with('combustibles')
+            ->orderBy('fecha_llegada', 'asc')
             ->get();
 
         return view('admin.planilla.showPlanilla')
