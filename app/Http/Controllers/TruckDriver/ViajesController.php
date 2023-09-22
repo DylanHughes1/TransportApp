@@ -93,7 +93,8 @@ class ViajesController extends Controller
         $viaje->fecha_salida = $request->input('fecha_salida');
         $viaje->origen = $request->input('origen');
         $viaje->fecha_llegada = $request->input('fecha_llegada');
-        $viaje->km_viaje = $request->input('km_viaje');
+        // $viaje->km_viaje = $request->input('km_viaje');
+        $viaje->km_viaje = $request->input('km_llegada') - $request->input('km_salida');
         $viaje->destino = $request->input('destino');
         $viaje->km_salida = $request->input('km_salida');
         $viaje->c_porte = $request->input('c_porte');
