@@ -34,11 +34,11 @@
                 {{$viaje->TN}}
             </td>
             <td class="px-6 py-4">
-                {{$viaje->carga_kg * $viaje->TN}}
+                {{($viaje->carga_kg/1000) * $viaje->TN}}
             </td>
             <td class="px-6 py-4">
                 @if ($viaje->km_llegada - $viaje->km_salida !== 0)
-                    {{ number_format(($viaje->carga_kg * $viaje->TN) / ($viaje->km_llegada - $viaje->km_salida), 2) }}
+                    {{ number_format((($viaje->carga_kg/1000) * $viaje->TN) / ($viaje->km_llegada - $viaje->km_salida), 2) }}
                 @endif
             </td>            
             <td class="px-6 py-4">
