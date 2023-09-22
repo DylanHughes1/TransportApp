@@ -17,10 +17,13 @@ return new class extends Migration
             $table->id();
             $table->date('fecha_salida')->nullable();
             $table->string('origen')->nullable();
+            $table->longText('observacion_origen')->nullable();
             $table->date('fecha_llegada')->nullable();          
             $table->integer('km_viaje')->nullable(); ;
 
             $table->string('destino')->nullable();
+            $table->longText('observacion_destino')->nullable();
+
             $table->decimal('km_salida')->nullable();
             $table->decimal('c_porte')->nullable();
             $table->string('producto')->nullable();

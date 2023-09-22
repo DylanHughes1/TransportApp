@@ -26,6 +26,7 @@ class ViajesController extends Controller
         
         // Obtener los viajes correspondientes a los últimos tres meses
         $viajes = Viajes::where('fecha_salida', '>=', $fechaDosMesesAtras)
+                ->orderBy('fecha_salida','asc')
                 ->where('truckdriver_id',$truck_driver_id)
                 ->get();
         

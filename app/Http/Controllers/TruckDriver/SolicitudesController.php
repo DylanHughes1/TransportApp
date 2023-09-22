@@ -38,6 +38,8 @@ class SolicitudesController extends Controller
         $viaje->truckdriver_id = $solicitud->truckdriver_id;
         $viaje->progreso = 1;
         $viaje->progresoSolicitud = 1;
+        $viaje->observacion_origen = $solicitud->observacion1;
+        $viaje->observacion_destino = $solicitud->observacion2;
         $viaje->save();
        
 
