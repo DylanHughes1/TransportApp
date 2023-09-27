@@ -141,18 +141,20 @@ class ViajesController extends Controller
             'fecha_salida' => 'required|date',
             'origen' => 'required|max:255',
             'fecha_llegada' => 'required|date',
-            'km_viaje' => 'required|decimal',
+            'km_viaje' => 'nullable|numeric|regex:/^\d+(\.\d{1,2})?$/',
             'destino' => 'required|max:255',
-            'km_salida' => 'required|decimal',
-            'c_porte' => 'required|decimal',
+            'km_salida' => 'nullable|numeric|regex:/^\d+(\.\d{1,2})?$/',
+            'c_porte' => 'nullable|numeric|regex:/^\d+(\.\d{1,2})?$/',
             'producto' => 'required|max:255',
-            'carga_kg' => 'required|decimal',
-            'descarga_kg' => 'required|decimal',
-            'km_llegada' => 'decimal',
-            'km_1_2' => 'decimal',
-            'conrol_desc' => 'decimal',
+            'carga_kg' => 'nullable|numeric|regex:/^\d+(\.\d{1,2})?$/',
+            'descarga_kg' => 'nullable|numeric|regex:/^\d+(\.\d{1,2})?$/',
+            'km_llegada' => 'nullable|numeric|regex:/^\d+(\.\d{1,2})?$/',
+            'km_1_2' => 'nullable|numeric|regex:/^\d+(\.\d{1,2})?$/',
+            'conrol_desc' => 'nullable|numeric|regex:/^\d+(\.\d{1,2})?$/',
         ]);
+        
         return redirect()->back()->withErrors($validator)->withInput();
+        
     }
 
     /**
@@ -162,9 +164,9 @@ class ViajesController extends Controller
     {
 
         $request->validate([
-            'Km' => 'required|decimal',
+            'Km' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
             'fecha' => 'required|date',
-            'litros' => 'required|decimal',
+            'litros' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
             'lugar_carga' => 'required|max:255',
         ]);
 
@@ -193,7 +195,7 @@ class ViajesController extends Controller
         $viaje->destino = $request->destino;
         $viaje->km_salida = $request->km_salida;
         $viaje->km_llegada = $request->km_llegada;
-        $viaje->km_viaje = $request->km_viaje;
+        $viaje->km_viaje = $request->km_llegada - $request->km_salida;
         $viaje->km_1_2 = $request->km_1_2;
 
         $viaje->truckdriver_id = auth()->user()->id;
