@@ -33,10 +33,19 @@
                                             <h2 class="font-semibold text-xl text-gray-800 text-center mb-2">{{ $nombreMes }}</h2>
                                             <div class="space-y-4">
                                                 @foreach ($viajesMes as $viaje)
-                                                    <a href="viajes/{{$viaje->id}}" style="text-decoration:none" class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-                                                        <h5 class="mb-2 text-base font-bold tracking-tight text-gray-900 dark:text-white">Viaje {{ \Carbon\Carbon::parse($viaje->fecha_salida)->format('d/m/y') }}</h5>
-                                                    </a>
-                                                @endforeach
+                                                <a href="viajes/{{$viaje->id}}" style="text-decoration:none" class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                                                    <h5 class="mb-2 text-base font-bold tracking-tight text-gray-900 dark:text-white">Viaje {{ \Carbon\Carbon::parse($viaje->fecha_salida)->format('d/m/y') }}</h5>
+                                                    
+                                                    @if (!$viaje->imagenesViajes->isEmpty())
+                                                        <p class="text-red-500">Subir viaje vacío</p>
+                                                    @endif
+
+                                                    @if (!$viaje->enCurso && $viaje->imagenesViajes->isEmpty())
+                                                            <p class="text-red-500">Subir imágenes del remito</p>
+                                                    @endif
+                                                </a>
+                                            @endforeach
+                                            
                                             </div>
                                         </div>
                                     @endforeach
