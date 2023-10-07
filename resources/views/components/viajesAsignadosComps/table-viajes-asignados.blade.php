@@ -86,7 +86,7 @@
                         <form method="POST" action="/admin/viajes">
                             @csrf
                             @if($viaje->progresoSolicitud === 0)
-                                
+                                   
                                     <input type="hidden" name="id_viaje" value="{{$viaje->id}}">
                                     <input type="hidden" name="truckdriver_id" value="{{$truck_driver->id}}">
                                 

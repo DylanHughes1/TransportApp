@@ -37,7 +37,7 @@ class SolicitudesController extends Controller
         $viaje = viajes::find($solicitud->viaje->id);
         $viaje->truckdriver_id = $solicitud->truckdriver_id;
         $viaje->progreso = 1;
-        $viaje->progresoSolicitud = 1;
+        $viaje->progresoSolicitud = 2;
         $viaje->observacion_origen = $solicitud->observacion1;
         $viaje->observacion_destino = $solicitud->observacion2;
         $viaje->save();

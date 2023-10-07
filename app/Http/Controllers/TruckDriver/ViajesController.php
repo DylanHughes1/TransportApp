@@ -197,12 +197,13 @@ class ViajesController extends Controller
         $viaje->km_llegada = $request->km_llegada;
         $viaje->km_viaje = $request->km_llegada - $request->km_salida;
         $viaje->km_1_2 = $request->km_1_2;
+        $viaje->progresoSolicitud = 2;
 
         $viaje->truckdriver_id = auth()->user()->id;
         $viaje->enCurso = false;
         $viaje->save();
 
-        return redirect("/truck_driver/viajes/b/$id");
+        return redirect("/truck_driver/viajes/$id");
     }
 
     /**
@@ -225,7 +226,7 @@ class ViajesController extends Controller
         $request->validate([
             'image1' => 'required|image|max:1000'
         ]);
-
+        $viaje = viajes::find($id);
         try {
             if ($request->hasFile('image1')) {
                 
@@ -233,6 +234,7 @@ class ViajesController extends Controller
                 $imagenViaje1 = new ImagenViaje();
                 $imagenViaje1->image_link = $uploadedFile1->getPath();
                 $imagenViaje1->image_path = $uploadedFile1->getPublicId();
+                $viaje->imagenesViajes()->save($imagenViaje1);
             }
             if ($request->hasFile('image2')) {
                
@@ -240,22 +242,19 @@ class ViajesController extends Controller
                 $imagenViaje2 = new ImagenViaje();
                 $imagenViaje2->image_link = $uploadedFile2->getPath();
                 $imagenViaje2->image_path = $uploadedFile2->getPublicId();
+                $viaje->imagenesViajes()->save($imagenViaje2);
             }
             if ($request->hasFile('image3')) {
                 $uploadedFile3 = $request->file('image3')->storeOnCloudinary('/recibos');
                 $imagenViaje3 = new ImagenViaje();
                 $imagenViaje3->image_link = $uploadedFile3->getPath();
                 $imagenViaje3->image_path = $uploadedFile3->getPublicId();
+                $viaje->imagenesViajes()->save($imagenViaje3);
             }
         } catch (Exception $e) {
 
             return redirect("/truck_driver/viajes/image/$id")->withErrors("Ocurrió un error al almacenar la imagen\n");
-        }
-
-        $viaje = viajes::find($id);
-        $viaje->imagenesViajes()->save($imagenViaje1);
-        $viaje->imagenesViajes()->save($imagenViaje2);
-        $viaje->imagenesViajes()->save($imagenViaje3);
+        } 
 
         return redirect("/truck_driver/dashboard");
     }
