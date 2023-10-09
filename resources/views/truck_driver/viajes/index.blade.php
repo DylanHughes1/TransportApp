@@ -40,8 +40,12 @@
                                                         <p class="text-red-500">Subir viaje vacío</p>
                                                     @endif
 
-                                                    @if (!$viaje->enCurso && $viaje->imagenesViajes->isEmpty())
+                                                    @if (!$viaje->enCurso && $viaje->imagenesViajes->isEmpty() && !$viaje->esVacio)
                                                             <p class="text-red-500">Subir imágenes del remito</p>
+                                                    @endif
+
+                                                    @if ($viaje->esVacio)
+                                                        <p class="text-green-500 text-center">Viaje vacío</p>
                                                     @endif
                                                 </a>
                                             @endforeach

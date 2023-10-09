@@ -198,6 +198,7 @@ class ViajesController extends Controller
         $viaje->km_viaje = $request->km_llegada - $request->km_salida;
         $viaje->km_1_2 = $request->km_1_2;
         $viaje->progresoSolicitud = 2;
+        $viaje->esVacio = true;
 
         $viaje->truckdriver_id = auth()->user()->id;
         $viaje->enCurso = false;

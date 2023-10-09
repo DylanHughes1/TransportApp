@@ -42,6 +42,8 @@ return new class extends Migration
 
             $table->integer('progreso')->default(0);
             $table->integer('progresoSolicitud')->default(0);
+
+            $table->boolean('esVacio')->default(false);
             
             $table->unsignedBigInteger('truckdriver_id')->nullable();
             $table->foreign('truckdriver_id')

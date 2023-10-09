@@ -21,7 +21,7 @@
                         @endcomponent
 
                         <!-- Main modal -->
-                        <div id="modalViajeNuevo" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 overflow-y-auto modal-overflow-hidden">                            
+                        <div id="modalViajeNuevo" data-modal-backdrop="static" tabindex="-1" aria-hidden="true" class="hidden fixed inset-0 z-50 overflow-y-auto modal-overflow-hidden">                            
                             <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
                                 <!-- Modal content -->
                                 <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
