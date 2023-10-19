@@ -9,6 +9,7 @@ use App\Models\TruckDriver;
 use App\Models\Solicitudes;
 use App\Models\viajes;
 use App\Models\Combustible;
+use App\Models\InputsEditables;
 
 
 class DashboardController extends Controller
@@ -138,10 +139,15 @@ class DashboardController extends Controller
             $query->where('enCurso', true);
         })->get();
 
+        $inputsEditables = InputsEditables::all();
+
+        dd($inputsEditables);
+
         return view('admin.viajes_asignados.showViajes')
             ->with('truck_drivers', $truck_drivers)
             ->with('viajes', $Viajes)
-            ->with('choferesLibres', $choferesLibres);
+            ->with('choferesLibres', $choferesLibres)
+            ->with('inputsEditables', $inputsEditables);
     }
 
     /**
