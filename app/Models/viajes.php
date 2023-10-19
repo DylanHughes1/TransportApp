@@ -12,9 +12,9 @@ class viajes extends Model
 
     public function chofer()
     {
-        return $this->hasOne(TruckDriver::class);
+        return $this->hasOne(TruckDriver::class, 'truckdriver_id');
     }
-
+    
     public function combustibles()
     {
         return $this->hasMany(Combustible::class, 'viaje_id');

@@ -134,9 +134,14 @@ class DashboardController extends Controller
                 ->orderBy('fecha_salida','asc')
                 ->get();
 
+        $choferesLibres = TruckDriver::doesntHave('viajes', 'and', function ($query) {
+            $query->where('enCurso', true);
+        })->get();
+
         return view('admin.viajes_asignados.showViajes')
             ->with('truck_drivers', $truck_drivers)
-            ->with('viajes', $Viajes);
+            ->with('viajes', $Viajes)
+            ->with('choferesLibres', $choferesLibres);
     }
 
     /**

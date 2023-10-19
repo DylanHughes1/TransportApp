@@ -42,4 +42,10 @@ class TruckDriver extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function viajes()
+{
+    return $this->hasMany(viajes::class, 'truckdriver_id');
+}
+
+
 }
