@@ -7,4 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class InputsEditables extends Model
 {
     protected $table = 'inputs_editables';
+    protected $fillable = [
+        'origen',
+        'destino',
+        // Otras columnas que desees permitir la asignación masiva.
+    ];
+
+
 }

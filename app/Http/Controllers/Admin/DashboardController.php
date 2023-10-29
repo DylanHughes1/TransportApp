@@ -10,6 +10,7 @@ use App\Models\Solicitudes;
 use App\Models\viajes;
 use App\Models\Combustible;
 use App\Models\InputsEditables;
+use Illuminate\Support\Facades\Log;
 
 
 class DashboardController extends Controller
@@ -77,6 +78,8 @@ class DashboardController extends Controller
      */
     public function storeViajeInicial(Request $request)
     {
+        // $opcionSeleccionada = $request->input('opcion_seleccionada');
+        // dd($opcionSeleccionada);
         $request->validate([
             'dia1' => 'required',
             'salida' => 'required|max:255',
@@ -84,7 +87,12 @@ class DashboardController extends Controller
             'llegada' => 'required|max:255',
             'TN' => 'required',
         ]);
-        
+
+        $input_editable = InputsEditables::firstOrNew([
+            'origen' => $request->get('salida'),
+            'destino' => $request->get('llegada'),            
+        ]);
+
         $viaje_inicial = new viajes();
         $viaje_inicial->fecha_salida = $request->get('dia1');
         $viaje_inicial->origen = $request->get('salida');
@@ -93,6 +101,7 @@ class DashboardController extends Controller
         $viaje_inicial->TN = $request->get('TN');
 
         $viaje_inicial->save();
+        $input_editable->save();
 
         return redirect("/admin/show");
     }
@@ -139,15 +148,13 @@ class DashboardController extends Controller
             $query->where('enCurso', true);
         })->get();
 
-        $inputsEditables = InputsEditables::all();
-
-        dd($inputsEditables);
+        $inputs_editables = InputsEditables::all();
 
         return view('admin.viajes_asignados.showViajes')
             ->with('truck_drivers', $truck_drivers)
             ->with('viajes', $Viajes)
             ->with('choferesLibres', $choferesLibres)
-            ->with('inputsEditables', $inputsEditables);
+            ->with('inputs_editables', $inputs_editables);
     }
 
     /**
