@@ -78,30 +78,31 @@ class DashboardController extends Controller
      */
     public function storeViajeInicial(Request $request)
     {
-        // $opcionSeleccionada = $request->input('opcion_seleccionada');
-        // dd($opcionSeleccionada);
-        $request->validate([
-            'dia1' => 'required',
-            'salida' => 'required|max:255',
-            'dia2' => 'required',
-            'llegada' => 'required|max:255',
-            'TN' => 'required',
-        ]);
+        $viaje_inicial = new Viajes();
+        // $input_editable = InputsEditables::firstOrNew();
+        $input_editable = new InputsEditables();
 
-        $input_editable = InputsEditables::firstOrNew([
-            'origen' => $request->get('salida'),
-            'destino' => $request->get('llegada'),            
-        ]);
+        if ($request->filled('opcion_seleccionada')) {
+            $viaje_inicial->origen = $request->get('opcion_seleccionada');
+        } else{
+            $input_editable->origen = $request->input('salida');
+            $viaje_inicial->origen = $input_editable->origen;
+        }
 
-        $viaje_inicial = new viajes();
+        if ($request->filled('opcion_seleccionada2')) {
+            $viaje_inicial->destino = $request->get('opcion_seleccionada2');
+        } else{
+            $input_editable->destino = $request->input('destino');
+            $viaje_inicial->destino = $input_editable->destino;
+        }
+
         $viaje_inicial->fecha_salida = $request->get('dia1');
-        $viaje_inicial->origen = $request->get('salida');
         $viaje_inicial->fecha_llegada = $request->get('dia2');
-        $viaje_inicial->destino = $request->get('llegada');
         $viaje_inicial->TN = $request->get('TN');
 
         $viaje_inicial->save();
-        $input_editable->save();
+        if($input_editable->origen != null || $input_editable->destino) 
+            $input_editable->save();
 
         return redirect("/admin/show");
     }
