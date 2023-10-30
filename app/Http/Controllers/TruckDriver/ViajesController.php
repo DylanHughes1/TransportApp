@@ -10,6 +10,7 @@ use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Exception;
 use App\Models\ImagenViaje;
 use \Carbon\Carbon;
+use App\Models\InputsEditables;
 
 class ViajesController extends Controller
 {
@@ -43,10 +44,13 @@ class ViajesController extends Controller
     {
 
         $viaje = viajes::find($id);
+        $inputs_editables = InputsEditables::all();
         if ($viaje == null)
             abort(404);
 
-        return view('truck_driver.viajes.show')->with('viaje', $viaje);
+        return view('truck_driver.viajes.show')
+            ->with('viaje', $viaje)
+            ->with('inputs_editables', $inputs_editables);
     }
 
     /**
@@ -56,10 +60,13 @@ class ViajesController extends Controller
     {
 
         $viaje = viajes::find($id);
+        $inputs_editables = InputsEditables::all();
         if ($viaje == null)
             abort(404);
 
-        return view('truck_driver.viajes.show2')->with('viaje', $viaje);
+        return view('truck_driver.viajes.show2')
+            ->with('viaje', $viaje)
+            ->with('inputs_editables', $inputs_editables);
     }
 
     /**
@@ -189,10 +196,25 @@ class ViajesController extends Controller
     {
 
         $viaje = new viajes();
+
+        $input_editable = new InputsEditables();
+
+        if ($request->filled('opcion_seleccionada')) {
+            $viaje->origen = $request->get('opcion_seleccionada');
+        } else{
+            $input_editable->origen = $request->input('salida');
+            $viaje->origen = $input_editable->origen;
+        }
+
+        if ($request->filled('opcion_seleccionada2')) {
+            $viaje->destino = $request->get('opcion_seleccionada2');
+        } else{
+            $input_editable->destino = $request->input('destino');
+            $viaje->destino = $input_editable->destino;
+        }
+
         $viaje->fecha_salida = $request->fecha_salida;
-        $viaje->origen = $request->origen;
         $viaje->fecha_llegada = $request->fecha_llegada;
-        $viaje->destino = $request->destino;
         $viaje->km_salida = $request->km_salida;
         $viaje->km_llegada = $request->km_llegada;
         $viaje->km_viaje = $request->km_llegada - $request->km_salida;
@@ -202,6 +224,8 @@ class ViajesController extends Controller
 
         $viaje->truckdriver_id = auth()->user()->id;
         $viaje->enCurso = false;
+        if($input_editable->origen != null || $input_editable->destino) 
+            $input_editable->save();
         $viaje->save();
 
         return redirect("/truck_driver/viajes/$id");
