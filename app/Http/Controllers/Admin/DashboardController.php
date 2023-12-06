@@ -49,7 +49,7 @@ class DashboardController extends Controller
         $viajes_inicial = ViajeInicial::all();
 
         return view('admin.nuevos_viajes.create2')
-            ->with('truck_drivers', $truck_drivers)
+            ->with('truck_drivers'. $truck_drivers)
             ->with('viajes_inicial', $viajes_inicial);
     }
 
@@ -187,4 +187,20 @@ class DashboardController extends Controller
             ->with('truck_driver', $truck_driver)
             ->with('viajes', $viajes);
     }
+
+    public function updateViaje(Request $request){
+        // dd($request);
+        
+        $viaje = viajes::find($request->get('id_viaje'));
+        dd($viaje->fecha_salida);
+        $key = $request->get('key');
+        $viaje->origen = $request->get('origen' . $key);
+        $viaje->fecha_salida = $request->get('fecha_salida' . $key);
+        $viaje->fecha_llegada = $request->get('fecha_llegada' . $key);
+        $viaje->destino = $request->get('destino' . $key);
+
+        $viaje->save();
+        return redirect('/admin/show');
+    }
+
 }

@@ -19,10 +19,12 @@
             <th scope="col" class="px-6 py-3">KM 1.2</th>
             <th scope="col" class="px-6 py-3">Combustible</th>
             <th scope="col" class="px-6 py-3">Gastos Extra</th>
-
+            <th scope="col" class="px-6 py-3"></th>
         </tr>
     </thead>
     <tbody>
+        
+
         @foreach ($viajes as $key => $viaje)
             @if($viaje->enCurso)
                 <tr class="{{ $viaje->progreso === 1 ? 'bg-red-300' : ($viaje->progreso === 2 ? 'bg-yellow-100' : 'bg-gray-200') }}">
@@ -52,22 +54,40 @@
                         @endif
 
                     </th>
-                    <td class="border-b bg-opacity-50 px-6 py-4  text-gray-900">{{ \Carbon\Carbon::parse($viaje->fecha_salida)->format('d/m/y') }}</td>
-                    <td class="border-b bg-opacity-50 px-6 py-4  text-gray-900">{{ $viaje->origen }}</td>
-                    <td class="border-b bg-opacity-50 px-6 py-4  text-gray-900">{{ \Carbon\Carbon::parse($viaje->fecha_llegada)->format('d/m/y') }}</td>
-                    <td class="border-b bg-opacity-50 px-6 py-4  text-gray-900">{{ $viaje->km_viaje }}</td>
-                    <td class="border-b bg-opacity-50 px-6 py-4  text-gray-900">{{ $viaje->destino }}</td>
-                    <td class="border-b bg-opacity-50 px-6 py-4  text-gray-900">{{ $viaje->km_salida }}</td>
-                    <td class="border-b bg-opacity-50 px-6 py-4  text-gray-900">{{ $viaje->c_porte }}</td>
-                    <td class="border-b bg-opacity-50 px-6 py-4  text-gray-900">{{ $viaje->producto }}</td>
-                    <td class="border-b bg-opacity-50 px-6 py-4  text-gray-900">{{ $viaje->carga_kg }}</td>
-                    <td class="border-b bg-opacity-50 px-6 py-4  text-gray-900">{{ $viaje->descarga_kg }}</td>
-                    <td class="border-b bg-opacity-50 px-6 py-4  text-gray-900">{{ $viaje->km_llegada }}</td>
-                    <td class="border-b bg-opacity-50 px-6 py-4  text-gray-900">{{ $viaje->control_desc }}</td>
-                    <td class="border-b bg-opacity-50 px-6 py-4  text-gray-900">{{ $viaje->km_1_2 }}</td>
-                    <td class="border-b bg-opacity-50 px-6 py-4  text-gray-900"><a href="#" data-modal-toggle="modalCombustible{{ $key }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" id="verMasLink">Ver más</a></td>   
-                    <td class="border-b bg-opacity-50 px-6 py-4  text-gray-900"><a href="#" data-modal-toggle="modalGastos{{ $key }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" id="verMasLink2" style="white-space: nowrap;">Ver más</a></td>                                               
+                    <form id="form-viajes" method="POST" action="/admin/update">
+                        @csrf
+                        @method('PUT')
+                        <input type="hidden" name="id_viaje" value="{{$viaje->id}}">
+                        <input type="hidden" name="key" value="{{ $key }}">
+                        <td>
+                            <input type="text" name="fecha_salida{{ $key }}" style="border: none; background-color: transparent; width: 125px; text-align: center;" class="px-2 py-1 text-gray-900" value="{{ \Carbon\Carbon::parse($viaje->fecha_salida)->format('d/m/y') }}">
+                        </td>
+                        <td>
+                            <input type="text" name="origen{{ $key }}" style="border: none; background-color: transparent; width: 125px; text-align: center;" class="px-2 py-1 text-gray-900" value="{{ $viaje->origen }}">
+                        </td>
+                        <td>
+                            <input type="text" name="fecha_llegada{{ $key }}" style="border: none; background-color: transparent; width: 125px; text-align: center;" class="px-2 py-1 text-gray-900" value="{{ \Carbon\Carbon::parse($viaje->fecha_llegada)->format('d/m/y') }}">
+                        </td>
+                        <td class="border-b bg-opacity-50 px-6 py-4  text-gray-900" name="km_viaje">{{ $viaje->km_viaje }}
+                        <td>
+                            <input type="text" name="destino{{ $key }}" style="border: none; background-color: transparent; width: 125px; text-align: center;" class="px-2 py-1 text-gray-900" value="{{ $viaje->destino }}">
+                        </td>
+                        <td class="border-b bg-opacity-50 px-6 py-4  text-gray-900">{{ $viaje->km_salida }}</td>
+                        <td class="border-b bg-opacity-50 px-6 py-4  text-gray-900">{{ $viaje->c_porte }}</td>
+                        <td class="border-b bg-opacity-50 px-6 py-4  text-gray-900">{{ $viaje->producto }}</td>
+                        <td class="border-b bg-opacity-50 px-6 py-4  text-gray-900">{{ $viaje->carga_kg }}</td>
+                        <td class="border-b bg-opacity-50 px-6 py-4  text-gray-900">{{ $viaje->descarga_kg }}</td>
+                        <td class="border-b bg-opacity-50 px-6 py-4  text-gray-900">{{ $viaje->km_llegada }}</td>
+                        <td class="border-b bg-opacity-50 px-6 py-4  text-gray-900">{{ $viaje->control_desc }}</td>
+                        <td class="border-b bg-opacity-50 px-6 py-4  text-gray-900">{{ $viaje->km_1_2 }}</td>
+                        <td class="border-b bg-opacity-50 px-6 py-4  text-gray-900"><a href="#" data-modal-toggle="modalCombustible{{ $key }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" id="verMasLink">Ver más</a></td>   
+                        <td class="border-b bg-opacity-50 px-6 py-4  text-gray-900"><a href="#" data-modal-toggle="modalGastos{{ $key }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" id="verMasLink2" style="white-space: nowrap;">Ver más</a></td>       
+                        <td class="border-b bg-opacity-50 px-6 py-4 text-gray-900 text-center">
+                            <button type="submit" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Actualizar</button>
+                        </td>
+                    </form>
                 </tr>
+
             @endIf
 
         <!-- Modal -->
@@ -179,5 +199,6 @@
                 </div>
             </div>
         @endforeach
+    
     </tbody>
 </table>

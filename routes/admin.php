@@ -102,6 +102,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
         ->middleware('auth:admin')
         ->name('show');   
 
+    Route::put('update', [DashboardController::class, 'updateViaje'])
+        ->middleware('auth:admin')
+        ->name('update');  
+
     Route::get('planilla', [DashboardController::class, 'indexPlanilla'])
     ->middleware('auth:admin');
 
