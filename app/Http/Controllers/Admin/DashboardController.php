@@ -49,7 +49,7 @@ class DashboardController extends Controller
         $viajes_inicial = ViajeInicial::all();
 
         return view('admin.nuevos_viajes.create2')
-            ->with('truck_drivers'. $truck_drivers)
+            ->with('truck_drivers' . $truck_drivers)
             ->with('viajes_inicial', $viajes_inicial);
     }
 
@@ -84,14 +84,14 @@ class DashboardController extends Controller
 
         if ($request->filled('opcion_seleccionada')) {
             $viaje_inicial->origen = $request->get('opcion_seleccionada');
-        } else{
+        } else {
             $input_editable->origen = $request->input('salida');
             $viaje_inicial->origen = $input_editable->origen;
         }
 
         if ($request->filled('opcion_seleccionada2')) {
             $viaje_inicial->destino = $request->get('opcion_seleccionada2');
-        } else{
+        } else {
             $input_editable->destino = $request->input('destino');
             $viaje_inicial->destino = $input_editable->destino;
         }
@@ -101,7 +101,7 @@ class DashboardController extends Controller
         $viaje_inicial->TN = $request->get('TN');
 
         $viaje_inicial->save();
-        if($input_editable->origen != null || $input_editable->destino) 
+        if ($input_editable->origen != null || $input_editable->destino)
             $input_editable->save();
 
         return redirect("/admin/show");
@@ -140,10 +140,10 @@ class DashboardController extends Controller
      */
     public function showViajes()
     {
-        $truck_drivers = TruckDriver::all();
         $Viajes = Viajes::with('combustibles')
-                ->orderBy('fecha_salida','asc')
-                ->get();
+            ->where('enCurso', true)
+            ->orderBy('fecha_salida', 'asc')
+            ->get();
 
         $choferesLibres = TruckDriver::doesntHave('viajes', 'and', function ($query) {
             $query->where('enCurso', true);
@@ -152,7 +152,6 @@ class DashboardController extends Controller
         $inputs_editables = InputsEditables::all();
 
         return view('admin.viajes_asignados.showViajes')
-            ->with('truck_drivers', $truck_drivers)
             ->with('viajes', $Viajes)
             ->with('choferesLibres', $choferesLibres)
             ->with('inputs_editables', $inputs_editables);
@@ -188,13 +187,28 @@ class DashboardController extends Controller
             ->with('viajes', $viajes);
     }
 
-    public function updateViaje(Request $request){
+    public function updateViaje(Request $request)
+    {
         // dd($request);
-        
+
+        $inputs_editables = InputsEditables::all();
+
         $viaje = viajes::find($request->get('id_viaje'));
-        dd($viaje->fecha_salida);
         $key = $request->get('key');
-        $viaje->origen = $request->get('origen' . $key);
+        $nuevosCampos = [
+            'origen' => $request->get('origen' . $key),
+            'destino' => $request->get('destino' . $key),
+        ];
+
+        foreach ($nuevosCampos as $campo => $nuevoValor) {
+            if (!$inputs_editables->contains($campo, $nuevoValor)) {
+                $nuevoInputEditable = new InputsEditables([$campo => $nuevoValor]);
+                $nuevoInputEditable->save();
+            }
+        }
+
+        $viaje->origen = $nuevosCampos['origen'];
+        $viaje->destino = $nuevosCampos['destino'];
         $viaje->fecha_salida = $request->get('fecha_salida' . $key);
         $viaje->fecha_llegada = $request->get('fecha_llegada' . $key);
         $viaje->destino = $request->get('destino' . $key);
@@ -202,5 +216,4 @@ class DashboardController extends Controller
         $viaje->save();
         return redirect('/admin/show');
     }
-
 }
