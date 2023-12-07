@@ -12,26 +12,35 @@
         <label for="default-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Origen</label>
     <div class="relative inline-block text-left">
        
-        <button id="dropdownHoverButton" data-dropdown-toggle="dropdownHover" class="text-gray-700 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-gray-800 dark:border-gray-600 dark:hover:bg-gray-700 dark:focus:ring-blue-800" type="button">
-            <span id="selectedOption">Seleccionar Localidad</span>
-        </button>
+        <div class="flex items-center space-x-4">
+            <div class="relative">
+                <!-- Dropdown button -->
+                <button id="dropdownHoverButton" data-dropdown-toggle="dropdownHover" class="text-gray-700 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-gray-800 dark:border-gray-600 dark:hover:bg-gray-700 dark:focus:ring-blue-800" type="button">
+                    <span id="selectedOption">Seleccionar Localidad</span>
+                </button>
         
-        <!-- Dropdown menu -->
-        <div id="dropdownHover" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownHoverButton">
-                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" data-value="Seleccionar Localidad">Seleccionar Localidad</a>
-                @foreach ($inputs_editables as $input_editable)
-                    <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" data-value="{{ $input_editable->origen }}">{{ $input_editable->origen }}</a>
-                @endforeach
-            </ul>
-        </div>
-        o
-        <!-- Campo de formulario oculto para la opción seleccionada -->
-        <input type="hidden" id="selectedOptionInput" name="opcion_seleccionada" value="">
+                <!-- Dropdown menu -->
+                <div id="dropdownHover" class="z-10 hidden absolute top-full bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                    <ul class="h-48 py-2 overflow-y-auto text-gray-700 dark:text-gray-200" aria-labelledby="dropdownUsersButton">
+                        <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" data-value="Seleccionar Localidad">Seleccionar Localidad</a>
+                        @foreach ($inputs_editables as $input_editable)
+                            @if ($input_editable->origen !== null)
+                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" data-value="{{ $input_editable->origen }}">{{ $input_editable->origen }}</a>
+                            @endif
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+            <div>
+                o
+            </div>
+            <span class="flex-grow">
+                <!-- Campo de formulario oculto para la opción seleccionada -->
+                <input type="hidden" id="selectedOptionInput" name="opcion_seleccionada" value="">
         
-        <!-- Input para agregar una localidad nueva -->
-        <div class="mt-4">
-            <input type="text" id="salida" name="salida" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Agregar localidad nueva" required>
+                <!-- Input para agregar una localidad nueva -->
+                <input type="text" id="salida" name="salida" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Agregar localidad nueva" required>
+            </span>
         </div>
         
         <script>
@@ -67,6 +76,7 @@
             });
         </script>
         
+        
             
     </div>
 
@@ -85,25 +95,35 @@
         <label for="default-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Destino</label>
         <div class="relative inline-block text-left">
        
-            <button id="dropdownHoverButton2" data-dropdown-toggle="dropdownHover2" class="text-gray-700 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-gray-800 dark:border-gray-600 dark:hover-bg-gray-700 dark:focus:ring-blue-800" type="button">
-                <span id="selectedOption2">Seleccionar Localidad 2</span>
-            </button>
+            <div class="flex items-center space-x-4">
+                <div class="relative">
+                    <!-- Dropdown button 2 -->
+                    <button id="dropdownHoverButton2" data-dropdown-toggle="dropdownHover2" class="text-gray-700 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-gray-800 dark:border-gray-600 dark:hover-bg-gray-700 dark:focus:ring-blue-800" type="button">
+                        <span id="selectedOption2">Seleccionar Localidad 2</span>
+                    </button>
             
-            <!-- Dropdown menu 2 -->
-            <div id="dropdownHover2" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownHoverButton2">
-                    <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover-bg-gray-600 dark:hover:text-white" data-value="Seleccionar Localidad 2">Seleccionar Localidad 2</a>
-                    @foreach ($inputs_editables as $input_editable)
-                        <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover-bg-gray-600 dark:hover:text-white" data-value="{{ $input_editable->destino }}">{{ $input_editable->destino }}</a>
-                    @endforeach
-                </ul>
-            </div>
+                    <!-- Dropdown menu 2 -->
+                    <div id="dropdownHover2" class="z-10 hidden absolute top-full bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                        <ul class="h-48 py-2 overflow-y-auto text-gray-700 dark:text-gray-200" aria-labelledby="dropdownUsersButton">
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover-bg-gray-600 dark:hover:text-white" data-value="Seleccionar Localidad 2">Seleccionar Localidad</a>
+                            @foreach ($inputs_editables as $input_editable)
+                                @if ($input_editable->destino !== null)
+                                    <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover-bg-gray-600 dark:hover:text-white" data-value="{{ $input_editable->destino }}">{{ $input_editable->destino }}</a>
+                                @endif
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    o
+                </div>
+                <span class="flex-grow">
+                    <!-- Campo de formulario oculto para la opción seleccionada 2 -->
+                    <input type="hidden" id="selectedOptionInput2" name="opcion_seleccionada2" value="">
             
-            <input type="hidden" id="selectedOptionInput2" name="opcion_seleccionada2" value="">
-
-            <!-- Input para agregar una localidad nueva -->
-            <div class="mt-4">
-                <input type="text" id="destino" name="destino" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Agregar localidad nueva" required>
+                    <!-- Input para agregar una localidad nueva 2 -->
+                    <input type="text" id="destino" name="destino" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Agregar localidad nueva" required>
+                </span>
             </div>
             
             <script>

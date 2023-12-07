@@ -38,7 +38,7 @@
                                         <button data-modal-target="defaultModal" data-modal-show="defaultModal" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover-bg:700 dark:hover:border-gray-600 dark:focus:ring-gray-700">Agregar Viaje</button>
                                     </div>
                                     <div class="overflow-x-auto">
-                                        @component('components.viajesAsignadosComps.table-viajes-asignados', ['viajes' => $viajes, 'truck_drivers' => $truck_drivers])
+                                        @component('components.viajesAsignadosComps.table-viajes-asignados', ['viajes' => $viajes, 'choferesLibres' => $choferesLibres])
                                         @endcomponent
 
                                         <hr class="my-4 border-gray-300">
