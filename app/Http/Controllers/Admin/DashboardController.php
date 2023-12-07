@@ -209,11 +209,27 @@ class DashboardController extends Controller
 
         $viaje->origen = $nuevosCampos['origen'];
         $viaje->destino = $nuevosCampos['destino'];
-        $viaje->fecha_salida = $request->get('fecha_salida' . $key);
-        $viaje->fecha_llegada = $request->get('fecha_llegada' . $key);
+
+        $convertirFecha = function ($input) {
+            $fechaObjeto = \DateTime::createFromFormat('d/m/y', $input);
+            return $fechaObjeto ? $fechaObjeto->format('Y-m-d') : null;
+        };
+
+        $fechaSalida = $convertirFecha($request->get('fecha_salida' . $key));
+        $fechaLlegada = $convertirFecha($request->get('fecha_llegada' . $key));
+
+        if ($fechaSalida !== null) {$viaje->fecha_salida = $fechaSalida;}
+        if ($fechaLlegada !== null) {$viaje->fecha_llegada = $fechaLlegada;}
+
         $viaje->destino = $request->get('destino' . $key);
 
         $viaje->save();
         return redirect('/admin/show');
+    }
+
+    function convertirFecha($input)
+    {
+        $fechaObjeto = \DateTime::createFromFormat('d/m/y', $input);
+        return $fechaObjeto ? $fechaObjeto->format('Y-m-d') : null;
     }
 }
