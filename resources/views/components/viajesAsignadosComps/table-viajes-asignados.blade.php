@@ -26,7 +26,7 @@
         
 
         @foreach ($viajes as $key => $viaje)
-            @if($viaje->enCurso)
+       
                 <tr class="{{ $viaje->progreso === 1 ? 'bg-red-300' : ($viaje->progreso === 2 ? 'bg-yellow-100' : 'bg-gray-200') }}">
                     <th cope="row" class="border-b bg-opacity-50 px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
 
@@ -41,14 +41,15 @@
                             
                             <!-- Dropdown menu -->
                             <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-                                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
-                                    @foreach ($truck_drivers as $truck_driver)
-                                    <li>
-                                        <a href="#" data-modal-toggle="popup-modal{{ $key }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">{{$truck_driver->name}}</a>
-                                    </li>
-                                @endforeach
-                                    
+                                <ul class="h-48 py-2 overflow-y-auto text-gray-700 dark:text-gray-200" aria-labelledby="dropdownUsersButton">
+                                    @foreach ($choferesLibres as $key => $choferLibre)
+                                        <li>
+                                            <a href="#" data-modal-toggle="popup-modal{{ $key }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" style="white-space: normal;">{{$choferLibre->name}}</a>
+                                        </li>
+                                    @endforeach
+                                </ul>
                             </div>
+                            
                         @else                     
                             {{ \App\Models\TruckDriver::find($viaje->truckdriver_id)->name ?? 'En espera' }}                                
                         @endif
@@ -88,8 +89,6 @@
                     </form>
                 </tr>
 
-            @endIf
-
         <!-- Modal -->
         <div id="popup-modal{{ $key }}" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
             <div class="relative w-full max-w-md max-h-full">
@@ -108,7 +107,7 @@
                             @if($viaje->progresoSolicitud === 0)
                                    
                                     <input type="hidden" name="id_viaje" value="{{$viaje->id}}">
-                                    <input type="hidden" name="truckdriver_id" value="{{$truck_driver->id}}">
+                                    <input type="hidden" name="truckdriver_id" value="{{$choferLibre->id}}">
                                 
                             @else
                                 @php
