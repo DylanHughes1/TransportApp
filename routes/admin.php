@@ -94,7 +94,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         ->middleware('auth:admin')
         ->name('create3');  
 
-    Route::post('viajes', [DashboardController::class, 'storeSolicitudes'])
+    Route::post('viajes/{id}', [DashboardController::class, 'storeSolicitudes'])
         ->middleware('auth:admin')
         ->name('store2');    
 
@@ -105,6 +105,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::put('update', [DashboardController::class, 'updateViaje'])
         ->middleware('auth:admin')
         ->name('update');  
+
+    Route::delete('cancelar/{id}', [DashboardController::class, 'cancelarViaje'])
+        ->middleware('auth:admin')
+        ->name('cancelar');
 
     Route::get('planilla', [DashboardController::class, 'indexPlanilla'])
     ->middleware('auth:admin');

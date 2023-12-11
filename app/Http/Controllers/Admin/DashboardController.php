@@ -79,7 +79,6 @@ class DashboardController extends Controller
     public function storeViajeInicial(Request $request)
     {
         $viaje_inicial = new Viajes();
-        // $input_editable = InputsEditables::firstOrNew();
         $input_editable = new InputsEditables();
 
         if ($request->filled('opcion_seleccionada')) {
@@ -97,7 +96,9 @@ class DashboardController extends Controller
         }
 
         $viaje_inicial->fecha_salida = $request->get('dia1');
+        $viaje_inicial->observacion_origen = $request->get('observacion1');
         $viaje_inicial->fecha_llegada = $request->get('dia2');
+        $viaje_inicial->observacion_destino = $request->get('observacion2');
         $viaje_inicial->TN = $request->get('TN');
 
         $viaje_inicial->save();
@@ -110,23 +111,23 @@ class DashboardController extends Controller
     /**
      * Almacena la nueva solicitud realizada a un chofer.
      */
-    public function storeSolicitudes(Request $request)
+    public function storeSolicitudes(Request $request, $id)
     {
 
-        // dd($request);
-
         $viaje = viajes::find($request->get('id_viaje'));
+
         $viaje->progresoSolicitud = 1;
+        $viaje->truckdriver_id = $id;
 
         $solicitud = new Solicitudes();
         $solicitud->dia1 = $viaje->fecha_salida;
         $solicitud->salida = $viaje->origen;
-        $solicitud->observacion1 = $request->get('observacion1');
+        $solicitud->observacion1 = $viaje->observacion_origen;
         $solicitud->dia2 = $viaje->fecha_llegada;
         $solicitud->llegada = $viaje->destino;
-        $solicitud->observacion2 = $request->get('observacion2');
+        $solicitud->observacion2 = $viaje->observacion_destino;
         $solicitud->TN = $viaje->TN;
-        $solicitud->truckdriver_id = $request->get('truckdriver_id');
+        $solicitud->truckdriver_id = $id;
         $solicitud->viaje_id = $request->get('id_viaje');
 
         $solicitud->save();
@@ -218,12 +219,16 @@ class DashboardController extends Controller
         $fechaSalida = $convertirFecha($request->get('fecha_salida' . $key));
         $fechaLlegada = $convertirFecha($request->get('fecha_llegada' . $key));
 
-        if ($fechaSalida !== null) {$viaje->fecha_salida = $fechaSalida;}
-        if ($fechaLlegada !== null) {$viaje->fecha_llegada = $fechaLlegada;}
+        if ($fechaSalida !== null) {
+            $viaje->fecha_salida = $fechaSalida;
+        }
+        if ($fechaLlegada !== null) {
+            $viaje->fecha_llegada = $fechaLlegada;
+        }
 
         $viaje->destino = $request->get('destino' . $key);
 
-        $viaje->save();
+        $viaje->update();
         return redirect('/admin/show');
     }
 
@@ -231,5 +236,14 @@ class DashboardController extends Controller
     {
         $fechaObjeto = \DateTime::createFromFormat('d/m/y', $input);
         return $fechaObjeto ? $fechaObjeto->format('Y-m-d') : null;
+    }
+
+    public function cancelarViaje($id)
+    {
+        
+        $viaje = viajes::find($id);
+        $viaje->delete();
+
+        return redirect('/admin/show');
     }
 }
