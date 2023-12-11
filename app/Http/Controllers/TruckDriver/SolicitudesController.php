@@ -35,7 +35,6 @@ class SolicitudesController extends Controller
        
         $solicitud = Solicitudes::find($id);
         $viaje = viajes::find($solicitud->viaje->id);
-        // $viaje->truckdriver_id = $solicitud->truckdriver_id;
         $viaje->progreso = 1;
         $viaje->progresoSolicitud = 2;
         $viaje->observacion_origen = $solicitud->observacion1;
@@ -57,15 +56,12 @@ class SolicitudesController extends Controller
         $solicitud = Solicitudes::find($id);
 
 
-        $viaje_inicial = new ViajeInicial();
-        $viaje_inicial->dia1 = $solicitud->dia1;
-        $viaje_inicial->salida = $solicitud->salida;
-        $viaje_inicial->dia2 = $solicitud->dia2;
-        $viaje_inicial->llegada = $solicitud->llegada;
-        $viaje_inicial->TN = $solicitud->TN;
+        $viaje = viajes::find($solicitud->viaje_id);
+        $viaje->progresoSolicitud = 0;
+        $viaje->truckdriver_id = null;
 
         $solicitud->delete();
-        $viaje_inicial->save();
+        $viaje->save();
 
         // redirect
         return redirect("/truck_driver/solicitudes");
