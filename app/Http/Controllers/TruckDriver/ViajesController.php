@@ -24,13 +24,13 @@ class ViajesController extends Controller
         $fechaDosMesesAtras = $fechaActual->subMonths(2);
 
         $truck_driver_id = auth()->user()->id;
-        
+
         // Obtener los viajes correspondientes a los últimos tres meses
         $viajes = Viajes::where('fecha_salida', '>=', $fechaDosMesesAtras)
-                ->orderBy('fecha_salida','asc')
-                ->where('truckdriver_id',$truck_driver_id)
-                ->get();
-        
+            ->orderBy('fecha_salida', 'asc')
+            ->where('truckdriver_id', $truck_driver_id)
+            ->get();
+
         // Eliminar los viajes más antiguos que tres meses de la base de datos
         Viajes::where('fecha_salida', '<', $fechaDosMesesAtras)->delete();
 
@@ -74,6 +74,8 @@ class ViajesController extends Controller
      */
     public function updateViaje(Request $request, $id)
     {
+        $viaje = viajes::find($id);
+
         if ($request->input('finalizar') == 1) {
 
             $request->validate([
@@ -91,33 +93,31 @@ class ViajesController extends Controller
                 'km_1_2' => 'nullable',
 
             ]);
-        } else if ($request->input('finalizar') == null) {
+        } else if ($request->input('finalizar') == null && $viaje->enCurso) {
             $this->validarInputObligatorio($request);
         }
 
-        $viaje = viajes::find($id);
-
-        $viaje->fecha_salida = $request->input('fecha_salida');
-        $viaje->origen = $request->input('origen');
-        $viaje->fecha_llegada = $request->input('fecha_llegada');
-        // $viaje->km_viaje = $request->input('km_viaje');
-        $viaje->km_viaje = $request->input('km_llegada') - $request->input('km_salida');
-        $viaje->destino = $request->input('destino');
-        $viaje->km_salida = $request->input('km_salida');
-        $viaje->c_porte = $request->input('c_porte');
-        $viaje->producto = $request->input('producto');
-        $viaje->carga_kg = $request->input('carga_kg');
-        $viaje->descarga_kg = $request->input('descarga_kg');
-        $viaje->km_llegada = $request->input('km_llegada');
-        $viaje->km_1_2 = $request->input('km_1_2');
-        $viaje->control_desc = $request->input('control_desc');
-
-        if($viaje->progreso == 1){
-            $viaje->progreso = 2;
+        if ($viaje->enCurso) {
+            $viaje->fecha_salida = $request->input('fecha_salida');
+            $viaje->origen = $request->input('origen');
+            $viaje->fecha_llegada = $request->input('fecha_llegada');
+            // $viaje->km_viaje = $request->input('km_viaje');
+            $viaje->km_viaje = $request->input('km_llegada') - $request->input('km_salida');
+            $viaje->destino = $request->input('destino');
+            $viaje->km_salida = $request->input('km_salida');
+            $viaje->c_porte = $request->input('c_porte');
+            $viaje->producto = $request->input('producto');
+            $viaje->carga_kg = $request->input('carga_kg');
+            $viaje->descarga_kg = $request->input('descarga_kg');
+            $viaje->km_llegada = $request->input('km_llegada');
+            $viaje->km_1_2 = $request->input('km_1_2');
+            $viaje->control_desc = $request->input('control_desc');
+            if ($viaje->progreso == 1) {
+                $viaje->progreso = 2;
+            }
+            $viaje->update();
         }
-
-        $viaje->update();
-
+        
         if ($request->input('finalizar') == null) {
             $viaje->enCurso = false;
             $viaje->update();
@@ -143,25 +143,24 @@ class ViajesController extends Controller
 
     public function validarInputObligatorio(Request $request)
     {
-
+        
         $validator = $request->validate([
             'fecha_salida' => 'required|date',
             'origen' => 'required|max:255',
             'fecha_llegada' => 'required|date',
-            'km_viaje' => 'nullable|numeric|regex:/^\d+(\.\d{1,2})?$/',
+            'km_viaje' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
             'destino' => 'required|max:255',
-            'km_salida' => 'nullable|numeric|regex:/^\d+(\.\d{1,2})?$/',
-            'c_porte' => 'nullable|numeric|regex:/^\d+(\.\d{1,2})?$/',
+            'km_salida' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
+            'c_porte' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
             'producto' => 'required|max:255',
-            'carga_kg' => 'nullable|numeric|regex:/^\d+(\.\d{1,2})?$/',
-            'descarga_kg' => 'nullable|numeric|regex:/^\d+(\.\d{1,2})?$/',
-            'km_llegada' => 'nullable|numeric|regex:/^\d+(\.\d{1,2})?$/',
-            'km_1_2' => 'nullable|numeric|regex:/^\d+(\.\d{1,2})?$/',
-            'conrol_desc' => 'nullable|numeric|regex:/^\d+(\.\d{1,2})?$/',
+            'carga_kg' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
+            'descarga_kg' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
+            'km_llegada' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
+            'km_1_2' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
+            'control_desc' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
         ]);
         
         return redirect()->back()->withErrors($validator)->withInput();
-        
     }
 
     /**
@@ -204,14 +203,14 @@ class ViajesController extends Controller
 
         if ($request->filled('opcion_seleccionada')) {
             $viaje->origen = $request->get('opcion_seleccionada');
-        } else{
+        } else {
             $input_editable->origen = $request->input('salida');
             $viaje->origen = $input_editable->origen;
         }
 
         if ($request->filled('opcion_seleccionada2')) {
             $viaje->destino = $request->get('opcion_seleccionada2');
-        } else{
+        } else {
             $input_editable->destino = $request->input('destino');
             $viaje->destino = $input_editable->destino;
         }
@@ -227,9 +226,9 @@ class ViajesController extends Controller
 
         $viaje->truckdriver_id = auth()->user()->id;
         $viaje->enCurso = false;
-        if($input_editable->origen != null || $input_editable->destino) 
+        if ($input_editable->origen != null || $input_editable->destino)
             $input_editable->save();
-        
+
         $viaje->save();
         $viajeAsociado->save();
 
@@ -259,7 +258,7 @@ class ViajesController extends Controller
         $viaje = viajes::find($id);
         try {
             if ($request->hasFile('image1')) {
-                
+
                 $uploadedFile1 = $request->file('image1')->storeOnCloudinary('/recibos');
                 $imagenViaje1 = new ImagenViaje();
                 $imagenViaje1->image_link = $uploadedFile1->getPath();
@@ -267,7 +266,7 @@ class ViajesController extends Controller
                 $viaje->imagenesViajes()->save($imagenViaje1);
             }
             if ($request->hasFile('image2')) {
-               
+
                 $uploadedFile2 = $request->file('image2')->storeOnCloudinary('/recibos');
                 $imagenViaje2 = new ImagenViaje();
                 $imagenViaje2->image_link = $uploadedFile2->getPath();
@@ -284,7 +283,7 @@ class ViajesController extends Controller
         } catch (Exception $e) {
 
             return redirect("/truck_driver/viajes/image/$id")->withErrors("Ocurrió un error al almacenar la imagen\n");
-        } 
+        }
 
         return redirect("/truck_driver/dashboard");
     }
