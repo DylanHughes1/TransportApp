@@ -40,9 +40,13 @@
                                                             @if (!$viaje->viajeInicialCreado && !$viaje->esVacio)
                                                                 <p class="text-red-500 text-center">Subir viaje vacío</p>
                                                             @endif
-                                            
+
+                                                            @if ($viaje->enCurso)
+                                                                <p class="text-red-500 text-center">Viaje en curso</p>
+                                                            @endif
+
                                                             @if (!$viaje->enCurso && $viaje->imagenesViajes->isEmpty() && !$viaje->esVacio)
-                                                                <p class="text-red-500">Subir imágenes del remito</p>
+                                                                <p class="text-red-500 text-center">Subir imagen remito</p>
                                                             @endif
                                             
                                                             @if ($viaje->esVacio)
@@ -51,8 +55,7 @@
 
                                                             @if (!$viaje->enCurso && !$viaje->imagenesViajes->isEmpty() && !$viaje->esVacio)
                                                                 <p class="text-green-500 text-center">Viaje finalizado</p>
-                                                            @endif
-                                                            
+                                                            @endif                                                        
                                                         </a>
                                                     @endif
                                                 @endforeach

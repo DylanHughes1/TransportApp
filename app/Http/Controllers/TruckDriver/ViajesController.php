@@ -31,10 +31,22 @@ class ViajesController extends Controller
             ->where('truckdriver_id', $truck_driver_id)
             ->get();
 
+        $viajesOrdenados = $viajes->sort(function ($a, $b) {
+            $fechaA = Carbon::parse($a->fecha_llegada);
+            $fechaB = Carbon::parse($b->fecha_llegada);
+            $esVacioA = $a->esVacio;
+    
+            if ($fechaA->eq($fechaB)) {
+                return $esVacioA ? -1 : 1;
+            }
+    
+            return $fechaA->lt($fechaB) ? -1 : 1;
+        });
+
         // Eliminar los viajes más antiguos que tres meses de la base de datos
         Viajes::where('fecha_salida', '<', $fechaDosMesesAtras)->delete();
 
-        return view('truck_driver.viajes.index')->with('viajes', $viajes);
+        return view('truck_driver.viajes.index')->with('viajes', $viajesOrdenados);
     }
 
     /**
