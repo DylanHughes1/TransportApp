@@ -195,6 +195,9 @@ class ViajesController extends Controller
     public function crearViajeVacio(Request $request, $id)
     {
 
+        $viajeAsociado = viajes::find($id);
+        $viajeAsociado->viajeInicialCreado = true;
+
         $viaje = new viajes();
 
         $input_editable = new InputsEditables();
@@ -226,7 +229,9 @@ class ViajesController extends Controller
         $viaje->enCurso = false;
         if($input_editable->origen != null || $input_editable->destino) 
             $input_editable->save();
+        
         $viaje->save();
+        $viajeAsociado->save();
 
         return redirect("/truck_driver/viajes/$id");
     }

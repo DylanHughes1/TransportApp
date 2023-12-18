@@ -63,18 +63,18 @@ return [
             ]) : [],
         ],
 
-        'pgsql' => [
-            'driver' => 'pgsql',
-            'key' => env('APP_KEY'),
-            'url' => env('SUPABASE_DATABASE_URL'),
-            'host' => env('SUPABASE_HOST'),
-            'port' => env('SUPABASE_PORT'),
-            'database' => env('SUPABASE_DATABASE'),
-            'username' => env('SUPABASE_USERNAME'),
-            'password' => env('SUPABASE_PASSWORD'),
-            'schema' => env('SUPABASE_SCHEMA'),
-            'sslmode' => env('SUPABASE_SSLMODE'),
-        ],
+        // 'pgsql' => [
+        //     'driver' => 'pgsql',
+        //     'key' => env('APP_KEY'),
+        //     'url' => env('SUPABASE_DATABASE_URL'),
+        //     'host' => env('SUPABASE_HOST'),
+        //     'port' => env('SUPABASE_PORT'),
+        //     'database' => env('SUPABASE_DATABASE'),
+        //     'username' => env('SUPABASE_USERNAME'),
+        //     'password' => env('SUPABASE_PASSWORD'),
+        //     'schema' => env('SUPABASE_SCHEMA'),
+        //     'sslmode' => env('SUPABASE_SSLMODE'),
+        // ],
 
         'sqlsrv' => [
             'driver' => 'sqlsrv',

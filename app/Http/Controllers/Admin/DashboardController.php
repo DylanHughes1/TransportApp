@@ -151,7 +151,7 @@ class DashboardController extends Controller
         })->get();
 
         $inputs_editables = InputsEditables::all();
-
+        
         return view('admin.viajes_asignados.showViajes')
             ->with('viajes', $Viajes)
             ->with('choferesLibres', $choferesLibres)

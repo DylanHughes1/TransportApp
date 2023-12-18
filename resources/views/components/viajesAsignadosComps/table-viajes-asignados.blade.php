@@ -47,7 +47,7 @@
                                         @csrf
                                             <input type="hidden" name="id_viaje" value="{{$viaje->id}}">
                                         <li class="hover:bg-gray-100">
-                                            <button type="submit" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" style="white-space: normal;">{{$choferLibre->name}}</button>
+                                            <button type="submit" class="text-left block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" style="white-space: normal;">{{$choferLibre->name}}</button>
                                         </li>              
                                   
                                         </form>
@@ -92,11 +92,14 @@
                         <td class="px-6 py-4  text-gray-900 flex items-center space-x-3">
                                 <button type="submit" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Actualizar</button>
                             </form>
-                            <form action="/admin/cancelar/{{$viaje->id}}" method="POST">
-                                @csrf
-                                @method('delete')
-                                <button type="submit" class="font-medium text-red-600 dark:text-red-500 hover:underline">Cancelar</button>
-                            </form>
+                            @if($viaje->truckdriver_id == null)
+                                <form action="/admin/cancelar/{{$viaje->id}}" method="POST">
+                                    @csrf
+                                    @method('delete')
+                                    <button type="submit" class="font-medium text-red-600 dark:text-red-500 hover:underline">Cancelar</button>
+                                </form>
+                            @endif
+
                         </td>
                     
                 </tr>
