@@ -105,8 +105,8 @@
                 </tr>
 
             <!-- Main modal -->
-            <div id="modalCombustible{{ $key }}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full">
-                <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
+            <div id="modalCombustible{{ $key }}" data-modal-backdrop="static" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full">
+                <div class="relative p-4 max-w-2xl h-full md:h-auto">
                     <!-- Modal content -->
                     <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
                         <!-- Modal header -->
@@ -114,32 +114,33 @@
                             <h3 class="text-xl font-semibold text-gray-900 lg:text-2xl dark:text-white">
                                 Combustible
                             </h3>
-                            <button type="button" class="hidden text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="defaultModal">
+                            <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="modalCombustible{{$key}}">
                                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>  
                             </button>
                         </div>
                         <!-- Modal body -->
-                        <div class="p-6 space-y-6 text-center text-lg font-medium text-gray-800">
+                        <div class="p-6 space-y-6 text-justify text-lg font-medium text-gray-800">
                             @if(count($viaje->combustibles) > 0)
-                                <ul>
+                                <ul class="list-disc list-inside">
                                     @foreach($viaje->combustibles as $combustible)
-                                        <li>Km: {{$combustible->Km}}</li>
-                                        <li>Fecha: {{$combustible->fecha}}</li>
-                                        <li>Litros: {{$combustible->litros}}</li>
-                                        <li>Lugar de carga: {{$combustible->lugar_carga}}</li>
-                                        <hr> 
+                                        <li><span class="font-bold">Km:</span> {{$combustible->Km}}</li>
+                                        <li><span class="font-bold">Fecha:</span> {{$combustible->fecha}}</li>
+                                        <li><span class="font-bold">Litros:</span> {{$combustible->litros}}</li>
+                                        <li><span class="font-bold">Lugar de carga:</span> {{$combustible->lugar_carga}}</li>
+                                        <hr class="my-2 border-t border-gray-300">
                                     @endforeach
                                 </ul>
                             @else
-                                <p>No se ha cargado combustible</p>
+                                <p class="text-gray-500">No se ha cargado combustible</p>
                             @endif
-                        </div>                    
+                        </div>
+                                       
                     </div>
                 </div>
             </div>
 
             <!-- Main modal -->
-            <div id="modalGastos{{ $key }}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full">
+            <div id="modalGastos{{ $key }}" data-modal-backdrop="static" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full">
                 <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
                     <!-- Modal content -->
                     <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
@@ -148,12 +149,12 @@
                             <h3 class="text-xl font-semibold text-gray-900 lg:text-2xl dark:text-white">
                                 Gastos Extra
                             </h3>
-                            <button type="button" class="hidden text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="defaultModal">
+                            <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="modalGastos{{ $key }}">
                                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>  
                             </button>
                         </div>
                         <!-- Modal body -->
-                        <div class="p-6 space-y-6">
+                        <div class="p-6 space-y-6 text-justify text-lg font-medium text-gray-800">
                             @if($viaje->observacion != null)
                                 {{$viaje->observacion}}
                             @else
