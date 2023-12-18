@@ -172,25 +172,37 @@ class DashboardController extends Controller
     /**
      * Muestra la planilla del chofer seleccionado.
      */
-    public function showPlanilla($id)
-    {
 
-        $truck_driver = TruckDriver::find($id);
+public function showPlanilla($id)
+{
+    $truck_driver = TruckDriver::find($id);
 
-        $viajes = Viajes::where('truckdriver_id', $id)
-            ->where('enCurso', false)
-            ->with('combustibles')
-            ->orderBy('fecha_llegada', 'asc')
-            ->get();
+    $viajes = Viajes::where('truckdriver_id', $id)
+        ->where('enCurso', false)
+        ->with('combustibles')
+        ->orderBy('fecha_llegada', 'asc')
+        ->get();
 
-        return view('admin.planilla.showPlanilla')
-            ->with('truck_driver', $truck_driver)
-            ->with('viajes', $viajes);
-    }
+    $viajesOrdenados = $viajes->sort(function ($a, $b) {
+        $fechaA = \Carbon\Carbon::parse($a->fecha_llegada);
+        $fechaB = \Carbon\Carbon::parse($b->fecha_llegada);
+        $esVacioA = $a->esVacio;
+
+        if ($fechaA->eq($fechaB)) {
+            return $esVacioA ? -1 : 1;
+        }
+
+        return $fechaA->lt($fechaB) ? -1 : 1;
+    });
+
+    return view('admin.planilla.showPlanilla')
+        ->with('truck_driver', $truck_driver)
+        ->with('viajes', $viajesOrdenados);
+}
+  
 
     public function updateViaje(Request $request)
     {
-        // dd($request);
 
         $inputs_editables = InputsEditables::all();
 
