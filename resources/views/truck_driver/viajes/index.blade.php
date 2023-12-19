@@ -41,7 +41,7 @@
                                                                 <p class="text-red-500 text-center">Subir viaje vacío</p>
                                                             @endif
 
-                                                            @if ($viaje->enCurso)
+                                                            @if ($viaje->viajeInicialCreado && $viaje->enCurso)
                                                                 <p class="text-red-500 text-center">Viaje en curso</p>
                                                             @endif
 

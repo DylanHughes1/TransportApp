@@ -264,9 +264,6 @@ class ViajesController extends Controller
     public function storeImage(Request $request, $id)
     {
 
-        $request->validate([
-            'image1' => 'required|image|max:1000'
-        ]);
         $viaje = viajes::find($id);
         try {
             if ($request->hasFile('image1')) {
