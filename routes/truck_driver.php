@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 use App\Models\TruckDriver;
 use App\Http\Controllers\TruckDriver\ViajesController;
 use App\Http\Controllers\TruckDriver\SolicitudesController;
+use App\Exports\ChoferesExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 Route::prefix('truck_driver')->name('truck_driver.')->group(function () {
 

@@ -115,6 +115,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::get('planilla/{id}', [DashboardController::class, 'showPlanilla'])
     ->middleware('auth:admin');
+    Route::get('planilla/export/{id}', [DashboardController::class, 'exportPlanilla'])
+    ->middleware('auth:admin');
+
+    // Exports
+    Route::get('users/export/', [DashboardController::class, 'export']);
 
 
     // Rutas asociadas al sueldo

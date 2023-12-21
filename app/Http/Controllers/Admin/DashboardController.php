@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\PlanillaExport;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\ViajeInicial;
@@ -11,6 +12,8 @@ use App\Models\viajes;
 use App\Models\Combustible;
 use App\Models\InputsEditables;
 use Illuminate\Support\Facades\Log;
+use App\Exports\UsersExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 class DashboardController extends Controller
@@ -151,7 +154,7 @@ class DashboardController extends Controller
         })->get();
 
         $inputs_editables = InputsEditables::all();
-        
+
         return view('admin.viajes_asignados.showViajes')
             ->with('viajes', $Viajes)
             ->with('choferesLibres', $choferesLibres)
@@ -173,33 +176,38 @@ class DashboardController extends Controller
      * Muestra la planilla del chofer seleccionado.
      */
 
-public function showPlanilla($id)
-{
-    $truck_driver = TruckDriver::find($id);
+    public function showPlanilla($id)
+    {
+        $truck_driver = TruckDriver::find($id);
 
-    $viajes = Viajes::where('truckdriver_id', $id)
-        ->where('enCurso', false)
-        ->with('combustibles')
-        ->orderBy('fecha_llegada', 'asc')
-        ->get();
+        $viajes = Viajes::where('truckdriver_id', $id)
+            ->where('enCurso', false)
+            ->with('combustibles')
+            ->orderBy('fecha_llegada', 'asc')
+            ->get();
 
-    $viajesOrdenados = $viajes->sort(function ($a, $b) {
-        $fechaA = \Carbon\Carbon::parse($a->fecha_llegada);
-        $fechaB = \Carbon\Carbon::parse($b->fecha_llegada);
-        $esVacioA = $a->esVacio;
+        $viajesOrdenados = $viajes->sort(function ($a, $b) {
+            $fechaA = \Carbon\Carbon::parse($a->fecha_llegada);
+            $fechaB = \Carbon\Carbon::parse($b->fecha_llegada);
+            $esVacioA = $a->esVacio;
 
-        if ($fechaA->eq($fechaB)) {
-            return $esVacioA ? -1 : 1;
-        }
+            if ($fechaA->eq($fechaB)) {
+                return $esVacioA ? -1 : 1;
+            }
 
-        return $fechaA->lt($fechaB) ? -1 : 1;
-    });
+            return $fechaA->lt($fechaB) ? -1 : 1;
+        });
 
-    return view('admin.planilla.showPlanilla')
-        ->with('truck_driver', $truck_driver)
-        ->with('viajes', $viajesOrdenados);
-}
-  
+        return view('admin.planilla.showPlanilla')
+            ->with('truck_driver', $truck_driver)
+            ->with('viajes', $viajesOrdenados);
+    }
+
+    public function exportPlanilla($id){
+
+        return Excel::download(new PlanillaExport($id), 'planilla.xlsx');
+    }
+
 
     public function updateViaje(Request $request)
     {
@@ -252,7 +260,7 @@ public function showPlanilla($id)
 
     public function cancelarViaje($id)
     {
-        
+
         $viaje = viajes::find($id);
         $viaje->delete();
 
