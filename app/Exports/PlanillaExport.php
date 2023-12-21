@@ -3,7 +3,7 @@
 namespace App\Exports;
 
 use App\Models\TruckDriver;
-use App\Models\Viajes;
+use App\Models\viajes;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
@@ -30,7 +30,7 @@ class PlanillaExport implements FromCollection, WithMapping, WithHeadings, WithS
      */
     public function collection()
     {
-        $viajes = Viajes::where('truckdriver_id', $this->id)
+        $viajes = viajes::where('truckdriver_id', $this->id)
             ->where('enCurso', false)
             ->with('combustibles')
             ->orderBy('fecha_llegada', 'asc')
