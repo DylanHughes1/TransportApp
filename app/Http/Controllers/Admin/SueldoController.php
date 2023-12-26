@@ -41,7 +41,7 @@ class SueldoController extends Controller
     {
 
         $truck_driver = TruckDriver::find($id);
-        $datos = DatosSueldo::find($id);
+        $datos = DatosSueldo::find(1);
         $tabla1 = Tabla1::firstOrCreate(['truckdriver_id' => $id]);
         $tabla2 = Tabla2::firstOrCreate(['truckdriver_id' => $id]);
         $tabla3 = Tabla3::firstOrCreate(
