@@ -205,7 +205,6 @@ class ViajesController extends Controller
 
     public function crearViajeVacio(Request $request, $id)
     {
-
         $viajeAsociado = viajes::find($id);
         $viajeAsociado->viajeInicialCreado = true;
 
@@ -240,7 +239,7 @@ class ViajesController extends Controller
         $viaje->enCurso = false;
         if ($input_editable->origen != null || $input_editable->destino)
             $input_editable->save();
-
+        $viaje->viajeInicialCreado = true;
         $viaje->save();
         $viajeAsociado->save();
 

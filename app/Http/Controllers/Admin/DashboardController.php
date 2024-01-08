@@ -14,6 +14,7 @@ use App\Models\InputsEditables;
 use Illuminate\Support\Facades\Log;
 use App\Exports\UsersExport;
 use Maatwebsite\Excel\Facades\Excel;
+use \Carbon\Carbon;
 
 
 class DashboardController extends Controller
@@ -55,27 +56,7 @@ class DashboardController extends Controller
             ->with('truck_drivers' . $truck_drivers)
             ->with('viajes_inicial', $viajes_inicial);
     }
-
-    /**
-     * Obtiene la informacion del viaje inicial a asignar mediante la llamada ajax.
-     */
-    public function getInfoViajeInicial($id)
-    {
-        $viaje_inicial = ViajeInicial::find($id);
-
-        if ($viaje_inicial) {
-            return response()->json([
-                'success' => true,
-                'data' => $viaje_inicial
-            ]);
-        } else {
-            return response()->json([
-                'success' => false,
-                'message' => 'El viaje no fue encontrado.'
-            ], 404);
-        }
-    }
-
+    
     /**
      * Almacena el nuevo viaje inicial.
      */
@@ -154,6 +135,10 @@ class DashboardController extends Controller
         })->get();
 
         $inputs_editables = InputsEditables::all();
+
+        $fechaActual = Carbon::now();
+        $fechaDosMesesAtras = $fechaActual->subMonths(2);
+        Viajes::where('fecha_salida', '<', $fechaDosMesesAtras)->delete();
 
         return view('admin.viajes_asignados.showViajes')
             ->with('viajes', $Viajes)

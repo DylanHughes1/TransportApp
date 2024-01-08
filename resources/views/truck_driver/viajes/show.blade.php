@@ -138,7 +138,7 @@
                                                                     @endforeach
                                                                 </ul>
                                                             </div>
-                                                            
+                                                            o
                                                             <input type="hidden" id="selectedOptionInput2" name="opcion_seleccionada2" value="">
                                                 
                                                             <!-- Input para agregar una localidad nueva -->
