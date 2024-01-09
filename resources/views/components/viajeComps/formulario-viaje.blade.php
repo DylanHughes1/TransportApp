@@ -11,26 +11,26 @@
         <div>                                  
             <label for="Fecha Salida" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fecha Salida</label>
             <input type="date" name="fecha_salida" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-            value="{{ $viaje->fecha_salida }}" placeholder="Año-Mes-Día" required {{ $readOnly ? 'readonly' : '' }}>
+            value="{{ $viaje->fecha_salida }}" placeholder="Año-Mes-Día" required {{--{{ $readOnly ? 'readonly' : '' }}--}}>
         </div>
         <div>
             <label for="Origen" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                 <a href="#" data-modal-toggle="myModal" id="origen" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Origen</a>
             </label>
             <input type="text" name="origen" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-            value="{{ $viaje->origen }}" required="false" {{ $readOnly ? 'readonly' : '' }}>
+            value="{{ $viaje->origen }}" required="false" {{--{{ $readOnly ? 'readonly' : '' }}--}}>
         </div>
         <div>
             <label for="Fecha llegada" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fecha Llegada</label>
             <input type="date" name="fecha_llegada" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-            value="{{ $viaje->fecha_llegada }}" required="false" {{ $readOnly ? 'readonly' : '' }}>
+            value="{{ $viaje->fecha_llegada }}" required="false" {{--{{ $readOnly ? 'readonly' : '' }}--}}>
         </div>
         <div>
             <label for="destino" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                 <a href="#" data-modal-toggle="myModal2" id="origen" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Destino</a>
             </label>
             <input type="text" name="destino" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-            value="{{ $viaje->destino }}"required="false" {{ $readOnly ? 'readonly' : '' }}>
+            value="{{ $viaje->destino }}"required="false" {{--{{ $readOnly ? 'readonly' : '' }}--}}>
         </div>
         <div>
             <label for="Km" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Km</label>
@@ -40,42 +40,42 @@
         <div>
             <label for="control_desc" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Control Descarga</label>
             <input type="number" name="control_desc" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            value="{{ $viaje->control_desc }}" {{ $readOnly ? 'readonly' : '' }}>
+            value="{{ $viaje->control_desc }}" {{--{{ $readOnly ? 'readonly' : '' }}--}}>
         </div>
         <div>
             <label for="km_salida" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Km Salida</label>
             <input type="number" name="km_salida" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            value="{{ $viaje->km_salida }}" {{ $readOnly ? 'readonly' : '' }}>
+            value="{{ $viaje->km_salida }}" {{--{{ $readOnly ? 'readonly' : '' }}--}}>
         </div>
         <div>
             <label for="porte" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Porte</label>
             <input type="number" name="c_porte" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            value="{{ $viaje->c_porte }}" {{ $readOnly ? 'readonly' : '' }}>
+            value="{{ $viaje->c_porte }}" {{--{{ $readOnly ? 'readonly' : '' }}--}}>
         </div>
         <div>
             <label for="producto" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Producto</label>
             <input type="text" name="producto" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            value="{{ $viaje->producto }}" {{ $readOnly ? 'readonly' : '' }}>
+            value="{{ $viaje->producto }}" {{--{{ $readOnly ? 'readonly' : '' }}--}}>
         </div>
         <div>
             <label for="cargaKg" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Carga Kg</label>
             <input type="number" name="carga_kg" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            value="{{ $viaje->carga_kg }}" {{ $readOnly ? 'readonly' : '' }}>
+            value="{{ $viaje->carga_kg }}" {{--{{ $readOnly ? 'readonly' : '' }}--}}>
         </div>    
         <div>
             <label for="descargaKg" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Descarga Kg</label>
             <input type="number" name="descarga_kg" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            value="{{ $viaje->descarga_kg }}" {{ $readOnly ? 'readonly' : '' }}>
+            value="{{ $viaje->descarga_kg }}" {{--{{ $readOnly ? 'readonly' : '' }}--}}>
         </div>
         <div>
             <label for="kmLlegada" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Km Llegada</label>
             <input type="number" name="km_llegada" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            value="{{ $viaje->km_llegada }}" {{ $readOnly ? 'readonly' : '' }}>
+            value="{{ $viaje->km_llegada }}" {{--{{ $readOnly ? 'readonly' : '' }}--}}>
         </div>
         <div>
             <label for="km12" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Km 1,2</label>
             <input type="number" name="km_1_2" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            value="{{ $viaje->km_1_2 }}" {{ $readOnly ? 'readonly' : '' }}>
+            value="{{ $viaje->km_1_2 }}" {{--{{ $readOnly ? 'readonly' : '' }}--}}>
         </div>
 
     </div>

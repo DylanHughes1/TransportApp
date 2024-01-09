@@ -239,7 +239,7 @@ class ViajesController extends Controller
         $viaje->enCurso = false;
         if ($input_editable->origen != null || $input_editable->destino)
             $input_editable->save();
-        $viaje->viajeInicialCreado = true;
+        // $viaje->viajeInicialCreado = false;
         $viaje->save();
         $viajeAsociado->save();
 
