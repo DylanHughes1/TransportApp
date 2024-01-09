@@ -22,16 +22,16 @@
                 {{$viaje->km_llegada}}
             </td>
             <td class="px-6 py-4">
-                {{$viaje->producto}}
+                {{ $viaje->producto ?? '-' }}
             </td>
             <td class="px-6 py-4">
-                {{$viaje->carga_kg}}
+                {{$viaje->carga_kg ?? '-' }}
             </td>
             <td class="px-6 py-4">
                 {{$viaje->km_llegada - $viaje->km_salida}}
             </td>
             <td class="px-6 py-4">
-                {{$viaje->TN}}
+                {{$viaje->TN ?? '-' }}
             </td>
             <td class="px-6 py-4">
                 {{($viaje->carga_kg/1000) * $viaje->TN}}
