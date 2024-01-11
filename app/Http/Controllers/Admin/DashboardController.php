@@ -233,6 +233,9 @@ class DashboardController extends Controller
 
         $viaje->destino = $request->get('destino' . $key);
 
+        $viaje->patente = $request->get('patente' . $key);
+        $viaje->batea = $request->get('batea' . $key);
+
         $viaje->update();
         return redirect('/admin/show');
     }

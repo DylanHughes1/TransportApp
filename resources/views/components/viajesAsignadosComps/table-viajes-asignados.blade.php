@@ -17,6 +17,8 @@
             <th scope="col" class="px-6 py-3">Km Llegada</th>
             <th scope="col" class="px-6 py-3">Control Descarga</th>
             <th scope="col" class="px-6 py-3">KM 1.2</th>
+            <th scope="col" class="px-6 py-3">Patente</th>
+            <th scope="col" class="px-6 py-3">Batea</th>
             <th scope="col" class="px-6 py-3">Combustible</th>
             <th scope="col" class="px-6 py-3">Gastos Extra</th>
             <th scope="col" class="px-6 py-3 text-center">Acciones</th>
@@ -87,6 +89,12 @@
                         <td class="px-6 py-4  text-gray-900">{{ $viaje->km_llegada }}</td>
                         <td class="px-6 py-4  text-gray-900">{{ $viaje->control_desc }}</td>
                         <td class="px-6 py-4  text-gray-900">{{ $viaje->km_1_2 }}</td>
+                        <td>
+                            <input type="text" name="patente{{ $key }}" style="border: none; background-color: transparent; width: 125px; text-align: center;" class="px-2 py-1 text-gray-900" value="{{ $viaje->patente }}">
+                        </td>
+                        <td>
+                            <input type="text" name="batea{{ $key }}" style="border: none; background-color: transparent; width: 125px; text-align: center;" class="px-2 py-1 text-gray-900" value="{{ $viaje->batea }}">
+                        </td>
                         <td class="px-6 py-4  text-gray-900"><a href="#" data-modal-toggle="modalCombustible{{ $key }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" id="verMasLink">Ver más</a></td>   
                         <td class="px-6 py-4  text-gray-900"><a href="#" data-modal-toggle="modalGastos{{ $key }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" id="verMasLink2" style="white-space: nowrap;">Ver más</a></td>       
                         <td class="px-6 py-4  text-gray-900 flex items-center space-x-3">
