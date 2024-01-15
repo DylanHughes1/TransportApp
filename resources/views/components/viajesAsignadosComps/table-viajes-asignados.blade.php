@@ -44,12 +44,12 @@
                             <!-- Dropdown menu -->
                             <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
                                 <ul class="h-48 py-2 overflow-y-auto text-gray-700 dark:text-gray-200" aria-labelledby="dropdownUsersButton">
-                                    @foreach ($choferesLibres as $choferLibre)
-                                    <form method="POST" action="/admin/viajes/{{$choferLibre->id}}">
+                                    @foreach ($choferes as $chofer)
+                                    <form method="POST" action="/admin/viajes/{{$chofer->id}}">
                                         @csrf
                                             <input type="hidden" name="id_viaje" value="{{$viaje->id}}">
                                         <li class="hover:bg-gray-100">
-                                            <button type="submit" class="text-left block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" style="white-space: normal;">{{$choferLibre->name}}</button>
+                                            <button type="submit" class="text-left block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" style="white-space: normal;">{{$chofer->name}}</button>
                                         </li>              
                                   
                                         </form>
