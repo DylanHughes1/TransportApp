@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\TruckDriver;
 
 use App\Http\Controllers\Controller;
-use App\Models\viajes;
+use App\Models\Solicitudes;
 
 class DashboardController extends Controller
 {
@@ -21,6 +21,10 @@ class DashboardController extends Controller
     public function index()
     {
 
-        return view('truck_driver.dashboard');
+        $solicitudes = Solicitudes::where('truckdriver_id', auth()->user()->id)->get();
+        $cantidadSolicitudes = $solicitudes->count();
+
+        return view('truck_driver.dashboard')
+            ->with('cantidadSolicitudes', $cantidadSolicitudes);
     }
 }
