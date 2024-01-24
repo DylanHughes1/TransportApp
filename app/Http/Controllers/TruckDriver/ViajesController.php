@@ -124,7 +124,7 @@ class ViajesController extends Controller
             $viaje->km_llegada = $request->input('km_llegada');
             $viaje->km_1_2 = $request->input('km_1_2');
             $viaje->control_desc = $request->input('control_desc');
-            if ($viaje->progreso == 1) {
+            if ($viaje->progreso == 1 && $request->input('carga_kg') ==! null) {
                 $viaje->progreso = 2;
             }
             $viaje->update();
