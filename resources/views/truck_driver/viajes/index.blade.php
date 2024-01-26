@@ -12,7 +12,7 @@
                 <div class="py-12">
                     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                            <p class="text-center text-xl text-gray-800 font-semibold mt-4">Total de kilómetros del mes actual: {{ $totalKilometrosMesActual }}</p>
+                            <p class="text-center text-xl text-gray-800 font-semibold mt-4">Este mes usted realizó: {{ $totalKilometrosMesActual }} Km</p>
                             
                             @if(count($viajes) > 0)
                                 
