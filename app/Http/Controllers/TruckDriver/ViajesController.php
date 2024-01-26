@@ -22,14 +22,20 @@ class ViajesController extends Controller
     {
         $fechaActual = Carbon::now();
         $fechaDosMesesAtras = $fechaActual->subMonths(2);
-
         $truck_driver_id = auth()->user()->id;
+        $fechaPrimerDiaMesActual = Carbon::now()->startOfMonth();
 
-        // Obtener los viajes correspondientes a los últimos tres meses
         $viajes = Viajes::where('fecha_salida', '>=', $fechaDosMesesAtras)
             ->orderBy('fecha_salida', 'asc')
             ->where('truckdriver_id', $truck_driver_id)
             ->get();
+
+        $totalKilometrosMesActual = 0;
+
+        foreach($viajes as $viaje){
+            if($viaje->fecha_salida >= $fechaPrimerDiaMesActual)
+            $totalKilometrosMesActual += $viaje->km_viaje;
+        }
 
         $viajesOrdenados = $viajes->sort(function ($a, $b) {
             $fechaA = Carbon::parse($a->fecha_llegada);
@@ -43,10 +49,11 @@ class ViajesController extends Controller
             return $fechaA->lt($fechaB) ? -1 : 1;
         });
 
-        // Eliminar los viajes más antiguos que tres meses de la base de datos
         Viajes::where('fecha_salida', '<', $fechaDosMesesAtras)->delete();
-
-        return view('truck_driver.viajes.index')->with('viajes', $viajesOrdenados);
+        
+        return view('truck_driver.viajes.index')
+                ->with('viajes', $viajesOrdenados)
+                ->with('totalKilometrosMesActual', $totalKilometrosMesActual);
     }
 
     /**
