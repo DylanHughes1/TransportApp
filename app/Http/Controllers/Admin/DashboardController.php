@@ -56,7 +56,7 @@ class DashboardController extends Controller
             ->with('truck_drivers' . $truck_drivers)
             ->with('viajes_inicial', $viajes_inicial);
     }
-    
+
     /**
      * Almacena el nuevo viaje inicial.
      */
@@ -154,7 +154,7 @@ class DashboardController extends Controller
      */
     public function indexPlanilla()
     {
-        $truck_drivers = TruckDriver::all();
+        $truck_drivers = TruckDriver::orderBy('name')->get();
 
         return view('admin.planilla.indexPlanilla')
             ->with('truck_drivers', $truck_drivers);
@@ -191,7 +191,8 @@ class DashboardController extends Controller
             ->with('viajes', $viajesOrdenados);
     }
 
-    public function exportPlanilla($id){
+    public function exportPlanilla($id)
+    {
 
         return Excel::download(new PlanillaExport($id), 'planilla.xlsx');
     }
