@@ -171,12 +171,12 @@ class DashboardController extends Controller
         $viajes = Viajes::where('truckdriver_id', $id)
             ->where('enCurso', false)
             ->with('combustibles')
-            ->orderBy('fecha_llegada', 'asc')
+            ->orderBy('fecha_salida', 'asc')
             ->get();
 
         $viajesOrdenados = $viajes->sort(function ($a, $b) {
-            $fechaA = \Carbon\Carbon::parse($a->fecha_llegada);
-            $fechaB = \Carbon\Carbon::parse($b->fecha_llegada);
+            $fechaA = Carbon::parse($a->fecha_salida);
+            $fechaB = Carbon::parse($b->fecha_salida);
             $esVacioA = $a->esVacio;
 
             if ($fechaA->eq($fechaB)) {
