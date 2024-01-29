@@ -27,7 +27,7 @@
                                     @foreach ($viajesPorMes as $mes => $viajesMes)
                                         @php
                                             setlocale(LC_TIME, 'spanish');
-                                            $nombreMes = \Carbon\Carbon::parse($viajesMes->first()->fecha_salida)->formatLocalized('%B');
+                                            $nombreMes = \Carbon\Carbon::parse($viajesMes->first()->fecha_salida)->monthName;
                                             $nombreMes = ucfirst($nombreMes);
                                         @endphp
 
