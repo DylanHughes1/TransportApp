@@ -138,9 +138,9 @@ class DashboardController extends Controller
 
         $inputs_editables = InputsEditables::all();
 
-        $fechaActual = Carbon::now();
-        $fechaDosMesesAtras = $fechaActual->subMonths(2);
-        Viajes::where('fecha_salida', '<', $fechaDosMesesAtras)->delete();
+        $primerDiaHaceDosMeses = Carbon::now()->subMonths(2)->startOfMonth();
+        $ultimoDiaHaceDosMeses = Carbon::now()->subMonths(2)->endOfMonth();
+        Viajes::whereBetween('fecha_salida', [$primerDiaHaceDosMeses, $ultimoDiaHaceDosMeses])->delete();
 
         return view('admin.viajes_asignados.showViajes')
             ->with('viajes', $Viajes)
