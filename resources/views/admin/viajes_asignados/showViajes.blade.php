@@ -14,22 +14,26 @@
                             <div class="flex">
                                 <div class="w-1/7 mr-4 mt-8"> <!-- Columna izquierda (33% de ancho) -->
                                     <div class="mt-8">
-                                        <table>
-                                            <!-- Contenido de la tabla -->
-                                            <thead  class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                                <tr>
-                                                    <th scope="col" class="px-6 py-3">Choferes Libres</th>                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($choferesLibres as $chofer)
+                                        <div class="max-h-96 overflow-y-auto">
+                                            <table>
+                                                <!-- Contenido de la tabla -->
+                                                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                                    <tr>
+                                                        <th scope="col" class="px-6 py-3">Choferes Libres</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($choferesLibres as $chofer)
                                                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                         <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-green-500">
                                                             {{ $chofer->name }}
                                                         </td>
                                                     </tr>
-                                                @endforeach
-                                            </tbody>                                        
-                                        </table>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        
                                     </div>
                                 </div>
                                 <div class="w-6/7 overflow-x-auto"> <!-- Columna derecha (66% de ancho) con desplazamiento horizontal -->
