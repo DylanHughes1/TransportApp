@@ -30,7 +30,7 @@
         @foreach ($viajes as $key => $viaje)
        
                 <tr class="{{ $viaje->progreso === 1 ? 'bg-red-300' : ($viaje->progreso === 2 ? 'bg-yellow-100' : 'bg-gray-200') }}">
-                    <th cope="row" class="border-b bg-opacity-50 px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <th cope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
 
                         @if($viaje->progresoSolicitud === 0)
 
