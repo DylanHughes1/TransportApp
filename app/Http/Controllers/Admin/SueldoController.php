@@ -28,7 +28,7 @@ class SueldoController extends Controller
      */
     public function indexCalcularSueldo()
     {
-        $truck_drivers = TruckDriver::all();
+        $truck_drivers = TruckDriver::orderBy('name')->get();
 
         return view('admin.sueldo.indexCalcularSueldo')
             ->with('truck_drivers', $truck_drivers);
@@ -205,7 +205,7 @@ class SueldoController extends Controller
     {
         $tabla2 = Tabla2::where('truckdriver_id', $id)->first();
         $tabla3 = Tabla3::where('truckdriver_id', $id)->first();
-
+        
         $this->actualizarNombres($request, $tabla3);
 
         $tabla3->viatico_x_km = $request->input('viatico_x_km');
@@ -233,8 +233,8 @@ class SueldoController extends Controller
 
     public function actualizarNombres(Request $request, Tabla3 $tabla3)
     {
-
-        $tabla3->viatico_x_km_name = $request->input('viatico_x_km_name');
+        
+        $tabla3->viatico_x_km_name = $request->input('viatico_km_1_2_name');
         $tabla3->cruce_frontera_name = $request->input('cruce_frontera_name');
         $tabla3->comida_name = $request->input('comida_name');
         $tabla3->especial_name = $request->input('especial_name');
