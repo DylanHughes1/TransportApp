@@ -162,41 +162,53 @@ class SueldoController extends Controller
      */
     public function updateDatosTabla2(Request $request, $id)
     {
-        $tabla1 = Tabla1::where('truckdriver_id', $id)->first();
-        $tabla2 = Tabla2::where('truckdriver_id', $id)->first();
-        $tabla2->jubilacion = floatval(str_replace('%', '', $request->input('jubilacion')));
-        $tabla2->obra_social = floatval(str_replace('%', '', $request->input('obra_social')));
-        $tabla2->cuota_solidaria = floatval(str_replace('%', '', $request->input('cuota_solidaria')));
-        $tabla2->ley_19032 = floatval(str_replace('%', '', $request->input('ley_19032')));
-        $tabla2->seguro_sepelio = floatval(str_replace('%', '', $request->input('seguro_sepelio')));
-        $tabla2->aju_apo_dto = floatval(str_replace('%', '', $request->input('aju_apo_dto')));
-        $tabla2->asoc_mut_1nov = floatval(str_replace('%', '', $request->input('asoc_mut_1nov')));
+        $tabla2 = Tabla2::updateOrCreate(['truckdriver_id' => $id], []);
 
-        $tabla2->total_descuento =  $this->obtenerTotalDescuento($request, $tabla1->total_remun1);
+        $descuentos = $this->getDescuentosFromRequest($request);
+        $total_remun1 = Tabla1::where('truckdriver_id', $id)->value('total_remun1');
 
-        $tabla2->subtotal2 = $tabla1->total_remun1 - $tabla2->total_descuento;
+        $total_descuento = $this->obtenerTotalDescuento($descuentos, $total_remun1);
+        $subtotal2 = $total_remun1 - $total_descuento;
 
-        $tabla2->update();
+        $tabla2->update([
+            'jubilacion' => $descuentos['jubilacion'],
+            'obra_social' => $descuentos['obra_social'],
+            'cuota_solidaria' => $descuentos['cuota_solidaria'],
+            'ley_19032' => $descuentos['ley_19032'],
+            'seguro_sepelio' => $descuentos['seguro_sepelio'],
+            'aju_apo_dto' => $descuentos['aju_apo_dto'],
+            'asoc_mut_1nov' => $descuentos['asoc_mut_1nov'],
+            'total_descuento' => $total_descuento,
+            'subtotal2' => $subtotal2
+        ]);
 
         return redirect("/admin/sueldo/calcular/$id")->with('status', 'Cambios Guardados');
     }
 
-    public function obtenerTotalDescuento(Request $request, $total_remun1)
+    public function getDescuentosFromRequest(Request $request)
     {
 
-        $descuento = 0;
+        $descuentos = [];
+        $inputs = ['jubilacion', 'obra_social', 'cuota_solidaria', 'ley_19032', 'seguro_sepelio', 'aju_apo_dto', 'asoc_mut_1nov'];
 
-        $descuento = floatval(str_replace('%', '', $request->input('jubilacion'))) / 100 * $total_remun1 +
-            floatval(str_replace('%', '', $request->input('obra_social'))) / 100 * $total_remun1 +
-            floatval(str_replace('%', '', $request->input('cuota_solidaria'))) / 100 * $total_remun1 +
-            floatval(str_replace('%', '', $request->input('ley_19032'))) / 100 * $total_remun1 +
-            floatval(str_replace('%', '', $request->input('seguro_sepelio'))) / 100 * $total_remun1 +
-            floatval(str_replace('%', '', $request->input('aju_apo_dto'))) / 100 * $total_remun1 +
-            floatval(str_replace('%', '', $request->input('asoc_mut_1nov'))) / 100 * $total_remun1;
+        foreach ($inputs as $input) {
+            $descuentos[$input] = floatval(str_replace('%', '', $request->input($input)));
+        }
 
-
-        return $descuento;
+        return $descuentos;
     }
+
+    public function obtenerTotalDescuento($descuentos, $total_remun1)
+    {
+        $total_descuento = 0;
+
+        foreach ($descuentos as $descuento) {
+            $total_descuento += $descuento / 100 * $total_remun1;
+        }
+
+        return $total_descuento;
+    }
+
 
     /**
      * Actualiza los datos de la tercer tabla del sueldo de un chofer seleccionado.
@@ -205,7 +217,7 @@ class SueldoController extends Controller
     {
         $tabla2 = Tabla2::where('truckdriver_id', $id)->first();
         $tabla3 = Tabla3::where('truckdriver_id', $id)->first();
-        
+
         $this->actualizarNombres($request, $tabla3);
 
         $tabla3->viatico_x_km = $request->input('viatico_x_km');
@@ -233,7 +245,7 @@ class SueldoController extends Controller
 
     public function actualizarNombres(Request $request, Tabla3 $tabla3)
     {
-        
+
         $tabla3->viatico_x_km_name = $request->input('viatico_km_1_2_name');
         $tabla3->cruce_frontera_name = $request->input('cruce_frontera_name');
         $tabla3->comida_name = $request->input('comida_name');
