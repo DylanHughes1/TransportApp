@@ -69,11 +69,13 @@ return [
              'url' => env('SUPABASE_DATABASE_URL'),
              'host' => env('SUPABASE_HOST'),
              'port' => env('SUPABASE_PORT'),
-             'database' => env('SUPABASE_DATABASE'),
-             'username' => env('SUPABASE_USERNAME'),
-             'password' => env('SUPABASE_PASSWORD'),
+             'database' => env('SUPABASE_DATABASE','forge'),
+             'username' => env('SUPABASE_USERNAME','forge'),
+             'password' => env('SUPABASE_PASSWORD',''),
+             'charset' => 'utf8',
+             'prefix' => '',
              'schema' => env('SUPABASE_SCHEMA'),
-             'sslmode' => env('SUPABASE_SSLMODE'),
+             'sslmode' => env('SUPABASE_SSLMODE'), 
          ],
 
         'sqlsrv' => [
@@ -123,7 +125,7 @@ return [
 
         'options' => [
             'cluster' => env('REDIS_CLUSTER', 'redis'),
-            'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_').'_database_'),
+            'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'TransportApp'), '_').'_database_'),
         ],
 
         'default' => [
