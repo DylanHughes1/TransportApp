@@ -33,9 +33,6 @@ return new class extends Migration
 
             $table->decimal('control_desc')->nullable();
             $table->decimal('km_1_2')->nullable();   
-            
-            $table->string('patente')->nullable();  
-            $table->string('batea')->nullable();  
              
             $table->longText('observacion')->nullable();
 
