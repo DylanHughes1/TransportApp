@@ -237,10 +237,14 @@ class DashboardController extends Controller
 
         $viaje->destino = $request->get('destino' . $key);
 
-        $viaje->patente = $request->get('patente' . $key);
-        $viaje->batea = $request->get('batea' . $key);
+        $truck_driver = TruckDriver::find($viaje->truckdriver_id);
+
+        $truck_driver->p_chasis = $request->get('p_chasis' . $key);
+        $truck_driver->p_batea = $request->get('p_batea' . $key);
 
         $viaje->update();
+        $truck_driver->update();
+
         return redirect('/admin/show');
     }
 
@@ -257,5 +261,31 @@ class DashboardController extends Controller
         $viaje->delete();
 
         return redirect('/admin/show');
+    }
+
+    public function showChoferes(){
+
+        $truck_drivers = TruckDriver::all();
+
+        return view('admin.choferes.indexChoferes')
+            ->with('truck_drivers', $truck_drivers);
+    }
+
+    public function asignarEmpresa(Request $request, $id){
+
+        $truck_driver = TruckDriver::find($id);
+        $empresa_seleccionada = $request->get('company_name');
+
+        if($empresa_seleccionada === "Don Mario")
+            $truck_driver->empresa = 'A';
+        else if ($empresa_seleccionada === "Cereal Flet Sur")
+            $truck_driver->empresa = 'B';
+
+        $truck_driver->p_chasis = $request->get('p_chasis');
+        $truck_driver->p_batea = $request->get('p_batea');
+
+        $truck_driver->save();
+
+        return redirect('/admin/truck-drivers');
     }
 }

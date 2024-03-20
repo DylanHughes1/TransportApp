@@ -32,8 +32,8 @@ class SolicitudesController extends Controller
      */
     public function crearViaje(Request $request, $id){
 
-       
         $solicitud = Solicitudes::find($id);
+        
         $viaje = viajes::find($solicitud->viaje->id);
         $viaje->progreso = 1;
         $viaje->progresoSolicitud = 2;

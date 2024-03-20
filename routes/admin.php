@@ -150,4 +150,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::post('sueldo/calcular/{id}/4', [SueldoController::class, 'agregarNuevaFila'])
     ->middleware('auth:admin');
+
+    //Rutas asociadas a los choferes
+
+    Route::get('truck-drivers', [DashboardController::class, 'showChoferes'])
+    ->middleware('auth:admin');
+
+    Route::post('truck-drivers/{id}', [DashboardController::class, 'asignarEmpresa'])
+    ->middleware('auth:admin');
 });
