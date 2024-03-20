@@ -90,10 +90,10 @@
                         <td class="px-6 py-4  text-gray-900">{{ $viaje->control_desc }}</td>
                         <td class="px-6 py-4  text-gray-900">{{ $viaje->km_1_2 }}</td>
                         <td>
-                            <input type="text" name="patente{{ $key }}" style="border: none; background-color: transparent; width: 125px; text-align: center;" class="px-2 py-1 text-gray-900" value="{{ $viaje->patente }}">
+                            <input type="text" name="p_chasis{{ $key }}" style="border: none; background-color: transparent; width: 125px; text-align: center;" class="px-2 py-1 text-gray-900" value="{{ \App\Models\TruckDriver::find($viaje->truckdriver_id)->p_chasis ?? '' }}">
                         </td>
                         <td>
-                            <input type="text" name="batea{{ $key }}" style="border: none; background-color: transparent; width: 125px; text-align: center;" class="px-2 py-1 text-gray-900" value="{{ $viaje->batea }}">
+                            <input type="text" name="p_batea{{ $key }}" style="border: none; background-color: transparent; width: 125px; text-align: center;" class="px-2 py-1 text-gray-900" value="{{ \App\Models\TruckDriver::find($viaje->truckdriver_id)->p_batea ?? ''}}">
                         </td>
                         <td class="px-6 py-4  text-gray-900"><a href="#" data-modal-toggle="modalCombustible{{ $key }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" id="verMasLink">Ver más</a></td>   
                         <td class="px-6 py-4  text-gray-900"><a href="#" data-modal-toggle="modalGastos{{ $key }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" id="verMasLink2" style="white-space: nowrap;">Ver más</a></td>       
