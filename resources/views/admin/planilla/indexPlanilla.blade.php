@@ -16,6 +16,11 @@
                         @endcomponent
 
                     </div>
+                    <div class="relative flex items-top justify-center p-6 bg-white border-b border-gray-200">    
+                            <a href="truck-drivers" style="text-decoration:none" class="block w-48 p-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                                <h5 class="text-center mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Planilla de Empresa</h5>
+                            </a>                                 
+                    </div>
                 </div>
             </div>
         </div>

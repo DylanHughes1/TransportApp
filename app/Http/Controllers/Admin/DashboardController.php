@@ -191,6 +191,40 @@ class DashboardController extends Controller
             ->with('viajes', $viajesOrdenados);
     }
 
+ /**
+     * Muestra la planilla del chofer seleccionado filtrada por fecha de inicio y fin.
+     */
+
+    public function showPlanillaFiltrada(Request $request, $id)
+    {
+        $truck_driver = TruckDriver::find($id);
+        $fechaInicio = $request->get('fechaInicio');
+        $fechaFin = $request->get('fechaFin');
+
+        $viajes = Viajes::where('truckdriver_id', $id)
+            ->where('enCurso', false)
+            ->with('combustibles')
+            ->whereBetween('fecha_salida', [$fechaInicio, $fechaFin])
+            ->orderBy('fecha_salida', 'asc')
+            ->get();
+
+        $viajesOrdenados = $viajes->sort(function ($a, $b) {
+            $fechaA = Carbon::parse($a->fecha_salida);
+            $fechaB = Carbon::parse($b->fecha_salida);
+            $esVacioA = $a->esVacio;
+
+            if ($fechaA->eq($fechaB)) {
+                return $esVacioA ? -1 : 1;
+            }
+
+            return $fechaA->lt($fechaB) ? -1 : 1;
+        });
+
+        return view('admin.planilla.showPlanilla')
+            ->with('truck_driver', $truck_driver)
+            ->with('viajes', $viajesOrdenados);
+    }
+
     public function exportPlanilla($id)
     {
 
