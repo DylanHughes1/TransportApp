@@ -191,6 +191,26 @@ class DashboardController extends Controller
             ->with('viajes', $viajesOrdenados);
     }
 
+        /**
+     * Muestra la planilla mensual del chofer seleccionado.
+     */
+
+    public function showPlanillaMensual($id)
+    {
+        $truck_driver = TruckDriver::find($id);
+
+        $viajes = Viajes::where('truckdriver_id', $id)
+            ->where('enCurso', false)
+            ->with('combustibles')
+            ->orderBy('fecha_salida', 'asc')
+            ->get();
+
+        $kms_Mes = $viajes->sum('km_viaje');
+
+        return view('admin.planilla.showPlanillaMensual')
+            ->with('truck_driver', $truck_driver);
+    }
+
  /**
      * Muestra la planilla del chofer seleccionado filtrada por fecha de inicio y fin.
      */

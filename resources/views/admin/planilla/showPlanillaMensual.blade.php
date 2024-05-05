@@ -27,7 +27,6 @@
                                                     <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
                                                 </svg>
                                             </div>
-                                            <!-- <input datepicker type="text" name="fechaInicio" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Fecha Inicio"> -->
                                             <input type="text" name="fechaInicio" class="datepicker bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Fecha Inicio">
                                         </div>
                                         
@@ -37,7 +36,6 @@
                                                     <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
                                                 </svg>
                                             </div>
-                                            <!-- <input datepicker type="text" name="fechaFin" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Fecha Fin"> -->
                                             <input type="text" name="fechaFin" class="datepicker bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Fecha Fin">
 
                                         </div>
@@ -48,7 +46,7 @@
                                     </div>
                                 </form>
 
-                                <div class="flex space-x-4">
+                                <div class="flex space-x-4 ml-16">
                                     <a href="/admin/planillaMensual/{{ $truck_driver->id }}" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
                                         Ir a Planilla Mensual
                                     </a>
@@ -61,12 +59,48 @@
                         <div class="overflow-x-auto">
                             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                    @component('components.planillaComps.form-head-planilla')
-                                    @endcomponent
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3">
+                                            Mes
+                                        </th>
+                                        <th scope="col" class="px-6 py-3 gap 6">
+                                            Km Recorridos
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
+                                            Facturado
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
+                                            Promedio $/KM solo cargado
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
+                                            Promedio $/KM total
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
+                                            %Cargado
+                                        </th>                                       
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                    @component('components.planillaComps.form-planilla', ['viajes' => $viajes])
-                                    @endcomponent
+                                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                           Dato 1
+                                        </th>
+                                        <td class="px-6 py-4">
+                                            Dato 2
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            Dato 3
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            Dato 4
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            Dato 5
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            Dato 6
+                                        </td>                                                                             
+                                    </tr>
                                 </tbody>
                             </table>
                         </div> 
@@ -74,55 +108,5 @@
                 </div>
             </div>
         </div>
-    </body>
 
-    <script>
-        flatpickr(".datepicker", {
-        locale: {
-        firstDayOfWeek: 1,
-        weekdays: {
-            shorthand: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
-            longhand: [
-            "Domingo",
-            "Lunes",
-            "Martes",
-            "Miércoles",
-            "Jueves",
-            "Viernes",
-            "Sábado",
-            ],
-        },
-        months: {
-            shorthand: [
-            "Ene",
-            "Feb",
-            "Mar",
-            "Abr",
-            "May",
-            "Jun",
-            "Jul",
-            "Ago",
-            "Sep",
-            "Oct",
-            "Nov",
-            "Dic",
-            ],
-            longhand: [
-            "Enero",
-            "Febrero",
-            "Marzo",
-            "Abril",
-            "Mayo",
-            "Junio",
-            "Julio",
-            "Agosto",
-            "Septiembre",
-            "Octubre",
-            "Noviembre",
-            "Diciembre",
-            ],
-        },
-        },
-        });
-    </script>
 </x-admin-app-layout>

@@ -116,6 +116,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('planilla/{id}', [DashboardController::class, 'showPlanilla'])
     ->middleware('auth:admin');
     
+    Route::get('planillaMensual/{id}', [DashboardController::class, 'showPlanillaMensual'])
+    ->middleware('auth:admin');
+    
     Route::get('planillaFiltrada/{id}', [DashboardController::class, 'showPlanillaFiltrada'])
     ->middleware('auth:admin');
 
