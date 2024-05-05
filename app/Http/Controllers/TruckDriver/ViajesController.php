@@ -214,6 +214,7 @@ class ViajesController extends Controller
     {
         $viajeAsociado = viajes::find($id);
         $viajeAsociado->viajeInicialCreado = true;
+        $viajeAsociado->km_viaje_vacio += $request->km_llegada - $request->km_salida;
 
         $viaje = new viajes();
 

@@ -33,19 +33,16 @@
         KM Vacíos
     </th> --}}
     <th scope="col" class="px-6 py-3">
-        $/KM Solo Cargado
-    </th>
-    <th scope="col" class="px-6 py-3">
-        $/KM Total
-    </th>
-    <th scope="col" class="px-6 py-3">
         $/TN
     </th>
     <th scope="col" class="px-6 py-3">
         FAC.
     </th>
     <th scope="col" class="px-6 py-3">
-        $/KM
+        $/KM Cargado
+    </th>
+    <th scope="col" class="px-6 py-3">
+        $/KM Total
     </th>
     <th scope="col" class="px-6 py-3">
         Registro Combustible

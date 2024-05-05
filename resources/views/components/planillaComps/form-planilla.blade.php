@@ -31,12 +31,6 @@
                 {{$viaje->km_llegada - $viaje->km_salida}}
             </td>
             <td class="px-6 py-4">
-                -
-            </td>
-            <td class="px-6 py-4">
-                -
-            </td>
-            <td class="px-6 py-4">
                 {{$viaje->TN ?? '-' }}
             </td>
             <td class="px-6 py-4">
@@ -44,7 +38,10 @@
             </td>
             <td class="px-6 py-4">
                 {{ number_format((($viaje->carga_kg/1000) * $viaje->TN) / max(1, ($viaje->km_llegada - $viaje->km_salida)), 2) }}
-            </td>            
+            </td>   
+            <td class="px-6 py-4">
+                {{ number_format((($viaje->carga_kg/1000) * $viaje->TN) / max(1, ($viaje->km_llegada - $viaje->km_salida) + $viaje->km_viaje_vacio), 2) }}
+            </td>         
             <td class="px-6 py-4">
                 <a href="#" data-modal-toggle="modalCombustible{{ $key }}" id="verMasLink" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
                     Ver Más
