@@ -86,16 +86,16 @@
                                            Dato 1
                                         </th>
                                         <td class="px-6 py-4">
-                                            Dato 2
+                                            {{$kms_Mes}}
                                         </td>
                                         <td class="px-6 py-4">
-                                            Dato 3
+                                            {{$costo_total}}
                                         </td>
                                         <td class="px-6 py-4">
-                                            Dato 4
+                                            {{$kms_promedio_cargado}}
                                         </td>
                                         <td class="px-6 py-4">
-                                            Dato 5
+                                            {{$kms_total_cargado}}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             Dato 6

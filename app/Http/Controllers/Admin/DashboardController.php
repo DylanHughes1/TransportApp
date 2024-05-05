@@ -207,8 +207,79 @@ class DashboardController extends Controller
 
         $kms_Mes = $viajes->sum('km_viaje');
 
+        $costo_total = $this->obtenerFacturadoMes($viajes);
+        $kms_promedio_cargado = $this->obtenerPromedioKMCargado($viajes);
+        $kms_total_cargado = $this->obtenerTotalKMCargado($viajes);
+
         return view('admin.planilla.showPlanillaMensual')
-            ->with('truck_driver', $truck_driver);
+            ->with('truck_driver', $truck_driver)
+            ->with('kms_Mes', $kms_Mes)
+            ->with('costo_total', $costo_total)
+            ->with('kms_promedio_cargado', $kms_promedio_cargado)
+            ->with('kms_total_cargado', $kms_total_cargado);
+    }
+
+    function obtenerFacturadoMes($viajes)
+    {
+        $costo_total = 0;
+        foreach ($viajes as $viaje) {
+            $costo_viaje = ($viaje->carga_kg / 1000) * $viaje->TN;
+            $costo_total += $costo_viaje;
+        }
+        return $costo_total;
+    }
+    function obtenerPromedioKMCargado($viajes)
+    {
+        $kms_totales = 0;
+        $num_viajes = 0 ;
+
+        foreach ($viajes as $viaje) {
+            if(!$viaje->esVacio){
+                $carga_en_toneladas = $viaje->carga_kg / 1000;
+                $costo_por_tonelada = $viaje->TN;
+                $distancia_viaje = max(1, $viaje->km_llegada - $viaje->km_salida);
+
+                $costo_por_km = ($carga_en_toneladas * $costo_por_tonelada) / $distancia_viaje;
+
+                $kms_totales += $costo_por_km;
+                $num_viajes += 1;
+            }
+        }
+
+        if ($num_viajes > 0) {
+            $promedio_kms_cargado = $kms_totales / $num_viajes;
+        } else {
+            $promedio_kms_cargado = 0; 
+        }
+
+        return number_format($promedio_kms_cargado, 2);
+    }
+
+    function obtenerTotalKMCargado($viajes)
+    {
+        $kms_totales = 0;
+
+        foreach ($viajes as $viaje) {
+            if(!$viaje->esVacio){
+                $carga_en_toneladas = $viaje->carga_kg / 1000;
+                $costo_por_tonelada = $viaje->TN;
+                $distancia_viaje = max(1, ($viaje->km_llegada - $viaje->km_salida) + $viaje->km_viaje_vacio);
+
+                $costo_por_km = ($carga_en_toneladas * $costo_por_tonelada) / $distancia_viaje;
+
+                $kms_totales += $costo_por_km;
+
+            }
+        }
+
+        $num_viajes = count($viajes);
+        if ($num_viajes > 0) {
+            $promedio_kms_cargado = $kms_totales / $num_viajes;
+        } else {
+            $promedio_kms_cargado = 0; 
+        }
+
+        return number_format($promedio_kms_cargado, 2);
     }
 
  /**
