@@ -46,6 +46,8 @@ return new class extends Migration
             $table->boolean('esVacio')->default(false);
 
             $table->boolean('viajeInicialCreado')->default(false);
+
+            $table->decimal('km_viaje_vacio')->default(0);
             
             $table->unsignedBigInteger('truckdriver_id')->nullable();
             $table->foreign('truckdriver_id')
