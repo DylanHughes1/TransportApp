@@ -199,24 +199,51 @@ class DashboardController extends Controller
     {
         $truck_driver = TruckDriver::find($id);
 
-        $viajes = Viajes::where('truckdriver_id', $id)
+        $firstDayOfCurrentMonth = Carbon::now()->startOfMonth();
+        $firstDayOfPreviousMonth = Carbon::now()->subMonth()->startOfMonth();
+        $lastDayOfPreviousMonth = Carbon::now()->subMonth()->endOfMonth();
+
+        $viajesEsteMes = Viajes::where('truckdriver_id', $id)
             ->where('enCurso', false)
             ->with('combustibles')
+            ->where('fecha_salida', '>=', $firstDayOfCurrentMonth)
             ->orderBy('fecha_salida', 'asc')
             ->get();
 
-        $kms_Mes = $viajes->sum('km_viaje');
+        $viajesMesAnterior = Viajes::where('truckdriver_id', $id)
+            ->where('enCurso', false)
+            ->with('combustibles')
+            ->where('fecha_salida', '>=', $firstDayOfPreviousMonth)
+            ->where('fecha_salida', '<=', $lastDayOfPreviousMonth)
+            ->orderBy('fecha_salida', 'asc')
+            ->get();
 
-        $costo_total = $this->obtenerFacturadoMes($viajes);
-        $kms_promedio_cargado = $this->obtenerPromedioKMCargado($viajes);
-        $kms_total_cargado = $this->obtenerTotalKMCargado($viajes);
+        $kms_MesEsteMes = $viajesEsteMes->sum('km_viaje');
+        $costo_totalEsteMes = $this->obtenerFacturadoMes($viajesEsteMes);
+        $kms_promedio_cargadoEsteMes = $this->obtenerPromedioKMCargado($viajesEsteMes);
+        $kms_total_cargadoEsteMes = $this->obtenerTotalKMCargado($viajesEsteMes);
+        $porcentaje_cargadoEsteMes = $this->obtenerPorcentajeCargado($viajesEsteMes);
+
+        $kms_MesMesAnterior = $viajesMesAnterior->sum('km_viaje');
+        $costo_totalMesAnterior = $this->obtenerFacturadoMes($viajesMesAnterior);
+        $kms_promedio_cargadoMesAnterior = $this->obtenerPromedioKMCargado($viajesMesAnterior);
+        $kms_total_cargadoMesAnterior = $this->obtenerTotalKMCargado($viajesMesAnterior);
+        $porcentaje_cargadoMesAnterior = $this->obtenerPorcentajeCargado($viajesMesAnterior);
 
         return view('admin.planilla.showPlanillaMensual')
             ->with('truck_driver', $truck_driver)
-            ->with('kms_Mes', $kms_Mes)
-            ->with('costo_total', $costo_total)
-            ->with('kms_promedio_cargado', $kms_promedio_cargado)
-            ->with('kms_total_cargado', $kms_total_cargado);
+            ->with('kms_MesEsteMes', $kms_MesEsteMes)
+            ->with('costo_totalEsteMes', $costo_totalEsteMes)
+            ->with('kms_promedio_cargadoEsteMes', $kms_promedio_cargadoEsteMes)
+            ->with('kms_total_cargadoEsteMes', $kms_total_cargadoEsteMes)
+            ->with('porcentaje_cargadoEsteMes', $porcentaje_cargadoEsteMes)
+
+            ->with('kms_MesMesAnterior', $kms_MesMesAnterior)
+            ->with('costo_totalMesAnterior', $costo_totalMesAnterior)
+            ->with('kms_promedio_cargadoMesAnterior', $kms_promedio_cargadoMesAnterior)
+            ->with('kms_total_cargadoMesAnterior', $kms_total_cargadoMesAnterior)
+            ->with('porcentaje_cargadoMesAnterior', $porcentaje_cargadoMesAnterior);
+
     }
 
     function obtenerFacturadoMes($viajes)
@@ -281,6 +308,21 @@ class DashboardController extends Controller
 
         return number_format($promedio_kms_cargado, 2);
     }
+    function obtenerPorcentajeCargado($viajes){
+
+        $distancia_viaje_total = 0;
+        $distancia_viaje_cargado = 0;
+
+        foreach ($viajes as $viaje) {
+            if(!$viaje->esVacio){
+                $distancia_viaje_total += max(1, ($viaje->km_llegada - $viaje->km_salida) + $viaje->km_viaje_vacio);
+                $distancia_viaje_cargado += max(1, ($viaje->km_llegada - $viaje->km_salida));    
+            }
+            return (int)(($distancia_viaje_cargado/$distancia_viaje_total)*100);
+        }
+
+    }
+
 
  /**
      * Muestra la planilla del chofer seleccionado filtrada por fecha de inicio y fin.
