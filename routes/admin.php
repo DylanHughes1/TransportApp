@@ -121,6 +121,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
     
     Route::get('planillaFiltrada/{id}', [DashboardController::class, 'showPlanillaFiltrada'])
     ->middleware('auth:admin');
+        
+    Route::get('planillaEmpresa', [DashboardController::class, 'showPlanillaEmpresa'])
+    ->middleware('auth:admin');
 
     Route::get('planilla/export/{id}', [DashboardController::class, 'exportPlanilla'])
     ->middleware('auth:admin');

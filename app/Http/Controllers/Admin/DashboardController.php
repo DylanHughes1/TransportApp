@@ -191,7 +191,7 @@ class DashboardController extends Controller
             ->with('viajes', $viajesOrdenados);
     }
 
-        /**
+    /**
      * Muestra la planilla mensual del chofer seleccionado.
      */
 
@@ -322,6 +322,15 @@ class DashboardController extends Controller
         }
 
     }
+
+    /**
+     * Muestra la planilla de Empresa
+    */
+    public function showPlanillaEmpresa()
+    {
+        return view('admin.planilla.showPlanillaEmpresa');
+    }
+    
 
 
  /**
