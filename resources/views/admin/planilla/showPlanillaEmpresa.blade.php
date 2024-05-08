@@ -12,23 +12,95 @@
 
     <body class="text-center">
         <div class="relative flex items-top justify-center min-h-screen sm:items-top py-4 sm:pt-0">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="max-w-9xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 bg-white border-b border-gray-200">
                                                                     
-                        <div class="flex mb-4 items-center justify-end">
-
-                            <div class="flex space-x-4">
-                                <a href="" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
-                                    Ir a Planilla de Viajes
-                                </a>
-                                <a href="" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
-                                    Descargar Planilla
-                                </a>
+                        <div class="relative overflow-x-auto flex">
+                            <div class="p-6 bg-white border-b border-gray-200 px-2 flex-grow">
+                                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 text-center">
+                                    <caption class="text-lg text-center font-bold mb-2">Don Mario</caption>
+                                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                        <tr>
+                                            <th scope="col" class="px-6 py-3">Mes</th>
+                                            <th scope="col" class="px-6 py-3">Kms Totales</th>
+                                            <th scope="col" class="px-6 py-3">Facturado</th>
+                                            <th scope="col" class="px-6 py-3">$/KM (solo cargado) Promedio</th>
+                                            <th scope="col" class="px-6 py-3">$/KM (total) Promedio</th>
+                                            <th scope="col" class="px-6 py-3">%Cargado Promedio</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-green-500">
+                                                Mayo
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                            
+
+                            <div class="p-6 bg-white border-b border-gray-200 px-2 flex-grow">
+                                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 text-center">
+                                    <caption class="text-lg text-center font-bold mb-2">Cereal Flet Sur</caption>
+                                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                        <tr>
+                                            <th scope="col" class="px-6 py-3">Mes</th>
+                                            <th scope="col" class="px-6 py-3">Kms Totales</th>
+                                            <th scope="col" class="px-6 py-3">Facturado</th>
+                                            <th scope="col" class="px-6 py-3">$/KM (solo cargado) Promedio</th>
+                                            <th scope="col" class="px-6 py-3">$/KM (total) Promedio</th>
+                                            <th scope="col" class="px-6 py-3">%Cargado Promedio</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-green-500">
+                                                Mayo
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-green-500">
+                                                10000
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-green-500">
+                                                500000
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-green-500">
+                                                60000
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-green-500">
+                                                44000
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-green-500">
+                                                87
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                     
+
+                        <div class="p-6 bg-white border-b border-gray-200 px-2 mx-auto w-1/2">
+                            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 text-center">
+                                <caption class="text-lg text-center font-bold mb-2">Total</caption>
+                                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3">Mes</th>
+                                        <th scope="col" class="px-6 py-3">Kms Totales</th>
+                                        <th scope="col" class="px-6 py-3">Facturado</th>
+                                        <th scope="col" class="px-6 py-3">$/KM (solo cargado) Promedio</th>
+                                        <th scope="col" class="px-6 py-3">$/KM (total) Promedio</th>
+                                        <th scope="col" class="px-6 py-3">%Cargado Promedio</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                        <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-green-500">
+                                            Mayo
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>             
                     </div>
                 </div>
             </div>
