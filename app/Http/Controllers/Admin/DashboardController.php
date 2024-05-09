@@ -328,7 +328,51 @@ class DashboardController extends Controller
     */
     public function showPlanillaEmpresa()
     {
-        return view('admin.planilla.showPlanillaEmpresa');
+        
+        $firstDayOfCurrentMonth = Carbon::now()->startOfMonth();
+        $firstDayOfPreviousMonth = Carbon::now()->subMonth()->startOfMonth();
+        $lastDayOfPreviousMonth = Carbon::now()->subMonth()->endOfMonth();
+
+        $choferesEmpresaA = TruckDriver::where('empresa', 'A')->pluck('id');
+        $viajesEmpresaA = viajes::whereIn('truckdriver_id', $choferesEmpresaA)
+            ->where('enCurso', false)
+            ->with('combustibles')
+            ->where('fecha_salida', '>=', $firstDayOfCurrentMonth)
+            ->orderBy('fecha_salida', 'asc')
+            ->get();
+
+        $choferesEmpresaB = TruckDriver::where('empresa', 'B')->pluck('id');
+        $viajesEmpresaB = viajes::whereIn('truckdriver_id', $choferesEmpresaB)
+            ->where('enCurso', false)
+            ->with('combustibles')
+            ->where('fecha_salida', '>=', $firstDayOfCurrentMonth)
+            ->orderBy('fecha_salida', 'asc')
+            ->get();
+
+        $kms_MesDonMario = $viajesEmpresaA->sum('km_viaje');
+        $facturado_MesDonMario = $this->obtenerFacturadoMes($viajesEmpresaA);
+        $kms_promedio_cargadoDonMario = $this->obtenerPromedioKMCargado($viajesEmpresaA);
+        $kms_total_cargadoDonMario = $this->obtenerTotalKMCargado($viajesEmpresaA);
+        $porcentaje_cargadoDonMario = $this->obtenerPorcentajeCargado($viajesEmpresaA);
+
+        $kms_MesCerealFletSur = $viajesEmpresaB->sum('km_viaje');
+        $facturado_MesCerealFletSur = $this->obtenerFacturadoMes($viajesEmpresaB);
+        $kms_promedio_cargadoCerealFletSur = $this->obtenerPromedioKMCargado($viajesEmpresaB);
+        $kms_total_cargadoCerealFletSur = $this->obtenerTotalKMCargado($viajesEmpresaB);
+        $porcentaje_cargadoCerealFletSur = $this->obtenerPorcentajeCargado($viajesEmpresaB);
+
+        return view('admin.planilla.showPlanillaEmpresa')
+                ->with('kms_MesDonMario', $kms_MesDonMario)
+                ->with('facturado_MesDonMario', $facturado_MesDonMario)
+                ->with('kms_promedio_cargadoDonMario', $kms_promedio_cargadoDonMario)
+                ->with('kms_total_cargadoDonMario', $kms_total_cargadoDonMario)
+                ->with('porcentaje_cargadoDonMario', $porcentaje_cargadoDonMario)
+
+                ->with('kms_MesCerealFletSur', $kms_MesCerealFletSur)
+                ->with('facturado_MesCerealFletSur', $facturado_MesCerealFletSur)
+                ->with('kms_promedio_cargadoCerealFletSur', $kms_promedio_cargadoCerealFletSur)
+                ->with('kms_total_cargadoCerealFletSur', $kms_total_cargadoCerealFletSur)
+                ->with('porcentaje_cargadoCerealFletSur', $porcentaje_cargadoCerealFletSur);
     }
     
 

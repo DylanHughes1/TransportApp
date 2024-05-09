@@ -32,9 +32,26 @@
                                     </thead>
                                     <tbody>
                                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-green-500">
-                                                Mayo
-                                            </td>
+                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                                <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-green-500">
+                                                    {{ ucfirst(\Carbon\Carbon::now()->locale('es')->monthName) }}
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-green-500" style="white-space: nowrap;">
+                                                    {{ $kms_MesDonMario }} Kms
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-green-500" style="white-space: nowrap;">
+                                                    ${{ $facturado_MesDonMario }}
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-green-500" style="white-space: nowrap;">
+                                                    {{ $kms_promedio_cargadoDonMario }}
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-green-500" style="white-space: nowrap;">
+                                                    {{ $kms_total_cargadoDonMario }}
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-green-500" style="white-space: nowrap;">
+                                                    {{ $porcentaje_cargadoDonMario ?? 0 }}%
+                                                </td>
+                                            </tr>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -55,23 +72,24 @@
                                     </thead>
                                     <tbody>
                                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-green-500">
-                                                Mayo
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-green-500" style="white-space: nowrap;">
+                                                {{ ucfirst(\Carbon\Carbon::now()->locale('es')->monthName) }}
                                             </td>
-                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-green-500">
-                                                10000
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-green-500" style="white-space: nowrap;">
+                                                {{ $kms_MesCerealFletSur }} Kms
                                             </td>
-                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-green-500">
-                                                500000
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-green-500" style="white-space: nowrap;">
+                                                $ {{ $facturado_MesCerealFletSur }}
                                             </td>
-                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-green-500">
-                                                60000
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-green-500" style="white-space: nowrap;">
+                                                {{ $kms_promedio_cargadoCerealFletSur }}
                                             </td>
-                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-green-500">
-                                                44000
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-green-500" style="white-space: nowrap;">
+                                                {{ $kms_total_cargadoCerealFletSur }}
                                             </td>
-                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-green-500">
-                                                87
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-green-500" style="white-space: nowrap;">
+                                                {{ $porcentaje_cargadoCerealFletSur ?? 0 }}%
+
                                             </td>
                                         </tr>
                                     </tbody>
@@ -94,9 +112,24 @@
                                 </thead>
                                 <tbody>
                                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                        <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-green-500">
-                                            Mayo
-                                        </td>
+                                        <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-green-500" style="white-space: nowrap;">
+                                                {{ ucfirst(\Carbon\Carbon::now()->locale('es')->monthName) }}
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-green-500" style="white-space: nowrap;">
+                                                {{ $kms_MesCerealFletSur + $kms_MesDonMario}} Kms
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-green-500" style="white-space: nowrap;">
+                                                $ {{ $facturado_MesCerealFletSur + $facturado_MesDonMario}}
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-green-500" style="white-space: nowrap;">
+                                                {{ $kms_promedio_cargadoCerealFletSur + $kms_promedio_cargadoDonMario}}
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-green-500" style="white-space: nowrap;">
+                                                {{ $kms_total_cargadoCerealFletSur + $kms_total_cargadoDonMario}}
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-green-500" style="white-space: nowrap;">
+                                                {{ $porcentaje_cargadoCerealFletSur + $porcentaje_cargadoDonMario ?? 0}}% 
+                                            </td>
                                     </tr>
                                 </tbody>
                             </table>
