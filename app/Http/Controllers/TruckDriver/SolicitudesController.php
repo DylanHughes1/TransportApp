@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\viajes;
 use Illuminate\Support\Facades\DB;
 use App\Models\ViajeInicial;
+use App\Models\TruckDriver;
 
 class SolicitudesController extends Controller
 {
@@ -32,6 +33,8 @@ class SolicitudesController extends Controller
      */
     public function crearViaje(Request $request, $id){
 
+        $truck_driver = TruckDriver::find($request->get('truckdriver_id'));
+
         $solicitud = Solicitudes::find($id);
         
         $viaje = viajes::find($solicitud->viaje->id);
@@ -39,6 +42,8 @@ class SolicitudesController extends Controller
         $viaje->progresoSolicitud = 2;
         $viaje->observacion_origen = $solicitud->observacion1;
         $viaje->observacion_destino = $solicitud->observacion2;
+        $viaje->p_batea = $truck_driver->p_batea;
+        $viaje->p_chasis = $truck_driver->p_chasis;
         $viaje->save();
        
 

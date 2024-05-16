@@ -491,6 +491,14 @@ class DashboardController extends Controller
             ->with('truck_drivers', $truck_drivers);
     }
 
+    public function eliminarChofer($id){
+
+        $truck_driver = TruckDriver::find($id);
+        $truck_driver->delete();
+    
+        return redirect('/admin/truck-drivers');
+    }
+
     public function asignarEmpresa(Request $request, $id){
 
         $truck_driver = TruckDriver::find($id);

@@ -17,8 +17,8 @@
             <th scope="col" class="px-6 py-3">Km Llegada</th>
             <th scope="col" class="px-6 py-3">Control Descarga</th>
             <th scope="col" class="px-6 py-3">KM 1.2</th>
-            <th scope="col" class="px-6 py-3">Patente</th>
-            <th scope="col" class="px-6 py-3">Batea</th>
+            <th scope="col" class="px-6 py-3">Patente Chasis</th>
+            <th scope="col" class="px-6 py-3">Patente Batea</th>
             <th scope="col" class="px-6 py-3">Combustible</th>
             <th scope="col" class="px-6 py-3">Gastos Extra</th>
             <th scope="col" class="px-6 py-3 text-center">Acciones</th>
@@ -77,7 +77,7 @@
                         <td>
                             <input type="text" name="fecha_llegada{{ $key }}" style="border: none; background-color: transparent; width: 125px; text-align: center;" class="px-2 py-1 text-gray-900" value="{{ \Carbon\Carbon::parse($viaje->fecha_llegada)->format('d/m/y') }}">
                         </td>
-                        <td class="px-6 py-4  text-gray-900" name="km_viaje">{{ $viaje->km_viaje }}
+                        <td class="px-6 py-4  text-gray-900" name="km_viaje">{{ $viaje->km_viaje }}</td>
                         <td>
                             <input type="text" name="destino{{ $key }}" style="border: none; background-color: transparent; width: 125px; text-align: center;" class="px-2 py-1 text-gray-900" value="{{ $viaje->destino }}">
                         </td>
@@ -90,10 +90,10 @@
                         <td class="px-6 py-4  text-gray-900">{{ $viaje->control_desc }}</td>
                         <td class="px-6 py-4  text-gray-900">{{ $viaje->km_1_2 }}</td>
                         <td>
-                            <input type="text" name="p_chasis{{ $key }}" style="border: none; background-color: transparent; width: 125px; text-align: center;" class="px-2 py-1 text-gray-900" value="{{ \App\Models\TruckDriver::find($viaje->truckdriver_id)->p_chasis ?? '' }}">
+                            <input type="text" name="p_chasis{{ $key }}" style="border: none; background-color: transparent; width: 125px; text-align: center;" class="px-2 py-1 text-gray-900" value="{{ $viaje->p_chasis ?? '' }}">
                         </td>
                         <td>
-                            <input type="text" name="p_batea{{ $key }}" style="border: none; background-color: transparent; width: 125px; text-align: center;" class="px-2 py-1 text-gray-900" value="{{ \App\Models\TruckDriver::find($viaje->truckdriver_id)->p_batea ?? ''}}">
+                            <input type="text" name="p_batea{{ $key }}" style="border: none; background-color: transparent; width: 125px; text-align: center;" class="px-2 py-1 text-gray-900" value="{{ $viaje->p_batea ?? ''}}">
                         </td>
                         <td class="px-6 py-4  text-gray-900"><a href="#" data-modal-toggle="modalCombustible{{ $key }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" id="verMasLink">Ver más</a></td>   
                         <td class="px-6 py-4  text-gray-900"><a href="#" data-modal-toggle="modalGastos{{ $key }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" id="verMasLink2" style="white-space: nowrap;">Ver más</a></td>       

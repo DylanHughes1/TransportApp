@@ -66,6 +66,7 @@
                                                     <form method="POST" action="/truck_driver/solicitudes/{{$solicitud->id}}" class="inline-block">
                                                         @csrf
                                                         @method('PUT')
+                                                        <input type="hidden" name="truckdriver_id" value="{{ Auth::id() }}">
                                                         <button type="submit" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Aceptar</button>
                                                     </form>
                                                 
