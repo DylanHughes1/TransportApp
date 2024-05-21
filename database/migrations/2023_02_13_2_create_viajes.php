@@ -42,6 +42,7 @@ return new class extends Migration
             $table->boolean('enCurso')->nullable()->default(true);
 
             $table->decimal('TN')->nullable();
+            $table->decimal('precio_total')->nullable();
 
             $table->integer('progreso')->default(0);
             $table->integer('progresoSolicitud')->default(0);

@@ -34,7 +34,10 @@
                 {{$viaje->TN ?? '-' }}
             </td>
             <td class="px-6 py-4">
-                {{($viaje->carga_kg/1000) * $viaje->TN}}
+                {{$viaje->precio_total ?? '-' }}
+            </td>
+            <td class="px-6 py-4">
+                {{(($viaje->carga_kg/1000) * $viaje->TN) ?? $viaje->precio_total}}
             </td>
             <td class="px-6 py-4">
                 {{ number_format((($viaje->carga_kg/1000) * $viaje->TN) / max(1, ($viaje->km_llegada - $viaje->km_salida)), 2) }}

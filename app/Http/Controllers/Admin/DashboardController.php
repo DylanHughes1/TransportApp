@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Exports\PlanillaExport;
+use App\Exports\PlanillaFiltradaExport;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\ViajeInicial;
@@ -83,7 +85,14 @@ class DashboardController extends Controller
         $viaje_inicial->observacion_origen = $request->get('observacion1');
         $viaje_inicial->fecha_llegada = $request->get('dia2');
         $viaje_inicial->observacion_destino = $request->get('observacion2');
-        $viaje_inicial->TN = $request->get('TN');
+
+        if ($request->get('pricing-option') == 'tonelada') {
+            $viaje_inicial->TN = $request->get('TN');
+            $viaje_inicial->precio_total = null; 
+        } elseif ($request->get('pricing-option') == 'total') {
+            $viaje_inicial->precio_total = $request->get('total');
+            $viaje_inicial->TN = null; 
+        }
 
         $viaje_inicial->save();
         if ($input_editable->origen != null || $input_editable->destino)
@@ -258,10 +267,10 @@ class DashboardController extends Controller
     function obtenerPromedioKMCargado($viajes)
     {
         $kms_totales = 0;
-        $num_viajes = 0 ;
+        $num_viajes = 0;
 
         foreach ($viajes as $viaje) {
-            if(!$viaje->esVacio){
+            if (!$viaje->esVacio) {
                 $carga_en_toneladas = $viaje->carga_kg / 1000;
                 $costo_por_tonelada = $viaje->TN;
                 $distancia_viaje = max(1, $viaje->km_llegada - $viaje->km_salida);
@@ -276,7 +285,7 @@ class DashboardController extends Controller
         if ($num_viajes > 0) {
             $promedio_kms_cargado = $kms_totales / $num_viajes;
         } else {
-            $promedio_kms_cargado = 0; 
+            $promedio_kms_cargado = 0;
         }
 
         return number_format($promedio_kms_cargado, 2);
@@ -287,7 +296,7 @@ class DashboardController extends Controller
         $kms_totales = 0;
 
         foreach ($viajes as $viaje) {
-            if(!$viaje->esVacio){
+            if (!$viaje->esVacio) {
                 $carga_en_toneladas = $viaje->carga_kg / 1000;
                 $costo_por_tonelada = $viaje->TN;
                 $distancia_viaje = max(1, ($viaje->km_llegada - $viaje->km_salida) + $viaje->km_viaje_vacio);
@@ -303,32 +312,33 @@ class DashboardController extends Controller
         if ($num_viajes > 0) {
             $promedio_kms_cargado = $kms_totales / $num_viajes;
         } else {
-            $promedio_kms_cargado = 0; 
+            $promedio_kms_cargado = 0;
         }
 
         return number_format($promedio_kms_cargado, 2);
     }
-    function obtenerPorcentajeCargado($viajes){
+    function obtenerPorcentajeCargado($viajes)
+    {
 
         $distancia_viaje_total = 0;
         $distancia_viaje_cargado = 0;
 
         foreach ($viajes as $viaje) {
-            if(!$viaje->esVacio){
+            if (!$viaje->esVacio) {
                 $distancia_viaje_total += max(1, ($viaje->km_llegada - $viaje->km_salida) + $viaje->km_viaje_vacio);
-                $distancia_viaje_cargado += max(1, ($viaje->km_llegada - $viaje->km_salida));    
+                $distancia_viaje_cargado += max(1, ($viaje->km_llegada - $viaje->km_salida));
             }
-            return (int)(($distancia_viaje_cargado/$distancia_viaje_total)*100);
+            return (int) (($distancia_viaje_cargado / $distancia_viaje_total) * 100);
         }
 
     }
 
     /**
      * Muestra la planilla de Empresa
-    */
+     */
     public function showPlanillaEmpresa()
     {
-        
+
         $firstDayOfCurrentMonth = Carbon::now()->startOfMonth();
         $firstDayOfPreviousMonth = Carbon::now()->subMonth()->startOfMonth();
         $lastDayOfPreviousMonth = Carbon::now()->subMonth()->endOfMonth();
@@ -362,22 +372,22 @@ class DashboardController extends Controller
         $porcentaje_cargadoCerealFletSur = $this->obtenerPorcentajeCargado($viajesEmpresaB);
 
         return view('admin.planilla.showPlanillaEmpresa')
-                ->with('kms_MesDonMario', $kms_MesDonMario)
-                ->with('facturado_MesDonMario', $facturado_MesDonMario)
-                ->with('kms_promedio_cargadoDonMario', $kms_promedio_cargadoDonMario)
-                ->with('kms_total_cargadoDonMario', $kms_total_cargadoDonMario)
-                ->with('porcentaje_cargadoDonMario', $porcentaje_cargadoDonMario)
+            ->with('kms_MesDonMario', $kms_MesDonMario)
+            ->with('facturado_MesDonMario', $facturado_MesDonMario)
+            ->with('kms_promedio_cargadoDonMario', $kms_promedio_cargadoDonMario)
+            ->with('kms_total_cargadoDonMario', $kms_total_cargadoDonMario)
+            ->with('porcentaje_cargadoDonMario', $porcentaje_cargadoDonMario)
 
-                ->with('kms_MesCerealFletSur', $kms_MesCerealFletSur)
-                ->with('facturado_MesCerealFletSur', $facturado_MesCerealFletSur)
-                ->with('kms_promedio_cargadoCerealFletSur', $kms_promedio_cargadoCerealFletSur)
-                ->with('kms_total_cargadoCerealFletSur', $kms_total_cargadoCerealFletSur)
-                ->with('porcentaje_cargadoCerealFletSur', $porcentaje_cargadoCerealFletSur);
+            ->with('kms_MesCerealFletSur', $kms_MesCerealFletSur)
+            ->with('facturado_MesCerealFletSur', $facturado_MesCerealFletSur)
+            ->with('kms_promedio_cargadoCerealFletSur', $kms_promedio_cargadoCerealFletSur)
+            ->with('kms_total_cargadoCerealFletSur', $kms_total_cargadoCerealFletSur)
+            ->with('porcentaje_cargadoCerealFletSur', $porcentaje_cargadoCerealFletSur);
     }
-    
 
 
- /**
+
+    /**
      * Muestra la planilla del chofer seleccionado filtrada por fecha de inicio y fin.
      */
 
@@ -406,17 +416,20 @@ class DashboardController extends Controller
             return $fechaA->lt($fechaB) ? -1 : 1;
         });
 
-        return view('admin.planilla.showPlanilla')
+        return view('admin.planilla.showPlanillaFiltrada')
             ->with('truck_driver', $truck_driver)
             ->with('viajes', $viajesOrdenados);
     }
 
     public function exportPlanilla($id)
     {
-
         return Excel::download(new PlanillaExport($id), 'planilla.xlsx');
     }
 
+    public function exportPlanillaFiltrada($id, $fechaInicio, $fechaFin)
+    {
+        return Excel::download(new PlanillaFiltradaExport($id, $fechaInicio, $fechaFin), 'planilla.xlsx');
+    }
 
     public function updateViaje(Request $request)
     {
@@ -483,7 +496,8 @@ class DashboardController extends Controller
         return redirect('/admin/show');
     }
 
-    public function showChoferes(){
+    public function showChoferes()
+    {
 
         $truck_drivers = TruckDriver::all();
 
@@ -491,20 +505,22 @@ class DashboardController extends Controller
             ->with('truck_drivers', $truck_drivers);
     }
 
-    public function eliminarChofer($id){
+    public function eliminarChofer($id)
+    {
 
         $truck_driver = TruckDriver::find($id);
         $truck_driver->delete();
-    
+
         return redirect('/admin/truck-drivers');
     }
 
-    public function asignarEmpresa(Request $request, $id){
+    public function asignarEmpresa(Request $request, $id)
+    {
 
         $truck_driver = TruckDriver::find($id);
         $empresa_seleccionada = $request->get('company_name');
 
-        if($empresa_seleccionada === "Don Mario")
+        if ($empresa_seleccionada === "Don Mario")
             $truck_driver->empresa = 'A';
         else if ($empresa_seleccionada === "Cereal Flet Sur")
             $truck_driver->empresa = 'B';
