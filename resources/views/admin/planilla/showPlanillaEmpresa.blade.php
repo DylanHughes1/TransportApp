@@ -40,7 +40,7 @@
                                                     {{ $kms_MesDonMario }} Kms
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-green-500" style="white-space: nowrap;">
-                                                    ${{ $facturado_MesDonMario }}
+                                                    $ {{ $facturado_MesDonMario }}
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-green-500" style="white-space: nowrap;">
                                                     {{ $kms_promedio_cargadoDonMario }}

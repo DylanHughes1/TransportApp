@@ -88,45 +88,50 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::get('viajes', [DashboardController::class, 'createSolicitudes'])
         ->middleware('auth:admin')
-        ->name('create2');    
+        ->name('create2');
 
     Route::get('viajes/{id}', [DashboardController::class, 'getInfoViajeInicial'])
         ->middleware('auth:admin')
-        ->name('create3');  
+        ->name('create3');
 
     Route::post('viajes/{id}', [DashboardController::class, 'storeSolicitudes'])
         ->middleware('auth:admin')
-        ->name('store2');    
+        ->name('store2');
 
     Route::get('show', [DashboardController::class, 'showViajes'])
         ->middleware('auth:admin')
-        ->name('show');   
+        ->name('show');
 
     Route::put('update', [DashboardController::class, 'updateViaje'])
         ->middleware('auth:admin')
-        ->name('update');  
+        ->name('update');
 
     Route::delete('cancelar/{id}', [DashboardController::class, 'cancelarViaje'])
         ->middleware('auth:admin')
         ->name('cancelar');
 
     Route::get('planilla', [DashboardController::class, 'indexPlanilla'])
-    ->middleware('auth:admin');
+        ->middleware('auth:admin');
 
     Route::get('planilla/{id}', [DashboardController::class, 'showPlanilla'])
-    ->middleware('auth:admin');
-    
+        ->middleware('auth:admin');
+
     Route::get('planillaMensual/{id}', [DashboardController::class, 'showPlanillaMensual'])
-    ->middleware('auth:admin');
-    
+        ->middleware('auth:admin');
+
     Route::get('planillaFiltrada/{id}', [DashboardController::class, 'showPlanillaFiltrada'])
-    ->middleware('auth:admin');
-        
+        ->middleware('auth:admin');
+
     Route::get('planillaEmpresa', [DashboardController::class, 'showPlanillaEmpresa'])
-    ->middleware('auth:admin');
+        ->middleware('auth:admin');
 
     Route::get('planilla/export/{id}', [DashboardController::class, 'exportPlanilla'])
-    ->middleware('auth:admin');
+        ->middleware('auth:admin');
+
+    Route::get('planillaFiltrada/export/{id}/{fechaInicio}/{fechaFin}', [DashboardController::class, 'exportPlanillaFiltrada'])
+        ->middleware('auth:admin');
+
+
 
     // Exports
     Route::get('users/export/', [DashboardController::class, 'export']);
@@ -135,40 +140,40 @@ Route::prefix('admin')->name('admin.')->group(function () {
     // Rutas asociadas al sueldo
 
     Route::get('sueldo', [SueldoController::class, 'index'])
-    ->middleware('auth:admin');
-    
+        ->middleware('auth:admin');
+
     Route::get('sueldo/datos', [SueldoController::class, 'showDatosBasicos'])
-    ->middleware('auth:admin');
+        ->middleware('auth:admin');
 
     Route::put('sueldo/datos', [SueldoController::class, 'updateDatosBasicos'])
-    ->middleware('auth:admin');
-    
+        ->middleware('auth:admin');
+
     Route::get('sueldo/calcular', [SueldoController::class, 'indexCalcularSueldo'])
-    ->middleware('auth:admin');
+        ->middleware('auth:admin');
 
     Route::get('sueldo/calcular/{id}', [SueldoController::class, 'showCalcularSueldo'])
-    ->middleware('auth:admin');
+        ->middleware('auth:admin');
 
     Route::post('sueldo/calcular/{id}', [SueldoController::class, 'updateDatos'])
-    ->middleware('auth:admin');
+        ->middleware('auth:admin');
 
     Route::post('sueldo/calcular/{id}/2', [SueldoController::class, 'updateDatosTabla2'])
-    ->middleware('auth:admin');
+        ->middleware('auth:admin');
 
     Route::post('sueldo/calcular/{id}/3', [SueldoController::class, 'updateDatosTabla3'])
-    ->middleware('auth:admin');
+        ->middleware('auth:admin');
 
     Route::post('sueldo/calcular/{id}/4', [SueldoController::class, 'agregarNuevaFila'])
-    ->middleware('auth:admin');
+        ->middleware('auth:admin');
 
     //Rutas asociadas a los choferes
 
     Route::get('truck-drivers', [DashboardController::class, 'showChoferes'])
-    ->middleware('auth:admin');
+        ->middleware('auth:admin');
 
     Route::post('truck-drivers/{id}', [DashboardController::class, 'asignarEmpresa'])
-    ->middleware('auth:admin');
+        ->middleware('auth:admin');
 
     Route::delete('truck-drivers/{id}', [DashboardController::class, 'eliminarChofer'])
-    ->middleware('auth:admin');
+        ->middleware('auth:admin');
 });
