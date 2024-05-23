@@ -71,7 +71,7 @@
                                             {{$kms_total_cargadoMesAnterior}}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            {{$porcentaje_cargadoEsteMes}} %
+                                            {{ $porcentaje_cargadoEsteMes !== null ? $porcentaje_cargadoEsteMes . '%' : '0 %' }}
                                         </td>
                                     </tr>
 

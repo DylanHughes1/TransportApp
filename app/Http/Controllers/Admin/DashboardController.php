@@ -88,10 +88,10 @@ class DashboardController extends Controller
 
         if ($request->get('pricing-option') == 'tonelada') {
             $viaje_inicial->TN = $request->get('TN');
-            $viaje_inicial->precio_total = null; 
+            $viaje_inicial->precio_total = null;
         } elseif ($request->get('pricing-option') == 'total') {
             $viaje_inicial->precio_total = $request->get('total');
-            $viaje_inicial->TN = null; 
+            $viaje_inicial->TN = null;
         }
 
         $viaje_inicial->save();
@@ -141,9 +141,11 @@ class DashboardController extends Controller
 
         $choferes = TruckDriver::all();
 
-        $choferesLibres = TruckDriver::doesntHave('viajes', 'and', function ($query) {
-            $query->where('enCurso', true);
-        })->get();
+        $choferesLibres = TruckDriver::whereNotNull('empresa')
+            ->doesntHave('viajes', 'and', function ($query) {
+                $query->where('enCurso', true);
+            })->get();
+
 
         $inputs_editables = InputsEditables::all();
 
