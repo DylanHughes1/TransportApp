@@ -11,10 +11,7 @@ use App\Models\ViajeInicial;
 use App\Models\TruckDriver;
 use App\Models\Solicitudes;
 use App\Models\viajes;
-use App\Models\Combustible;
 use App\Models\InputsEditables;
-use Illuminate\Support\Facades\Log;
-use App\Exports\UsersExport;
 use Maatwebsite\Excel\Facades\Excel;
 use \Carbon\Carbon;
 
@@ -68,16 +65,17 @@ class DashboardController extends Controller
         $input_editable = new InputsEditables();
 
         if ($request->filled('opcion_seleccionada')) {
-            $viaje_inicial->origen = $request->get('opcion_seleccionada');
+            $viaje_inicial->origen = $this->normalizeCityName($request->get('opcion_seleccionada'));
         } else {
-            $input_editable->origen = $request->input('salida');
+            $input_editable->origen = $this->normalizeCityName($request->input('salida'));
             $viaje_inicial->origen = $input_editable->origen;
         }
 
+
         if ($request->filled('opcion_seleccionada2')) {
-            $viaje_inicial->destino = $request->get('opcion_seleccionada2');
+            $viaje_inicial->destino = $this->normalizeCityName($request->get('opcion_seleccionada2'));
         } else {
-            $input_editable->destino = $request->input('destino');
+            $input_editable->destino = $this->normalizeCityName($request->input('destino'));
             $viaje_inicial->destino = $input_editable->destino;
         }
 
@@ -100,6 +98,21 @@ class DashboardController extends Controller
 
         return redirect("/admin/show");
     }
+
+    public function normalizeCityName($city)
+    {
+        $city = strtolower($city);
+
+        $search = ['á', 'é', 'í', 'ó', 'ú', 'Á', 'É', 'Í', 'Ó', 'Ú'];
+        $replace = ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'];
+        $city = str_replace($search, $replace, $city);
+
+        $city = ucwords($city);
+
+        return $city;
+    }
+
+
 
     /**
      * Almacena la nueva solicitud realizada a un chofer.
@@ -474,11 +487,15 @@ class DashboardController extends Controller
 
         $truck_driver = TruckDriver::find($viaje->truckdriver_id);
 
-        $truck_driver->p_chasis = $request->get('p_chasis' . $key);
-        $truck_driver->p_batea = $request->get('p_batea' . $key);
-
+        if ($request->get('p_chasis' . $key) !== null) {
+            $truck_driver->p_chasis = $request->get('p_chasis' . $key);
+        }
+        if ($request->get('p_batea' . $key) !== null) {
+            $truck_driver->p_batea = $request->get('p_batea' . $key);
+        }
         $viaje->update();
-        $truck_driver->update();
+        if ($truck_driver != null)
+            $truck_driver->update();
 
         return redirect('/admin/show');
     }
