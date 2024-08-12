@@ -29,10 +29,9 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($truck_drivers as $key => $truck_driver)
-                                            @if ($truck_driver->empresa === 'A')
+                                        @foreach ($truck_drivers_A as $key => $truck_driver)                
                                                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                    <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-green-500" 
+                                                    <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-green-500 hover:underline" 
                                                         data-popover-target="popover-A{{ $key }}" data-popover-trigger="click" data-popover-placement="top">
                                                         {{ $truck_driver->name }}
                                                     </td>
@@ -73,7 +72,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            @endif
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -97,10 +95,9 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($truck_drivers as $key => $truck_driver)
-                                            @if ($truck_driver->empresa === 'B')
+                                        @foreach ($truck_drivers_B as $key => $truck_driver)
                                                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                    <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-green-500" 
+                                                    <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-green-500 hover:underline" 
                                                         data-popover-target="popover-B{{ $key }}" data-popover-trigger="click" data-popover-placement="top">
                                                         {{ $truck_driver->name }}
                                                     </td>
@@ -118,7 +115,6 @@
                                                     </div>
                                                     <div data-popper-arrow></div>
                                                 </div>
-                                            @endif
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -135,8 +131,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($truck_drivers as $key => $truck_driver)
-                                            @if ($truck_driver->empresa === null)
+                                        @foreach ($truck_drivers_sin_empresa as $key => $truck_driver)
                                                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                     <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-green-500">
                                                         <a href="#" data-modal-toggle="modalAsignar{{ $key }}" class="font-medium dark:text-red-500 hover:underline">{{ $truck_driver->name }}</a>                                                    
@@ -192,8 +187,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
-                                            @endif
                                         @endforeach
                                     </tbody>
                                 </table>

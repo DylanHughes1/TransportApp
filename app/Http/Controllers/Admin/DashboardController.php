@@ -517,11 +517,14 @@ class DashboardController extends Controller
 
     public function showChoferes()
     {
-
-        $truck_drivers = TruckDriver::all();
+        $truck_drivers_A = TruckDriver::where('empresa', 'A')->get();
+        $truck_drivers_B = TruckDriver::where('empresa', 'B')->get();
+        $truck_drivers_sin_empresa = TruckDriver::where('empresa', null)->get();
 
         return view('admin.choferes.indexChoferes')
-            ->with('truck_drivers', $truck_drivers);
+            ->with('truck_drivers_A', $truck_drivers_A)
+            ->with('truck_drivers_B', $truck_drivers_B)
+            ->with('truck_drivers_sin_empresa', $truck_drivers_sin_empresa);
     }
 
     public function eliminarChofer($id)
