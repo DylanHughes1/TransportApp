@@ -302,7 +302,7 @@ class DashboardController extends Controller
         } else {
             $promedio_kms_cargado = 0;
         }
-       
+
         return number_format($promedio_kms_cargado, 2);
     }
 
@@ -345,7 +345,7 @@ class DashboardController extends Controller
         }
 
         if ($distancia_viaje_total == 0) {
-            return 0; 
+            return 0;
         }
 
         return (int) (($distancia_viaje_cargado / $distancia_viaje_total) * 100);
@@ -380,15 +380,16 @@ class DashboardController extends Controller
 
         $kms_MesDonMario = $viajesEmpresaA->sum('km_viaje');
         $facturado_MesDonMario = $this->obtenerFacturadoMes($viajesEmpresaA);
-        $kms_promedio_cargadoDonMario = $this->obtenerPromedioKMCargado($viajesEmpresaA);
-        $kms_total_cargadoDonMario = $this->obtenerTotalKMCargado($viajesEmpresaA);
-        $porcentaje_cargadoDonMario = $this->obtenerPorcentajeCargado($viajesEmpresaA);
+        $kms_promedio_cargadoDonMario = is_numeric($this->obtenerPromedioKMCargado($viajesEmpresaA)) ? $this->obtenerPromedioKMCargado($viajesEmpresaA) : 0;
+        $kms_total_cargadoDonMario = is_numeric($this->obtenerTotalKMCargado($viajesEmpresaA)) ? $this->obtenerTotalKMCargado($viajesEmpresaA) : 0;
+        $porcentaje_cargadoDonMario = is_numeric($this->obtenerPorcentajeCargado($viajesEmpresaA)) ? $this->obtenerPorcentajeCargado($viajesEmpresaA) : 0;
 
         $kms_MesCerealFletSur = $viajesEmpresaB->sum('km_viaje');
         $facturado_MesCerealFletSur = $this->obtenerFacturadoMes($viajesEmpresaB);
-        $kms_promedio_cargadoCerealFletSur = $this->obtenerPromedioKMCargado($viajesEmpresaB);
-        $kms_total_cargadoCerealFletSur = $this->obtenerTotalKMCargado($viajesEmpresaB);
-        $porcentaje_cargadoCerealFletSur = $this->obtenerPorcentajeCargado($viajesEmpresaB);
+        $kms_promedio_cargadoCerealFletSur = is_numeric($this->obtenerPromedioKMCargado($viajesEmpresaB)) ? $this->obtenerPromedioKMCargado($viajesEmpresaB) : 0;
+        $kms_total_cargadoCerealFletSur = is_numeric($this->obtenerTotalKMCargado($viajesEmpresaB)) ? $this->obtenerTotalKMCargado($viajesEmpresaB) : 0;
+        $porcentaje_cargadoCerealFletSur = is_numeric($this->obtenerPorcentajeCargado($viajesEmpresaB)) ? $this->obtenerPorcentajeCargado($viajesEmpresaB) : 0;
+
 
         return view('admin.planilla.showPlanillaEmpresa')
             ->with('kms_MesDonMario', $kms_MesDonMario)

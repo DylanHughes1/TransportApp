@@ -144,26 +144,14 @@
                                         </td>
                                         <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-green-500"
                                             style="white-space: nowrap;">
-                                            @php
-                                                $kms_promedio_cargadoCerealFletSur = is_numeric($kms_promedio_cargadoCerealFletSur) ? $kms_promedio_cargadoCerealFletSur : 0;
-                                                $kms_promedio_cargadoDonMario = is_numeric($kms_promedio_cargadoDonMario) ? $kms_promedio_cargadoDonMario : 0;
-                                            @endphp
                                             {{ $kms_promedio_cargadoCerealFletSur + $kms_promedio_cargadoDonMario }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-green-500"
                                             style="white-space: nowrap;">
-                                            @php
-                                                $kms_total_cargadoCerealFletSur = is_numeric($kms_total_cargadoCerealFletSur) ? $kms_total_cargadoCerealFletSur : 0;
-                                                $kms_total_cargadoDonMario = is_numeric($kms_total_cargadoDonMario) ? $kms_total_cargadoDonMario : 0;
-                                            @endphp
                                             {{ $kms_total_cargadoCerealFletSur + $kms_total_cargadoDonMario }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-green-500"
                                             style="white-space: nowrap;">
-                                            @php
-                                                $porcentaje_cargadoCerealFletSur = is_numeric($porcentaje_cargadoCerealFletSur) ? $porcentaje_cargadoCerealFletSur : 0;
-                                                $porcentaje_cargadoDonMario = is_numeric($porcentaje_cargadoDonMario) ? $porcentaje_cargadoDonMario : 0;
-                                            @endphp
                                             {{ $porcentaje_cargadoCerealFletSur + $porcentaje_cargadoDonMario }}%
                                         </td>
 

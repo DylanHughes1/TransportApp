@@ -77,7 +77,9 @@
                         <td>
                             <input type="text" name="fecha_llegada{{ $key }}" style="border: none; background-color: transparent; width: 125px; text-align: center;" class="px-2 py-1 text-gray-900" value="{{ \Carbon\Carbon::parse($viaje->fecha_llegada)->format('d/m/y') }}">
                         </td>
-                        <td class="px-6 py-4  text-gray-900" name="km_viaje">{{ $viaje->km_viaje }}</td>
+                        <td class="px-6 py-4 text-gray-900" name="km_viaje">
+                            {{ $viaje->km_viaje < 0 ? 'Viaje en curso' : $viaje->km_viaje }}
+                        </td>
                         <td>
                             <input type="text" name="destino{{ $key }}" style="border: none; background-color: transparent; width: 125px; text-align: center;" class="px-2 py-1 text-gray-900" value="{{ $viaje->destino }}">
                         </td>
