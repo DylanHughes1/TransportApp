@@ -302,7 +302,7 @@ class DashboardController extends Controller
         } else {
             $promedio_kms_cargado = 0;
         }
-
+       
         return number_format($promedio_kms_cargado, 2);
     }
 
@@ -334,7 +334,6 @@ class DashboardController extends Controller
     }
     function obtenerPorcentajeCargado($viajes)
     {
-
         $distancia_viaje_total = 0;
         $distancia_viaje_cargado = 0;
 
@@ -343,10 +342,15 @@ class DashboardController extends Controller
                 $distancia_viaje_total += max(1, ($viaje->km_llegada - $viaje->km_salida) + $viaje->km_viaje_vacio);
                 $distancia_viaje_cargado += max(1, ($viaje->km_llegada - $viaje->km_salida));
             }
-            return (int) (($distancia_viaje_cargado / $distancia_viaje_total) * 100);
         }
 
+        if ($distancia_viaje_total == 0) {
+            return 0; 
+        }
+
+        return (int) (($distancia_viaje_cargado / $distancia_viaje_total) * 100);
     }
+
 
     /**
      * Muestra la planilla de Empresa
