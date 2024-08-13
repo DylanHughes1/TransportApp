@@ -27,9 +27,6 @@
         Carga (kg)
     </th>
     <th scope="col" class="px-6 py-3">
-        Distancia
-    </th>
-    <th scope="col" class="px-6 py-3">
         $/TN
     </th>
     <th scope="col" class="px-6 py-3">

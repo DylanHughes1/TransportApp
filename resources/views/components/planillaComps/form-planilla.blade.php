@@ -28,9 +28,6 @@
             {{$viaje->carga_kg ?? '-' }}
         </td>
         <td class="px-6 py-4">
-            {{$viaje->km_llegada - $viaje->km_salida}}
-        </td>
-        <td class="px-6 py-4">
             {{$viaje->TN ?? '-' }}
         </td>
         <td class="px-6 py-4">
