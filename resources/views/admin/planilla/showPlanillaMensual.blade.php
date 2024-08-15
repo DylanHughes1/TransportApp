@@ -71,7 +71,7 @@
                                             {{$kms_total_cargadoMesAnterior}}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            {{ $porcentaje_cargadoEsteMes !== null ? $porcentaje_cargadoEsteMes . '%' : '0 %' }}
+                                            {{ $porcentaje_cargadoMesAnterior !== null ? $porcentaje_cargadoMesAnterior . '%' : '0 %' }}
                                         </td>
                                     </tr>
 
@@ -92,7 +92,7 @@
                                             {{$kms_total_cargadoEsteMes}}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            {{ $porcentaje_cargadoMesAnterior !== null ? $porcentaje_cargadoMesAnterior . '%' : '0 %' }}
+                                            {{ $porcentaje_cargadoEsteMes !== null ? $porcentaje_cargadoEsteMes . '%' : '0 %' }}
                                         </td>
                                     </tr>                                    
                                 </tbody>

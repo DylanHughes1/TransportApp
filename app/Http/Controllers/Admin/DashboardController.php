@@ -338,12 +338,16 @@ class DashboardController extends Controller
         $distancia_viaje_cargado = 0;
 
         foreach ($viajes as $viaje) {
-            if (!$viaje->esVacio) {
-                $distancia_viaje_total += max(1, ($viaje->km_llegada - $viaje->km_salida) + $viaje->km_viaje_vacio);
-                $distancia_viaje_cargado += max(1, ($viaje->km_llegada - $viaje->km_salida));
+            if (!$viaje->esVacio && $viaje->km_llegada > $viaje->km_salida) {
+                $distancia_total_viaje = ($viaje->km_llegada - $viaje->km_salida) + $viaje->km_viaje_vacio;
+                $distancia_cargada_viaje = ($viaje->km_llegada - $viaje->km_salida);
+
+                if ($distancia_total_viaje > 0) {
+                    $distancia_viaje_total += $distancia_total_viaje;
+                    $distancia_viaje_cargado += $distancia_cargada_viaje;
+                }
             }
         }
-
         if ($distancia_viaje_total == 0) {
             return 0;
         }

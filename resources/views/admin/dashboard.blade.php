@@ -1,35 +1,103 @@
 <x-admin-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ Auth::user()->name }}
+            Inicio
         </h2>
     </x-slot>
 
-    <body class="text-center">
-        <div class="relative flex items-top justify-center min-h-screen sm:items-top py-4 sm:pt-0">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 bg-white border-b border-gray-200">
-                        <div class="p-6 bg-white border-b border-gray-200">    
-                            <a href="show" style="text-decoration:none" class="block w-48 p-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-                                <h5 class="text-center mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Viajes</h5>
-                            </a>                                 
-                        </div>
-                        <div class="p-6 bg-white border-b border-gray-200">    
-                            <a href="planilla" style="text-decoration:none" class="block w-48 p-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-                                <h5 class="text-center mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Planilla</h5>
-                            </a>                                 
-                        </div>
-                        <div class="p-6 bg-white border-b border-gray-200">    
-                            <a href="sueldo" style="text-decoration:none" class="block w-48 p-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-                                <h5 class="text-center mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Sueldo</h5>
-                            </a>                                 
-                        </div>
-                        <div class="p-6 bg-white border-b border-gray-200">    
-                            <a href="truck-drivers" style="text-decoration:none" class="block w-48 p-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-                                <h5 class="text-center mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Choferes</h5>
-                            </a>                                 
-                        </div>
+    <body class="text-center bg-gray-100">
+        <div class="flex items-top justify-center min-h-screen py-4">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="bg-white overflow-hidden shadow-md sm:rounded-lg p-8">
+                    <h1 class="text-3xl text-center font-bold text-gray-900 mb-8">Bienvenido</h1>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+                        <a href="show"
+                            class="block p-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 transition-colors duration-300 ease-in-out">
+                            <div class="flex flex-col items-center">
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                    <g id="SVGRepo_iconCarrier">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M3 3C1.34315 3 0 4.34315 0 6V15C0 16.3121 0.842366 17.4275 2.01581 17.8348C2.18436 19.6108 3.67994 21 5.5 21C7.26324 21 8.72194 19.6961 8.96456 18H15.0354C15.2781 19.6961 16.7368 21 18.5 21C20.3201 21 21.8156 19.6108 21.9842 17.8348C23.1576 17.4275 24 16.3121 24 15V10.7515C24 10.0248 23.7362 9.32283 23.2577 8.77596L20.8502 6.02449C20.2805 5.37344 19.4576 5 18.5925 5H16.8293C16.4175 3.83481 15.3062 3 14 3H3ZM4 17.4361V17.5639C4.03348 18.3634 4.69224 19.0013 5.5 19.0013C6.30776 19.0013 6.96652 18.3634 7 17.5639V17.4361C6.96652 16.6366 6.30776 15.9987 5.5 15.9987C4.69224 15.9987 4.03348 16.6366 4 17.4361ZM5.5 14C6.8962 14 8.10145 14.8175 8.66318 16H15.3368C15.8985 14.8175 17.1038 14 18.5 14C19.8245 14 20.9771 14.7357 21.5716 15.8207C21.8306 15.64 22 15.3398 22 15V11H17C15.8954 11 15 10.1046 15 9V6C15 5.44772 14.5523 5 14 5H3C2.44772 5 2 5.44772 2 6V15C2 15.3398 2.16945 15.64 2.42845 15.8207C3.02292 14.7357 4.17555 14 5.5 14ZM17 7V8C17 8.55229 17.4477 9 18 9H20.7962L19.345 7.34149C19.1552 7.12448 18.8808 7 18.5925 7H17ZM17 17.4361V17.5639C17.0335 18.3634 17.6922 19.0013 18.5 19.0013C19.3078 19.0013 19.9665 18.3634 20 17.5639V17.4361C19.9665 16.6366 19.3078 15.9987 18.5 15.9987C17.6922 15.9987 17.0335 16.6366 17 17.4361Z"
+                                            fill="#0F0F0F"></path>
+                                    </g>
+                                </svg>
+                                <h5 class="text-xl font-bold tracking-tight text-gray-900 dark:text-white">Viajes</h5>
+                            </div>
+                        </a>
+                        <a href="planilla"
+                            class="block p-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 transition-colors duration-300 ease-in-out">
+                            <div class="flex flex-col items-center">
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                    <g id="SVGRepo_iconCarrier">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M4 4H15.0607L20 8.93934V20H4V4ZM5.5 5.5V11.5H8.01421L8.02556 5.5H5.5ZM9.52556 5.5L9.51421 11.5H18.5V10H14V5.5H9.52556ZM15.5 6.56066L17.4393 8.5H15.5V6.56066ZM18.5 13H9.51138L9.50759 15H18.5V13ZM18.5 16.5H9.50476L9.50097 18.5H18.5V16.5ZM8.00097 18.5L8.00475 16.5H5.5V18.5H8.00097ZM5.5 15H8.00759L8.01137 13H5.5V15Z"
+                                            fill="#1F2328"></path>
+                                    </g>
+                                </svg>
+                                <h5 class="text-xl font-bold tracking-tight text-gray-900 dark:text-white">Planilla</h5>
+                            </div>
+                        </a>
+                        <a href="sueldo"
+                            class="block p-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 transition-colors duration-300 ease-in-out">
+                            <div class="flex flex-col items-center">
+                                <svg fill="#000000" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                    <g id="SVGRepo_iconCarrier">
+                                        <path
+                                            d="M406.083 788.495c0-5.657-4.583-10.24-10.24-10.24h-81.92a10.238 10.238 0 00-10.24 10.24v119.47h102.4v-119.47zm-143.36 160.43v-160.43c0-28.278 22.922-51.2 51.2-51.2h81.92c28.278 0 51.2 22.922 51.2 51.2v160.43h-184.32z">
+                                        </path>
+                                        <path
+                                            d="M549.443 706.575c0-5.657-4.583-10.24-10.24-10.24h-81.92a10.238 10.238 0 00-10.24 10.24v201.39h102.4v-201.39zm-143.36 242.35v-242.35c0-28.278 22.922-51.2 51.2-51.2h81.92c28.278 0 51.2 22.922 51.2 51.2v242.35h-184.32z">
+                                        </path>
+                                        <path
+                                            d="M692.803 624.655c0-5.657-4.583-10.24-10.24-10.24h-81.92a10.238 10.238 0 00-10.24 10.24v283.31h102.4v-283.31zm-143.36 324.27v-324.27c0-28.278 22.922-51.2 51.2-51.2h81.92c28.278 0 51.2 22.922 51.2 51.2v324.27h-184.32zm-92.985-663.189l-80.404-158.218c-3.461-6.812 1.489-14.878 9.134-14.878h251.628c7.645 0 12.59 8.061 9.127 14.873l-80.397 158.224c-5.124 10.084-1.103 22.412 8.981 27.536s22.412 1.103 27.536-8.981l80.394-158.218c17.319-34.058-7.427-74.394-45.64-74.394H385.189c-38.208 0-62.956 40.328-45.651 74.392l80.406 158.221c5.124 10.083 17.453 14.104 27.536 8.979s14.104-17.453 8.979-27.536z">
+                                        </path>
+                                        <path
+                                            d="M725.04 909.844c101.8 0 184.32-82.52 184.32-184.32v-43.151c0-197.073-161.327-358.4-358.4-358.4h-79.923c-197.073 0-358.4 161.327-358.4 358.4v43.151c0 101.797 82.526 184.32 184.32 184.32H725.04zm0 40.96H296.957c-124.415 0-225.28-100.862-225.28-225.28v-43.151c0-219.695 179.665-399.36 399.36-399.36h79.923c219.695 0 399.36 179.665 399.36 399.36v43.151c0 124.422-100.858 225.28-225.28 225.28z">
+                                        </path>
+                                    </g>
+                                </svg>
+                                <h5 class="text-xl font-bold tracking-tight text-gray-900 dark:text-white">Sueldo</h5>
+                            </div>
+                        </a>
+                        <a href="truck-drivers"
+                            class="block p-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 transition-colors duration-300 ease-in-out">
+                            <div class="flex flex-col items-center">
+                                <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                    <g id="SVGRepo_iconCarrier">
+                                        <path
+                                            d="M27 40C27 41.6569 25.6569 43 24 43C22.3431 43 21 41.6569 21 40C21 38.3431 22.3431 37 24 37C25.6569 37 27 38.3431 27 40Z"
+                                            fill="#333333"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M30.6187 37.1037C30.1899 35.5033 31.1396 33.8583 32.74 33.4295L34.6719 32.9118C36.2723 32.483 37.9173 33.4328 38.3461 35.0332L39.3814 38.8969C39.8102 40.4973 38.8604 42.1423 37.26 42.5711L35.3282 43.0887C33.7278 43.5176 32.0828 42.5678 31.654 40.9674L30.6187 37.1037ZM33.2576 35.3613C32.7242 35.5043 32.4076 36.0526 32.5505 36.5861L33.5858 40.4498C33.7288 40.9832 34.2771 41.2998 34.8106 41.1569L36.7424 40.6392C37.2759 40.4963 37.5925 39.948 37.4495 39.4145L36.4142 35.5508C36.2713 35.0173 35.723 34.7007 35.1895 34.8437L33.2576 35.3613Z"
+                                            fill="#333333"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M9.65396 35.0324C10.0828 33.432 11.7278 32.4823 13.3282 32.9111L15.26 33.4287C16.8604 33.8576 17.8102 35.5026 17.3814 37.103L16.3461 40.9667C15.9173 42.5671 14.2723 43.5168 12.6719 43.088L10.74 42.5704C9.13961 42.1415 8.18986 40.4965 8.61869 38.8961L9.65396 35.0324ZM12.8106 34.843C12.2771 34.7 11.7288 35.0166 11.5858 35.5501L10.5505 39.4138C10.4076 39.9472 10.7242 40.4956 11.2576 40.6385L13.1895 41.1561C13.723 41.2991 14.2713 40.9825 14.4142 40.449L15.4495 36.5853C15.5925 36.0519 15.2759 35.5035 14.7424 35.3606L12.8106 34.843Z"
+                                            fill="#333333"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M15.8378 39H23V31.0549C20.1303 31.3722 17.6672 33.0387 16.2592 35.406C16.0095 34.9247 15.5662 34.546 15.0012 34.3947L14.5983 34.2867C16.5287 31.1168 20.0172 29 24 29C27.9832 29 31.4718 31.1171 33.4022 34.2874L32.9988 34.3954C32.434 34.5468 31.9908 34.9253 31.7411 35.4064C30.3331 33.0389 27.8699 31.3722 25 31.0549V39H32.1621L32.6199 40.7086C32.647 40.8098 32.6814 40.9071 32.7223 41H24H15.2773C15.3185 40.9068 15.353 40.8093 15.3802 40.7078L15.8378 39ZM15.0966 41.324C14.6828 41.9256 13.9602 42.2651 13.2156 42.1769C13.4542 43.3648 13.8842 44.4842 14.4722 45.5007L16.2034 44.4993C15.6481 43.5392 15.2649 42.4671 15.0966 41.324ZM31.7966 44.4993C32.3518 43.5394 32.7349 42.4675 32.9033 41.3246C33.3171 41.9262 34.0397 42.2658 34.7843 42.1777C34.5457 43.3653 34.1157 44.4844 33.5278 45.5007L31.7966 44.4993Z"
+                                            fill="#333333"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M15 17V14H17V17C17 20.866 20.134 24 24 24C27.866 24 31 20.866 31 17V14H33V17C33 21.9706 28.9706 26 24 26C19.0294 26 15 21.9706 15 17Z"
+                                            fill="#333333"></path>
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M15.5989 6.25348C15.0904 6.66596 15 6.95645 15 7.09677C15 8.53676 15.2324 9.66613 15.4583 10.424C15.5256 10.6495 15.5922 10.8421 15.6519 11H32.3481C32.4078 10.8421 32.4745 10.6496 32.5417 10.4241C32.7676 9.66629 33 8.53693 33 7.09678C33 6.95645 32.9096 6.66596 32.4011 6.25348C31.9098 5.85504 31.1661 5.46148 30.2339 5.11465C28.3749 4.42299 25.9931 4 24 4C22.0069 4 19.6251 4.42299 17.7661 5.11465C16.8339 5.46148 16.0902 5.85504 15.5989 6.25348ZM31.7015 13H16.2985C16.3655 13.09 16.4474 13.1843 16.5475 13.2811C17.3021 14.0108 19.2284 15 24 15C28.7716 15 30.6979 14.0108 31.4525 13.2811C31.5526 13.1843 31.6345 13.09 31.7015 13ZM13.9878 12.2059C13.9684 12.1635 13.9475 12.1164 13.9253 12.0648C13.8174 11.8142 13.6787 11.455 13.5417 10.9953C13.2676 10.0758 13 8.75356 13 7.09678C13 6.07581 13.6321 5.27356 14.3391 4.70015C15.0634 4.1127 16.0284 3.62723 17.0687 3.24019C19.1546 2.46411 21.7728 2 24 2C26.2272 2 28.8454 2.46411 30.9313 3.24019C31.9716 3.62723 32.9366 4.1127 33.6609 4.70015C34.3679 5.27356 35 6.07581 35 7.09677C35 8.75371 34.7324 10.076 34.4583 10.9955C34.3213 11.4551 34.1826 11.8143 34.0747 12.0649C34.0525 12.1165 34.0316 12.1635 34.0122 12.2059C34.0109 12.3756 33.9934 12.5932 33.9375 12.8431C33.8141 13.3952 33.5101 14.0736 32.8428 14.7189C31.5291 15.9892 28.9555 17 24 17C19.0445 17 16.4709 15.9892 15.1572 14.7189C14.4899 14.0736 14.1859 13.3952 14.0625 12.8431C14.0066 12.5932 13.9891 12.3756 13.9878 12.2059Z"
+                                            fill="#333333"></path>
+                                        <path
+                                            d="M20 8C20 7.44772 20.4477 7 21 7H27C27.5523 7 28 7.44772 28 8C28 8.55228 27.5523 9 27 9H21C20.4477 9 20 8.55228 20 8Z"
+                                            fill="#333333"></path>
+                                    </g>
+                                </svg>
+                                <h5 class="text-xl font-bold tracking-tight text-gray-900 dark:text-white">Choferes</h5>
+                            </div>
+                        </a>
                     </div>
                 </div>
             </div>
