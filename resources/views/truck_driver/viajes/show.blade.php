@@ -21,6 +21,17 @@
                                 Viaje</button>
                         </a>
                     </div>
+                    <div class="mb-3">
+                        <label for="viajeNuevo"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ingrese Imagen del Remito</label>
+                        @if (!$viaje->enCurso)
+                            <a href="/truck_driver/viajes/image/{{$viaje->id}}" class="col-md-12 text-right">
+                                <button type="button" id="nextButton"
+                                    class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Subir
+                                    Imagen</button>
+                            </a>
+                        @endif
+                    </div>
 
                     @component('components.viajeComps.formulario-viaje', ['viaje' => $viaje])
                     @endcomponent

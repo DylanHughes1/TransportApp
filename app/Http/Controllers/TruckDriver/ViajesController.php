@@ -32,28 +32,28 @@ class ViajesController extends Controller
 
         $totalKilometrosMesActual = 0;
 
-        foreach($viajes as $viaje){
-            if($viaje->fecha_salida >= $fechaPrimerDiaMesActual)
-            $totalKilometrosMesActual += $viaje->km_viaje;
+        foreach ($viajes as $viaje) {
+            if ($viaje->fecha_salida >= $fechaPrimerDiaMesActual)
+                $totalKilometrosMesActual += $viaje->km_viaje;
         }
 
         $viajesOrdenados = $viajes->sort(function ($a, $b) {
             $fechaA = Carbon::parse($a->fecha_llegada);
             $fechaB = Carbon::parse($b->fecha_llegada);
             $esVacioA = $a->esVacio;
-    
+
             if ($fechaA->eq($fechaB)) {
                 return $esVacioA ? -1 : 1;
             }
-    
+
             return $fechaA->lt($fechaB) ? -1 : 1;
         });
 
         Viajes::where('fecha_salida', '<', $fechaDosMesesAtras)->delete();
-        
+
         return view('truck_driver.viajes.index')
-                ->with('viajes', $viajesOrdenados)
-                ->with('totalKilometrosMesActual', $totalKilometrosMesActual);
+            ->with('viajes', $viajesOrdenados)
+            ->with('totalKilometrosMesActual', $totalKilometrosMesActual);
     }
 
     /**
@@ -88,6 +88,46 @@ class ViajesController extends Controller
             ->with('inputs_editables', $inputs_editables);
     }
 
+
+    public function autoSaveViaje(Request $request, $id)
+    {
+        $viaje = viajes::find($id);
+
+        $request->validate([
+            'fecha_salida' => 'nullable|date',
+            'origen' => 'nullable|max:255',
+            'fecha_llegada' => 'nullable|date',
+            'km_viaje' => 'nullable|numeric',
+            'destino' => 'nullable|max:255',
+            'km_salida' => 'nullable|numeric',
+            'c_porte' => 'nullable|numeric',
+            'producto' => 'nullable|max:255',
+            'carga_kg' => 'nullable|numeric',
+            'descarga_kg' => 'nullable|numeric',
+            'km_llegada' => 'nullable|numeric',
+            'km_1_2' => 'nullable|numeric',
+            'control_desc' => 'nullable|numeric',
+        ]);
+
+        foreach ($request->all() as $key => $value) {
+            if ($request->has($key) && $value !== null) {
+                $viaje->$key = $value;
+            }
+        }
+
+        if ($viaje->km_salida != null && $viaje->km_llegada != null) {
+            $viaje->km_viaje = $viaje->km_llegada - $viaje->km_salida;
+        }
+
+        if ($viaje->progreso == 1 && $request->input('carga_kg') !== null) {
+            $viaje->progreso = 2;
+        }
+
+        $viaje->update();
+
+        return response()->json(['message' => 'Datos guardados automáticamente'], 200);
+    }
+
     /**
      * Actualiza los cambios de la primer parte del viaje especifico.
      */
@@ -96,7 +136,6 @@ class ViajesController extends Controller
         $viaje = viajes::find($id);
 
         if ($request->input('finalizar') == 1) {
-
             $request->validate([
                 'fecha_salida' => 'nullable|date',
                 'origen' => 'nullable|max:255',
@@ -110,17 +149,11 @@ class ViajesController extends Controller
                 'descarga_kg' => 'nullable',
                 'km_llegada' => 'nullable',
                 'km_1_2' => 'nullable',
-
             ]);
-        } else if ($request->input('finalizar') == null && $viaje->enCurso) {
-            $this->validarInputObligatorio($request);
-        }
 
-        if ($viaje->enCurso) {
             $viaje->fecha_salida = $request->input('fecha_salida');
             $viaje->origen = $request->input('origen');
             $viaje->fecha_llegada = $request->input('fecha_llegada');
-            // $viaje->km_viaje = $request->input('km_viaje');
             $viaje->km_viaje = $request->input('km_llegada') - $request->input('km_salida');
             $viaje->destino = $request->input('destino');
             $viaje->km_salida = $request->input('km_salida');
@@ -131,38 +164,22 @@ class ViajesController extends Controller
             $viaje->km_llegada = $request->input('km_llegada');
             $viaje->km_1_2 = $request->input('km_1_2');
             $viaje->control_desc = $request->input('control_desc');
-            if ($viaje->progreso == 1 && $request->input('carga_kg') ==! null) {
+
+            if ($viaje->progreso == 1 && $request->input('carga_kg') !== null) {
                 $viaje->progreso = 2;
             }
+
             $viaje->update();
         }
-        
-        if ($request->input('finalizar') == null) {
-            $viaje->enCurso = false;
-            $viaje->update();
-            return redirect("/truck_driver/viajes/image/$id")->with('status', 'Cambios Guardados');
-        } else {
-            return redirect("/truck_driver/viajes/$id")->with('status', 'Cambios Guardados');
-        }
-    }
-
-    /**
-     * Actualiza los cambios de la segunda parte del viaje especifico.
-     */
-    public function updateViajeSecondPart(Request $request, $id)
-    {
-
-        $viaje = viajes::find($id);
-
-        $viaje->observacion = $request->input('observacion');
+        $viaje->enCurso = false;
         $viaje->update();
-
-        return redirect("/truck_driver/viajes/$id");
+        return redirect("/truck_driver/viajes/image/$id")->with('status', 'Cambios Guardados');
     }
+
 
     public function validarInputObligatorio(Request $request)
     {
-        
+
         $validator = $request->validate([
             'fecha_salida' => 'required|date',
             'origen' => 'required|max:255',
@@ -178,7 +195,7 @@ class ViajesController extends Controller
             'km_1_2' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
             'control_desc' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
         ]);
-        
+
         return redirect()->back()->withErrors($validator)->withInput();
     }
 
