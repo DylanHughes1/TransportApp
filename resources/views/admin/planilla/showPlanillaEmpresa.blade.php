@@ -136,7 +136,7 @@
                                         </td>
                                         <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-green-500"
                                             style="white-space: nowrap;">
-                                            {{ $kms_MesCerealFletSur + $kms_MesDonMario}} Kms
+                                            {{ number_format($kms_MesCerealFletSur + $kms_MesDonMario, 0) }} Kms
                                         </td>
                                         <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-green-500"
                                             style="white-space: nowrap;">

@@ -7,10 +7,10 @@
             {{$viaje->origen}}
         </td>
         <td class="px-6 py-4">
-            {{$viaje->km_viaje}}
+            {{ number_format($viaje->km_viaje, 0) }}
         </td>
         <td class="px-6 py-4">
-            {{$viaje->km_salida}}
+            {{ number_format($viaje->km_salida, 0) }}
         </td>
         <td class="px-6 py-4">
             {{$viaje->destino}}
@@ -19,13 +19,13 @@
             {{ \Carbon\Carbon::parse($viaje->fecha_llegada)->format('d/m/y') }}
         </td>
         <td class="px-6 py-4">
-            {{$viaje->km_llegada}}
+            {{ number_format($viaje->llegada, 0) }}
         </td>
         <td class="px-6 py-4">
             {{ $viaje->producto ?? '-' }}
         </td>
         <td class="px-6 py-4">
-            {{$viaje->carga_kg ?? '-' }}
+           {{ number_format($viaje->carga_kg, 0) }}
         </td>
         <td class="px-6 py-4">
             {{$viaje->TN ?? '-' }}
