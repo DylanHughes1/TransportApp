@@ -92,9 +92,9 @@ Route::prefix('truck_driver')->name('truck_driver.')->group(function () {
     Route::get('viajes/b/{id}', [ViajesController::class, 'showViajePartTwo'])->middleware('auth:truck_driver');
     
     Route::put('viajes/{id}', [ViajesController::class, 'updateViaje'])->middleware('auth:truck_driver');
+    Route::put('viajes/autoSave/{id}', [ViajesController::class, 'autoSaveViaje'])->middleware('auth:truck_driver');
     Route::post('viajes/b/{id}', [ViajesController::class, 'storeCombustible'])->middleware('auth:truck_driver')->name('combustible');
     Route::put('viajes/b/{id}/newViaje', [ViajesController::class, 'crearViajeVacio'])->middleware('auth:truck_driver')->name('viajeNuevo');
-    Route::put('viajes/b/{id}', [ViajesController::class, 'updateViajeSecondPart'])->middleware('auth:truck_driver')->name('viaje');
     
     Route::get('viajes/image/{id}', [ViajesController::class, 'showImage'])->middleware('auth:truck_driver');
     Route::put('viajes/image/{id}', [ViajesController::class, 'storeImage'])->middleware('auth:truck_driver');
