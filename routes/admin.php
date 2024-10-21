@@ -174,6 +174,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::post('truck-drivers/{id}', [DashboardController::class, 'asignarEmpresa'])
         ->middleware('auth:admin');
 
+    Route::post('truck-drivers/autoSavePatente/{id}', [DashboardController::class, 'autoSavePatente'])
+        ->middleware('auth:admin');
+
     Route::delete('truck-drivers/{id}', [DashboardController::class, 'eliminarChofer'])
         ->middleware('auth:admin');
 });

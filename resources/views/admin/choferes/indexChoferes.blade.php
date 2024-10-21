@@ -7,7 +7,7 @@
 
     <body class="text-center">
         <div class="relative flex items-top justify-center min-h-screen sm:items-top py-4 sm:pt-0">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="max-w-8xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 bg-white border-b border-gray-200">
                         
@@ -17,13 +17,13 @@
                                 <h2 class="text-lg text-center font-bold mb-2">Don Mario</h2>
                                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                         <tr>
-                                            <th scope="col" class="px-6 py-3">
+                                            <th scope="col" class="px-6 py-5">
                                                 Chofer
                                             </th>
-                                            <th scope="col" class="px-6 py-3">
+                                            <th scope="col" class="px-6 py-5">
                                                 Patente Chasis
                                             </th>
-                                            <th scope="col" class="px-6 py-3">
+                                            <th scope="col" class="px-6 py-5">
                                                 Patente Batea
                                             </th>
                                         </tr>
@@ -31,15 +31,27 @@
                                     <tbody>
                                         @foreach ($truck_drivers_A as $key => $truck_driver)                
                                                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                    <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-green-500 hover:underline" 
+                                                    <td class="px-6 py-2 whitespace-no-wrap text-sm leading-5 font-medium text-green-500 hover:underline" 
                                                         data-popover-target="popover-A{{ $key }}" data-popover-trigger="click" data-popover-placement="top">
                                                         {{ $truck_driver->name }}
                                                     </td>
-                                                    <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-green-500">
-                                                        {{ $truck_driver->p_chasis }}
+                                                    <td class="px-6 py-2 whitespace-no-wrap text-sm leading-5 font-medium text-green-500 hover:underline">
+                                                        <input type="text" name="truck_drivers[{{ $truck_driver->id }}][p_chasis]" 
+                                                            value="{{ $truck_driver->p_chasis }}" 
+                                                            style="border: none; background-color: transparent; width: 100px; text-align: center;"
+                                                            class="text-green-500 px-2 py-1"
+                                                            data-truck-driver-id="{{ $truck_driver->id }}"
+                                                            data-field="p_chasis"
+                                                            onchange="updateDriverData(this)" /> 
                                                     </td>
-                                                    <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-green-500">
-                                                        {{ $truck_driver->p_batea }}
+                                                    <td class="px-6 py-2 whitespace-no-wrap text-sm leading-5 font-medium text-green-500 hover:underline">
+                                                        <input type="text" name="truck_drivers[{{ $truck_driver->id }}][p_batea]" 
+                                                            value=" {{ $truck_driver->p_batea }}" 
+                                                            style="border: none; background-color: transparent; width: 100px; text-align: center;"
+                                                            class="text-green-500 px-2 py-1"
+                                                            data-truck-driver-id="{{ $truck_driver->id }}"
+                                                            data-field="p_batea"
+                                                            onchange="updateDriverData(this)" />
                                                     </td>
                                                 </tr>
 
@@ -83,13 +95,13 @@
                                     <h2 class="text-lg text-center font-bold mb-2">Cereal Flet Sur</h2>
                                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                         <tr>
-                                            <th scope="col" class="px-6 py-3">
+                                            <th scope="col" class="px-6 py-5">
                                                 Patente
                                             </th>
-                                            <th scope="col" class="px-6 py-3">
+                                            <th scope="col" class="px-6 py-5">
                                                 Patente Chasis
                                             </th>
-                                            <th scope="col" class="px-6 py-3">
+                                            <th scope="col" class="px-6 py-5">
                                                 Patente Batea
                                             </th>
                                         </tr>
@@ -97,15 +109,27 @@
                                     <tbody>
                                         @foreach ($truck_drivers_B as $key => $truck_driver)
                                                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                    <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-green-500 hover:underline" 
+                                                    <td class="px-6 py-2 whitespace-no-wrap text-sm leading-5 font-medium text-green-500 hover:underline" 
                                                         data-popover-target="popover-B{{ $key }}" data-popover-trigger="click" data-popover-placement="top">
                                                         {{ $truck_driver->name }}
                                                     </td>
-                                                    <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-green-500">
-                                                        {{ $truck_driver->p_chasis }}
+                                                     <td class="px-6 py-2 whitespace-no-wrap text-sm leading-5 font-medium text-green-500 hover:underline">
+                                                        <input type="text" name="truck_drivers[{{ $truck_driver->id }}][p_chasis]" 
+                                                            value="{{ $truck_driver->p_chasis }}" 
+                                                            style="border: none; background-color: transparent; width: 100px; text-align: center;"
+                                                            class="text-green-500 px-2 py-1"
+                                                             data-truck-driver-id="{{ $truck_driver->id }}"
+                                                            data-field="p_chasis"
+                                                            onchange="updateDriverData(this)" /> 
                                                     </td>
-                                                    <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-green-500">
-                                                        {{ $truck_driver->p_batea }}
+                                                    <td class="px-6 py-2 whitespace-no-wrap text-sm leading-5 font-medium text-green-500 hover:underline">
+                                                        <input type="text" name="truck_drivers[{{ $truck_driver->id }}][p_batea]" 
+                                                            value=" {{ $truck_driver->p_batea }}" 
+                                                            style="border: none; background-color: transparent; width: 100px; text-align: center;"
+                                                            class="text-green-500 px-2 py-1"
+                                                             data-truck-driver-id="{{ $truck_driver->id }}"
+                                                            data-field="p_batea"
+                                                            onchange="updateDriverData(this)" />
                                                     </td>
                                                 </tr>
 
@@ -189,9 +213,32 @@
                                                 </div>
                                         @endforeach
                                     </tbody>
+                                    
                                 </table>
                             </div>
-                            
+                            <script>
+                                function updateDriverData(inputElement) {
+                                    const truckDriverId = $(inputElement).data('truck-driver-id');
+                                    const field = $(inputElement).data('field');
+                                    const value = $(inputElement).val();
+                                    
+                                    $.ajax({
+                                        url: `/admin/truck-drivers/autoSavePatente/${truckDriverId}`,
+                                        method: 'POST',
+                                        data: {
+                                            _token: '{{ csrf_token() }}', 
+                                            field: field,
+                                            value: value
+                                        },
+                                        success: function(response) {
+                                            console.log('Datos actualizados correctamente');
+                                        },
+                                        error: function(xhr, status, error) {
+                                            console.error('Error al actualizar:', error);
+                                        }
+                                    });
+                                }
+                            </script>
                         </div>
 
                     </div>

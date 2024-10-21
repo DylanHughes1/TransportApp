@@ -526,9 +526,9 @@ class DashboardController extends Controller
 
     public function showChoferes()
     {
-        $truck_drivers_A = TruckDriver::where('empresa', 'A')->get();
-        $truck_drivers_B = TruckDriver::where('empresa', 'B')->get();
-        $truck_drivers_sin_empresa = TruckDriver::where('empresa', null)->get();
+        $truck_drivers_A = TruckDriver::where('empresa', 'A')->orderBy('name')->get();
+        $truck_drivers_B = TruckDriver::where('empresa', 'B')->orderBy('name')->get();
+        $truck_drivers_sin_empresa = TruckDriver::where('empresa', null)->orderBy('name')->get();;
 
         return view('admin.choferes.indexChoferes')
             ->with('truck_drivers_A', $truck_drivers_A)
@@ -562,5 +562,15 @@ class DashboardController extends Controller
         $truck_driver->save();
 
         return redirect('/admin/truck-drivers');
+    }
+
+    public function autoSavePatente(Request $request, $id)
+    {
+        $truckDriver = TruckDriver::findOrFail($id);
+
+        $truckDriver->{$request->input('field')} = $request->input('value');
+        $truckDriver->save();
+
+        return response()->json(['success' => true]);
     }
 }

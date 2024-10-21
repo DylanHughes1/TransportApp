@@ -59,7 +59,7 @@
                                             {{ ucfirst(\Carbon\Carbon::now()->subMonth()->locale('es')->monthName) }} 
                                         </th>
                                         <td class="px-6 py-4">
-                                            {{$kms_MesMesAnterior}}
+                                            {{ number_format($kms_MesMesAnterior, 0) }}
                                         </td>
                                         <td class="px-6 py-4">
                                             {{$costo_totalMesAnterior}}
