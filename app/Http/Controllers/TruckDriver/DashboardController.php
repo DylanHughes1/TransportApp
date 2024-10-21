@@ -4,6 +4,7 @@ namespace App\Http\Controllers\TruckDriver;
 
 use App\Http\Controllers\Controller;
 use App\Models\Solicitudes;
+use App\Models\TruckDriver;
 
 class DashboardController extends Controller
 {
@@ -26,5 +27,21 @@ class DashboardController extends Controller
 
         return view('truck_driver.dashboard')
             ->with('cantidadSolicitudes', $cantidadSolicitudes);
+    }
+
+    public function showPerfil()
+    {
+
+        return view('truck_driver.perfil');
+    }
+
+    public function quitarEmpresa($id)
+    {
+        $truck_driver = TruckDriver::findOrFail($id);
+        $truck_driver->empresa = null;
+
+        $truck_driver->save();
+
+        return redirect('/truck_driver/dashboard');
     }
 }

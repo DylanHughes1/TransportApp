@@ -81,6 +81,12 @@ Route::prefix('truck_driver')->name('truck_driver.')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])
         ->middleware('auth:truck_driver');
 
+    Route::get('perfil', [DashboardController::class, 'showPerfil'])
+        ->middleware('auth:truck_driver');
+
+    Route::put('quitarEmpresa/{id}', [DashboardController::class, 'quitarEmpresa'])
+        ->middleware('auth:truck_driver');
+
     // Rutas sobre las solicitudes
     Route::get('solicitudes', [SolicitudesController::class, 'index'])->middleware('auth:truck_driver')->name('solicitudes.index');
     Route::put('solicitudes/{id}', [SolicitudesController::class, 'crearViaje'])->middleware('auth:truck_driver')->name('crearViaje');
@@ -90,12 +96,12 @@ Route::prefix('truck_driver')->name('truck_driver.')->group(function () {
     Route::get('viajes', [ViajesController::class, 'index'])->middleware('auth:truck_driver');
     Route::get('viajes/{id}', [ViajesController::class, 'showViaje'])->middleware('auth:truck_driver');
     Route::get('viajes/b/{id}', [ViajesController::class, 'showViajePartTwo'])->middleware('auth:truck_driver');
-    
+
     Route::put('viajes/{id}', [ViajesController::class, 'updateViaje'])->middleware('auth:truck_driver');
     Route::put('viajes/autoSave/{id}', [ViajesController::class, 'autoSaveViaje'])->middleware('auth:truck_driver');
     Route::post('viajes/b/{id}', [ViajesController::class, 'storeCombustible'])->middleware('auth:truck_driver')->name('combustible');
     Route::put('viajes/b/{id}/newViaje', [ViajesController::class, 'crearViajeVacio'])->middleware('auth:truck_driver')->name('viajeNuevo');
-    
+
     Route::get('viajes/image/{id}', [ViajesController::class, 'showImage'])->middleware('auth:truck_driver');
     Route::put('viajes/image/{id}', [ViajesController::class, 'storeImage'])->middleware('auth:truck_driver');
 
