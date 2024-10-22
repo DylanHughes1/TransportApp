@@ -46,11 +46,11 @@
                                             </td>
                                             <td
                                                 class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-green-500 hover:underline">
-                                                {{Auth::user()->p_chasis}}
+                                                {{ Auth::user()->p_chasis ?? '-' }}
                                             </td>
                                             <td
                                                 class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-green-500 hover:underline">
-                                                {{Auth::user()->p_batea}}
+                                                {{ Auth::user()->p_batea ?? '-'}}
                                             </td>
                                         </tr>
                                     </tbody>

@@ -148,8 +148,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::put('sueldo/datos', [SueldoController::class, 'updateDatosBasicos'])
         ->middleware('auth:admin');
 
-    Route::get('sueldo/calcular', [SueldoController::class, 'indexCalcularSueldo'])
-        ->middleware('auth:admin');
 
     Route::get('sueldo/calcular/{id}', [SueldoController::class, 'showCalcularSueldo'])
         ->middleware('auth:admin');

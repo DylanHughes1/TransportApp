@@ -20,17 +20,9 @@ class SueldoController extends Controller
      */
     public function index()
     {
-        return view('admin.sueldo.index');
-    }
-
-    /**
-     * Muestra los choferes disponibles para calcular el sueldo.
-     */
-    public function indexCalcularSueldo()
-    {
         $truck_drivers = TruckDriver::orderBy('name')->get();
 
-        return view('admin.sueldo.indexCalcularSueldo')
+        return view('admin.sueldo.index')
             ->with('truck_drivers', $truck_drivers);
     }
 
@@ -74,7 +66,8 @@ class SueldoController extends Controller
             ->with('tabla1', $tabla1)
             ->with('tabla2', $tabla2)
             ->with('tabla3', $tabla3)
-            ->with('sumaKilometros', $sumaKilometros);;
+            ->with('sumaKilometros', $sumaKilometros);
+        ;
     }
     /**
      * Muestra la tabla con los datos base para el sueldo.

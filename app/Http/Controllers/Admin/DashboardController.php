@@ -274,7 +274,7 @@ class DashboardController extends Controller
     {
         $costo_total = 0;
         foreach ($viajes as $viaje) {
-            $costo_viaje = ($viaje->carga_kg / 1000) * $viaje->TN;
+            $costo_viaje = ($viaje->carga_kg * $viaje->TN) / 1000;
             $costo_total += $costo_viaje;
         }
         return $costo_total;
