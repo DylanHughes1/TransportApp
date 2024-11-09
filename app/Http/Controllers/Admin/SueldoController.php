@@ -12,6 +12,8 @@ use App\Models\Tabla3;
 use App\Models\viajes;
 use Carbon\Carbon;
 use App\Models\nuevaFila;
+use Illuminate\Support\Facades\Schema;
+
 
 class SueldoController extends Controller
 {
@@ -104,185 +106,130 @@ class SueldoController extends Controller
         $datos->save();
         return redirect("/admin/sueldo/datos")->with('status', 'Cambios Guardados');
     }
-
     /**
-     * Actualiza los datos de la primer tabla del sueldo de un chofer seleccionado.
+     * Tabla 1
      */
-    public function updateDatos(Request $request, $id)
-    {
-        $subtotal1 = $this->obtenerSubtotal1($request);
 
+    public function actualizarValor(Request $request, $id)
+    {
         $tabla1 = Tabla1::where('truckdriver_id', $id)->first();
-        $tabla1->hs_ext_km_recorrido = $request->input('hs_ext_km_recorrido');
-        $tabla1->hs_ext_km_recorrido_100 = $request->input('hs_ext_km_recorrido_100');
-        $tabla1->c_descarga = $request->input('c_descarga');
-        $tabla1->hs_50 = $request->input('hs_50');
-        $tabla1->hs_100 = $request->input('hs_100');
-        $tabla1->antig = $request->input('antig');
-        $tabla1->inasistencias_inj = $request->input('inasistencias_inj');
-        $tabla1->subtotal1 = $subtotal1;
 
-        $tabla1->total_remun1 = $subtotal1 + $subtotal1 * $request->antig * 0.01;
+        if ($tabla1) {
+            $tabla1->{$request->field} = $request->value;
 
-        $tabla1->update();
+            $tabla1->save();
 
-        return redirect("/admin/sueldo/calcular/$id")->with('status', 'Cambios Guardados');
+            return response()->json(['message' => 'Actualizado correctamente']);
+        }
+
+        return response()->json(['error' => 'Tabla no encontrada'], 404);
     }
 
-    public function obtenerSubtotal1(Request $request)
+    public function actualizarTotales1(Request $request, $id)
     {
+        $tabla1 = Tabla1::where('truckdriver_id', $id)->first();
+        $tabla1->subtotal1 = $request->input('subtotal1');
+        $tabla1->total_remun1 = $request->input('total_remun1');
+        $tabla1->save();
 
-        $subtotal1 = 0;
-
-        $datos = DatosSueldo::all()->first();
-        $inasistencias = ($datos->sueldo_basico / 30) * $request->inasistencias_inj;
-
-        $subtotal1 = $datos->sueldo_basico +
-            $datos->hs_ext_km_recorrido * $request->input('hs_ext_km_recorrido') +
-            $datos->hs_ext_km_recorrido * $request->input('hs_ext_km_recorrido_100') +
-            $datos->perm_f_res * $request->input('perm_f_res') +
-            $datos->c_descarga * $request->input('c_descarga') +
-            ($datos->hs_50) * ($request->input('hs_50') ?? 0) +
-            ($datos->hs_100) * ($request->input('hs_100') ?? 0) -
-            // + $datos->dia_camionero + 
-            $inasistencias;
-
-        return $subtotal1;
+        return response()->json(['success' => true, 'message' => 'Totales actualizados']);
     }
 
     /**
-     * Actualiza los datos de la segunda tabla del sueldo de un chofer seleccionado.
+     * Tabla 2
      */
-    public function updateDatosTabla2(Request $request, $id)
-    {
-        $tabla2 = Tabla2::updateOrCreate(['truckdriver_id' => $id], []);
 
-        $descuentos = $this->getDescuentosFromRequest($request);
-        $total_remun1 = Tabla1::where('truckdriver_id', $id)->value('total_remun1');
-
-        $total_descuento = $this->obtenerTotalDescuento($descuentos, $total_remun1);
-        $subtotal2 = $total_remun1 - $total_descuento;
-
-        $tabla2->update([
-            'jubilacion' => $descuentos['jubilacion'],
-            'obra_social' => $descuentos['obra_social'],
-            'cuota_solidaria' => $descuentos['cuota_solidaria'],
-            'ley_19032' => $descuentos['ley_19032'],
-            'seguro_sepelio' => $descuentos['seguro_sepelio'],
-            'aju_apo_dto' => $descuentos['aju_apo_dto'],
-            'asoc_mut_1nov' => $descuentos['asoc_mut_1nov'],
-            'total_descuento' => $total_descuento,
-            'subtotal2' => $subtotal2
-        ]);
-
-        return redirect("/admin/sueldo/calcular/$id")->with('status', 'Cambios Guardados');
-    }
-
-    public function getDescuentosFromRequest(Request $request)
-    {
-
-        $descuentos = [];
-        $inputs = ['jubilacion', 'obra_social', 'cuota_solidaria', 'ley_19032', 'seguro_sepelio', 'aju_apo_dto', 'asoc_mut_1nov'];
-
-        foreach ($inputs as $input) {
-            $descuentos[$input] = floatval(str_replace('%', '', $request->input($input)));
-        }
-
-        return $descuentos;
-    }
-
-    public function obtenerTotalDescuento($descuentos, $total_remun1)
-    {
-        $total_descuento = 0;
-
-        foreach ($descuentos as $descuento) {
-            $total_descuento += $descuento / 100 * $total_remun1;
-        }
-
-        return $total_descuento;
-    }
-
-
-    /**
-     * Actualiza los datos de la tercer tabla del sueldo de un chofer seleccionado.
-     */
-    public function updateDatosTabla3(Request $request, $id)
+    public function actualizarValorDescuento(Request $request, $id)
     {
         $tabla2 = Tabla2::where('truckdriver_id', $id)->first();
-        $tabla3 = Tabla3::where('truckdriver_id', $id)->first();
-
-        $this->actualizarNombres($request, $tabla3);
-
-        $tabla3->viatico_x_km = $request->input('viatico_x_km');
-        $tabla3->cruce_frontera = $request->input('cruce_frontera');
-        $tabla3->comida = $request->input('comida');
-        $tabla3->especial = $request->input('especial');
-        $tabla3->pernoctada = $request->input('pernoctada');
-        $tabla3->permanencia_fuera_rec = $request->input('permanencia_fuera_rec');
-        $tabla3->viatico_km_1_2 = $request->input('viatico_km_1_2');
-        $tabla3->adicional_vacas_anuales = $request->input('adicional_vacas_anuales');
-        $tabla3->asignacion_no_remuner = $request->input('asignacion_no_remuner');
-
-        $totalR = $this->obtenerTotalRemun2($request);
-        $tabla3->total_remun2 = $totalR + $tabla2->subtotal2;
-
-        $tabla3->adelantos = $request->input('adelantos');
-        $tabla3->celular = $request->input('celular');
-        $tabla3->gastos = $request->input('gastos');
 
 
-        $tabla3->update();
+        if ($tabla2) {
+            $tabla2->{$request->field} = $request->value;
 
-        return redirect("/admin/sueldo/calcular/$id")->with('status', 'Cambios Guardados');
-    }
+            $tabla2->save();
 
-    public function actualizarNombres(Request $request, Tabla3 $tabla3)
-    {
-
-        $tabla3->viatico_x_km_name = $request->input('viatico_km_1_2_name');
-        $tabla3->cruce_frontera_name = $request->input('cruce_frontera_name');
-        $tabla3->comida_name = $request->input('comida_name');
-        $tabla3->especial_name = $request->input('especial_name');
-        $tabla3->pernoctada_name = $request->input('pernoctada_name');
-        $tabla3->permanencia_fuera_rec_name = $request->input('permanencia_fuera_rec_name');
-        $tabla3->viatico_km_1_2_name = $request->input('viatico_km_1_2_name');
-        $tabla3->adicional_vacas_anuales_name = $request->input('adicional_vacas_anuales_name');
-        $tabla3->asignacion_no_remuner_name = $request->input('asignacion_no_remuner_name');
-
-        $tabla3->save();
-    }
-
-    public function obtenerTotalRemun2(Request $request)
-    {
-
-        $totalR = 0;
-
-        $datos = DatosSueldo::all()->first();
-
-        $totalR = $datos->kms_rec * ($request->input('viatico_x_km') ?? 0) +
-            $datos->cruce_frontera * ($request->input('cruce_frontera') ?? 0) +
-            $datos->comida * ($request->input('comida') ?? 0) +
-            $datos->especial * ($request->input('especial') ?? 0) +
-            $datos->pernoctada * ($request->input('pernoctada') ?? 0) +
-            $datos->perm_f_res * ($request->input('permanencia_fuera_rec') ?? 0) +
-            $datos->km_1_2 * ($request->input('viatico_km_1_2') ?? 0) +
-            $datos->vacaciones_anual_x_dia * ($request->input('adicional_vacas_anuales') ?? 0) +
-            ($request->input('asignacion_no_remuner') ?? 0);
-
-
-        $inputs = $request->all();
-        foreach ($inputs as $key => $value) {
-            if (strpos($key, 'valor') === 0) {
-                $totalR += (float) $value;
-            }
+            return response()->json(['message' => 'Descuento actualizado']);
         }
 
-        return $totalR;
+        return response()->json(['error' => 'Tabla no encontrada'], 404);
+    }
+
+    public function actualizarSubtotal2(Request $request, $id)
+    {
+        $tabla2 = Tabla2::where('truckdriver_id', $id)->first();
+
+        $tabla2->total_descuento = $request->input('total_descuento');
+        $tabla2->subtotal2 = $request->input('subtotal2');
+
+        $tabla2->save();
+
+        return response()->json(['success' => true, 'message' => 'Totales actualizados']);
+    }
+
+    /**
+     * Tabla 3
+     */
+
+    public function actualizarNombre3(Request $request, $id)
+    {
+        $field = $request->input('field');
+        $value = $request->input('value');
+
+
+        Tabla3::query()->update([$field => $value]);
+
+        return response()->json(['message' => 'Todos los registros han sido actualizados correctamente']);
+
+    }
+
+    public function actualizarValor3(Request $request, $id)
+    {
+
+        $tabla3 = Tabla3::where('truckdriver_id', $id)->first();
+
+        if ($tabla3) {
+            $tabla3->{$request->field} = $request->value;
+
+            $tabla3->save();
+
+            return response()->json(['message' => 'Actualizado correctamente']);
+        }
+
+        return response()->json(['error' => 'Tabla no encontrada'], 404);
+    }
+
+    public function actualizarTotalNoRenum(Request $request, $id)
+    {
+        $tabla3 = Tabla3::where('truckdriver_id', $id)->first();
+
+        if ($tabla3) {
+            $tabla3->total_remun2 = $request->input('subtotal');
+            $tabla3->save();
+
+            return response()->json(['success' => true, 'message' => 'Totales actualizados']);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Registro no encontrado'], 404);
+        }
+    }
+
+    public function actualizarGastosExtra(Request $request, $id)
+    {
+        $tabla3 = Tabla3::where('truckdriver_id', $id)->first();
+        $field = $request->input('field');
+        $value = $request->input('value');
+
+        if ($tabla3 && in_array($field, ['adelantos', 'celular', 'gastos'])) {
+            $tabla3->$field = $value;
+            $tabla3->save();
+            return response()->json(['success' => true, 'message' => 'Campo actualizado correctamente']);
+        }
+
+        return response()->json(['success' => false, 'message' => 'Campo no válido'], 400);
     }
 
     public function agregarNuevaFila(Request $request, $id)
     {
-
 
         $nuevaFila = new nuevaFila();
         $nuevaFila->nombre = $request->input('nombre');
@@ -295,4 +242,33 @@ class SueldoController extends Controller
 
         return redirect("/admin/sueldo/calcular/$id")->with('status', 'Cambios Guardados');
     }
+
+    public function actualizarNombreNuevaFila(Request $request, $id)
+    {
+        $field = $request->input('field');
+        $value = $request->input('value');
+        $fila = NuevaFila::find($id);
+
+        if ($fila) {
+            $fila->{$field} = $value;
+            $fila->save();
+
+            return response()->json(['message' => 'Campo actualizado correctamente']);
+        }
+    }
+
+    public function actualizarValorNuevaFila(Request $request, $id)
+    {
+        $field = $request->input('field');
+        $value = $request->input('value');
+        $fila = NuevaFila::find($id);
+
+        if ($fila) {
+            $fila->{$field} = $value;
+            $fila->save();
+
+            return response()->json(['message' => 'Campo actualizado correctamente']);
+        }
+    }
+
 }
