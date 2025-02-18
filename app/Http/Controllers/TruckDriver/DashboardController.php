@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\TruckDriver;
 
 use App\Http\Controllers\Controller;
-use App\Models\Solicitudes;
-use App\Models\TruckDriver;
+use App\Services\TruckDriver\DashboardService;
+use Illuminate\Support\Facades\Log;
+
 
 class DashboardController extends Controller
 {
@@ -15,33 +16,41 @@ class DashboardController extends Controller
          */
         //$this->middleware('verified:truck_driver.verification.notice');
     }
-
-    /**
-     * Muestra el inicio del chofer.
-     */
     public function index()
     {
+        try {
+            $query = DashboardService::getInstance()->index();
 
-        $solicitudes = Solicitudes::where('truckdriver_id', auth()->user()->id)->get();
-        $cantidadSolicitudes = $solicitudes->count();
-
-        return view('truck_driver.dashboard')
-            ->with('cantidadSolicitudes', $cantidadSolicitudes);
+            if (request()->expectsJson()) {
+                return response()->json(['data' => $query], 200);
+            }
+            return view('truck_driver.dashboard', $query);
+        } catch (\Exception $e) {
+            Log::critical('Exception: ' . $e);
+            return response()->json(['error_controlado' => $e->getMessage()], 500);
+        }
     }
 
     public function showPerfil()
     {
-
         return view('truck_driver.perfil');
     }
 
     public function quitarEmpresa($id)
     {
-        $truck_driver = TruckDriver::findOrFail($id);
-        $truck_driver->empresa = null;
+        try {
+            $query = DashboardService::getInstance()->quitarEmpresa($id);
 
-        $truck_driver->save();
+            if (request()->expectsJson()) {
+                return response()->json(['data' => $query], 200);
+            }
 
-        return redirect('/truck_driver/dashboard');
+            return view('truck_driver.dashboard', ['status' => $query ? 'Empresa quitada correctamente' : 'Error al quitar la empresa']);
+
+        } catch (\Exception $e) {
+            Log::critical('Exception: ' . $e);
+            return response()->json(['error_controlado' => $e->getMessage()], 500);
+        }
     }
+
 }
