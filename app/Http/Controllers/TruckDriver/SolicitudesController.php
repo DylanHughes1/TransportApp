@@ -1,14 +1,16 @@
 <?php
 
 namespace App\Http\Controllers\TruckDriver;
+
 use App\Models\Solicitudes;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\User;
 use App\Models\viajes;
 use Illuminate\Support\Facades\DB;
-use App\Models\ViajeInicial;
+use Exception;
 use App\Models\TruckDriver;
+use App\Services\TruckDriver\SolicitudesService;
+use Illuminate\Support\Facades\{Log, Validator};
 
 class SolicitudesController extends Controller
 {
@@ -22,34 +24,31 @@ class SolicitudesController extends Controller
      */
     public function index()
     {
-        $solicitudes = Solicitudes::all()->where('truckdriver_id',auth()->user()->id);
+        try {
+            $query = SolicitudesService::getInstance()->index();
 
-        return view ('truck_driver.solicitudes.index')
-            ->with('solicitudes',$solicitudes);
+            if (request()->expectsJson()) {
+                return response()->json(['data' => $query], 200);
+            }
+            return view('truck_driver.viajes.index', $query);
+        } catch (Exception $e) {
+            Log::critical('Exception: ' . $e);
+            return response()->json(['error_controlado' => $e->getMessage()], 500);
+        }
     }
 
     /**
      * Crea el nuevo viaje asociada a la solicitud aceptada.
      */
-    public function crearViaje(Request $request, $id){
-
-        $truck_driver = TruckDriver::find($request->get('truckdriver_id'));
-
-        $solicitud = Solicitudes::find($id);
-        
-        $viaje = viajes::find($solicitud->viaje->id);
-        $viaje->progreso = 1;
-        $viaje->progresoSolicitud = 2;
-        $viaje->observacion_origen = $solicitud->observacion1;
-        $viaje->observacion_destino = $solicitud->observacion2;
-        $viaje->p_batea = $truck_driver->p_batea;
-        $viaje->p_chasis = $truck_driver->p_chasis;
-        $viaje->save();
-       
-
-        $solicitud->delete();
-        
-        return redirect("/truck_driver/solicitudes");
+    public function crearViaje(Request $request, $id)
+    {
+        try {
+            SolicitudesService::getInstance()->crearViaje($request, $id);
+            return redirect("/truck_driver/solicitudes");
+        } catch (Exception $e) {
+            Log::critical('Exception: ' . $e);
+            return response()->json(['error_controlado' => $e->getMessage()], 500);
+        }
     }
 
     /**
@@ -57,18 +56,12 @@ class SolicitudesController extends Controller
      */
     public function cancelarViaje($id)
     {
-
-        $solicitud = Solicitudes::find($id);
-
-
-        $viaje = viajes::find($solicitud->viaje_id);
-        $viaje->progresoSolicitud = 0;
-        $viaje->truckdriver_id = null;
-
-        $solicitud->delete();
-        $viaje->save();
-
-        // redirect
-        return redirect("/truck_driver/solicitudes");
+        try {
+            SolicitudesService::getInstance()->cancelarViaje($id);
+            return redirect("/truck_driver/solicitudes");
+        } catch (Exception $e) {
+            Log::critical('Exception: ' . $e);
+            return response()->json(['error_controlado' => $e->getMessage()], 500);
+        }
     }
 }
