@@ -39,51 +39,48 @@ class DashboardController extends Controller
 
     public function showChoferes()
     {
-        $truck_drivers_A = TruckDriver::where('empresa', 'A')->orderBy('name')->get();
-        $truck_drivers_B = TruckDriver::where('empresa', 'B')->orderBy('name')->get();
-        $truck_drivers_sin_empresa = TruckDriver::where('empresa', null)->orderBy('name')->get();;
-
-        return view('admin.choferes.indexChoferes')
-            ->with('truck_drivers_A', $truck_drivers_A)
-            ->with('truck_drivers_B', $truck_drivers_B)
-            ->with('truck_drivers_sin_empresa', $truck_drivers_sin_empresa);
+        try {
+            $query = DashboardService::getInstance()->showChoferes();
+            if (request()->expectsJson()) {
+                return response()->json(['data' => $query], 200);
+            }
+            return view('admin.choferes.indexChoferes', $query);
+        } catch (Exception $e) {
+            Log::critical('Exception: ' . $e);
+            return response()->json(['error_controlado' => $e->getMessage()], 500);
+        }
     }
 
     public function eliminarChofer($id)
     {
-
-        $truck_driver = TruckDriver::find($id);
-        $truck_driver->delete();
-
-        return redirect('/admin/truck-drivers');
+        try {
+            DashboardService::getInstance()->eliminarChofer($id);
+            return redirect('/admin/truck-drivers');
+        } catch (Exception $e) {
+            Log::critical('Exception: ' . $e);
+            return response()->json(['error_controlado' => $e->getMessage()], 500);
+        }
     }
 
     public function asignarEmpresa(Request $request, $id)
     {
-
-        $truck_driver = TruckDriver::find($id);
-        $empresa_seleccionada = $request->get('company_name');
-
-        if ($empresa_seleccionada === "Don Mario")
-            $truck_driver->empresa = 'A';
-        else if ($empresa_seleccionada === "Cereal Flet Sur")
-            $truck_driver->empresa = 'B';
-
-        $truck_driver->p_chasis = $request->get('p_chasis');
-        $truck_driver->p_batea = $request->get('p_batea');
-
-        $truck_driver->save();
-
-        return redirect('/admin/truck-drivers');
+        try {
+            DashboardService::getInstance()->asignarEmpresa($request, $id);
+            return redirect('/admin/truck-drivers');
+        } catch (Exception $e) {
+            Log::critical('Exception: ' . $e);
+            return response()->json(['error_controlado' => $e->getMessage()], 500);
+        }
     }
 
     public function autoSavePatente(Request $request, $id)
     {
-        $truckDriver = TruckDriver::findOrFail($id);
-
-        $truckDriver->{$request->input('field')} = $request->input('value');
-        $truckDriver->save();
-
-        return response()->json(['success' => true]);
+        try {
+            DashboardService::getInstance()->asignarEmpresa($request, $id);
+            return response()->json(['success' => true]);
+        } catch (Exception $e) {
+            Log::critical('Exception: ' . $e);
+            return response()->json(['error_controlado' => $e->getMessage()], 500);
+        }
     }
 }
