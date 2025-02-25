@@ -2,7 +2,7 @@
 
 namespace App\Services\TruckDriver;
 
-use App\Models\{viajes, Combustible, ImagenViaje};
+use App\Models\{viajes, Combustible, ImagenViaje, Origen, Destino, Producto};
 use Exception;
 use \Carbon\Carbon;
 use App\Models\InputsEditables;
@@ -14,9 +14,7 @@ class ViajesService
 
     private static $instances = [];
 
-    protected function __construct()
-    {
-    }
+    protected function __construct() {}
 
     public static function getInstance(): ViajesService
     {
@@ -76,43 +74,34 @@ class ViajesService
     {
         return [
             'viaje' => Viajes::findOrFail($id),
-            'inputs_editables' => InputsEditables::all()
+            'origenes' => Origen::all(),
+            'destinos' => Destino::all(),
+            'productos' => Producto::all()
         ];
-    }
-    public function showViaje($id)
-    {
-        return $this->handleShowViaje($id, 'truck_driver.viajes.show');
-    }
-
-    public function showViajePartTwo($id)
-    {
-        return $this->handleShowViaje($id, 'truck_driver.viajes.show2');
-    }
-
-    private function handleShowViaje($id, $viewName)
-    {
-        try {
-            $query = ViajesService::getInstance()->getViajeData($id);
-
-            if (request()->expectsJson()) {
-                return response()->json(['data' => $query], 200);
-            }
-
-            return view($viewName, $query);
-        } catch (Exception $e) {
-            Log::critical('Exception: ' . $e);
-            return response()->json(['error_controlado' => $e->getMessage()], 500);
-        }
     }
 
     public function autoSaveViaje($id, $data)
     {
         $viaje = viajes::find($id);
-
         $validatedData = $this->validateAutoSaveData($data);
 
+        if (isset($validatedData['origen'])) {
+            $origen = Origen::firstOrCreate(['nombre' => $this->normalizeCityName($validatedData['origen'])]);
+            $viaje->origen_id = $origen->id;
+        }
+
+        if (isset($validatedData['destino'])) {
+            $destino = Destino::firstOrCreate(['nombre' => $this->normalizeCityName($validatedData['destino'])]);
+            $viaje->destino_id = $destino->id;
+        }
+
+        if (isset($validatedData['producto'])) {
+            $producto = Producto::firstOrCreate(['nombre' => $validatedData['producto']]);
+            $viaje->producto_id = $producto->id;
+        }
+
         foreach ($validatedData as $key => $value) {
-            if ($value !== null) {
+            if ($value !== null && !in_array($key, ['origen', 'destino', 'producto'])) {
                 $viaje->$key = $value;
             }
         }
@@ -148,6 +137,18 @@ class ViajesService
             'control_desc' => 'nullable|numeric',
         ])->validate();
     }
+    private function normalizeCityName($city)
+    {
+        $city = strtolower($city);
+
+        $search = ['á', 'é', 'í', 'ó', 'ú', 'Á', 'É', 'Í', 'Ó', 'Ú'];
+        $replace = ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'];
+        $city = str_replace($search, $replace, $city);
+
+        $city = ucwords($city);
+
+        return $city;
+    }
 
     public function updateViaje($data, $id)
     {
@@ -173,7 +174,6 @@ class ViajesService
             $viaje->save();
 
             return ['redirect' => "/truck_driver/viajes/image/$id", 'status' => 'Cambios Guardados'];
-
         }
     }
     private function validateFinalizarViaje($data)
@@ -233,20 +233,25 @@ class ViajesService
         $viajeAsociado->km_viaje_vacio += $validatedData['km_llegada'] - $validatedData['km_salida'];
 
         $viaje = new Viajes();
-        $input_editable = new InputsEditables();
 
         if (!empty($validatedData['opcion_seleccionada'])) {
-            $viaje->origen = $validatedData['opcion_seleccionada'];
+            $viaje->origen_id = Origen::firstOrCreate([
+                'nombre' => $this->normalizeCityName($validatedData['opcion_seleccionada'])
+            ])->id;
         } else {
-            $input_editable->origen = $validatedData['salida'];
-            $viaje->origen = $input_editable->origen;
+            $viaje->origen_id = Origen::firstOrCreate([
+                'nombre' => $this->normalizeCityName($validatedData['salida'])
+            ])->id;
         }
 
         if (!empty($validatedData['opcion_seleccionada2'])) {
-            $viaje->destino = $validatedData['opcion_seleccionada2'];
+            $viaje->destino_id = Destino::firstOrCreate([
+                'nombre' => $this->normalizeCityName($validatedData['opcion_seleccionada2'])
+            ])->id;
         } else {
-            $input_editable->destino = $validatedData['destino'];
-            $viaje->destino = $input_editable->destino;
+            $viaje->destino_id = Destino::firstOrCreate([
+                'nombre' => $this->normalizeCityName($validatedData['destino'])
+            ])->id;
         }
 
         $viaje->fecha_salida = $validatedData['fecha_salida'];
@@ -259,10 +264,6 @@ class ViajesService
         $viaje->esVacio = true;
         $viaje->truckdriver_id = auth()->user()->id;
         $viaje->enCurso = false;
-
-        if ($input_editable->origen !== null || $input_editable->destino !== null) {
-            $input_editable->save();
-        }
 
         $viaje->save();
         $viajeAsociado->save();

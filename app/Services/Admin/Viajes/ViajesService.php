@@ -2,7 +2,7 @@
 
 namespace App\Services\Admin\Viajes;
 
-use App\Models\{TruckDriver, ViajeInicial, viajes, Solicitudes};
+use App\Models\{TruckDriver, ViajeInicial, viajes, Solicitudes, Origen, Destino, Producto};
 use Exception;
 use \Carbon\Carbon;
 use App\Models\InputsEditables;
@@ -41,10 +41,9 @@ class ViajesService
     public function storeViajeInicial($request)
     {
         $viaje_inicial = new Viajes();
-        $input_editable = new InputsEditables();
 
-        $viaje_inicial->origen = $this->getOrigen($request, $input_editable);
-        $viaje_inicial->destino = $this->getDestino($request, $input_editable);
+        $viaje_inicial->origen_id = $this->getOrigen($request);
+        $viaje_inicial->destino_id = $this->getDestino($request);
 
         $viaje_inicial->fecha_salida = $request->get('dia1');
         $viaje_inicial->observacion_origen = $request->get('observacion1');
@@ -55,31 +54,27 @@ class ViajesService
 
         $viaje_inicial->save();
 
-        if ($input_editable->origen != null || $input_editable->destino) {
-            $input_editable->save();
-        }
         return $viaje_inicial;
     }
 
-    private function getOrigen($request, InputsEditables $input_editable)
+    private function getOrigen($request)
     {
-        if ($request->filled('opcion_seleccionada')) {
-            return $this->normalizeCityName($request->get('opcion_seleccionada'));
-        }
+        $nombreOrigen = $this->normalizeCityName($request->filled('opcion_seleccionada')
+            ? $request->get('opcion_seleccionada')
+            : $request->input('salida'));
 
-        $input_editable->origen = $this->normalizeCityName($request->input('salida'));
-        return $input_editable->origen;
+        return Origen::firstOrCreate(['nombre' => $nombreOrigen])->id;
     }
 
-    private function getDestino($request, InputsEditables $input_editable)
+    private function getDestino($request)
     {
-        if ($request->filled('opcion_seleccionada2')) {
-            return $this->normalizeCityName($request->get('opcion_seleccionada2'));
-        }
+        $nombreDestino = $this->normalizeCityName($request->filled('opcion_seleccionada2')
+            ? $request->get('opcion_seleccionada2')
+            : $request->input('destino'));
 
-        $input_editable->destino = $this->normalizeCityName($request->input('destino'));
-        return $input_editable->destino;
+        return Destino::firstOrCreate(['nombre' => $nombreDestino])->id;
     }
+
 
     private function setPricing(Viajes $viaje_inicial, $request)
     {
@@ -126,10 +121,10 @@ class ViajesService
     {
         $solicitud = new Solicitudes();
         $solicitud->dia1 = $viaje->fecha_salida;
-        $solicitud->salida = $viaje->origen;
+        $solicitud->salida = $viaje->origen->nombre;
         $solicitud->observacion1 = $viaje->observacion_origen;
         $solicitud->dia2 = $viaje->fecha_llegada;
-        $solicitud->llegada = $viaje->destino;
+        $solicitud->llegada = $viaje->destino->nombre;
         $solicitud->observacion2 = $viaje->observacion_destino;
         $solicitud->TN = $viaje->TN;
         $solicitud->truckdriver_id = $truckdriverId;
@@ -140,7 +135,7 @@ class ViajesService
 
     public function showViajes()
     {
-        $Viajes = Viajes::with('combustibles')
+        $viajes = Viajes::with(['combustibles', 'origen', 'destino', 'producto'])
             ->where('enCurso', true)
             ->orderBy('fecha_salida', 'asc')
             ->get();
@@ -152,51 +147,36 @@ class ViajesService
                 $query->where('enCurso', true);
             })->get();
 
-
-        $inputs_editables = InputsEditables::all();
-
         $primerDiaHaceDosMeses = Carbon::now()->subMonths(2)->startOfMonth();
         $ultimoDiaHaceDosMeses = Carbon::now()->subMonths(2)->endOfMonth();
         Viajes::whereBetween('fecha_salida', [$primerDiaHaceDosMeses, $ultimoDiaHaceDosMeses])->delete();
 
-        return
-            [
-                'viajes' => $Viajes,
-                'choferes' => $choferes,
-                'choferesLibres' => $choferesLibres,
-                'inputs_editables' => $inputs_editables
-            ];
+        return [
+            'viajes' => $viajes,
+            'choferes' => $choferes,
+            'choferesLibres' => $choferesLibres,
+            'origenes' => Origen::all(),
+            'destinos' => Destino::all(),
+            'productos' => Producto::all()
+        ];
     }
 
     public function updateViaje($request)
     {
-
-        $inputs_editables = InputsEditables::all();
-
-        $viaje = viajes::find($request->get('id_viaje'));
+        $viaje = Viajes::findOrFail($request->get('id_viaje'));
         $key = $request->get('key');
-        $nuevosCampos = [
-            'origen' => $request->get('origen' . $key),
-            'destino' => $request->get('destino' . $key),
-        ];
 
-        foreach ($nuevosCampos as $campo => $nuevoValor) {
-            if (!$inputs_editables->contains($campo, $nuevoValor)) {
-                $nuevoInputEditable = new InputsEditables([$campo => $nuevoValor]);
-                $nuevoInputEditable->save();
-            }
-        }
+        $nuevoOrigen = $this->normalizeCityName($request->get('origen' . $key));
+        $nuevoDestino = $this->normalizeCityName($request->get('destino' . $key));
 
-        $viaje->origen = $nuevosCampos['origen'];
-        $viaje->destino = $nuevosCampos['destino'];
+        $origen = Origen::firstOrCreate(['nombre' => $nuevoOrigen]);
+        $destino = Destino::firstOrCreate(['nombre' => $nuevoDestino]);
 
-        $convertirFecha = function ($input) {
-            $fechaObjeto = \DateTime::createFromFormat('d/m/y', $input);
-            return $fechaObjeto ? $fechaObjeto->format('Y-m-d') : null;
-        };
+        $viaje->origen_id = $origen->id;
+        $viaje->destino_id = $destino->id;
 
-        $fechaSalida = $convertirFecha($request->get('fecha_salida' . $key));
-        $fechaLlegada = $convertirFecha($request->get('fecha_llegada' . $key));
+        $fechaSalida = $this->convertirFecha($request->get('fecha_salida' . $key));
+        $fechaLlegada = $this->convertirFecha($request->get('fecha_llegada' . $key));
 
         if ($fechaSalida !== null) {
             $viaje->fecha_salida = $fechaSalida;
@@ -205,22 +185,23 @@ class ViajesService
             $viaje->fecha_llegada = $fechaLlegada;
         }
 
-        $viaje->destino = $request->get('destino' . $key);
+        if ($viaje->truckdriver_id) {
+            $truck_driver = TruckDriver::find($viaje->truckdriver_id);
 
-        $truck_driver = TruckDriver::find($viaje->truckdriver_id);
+            if ($request->filled('p_chasis' . $key)) {
+                $truck_driver->p_chasis = $request->get('p_chasis' . $key);
+            }
+            if ($request->filled('p_batea' . $key)) {
+                $truck_driver->p_batea = $request->get('p_batea' . $key);
+            }
+            $truck_driver->save();
+        }
 
-        if ($request->get('p_chasis' . $key) !== null) {
-            $truck_driver->p_chasis = $request->get('p_chasis' . $key);
-        }
-        if ($request->get('p_batea' . $key) !== null) {
-            $truck_driver->p_batea = $request->get('p_batea' . $key);
-        }
-        $viaje->update();
-        if ($truck_driver != null)
-            $truck_driver->update();
+        $viaje->save();
 
         return $viaje;
     }
+
 
     private function convertirFecha($input)
     {

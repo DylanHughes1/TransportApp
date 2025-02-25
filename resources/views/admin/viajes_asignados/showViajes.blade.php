@@ -12,7 +12,7 @@
                     <div class="p-6 bg-white border-b border-gray-200">
                         <div class="p-6 bg-white border-b border-gray-200">
                             <div class="flex">
-                                <div class="w-1/7 mr-4 mt-8"> 
+                                <div class="w-1/7 mr-4 mt-8">
                                     <div class="mt-8">
                                         <div class="max-h-96 overflow-y-auto">
                                             <table>
@@ -24,12 +24,12 @@
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($choferesLibres as $chofer)
-                                                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                            <td
-                                                                class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-green-500">
-                                                                {{ $chofer->name }}
-                                                            </td>
-                                                        </tr>
+                                                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                                        <td
+                                                            class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-green-500">
+                                                            {{ $chofer->name }}
+                                                        </td>
+                                                    </tr>
                                                     @endforeach
                                                 </tbody>
                                             </table>
@@ -76,10 +76,12 @@
                                                     </div>
                                                     <!-- Modal body -->
                                                     <div class="p-6 bg-white border-b border-gray-200">
-
-                                                        @component('components.nuevosViajesComps.form-nuevo-viaje', ['inputs_editables' => $inputs_editables])
+                                                        @component('components.nuevosViajesComps.form-nuevo-viaje', [
+                                                        'origenes' => $origenes,
+                                                        'destinos' => $destinos,
+                                                        'productos' => $productos
+                                                        ])
                                                         @endcomponent
-
                                                     </div>
                                                 </div>
                                             </div>

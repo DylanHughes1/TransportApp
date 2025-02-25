@@ -22,14 +22,14 @@
                         </a>
                     </div>
                     <div class="mb-3">
+                        @if (!$viaje->enCurso)
                         <label for="viajeNuevo"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ingrese Imagen del Remito</label>
-                        @if (!$viaje->enCurso)
-                            <a href="/truck_driver/viajes/image/{{$viaje->id}}" class="col-md-12 text-right">
-                                <button type="button" id="nextButton"
-                                    class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Subir
-                                    Imagen</button>
-                            </a>
+                        <a href="/truck_driver/viajes/image/{{$viaje->id}}" class="col-md-12 text-right">
+                            <button type="button" id="nextButton"
+                                class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Subir
+                                Imagen</button>
+                        </a>
                         @endif
                     </div>
 
@@ -74,7 +74,7 @@
                                             Completar en caso de realizar un viaje vacío hacia el lugar de carga.
                                         </div>
                                     </div>
-                                    <form method="POST" action="/truck_driver/viajes/b/{{$viaje->id}}/newViaje">
+                                    <form method="POST" action="/truck_driver/viajes/newViaje/{{$viaje->id}}">
                                         @csrf
                                         @method('PUT')
                                         <div class="grid gap-6 mb-6 md:grid-cols-3">
@@ -110,12 +110,12 @@
                                                                 class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                                                 data-value="Seleccionar Localidad">Seleccionar
                                                                 Localidad</a>
-                                                            @foreach ($inputs_editables as $input_editable)
-                                                                @if($input_editable->origen != null)
-                                                                    <a href="#"
-                                                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                                                                        data-value="{{ $input_editable->origen }}">{{ $input_editable->origen }}</a>
-                                                                @endif
+                                                            @foreach ($origenes as $origen)
+                                                            @if($origen != null)
+                                                            <a href="#"
+                                                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                                                data-value="{{ $origen->nombre }}">{{ $origen->nombre }}</a>
+                                                            @endif
                                                             @endforeach
                                                         </ul>
                                                     </div>
@@ -191,12 +191,12 @@
                                                                 class="block px-4 py-2 hover:bg-gray-100 dark:hover-bg-gray-600 dark:hover:text-white"
                                                                 data-value="Seleccionar Localidad 2">Seleccionar
                                                                 Localidad</a>
-                                                            @foreach ($inputs_editables as $input_editable)
-                                                                @if($input_editable->destino != null)
-                                                                    <a href="#"
-                                                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover-bg-gray-600 dark:hover:text-white"
-                                                                        data-value="{{ $input_editable->destino }}">{{ $input_editable->destino }}</a>
-                                                                @endif
+                                                            @foreach ($destinos as $destino)
+                                                            @if($destino != null)
+                                                            <a href="#"
+                                                                class="block px-4 py-2 hover:bg-gray-100 dark:hover-bg-gray-600 dark:hover:text-white"
+                                                                data-value="{{ $destino->nombre }}">{{ $destino->nombre }}</a>
+                                                            @endif
                                                             @endforeach
                                                         </ul>
                                                     </div>

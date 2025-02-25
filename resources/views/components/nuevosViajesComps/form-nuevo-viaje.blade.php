@@ -24,19 +24,15 @@
                         <span id="selectedOption">Seleccionar Localidad</span>
                     </button>
 
-                    <!-- Dropdown menu -->
+                    <!-- Dropdown menu para Origen -->
                     <div id="dropdownHover"
                         class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 overflow-y-auto max-h-60">
                         <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownHoverButton">
-                            <a href="#"
-                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                 data-value="Seleccionar Localidad">Seleccionar Localidad</a>
-                            @foreach ($inputs_editables as $input_editable)
-                                @if($input_editable->origen != null)
-                                    <a href="#"
-                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                                        data-value="{{ $input_editable->origen }}">{{ $input_editable->origen }}</a>
-                                @endif
+                            @foreach ($origenes as $origen)
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                data-value="{{ $origen->nombre }}">{{ $origen->nombre }}</a>
                             @endforeach
                         </ul>
                     </div>
@@ -119,20 +115,15 @@
                         <span id="selectedOption2">Seleccionar Localidad</span>
                     </button>
 
-                    <!-- Dropdown menu 2 -->
+                    <!-- Dropdown menu para Destino -->
                     <div id="dropdownHover2"
                         class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 overflow-y-auto max-h-60">
-                        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
-                            aria-labelledby="dropdownHoverButton2">
-                            <a href="#"
-                                class="block px-4 py-2 hover:bg-gray-100 dark:hover-bg-gray-600 dark:hover:text-white"
-                                data-value="Seleccionar Localidad 2">Seleccionar Localidad</a>
-                            @foreach ($inputs_editables as $input_editable)
-                                @if($input_editable->destino != null)
-                                    <a href="#"
-                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover-bg-gray-600 dark:hover:text-white"
-                                        data-value="{{ $input_editable->destino }}">{{ $input_editable->destino }}</a>
-                                @endif
+                        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownHoverButton2">
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                data-value="Seleccionar Localidad">Seleccionar Localidad</a>
+                            @foreach ($destinos as $destino)
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                data-value="{{ $destino->nombre }}">{{ $destino->nombre }}</a>
                             @endforeach
                         </ul>
                     </div>

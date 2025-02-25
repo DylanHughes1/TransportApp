@@ -30,7 +30,7 @@ class SolicitudesController extends Controller
             if (request()->expectsJson()) {
                 return response()->json(['data' => $query], 200);
             }
-            return view('truck_driver.viajes.index', $query);
+            return view('truck_driver.solicitudes.index', $query);
         } catch (Exception $e) {
             Log::critical('Exception: ' . $e);
             return response()->json(['error_controlado' => $e->getMessage()], 500);

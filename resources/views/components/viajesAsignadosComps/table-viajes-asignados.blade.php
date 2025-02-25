@@ -51,7 +51,7 @@
 
                         <div id="{{ $dropdownId }}"
                             class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-                            <ul class="h-48 py-2 overflow-y-auto text-gray-700 dark:text-gray-200" aria-labelledby="{{ $buttonId }}">
+                            <ul class="py-2 overflow-y-auto text-gray-700 dark:text-gray-200" aria-labelledby="{{ $buttonId }}">
                                 @foreach ($choferes as $chofer)
                                     <form method="POST" action="/admin/viajes/{{$chofer->id}}">
                                         @csrf
@@ -85,7 +85,7 @@
                     <td>
                         <input type="text" name="origen{{ $key }}"
                             style="border: none; background-color: transparent; width: 125px; text-align: center;"
-                            class="px-2 py-1 text-gray-900" value="{{ $viaje->origen }}">
+                            class="px-2 py-1 text-gray-900" value="{{ $viaje->origen->nombre }}">
                     </td>
                     <td>
                         <input type="text" name="fecha_llegada{{ $key }}"
@@ -99,7 +99,7 @@
                     <td>
                         <input type="text" name="destino{{ $key }}"
                             style="border: none; background-color: transparent; width: 125px; text-align: center;"
-                            class="px-2 py-1 text-gray-900" value="{{ $viaje->destino }}">
+                            class="px-2 py-1 text-gray-900" value="{{ $viaje->destino->nombre }}">
                     </td>
                     <td class="px-6 py-4  text-gray-900">{{ $viaje->km_salida }}</td>
                     <td class="px-6 py-4  text-gray-900">{{ $viaje->c_porte }}</td>

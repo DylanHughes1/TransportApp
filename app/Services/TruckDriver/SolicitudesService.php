@@ -28,8 +28,10 @@ class SolicitudesService
 
     public function index()
     {
-        return Solicitudes::all()->where('truckdriver_id', auth()->user()->id);
+        $solicitudes = Solicitudes::where('truckdriver_id', auth()->user()->id)->get();
+        return ['solicitudes' => $solicitudes];
     }
+
 
     public function crearViaje($data, $id)
     {

@@ -100,7 +100,7 @@ class ViajesController extends Controller
             if (request()->expectsJson()) {
                 return response()->json(['data' => $query], 200);
             }
-            redirect('/admin/show');
+            return redirect('/admin/show');
         } catch (Exception $e) {
             Log::critical('Exception: ' . $e);
             return response()->json(['error_controlado' => $e->getMessage()], 500);
@@ -111,7 +111,7 @@ class ViajesController extends Controller
     {
         try {
             ViajesService::getInstance()->delete($id);
-            redirect('/admin/show');
+            return redirect('/admin/show');
         } catch (Exception $e) {
             Log::critical('Exception: ' . $e);
             return response()->json(['error_controlado' => $e->getMessage()], 500);

@@ -7,14 +7,14 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-2xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div class="flex items-center justify-center pb-4">
                         <form action="/truck_driver/viajes/b/{{$viaje->id}}" method="POST" class="w-full">
                             @csrf
                             @method('PUT')
-                            <div class="grid gap-6 mb-6 md:grid-cols-2">
+                            <div class="grid gap-6 mb-6 md:grid-cols-1">
 
                                 <div class="text-center">
                                     <h2 class="block mb-2 text-lg font-medium text-gray-900 dark:text-white">Campos

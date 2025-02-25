@@ -87,7 +87,6 @@ class ViajesController extends Controller
         }
     }
 
-
     public function validarInputObligatorio(Request $request)
     {
 

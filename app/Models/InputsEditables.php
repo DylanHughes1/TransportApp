@@ -10,7 +10,6 @@ class InputsEditables extends Model
     protected $fillable = [
         'origen',
         'destino',
-        // Otras columnas que desees permitir la asignación masiva.
     ];
 
 

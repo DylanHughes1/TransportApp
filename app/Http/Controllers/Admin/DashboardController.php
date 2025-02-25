@@ -2,18 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Exports\PlanillaExport;
-use App\Exports\PlanillaFiltradaExport;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\ViajeInicial;
-use App\Models\TruckDriver;
-use App\Models\Solicitudes;
-use App\Models\viajes;
-use App\Models\InputsEditables;
-use Maatwebsite\Excel\Facades\Excel;
-use \Carbon\Carbon;
 use App\Services\Admin\DashboardService;
 use Exception;
 use Illuminate\Support\Facades\Log;
