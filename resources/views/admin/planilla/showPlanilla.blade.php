@@ -61,11 +61,11 @@
                         <div class="overflow-x-auto">
                             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                    @component('components.planillaComps.form-head-planilla')
+                                    @component('admin.planilla.planillaComps.form-head-planilla')
                                     @endcomponent
                                 </thead>
                                 <tbody>
-                                    @component('components.planillaComps.form-planilla', ['viajes' => $viajes])
+                                    @component('admin.planilla.planillaComps.form-planilla', ['viajes' => $viajes])
                                     @endcomponent
                                 </tbody>
                             </table>

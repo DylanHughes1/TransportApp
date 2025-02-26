@@ -15,7 +15,7 @@
 
                         <!-- Sección del select -->
                         <div class="w-1/2 rounded-lg border border-gray-200 p-6 rounded-md shadow-md mr-4">
-                            @component('components.planillaComps.seleccion-chofer', ['truck_drivers' => $truck_drivers])
+                            @component('admin.planilla.planillaComps.seleccion-chofer', ['truck_drivers' => $truck_drivers])
                             @endcomponent
                         </div>
 

@@ -12,7 +12,7 @@
                     <div class="p-6 bg-white border-b border-gray-200">
                         <div class="p-6 bg-white border-b border-gray-200">                           
                             
-                        @component('components.nuevosViajesComps.form-nuevo-viaje')
+                        @component('admin.nuevos_viajes.nuevosViajesComps.form-nuevo-viaje')
                         @endcomponent
 
                         </div>

@@ -26,11 +26,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.css"  rel="stylesheet" />
 
-    <script>$(document).ready(function() {
+    <!-- <script>$(document).ready(function() {
       $('#@yield('table_name')').DataTable({
           responsive:true
       });});
-    </script>
+    </script> -->
     @yield('js-header')
     @yield('js')
   </body>

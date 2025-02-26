@@ -44,7 +44,7 @@
                                             Viaje</button>
                                     </div>
                                     <div class="overflow-x-auto">
-                                        @component('components.viajesAsignadosComps.table-viajes-asignados', ['viajes' => $viajes, 'choferesLibres' => $choferesLibres, 'choferes' => $choferes])
+                                        @component('admin.viajes_asignados.viajesAsignadosComps.table-viajes-asignados', ['viajes' => $viajes, 'choferesLibres' => $choferesLibres, 'choferes' => $choferes])
                                         @endcomponent
 
                                         <hr class="my-4 border-gray-300">
@@ -76,7 +76,7 @@
                                                     </div>
                                                     <!-- Modal body -->
                                                     <div class="p-6 bg-white border-b border-gray-200">
-                                                        @component('components.nuevosViajesComps.form-nuevo-viaje', [
+                                                        @component('admin.nuevos_viajes.nuevosViajesComps.form-nuevo-viaje', [
                                                         'origenes' => $origenes,
                                                         'destinos' => $destinos,
                                                         'productos' => $productos
