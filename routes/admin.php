@@ -82,10 +82,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     // Viajes
 
-    Route::get('create', [ViajesController::class, 'createViajeInicial'])
-        ->middleware('auth:admin')
-        ->name('create');
-
     Route::post('create', [ViajesController::class, 'storeViajeInicial'])
         ->middleware('auth:admin')
         ->name('store');

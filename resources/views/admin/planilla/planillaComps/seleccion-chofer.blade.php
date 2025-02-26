@@ -17,7 +17,6 @@
         const filter = input.value ? input.value.toLowerCase() : '';
         const results = document.getElementById('results');
 
-        // Limpiar los resultados anteriores
         results.innerHTML = '';
 
         if (!filter) {

@@ -12,7 +12,7 @@
                     <h1 class="text-3xl text-center font-bold text-gray-900 mb-8">Bienvenido</h1>
                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
                         <a href="show"
-                            class="block p-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 transition-colors duration-300 ease-in-out">
+                            class="redirect-link block p-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 transition-colors duration-300 ease-in-out">
                             <div class="flex flex-col items-center">
                                 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -27,7 +27,7 @@
                             </div>
                         </a>
                         <a href="planilla"
-                            class="block p-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 transition-colors duration-300 ease-in-out">
+                            class="redirect-link block p-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 transition-colors duration-300 ease-in-out">
                             <div class="flex flex-col items-center">
                                 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -42,7 +42,7 @@
                             </div>
                         </a>
                         <a href="sueldo"
-                            class="block p-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 transition-colors duration-300 ease-in-out">
+                            class="redirect-link block p-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 transition-colors duration-300 ease-in-out">
                             <div class="flex flex-col items-center">
                                 <svg fill="#000000" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
                                     <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -66,7 +66,7 @@
                             </div>
                         </a>
                         <a href="truck-drivers"
-                            class="block p-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 transition-colors duration-300 ease-in-out">
+                            class="redirect-link block p-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 transition-colors duration-300 ease-in-out">
                             <div class="flex flex-col items-center">
                                 <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -102,5 +102,7 @@
                 </div>
             </div>
         </div>
+        @include('components.spinner')
+        @vite(['resources/scripts/Spinner/Spinner.js'])
     </body>
 </x-admin-app-layout>

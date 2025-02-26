@@ -40,7 +40,7 @@
                         </div>
 
                       <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                        @component('components.sueldosComps.tabla1', ['datos' => $datos, 'tabla1' => $tabla1, 'tabla2' => $tabla2, 'truck_driver' => $truck_driver])
+                        @component('admin.sueldo.sueldosComps.tabla1', ['datos' => $datos, 'tabla1' => $tabla1, 'tabla2' => $tabla2, 'truck_driver' => $truck_driver])
                         @endcomponent
                     </div>                    
 
@@ -52,7 +52,7 @@
                         </div>  
 
                         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                            @component('components.sueldosComps.tabla2', ['datos' => $datos, 'tabla1' => $tabla1, 'tabla2' => $tabla2, 'truck_driver' => $truck_driver])
+                            @component('admin.sueldo.sueldosComps.tabla2', ['datos' => $datos, 'tabla1' => $tabla1, 'tabla2' => $tabla2, 'truck_driver' => $truck_driver])
                             @endcomponent
                         </div>
 
@@ -94,7 +94,7 @@
                         </div> 
 
                         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                                @component('components.sueldosComps.tabla3', ['datos' => $datos, 'tabla1' => $tabla1, 'tabla2' => $tabla2, 'tabla3' => $tabla3, 'truck_driver' => $truck_driver])
+                                @component('admin.sueldo.sueldosComps.tabla3', ['datos' => $datos, 'tabla1' => $tabla1, 'tabla2' => $tabla2, 'tabla3' => $tabla3, 'truck_driver' => $truck_driver])
                                 @endcomponent
                         </div>
 

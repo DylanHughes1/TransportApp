@@ -25,25 +25,6 @@ class ViajesController extends Controller
     }
 
     /**
-     * Muestra los choferes y viajes para asignar una nueva solicitud
-     */
-    public function createSolicitudes()
-    {
-
-        try {
-            $query = ViajesService::getInstance()->createSolicitudes();
-
-            if (request()->expectsJson()) {
-                return response()->json(['data' => $query], 200);
-            }
-            return view('admin.nuevos_viajes.create2', $query);
-        } catch (Exception $e) {
-            Log::critical('Exception: ' . $e);
-            return response()->json(['error_controlado' => $e->getMessage()], 500);
-        }
-    }
-
-    /**
      * Almacena el nuevo viaje inicial.
      */
     public function storeViajeInicial(Request $request)

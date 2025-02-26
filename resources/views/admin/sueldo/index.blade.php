@@ -22,7 +22,7 @@
                         <!-- Sección de la card -->
                         <div class="w-1/2 flex justify-center">
                             <a href="sueldo/datos"
-                                class="block w-full p-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 transition-colors duration-300 ease-in-out">
+                                class="redirect-link block w-full p-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 transition-colors duration-300 ease-in-out">
                                 <div class="flex flex-col items-center">
                                     <svg class="w-14 h-14 mb-2" fill="#000000" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
                                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -49,10 +49,11 @@
                                 </div>
                             </a>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
+        @include('components.spinner')
+        @vite(['resources/scripts/Spinner/Spinner.js'])
     </body>
 </x-admin-app-layout>

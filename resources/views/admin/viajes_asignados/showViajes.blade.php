@@ -43,6 +43,7 @@
                                             class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover-bg:700 dark:hover:border-gray-600 dark:focus:ring-gray-700">Agregar
                                             Viaje</button>
                                     </div>
+                                    @include('components.spinner')
                                     <div class="overflow-x-auto">
                                         @component('admin.viajes_asignados.viajesAsignadosComps.table-viajes-asignados', ['viajes' => $viajes, 'choferesLibres' => $choferesLibres, 'choferes' => $choferes])
                                         @endcomponent
@@ -83,6 +84,7 @@
                                                         ])
                                                         @endcomponent
                                                     </div>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
