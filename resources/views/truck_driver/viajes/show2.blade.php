@@ -35,14 +35,12 @@
                                     type="button"></button>
 
                                 <script>
-
-                                    $('#combustible').on('change', function () {
+                                    $('#combustible').on('change', function() {
 
                                         if ($(this).val() === 'si') {
                                             $('[data-modal-toggle="combustibleModal"]').trigger('click');
                                         }
                                     });
-
                                 </script>
 
                                 <div>
@@ -77,14 +75,12 @@
     </div>
     </div>
 
-    <!-- Modal toggle -->
     <button
         class="hidden text-white bg-gradient-to-br from-pink-500 to-voilet-500 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 text-center inline-flex items-center shadow-md shadow-gray-300 hover:scale-[1.02] transition-transform"
         type="button" data-modal-toggle="combustibleModal">
         Toggle modal
     </button>
 
-    <!-- Main modal -->
     <div id="combustibleModal" tabindex="-1" aria-hidden="true"
         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full">
         <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
@@ -152,6 +148,8 @@
                 </form>
             </div>
         </div>
+        @include('components.spinner')
+        @vite(['resources/scripts/Spinner/Spinner.js'])
     </div>
     </div>
 
@@ -170,10 +168,10 @@
                     'X-CSRF-TOKEN': '{{ csrf_token() }}',
                     'X-HTTP-Method-Override': 'PUT'
                 },
-                success: function (response) {
+                success: function(response) {
                     console.log("Guardado automáticamente");
                 },
-                error: function (error) {
+                error: function(error) {
                     console.error("Error al guardar", error);
                 }
             });

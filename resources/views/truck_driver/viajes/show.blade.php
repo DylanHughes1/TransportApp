@@ -98,14 +98,9 @@
                                                         data-dropdown-toggle="dropdownHover"
                                                         class="text-gray-700 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-gray-800 dark:border-gray-600 dark:hover:bg-gray-700 dark:focus:ring-blue-800"
                                                         type="button">
-                                                        <span id="selectedOption" class="mr-2">Seleccionar Localidad</span>
-                                                        <svg class="w-2.5 h-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                                d="m1 1 4 4 4-4" />
-                                                        </svg>
+                                                        <span id="selectedOption">Seleccionar Localidad</span>
                                                     </button>
 
-                                                    <!-- Dropdown menu -->
                                                     <div id="dropdownHover"
                                                         class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
                                                         <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
@@ -124,11 +119,9 @@
                                                         </ul>
                                                     </div>
                                                     o
-                                                    <!-- Campo de formulario oculto para la opción seleccionada -->
                                                     <input type="hidden" id="selectedOptionInput"
                                                         name="opcion_seleccionada" value="">
 
-                                                    <!-- Input para agregar una localidad nueva -->
                                                     <div class="mt-4">
                                                         <input type="text" id="salida" name="salida"
                                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -136,39 +129,33 @@
                                                     </div>
 
                                                     <script>
-                                                        // Obtén una referencia a los elementos del DOM
                                                         const dropdownButton = document.getElementById("dropdownHoverButton");
                                                         const selectedOptionSpan = document.getElementById("selectedOption");
                                                         const selectedOptionInput = document.getElementById("selectedOptionInput");
                                                         const nuevaLocalidadInput = document.getElementById("salida");
 
-                                                        // Agrega un evento click al botón del dropdown
                                                         dropdownButton.addEventListener("click", () => {
                                                             document.getElementById("dropdownHover").classList.toggle("hidden");
                                                         });
 
-                                                        // Agrega un evento click a cada opción dentro del menú
                                                         const options = document.querySelectorAll("#dropdownHover a");
                                                         options.forEach(option => {
                                                             option.addEventListener("click", () => {
                                                                 const selectedValue = option.getAttribute("data-value");
                                                                 if (selectedValue === "Seleccionar Localidad") {
-                                                                    // Si se selecciona la opción en blanco, habilita el campo de "Agregar localidad nueva"
                                                                     nuevaLocalidadInput.disabled = false;
-                                                                    selectedOptionInput.value = ""; // Limpia el campo de opción seleccionada
+                                                                    selectedOptionInput.value = "";
                                                                     selectedOptionSpan.textContent = option.textContent;
                                                                 } else {
                                                                     selectedOptionSpan.textContent = option.textContent;
                                                                     selectedOptionInput.value = selectedValue;
-                                                                    nuevaLocalidadInput.value = ""; // Limpia el campo de nueva localidad
-                                                                    nuevaLocalidadInput.disabled = true; // Deshabilita el campo de nueva localidad
+                                                                    nuevaLocalidadInput.value = "";
+                                                                    nuevaLocalidadInput.disabled = true;
                                                                 }
                                                                 document.getElementById("dropdownHover").classList.add("hidden");
                                                             });
                                                         });
                                                     </script>
-
-
                                                 </div>
                                             </div>
                                             <div>
@@ -208,7 +195,6 @@
                                                     <input type="hidden" id="selectedOptionInput2"
                                                         name="opcion_seleccionada2" value="">
 
-                                                    <!-- Input para agregar una localidad nueva -->
                                                     <div class="mt-4">
                                                         <input type="text" id="destino" name="destino"
                                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -243,7 +229,6 @@
                                                             });
                                                         });
                                                     </script>
-
 
                                                 </div>
                                             </div>
@@ -285,11 +270,14 @@
                                     </form>
                                 </div>
                             </div>
+                            @include('components.spinner')
+                            @vite(['resources/scripts/Spinner/Spinner.js'])
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
     </div>
     </x-truck-driver-app-layout>

@@ -40,7 +40,7 @@
                                                 
                                                     @if ($viaje->progresoSolicitud == 2)
 
-                                                        <a href="viajes/{{$viaje->id}}" style="text-decoration:none" class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                                                        <a href="viajes/{{$viaje->id}}" style="text-decoration:none" class=" redirect-link block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
                                                             <h5 class="mb-2 text-base font-bold tracking-tight text-gray-900 dark:text-white text-center">Viaje {{ \Carbon\Carbon::parse($viaje->fecha_salida)->format('d/m/y') }}</h5>
                                             
                                                             @if (!$viaje->viajeInicialCreado && !$viaje->esVacio)
@@ -77,9 +77,9 @@
                             @endif
                         </div>
                     </div>
-                    
-                    
                 </div>
             </div>
+            @include('components.spinner')
+            @vite(['resources/scripts/Spinner/Spinner.js'])
         </body>
 </x-truck-driver-app-layout>

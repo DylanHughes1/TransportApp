@@ -15,26 +15,26 @@
                     <div class="p-6 bg-white border-b border-gray-200">
 
                         <a href="solicitudes" style="text-decoration:none"
-                            class="text-center block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                            class="redirect-link text-center block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
                             <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Ver
                                 Solicitudes</h5>
                             @if ($cantidadSolicitudes > 0)
-                                <p class="font-normal text-red-500">
-                                    @if ($cantidadSolicitudes == 1)
-                                        {{ $cantidadSolicitudes }} solicitud pendiente
-                                    @else
-                                        {{ $cantidadSolicitudes }} solicitudes pendientes
-                                    @endif
-                                </p>
+                            <p class="font-normal text-red-500">
+                                @if ($cantidadSolicitudes == 1)
+                                {{ $cantidadSolicitudes }} solicitud pendiente
+                                @else
+                                {{ $cantidadSolicitudes }} solicitudes pendientes
+                                @endif
+                            </p>
                             @else
-                                <p class="font-normal text-green-500 dark:text-gray-400">No hay solicitudes pendientes.</p>
+                            <p class="font-normal text-green-500 dark:text-gray-400">No hay solicitudes pendientes.</p>
                             @endif
                         </a>
 
                     </div>
                     <div class="p-6 bg-white border-b border-gray-200">
                         <a href="viajes" style="text-decoration:none"
-                            class="text-center block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                            class="redirect-link text-center block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
                             <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Ver Viajes
                             </h5>
                             <p class="font-normal text-gray-700 dark:text-gray-400">Viajes realizados</p>
@@ -43,7 +43,7 @@
 
                     <div class="p-6 bg-white border-b border-gray-200">
                         <a href="perfil" style="text-decoration:none"
-                            class="text-center block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                            class="redirect-link text-center block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
                             <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Ver Información Personal
                             </h5>
                             <p class="font-normal text-gray-700 dark:text-gray-400">Empresa, Patente</p>
@@ -52,6 +52,8 @@
                 </div>
             </div>
         </div>
+        @include('components.spinner')
+        @vite(['resources/scripts/Spinner/Spinner.js'])
     </body>
     </x-truck-driver-app-layout>
 
