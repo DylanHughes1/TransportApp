@@ -102,7 +102,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         ->middleware('auth:admin')
         ->name('show');
 
-    Route::put('update', [ViajesController::class, 'updateViaje'])
+    Route::put('update/{id}', [ViajesController::class, 'updateViaje'])
         ->middleware('auth:admin')
         ->name('update');
 

@@ -79,7 +79,6 @@ class ViajesController extends Controller
     {
         try {
             $result = ViajesService::getInstance()->updateViaje($id, $request->all());
-
             return redirect($result['redirect'])->with('status', $result['status']);
         } catch (Exception $e) {
             Log::critical('Exception: ' . $e);

@@ -13,10 +13,10 @@
 
                         @if ($solicitudes->isEmpty())
                         <div class="col-span-1 sm:col-span-2 lg:col-span-3 p-4 bg-white shadow-md rounded-lg dark:bg-gray-800 text-center">
-                            <p class="text-gray-900 dark:text-white">No hay solicitudes disponibles.</p>
+                            <p class="text-gray-900 dark:text-white">No hay solicitudes pendientes.</p>
                         </div>
                         @else
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 mt-6">
                             @foreach ($solicitudes as $key => $solicitud)
                             <div class="p-4 bg-white shadow-md rounded-lg dark:bg-gray-800 text-center">
                                 <div class="mb-2">

@@ -150,46 +150,38 @@ class ViajesService
         return $city;
     }
 
-    public function updateViaje($data, $id)
+    public function updateViaje($id, $data)
     {
-        $viaje = Viajes::findOrFail($id);
+        $viaje = viajes::findOrFail($id);
+        $validatedData = $this->validateFinalizarViaje($data);
 
-        if (!empty($data['finalizar']) && $data['finalizar'] == 1) {
-            $validatedData = $this->validateFinalizarViaje($data);
-            foreach ($validatedData as $key => $value) {
-                if ($value !== null) {
-                    $viaje->$key = $value;
-                }
-            }
-
-            if (!is_null($viaje->km_salida) && !is_null($viaje->km_llegada)) {
-                $viaje->km_viaje = $viaje->km_llegada - $viaje->km_salida;
-            }
-
-            if ($viaje->progreso == 1 && !is_null($data['carga_kg'] ?? null)) {
-                $viaje->progreso = 2;
-            }
-
-            $viaje->enCurso = false;
-            $viaje->save();
-
-            return ['redirect' => "/truck_driver/viajes/image/$id", 'status' => 'Cambios Guardados'];
+        if (!is_null($viaje->km_salida) && !is_null($viaje->km_llegada)) {
+            $viaje->km_viaje = $viaje->km_llegada - $viaje->km_salida;
         }
+
+        if ($viaje->progreso == 1 && !is_null($data['carga_kg'] ?? null)) {
+            $viaje->progreso = 2;
+        }
+
+        $viaje->enCurso = false;
+        $viaje->save();
+
+        return ['redirect' => "/truck_driver/viajes/image/$id", 'status' => 'Cambios Guardados'];
     }
     private function validateFinalizarViaje($data)
     {
         return Validator::make($data, [
-            'fecha_salida' => 'nullable|date',
-            'origen' => 'nullable|max:255',
-            'fecha_llegada' => 'nullable|date',
-            'km_viaje' => 'nullable|numeric',
-            'destino' => 'nullable|max:255',
-            'km_salida' => 'nullable|numeric',
+            'fecha_salida' => 'date',
+            'origen' => 'max:255',
+            'fecha_llegada' => 'date',
+            'km_viaje' => 'numeric',
+            'destino' => 'max:255',
+            'km_salida' => 'numeric',
             'c_porte' => 'nullable|numeric',
-            'producto' => 'nullable|max:255',
-            'carga_kg' => 'nullable|numeric',
-            'descarga_kg' => 'nullable|numeric',
-            'km_llegada' => 'nullable|numeric',
+            'producto' => 'max:255',
+            'carga_kg' => 'numeric',
+            'descarga_kg' => 'numeric',
+            'km_llegada' => 'numeric',
             'km_1_2' => 'nullable|numeric',
             'control_desc' => 'nullable|numeric',
         ])->validate();
