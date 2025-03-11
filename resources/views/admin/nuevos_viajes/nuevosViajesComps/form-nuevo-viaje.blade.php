@@ -114,21 +114,34 @@
     </div>
 
     <div class="mb-6">
-        <label for="pricing-option" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Seleccione una
-            opción de precio</label>
+        <label for="pricing-option" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Seleccione opción para la facturación</label>
+        <div class="flex items-center me-4">
+            <input id="option-carga" type="radio" value="carga" name="fac-option"
+                class="w-4 h-4 mr-2 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                onclick="">
+            <label for="option-carga" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Carga (Kg)</label>
+        </div>
+        <div class="flex items-center me-4 mt-2">
+            <input id="option-descarga" type="radio" value="descarga" name="fac-option"
+                class="w-4 h-4 mr-2 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                onclick="">
+            <label for="option-descarga" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Descarga (Kg)</label>
+        </div>
+    </div>
+
+    <div class="mb-6">
+        <label for="pricing-option" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Seleccione una opción de precio</label>
         <div class="flex items-center me-4">
             <input id="option-tonelada" type="radio" value="tonelada" name="pricing-option"
                 class="w-4 h-4 mr-2 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                 onclick="showInputField()">
-            <label for="option-tonelada" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Precio por
-                Tonelada</label>
+            <label for="option-tonelada" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Precio por Tonelada</label>
         </div>
         <div class="flex items-center me-4 mt-2">
             <input id="option-total" type="radio" value="total" name="pricing-option"
                 class="w-4 h-4 mr-2 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                 onclick="showInputField()">
-            <label for="option-total" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Precio Total del
-                Viaje</label>
+            <label for="option-total" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Precio Total del Viaje</label>
         </div>
     </div>
 

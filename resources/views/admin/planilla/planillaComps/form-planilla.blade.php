@@ -19,7 +19,7 @@
             {{ \Carbon\Carbon::parse($viaje->fecha_llegada)->format('d/m/y') }}
         </td>
         <td class="px-6 py-4">
-            {{ number_format($viaje->llegada, 0) }}
+            {{ number_format($viaje->km_llegada, 0) }}
         </td>
         <td class="px-6 py-4">
             {{ $viaje->producto->nombre ?? '-' }}
@@ -35,10 +35,12 @@
         </td>
         <td class="px-6 py-4">
             {{
-            $viaje->TN ??
-            (($viaje->carga_kg / 1000) * $viaje->TN) ??
-            $viaje->precio_total
-                }}
+                $viaje->TN ?? 
+                ($viaje->facturacion_opcion === 'carga' 
+                    ? ($viaje->carga_kg / 1000) * $viaje->TN 
+                    : ($viaje->descarga_kg / 1000) * $viaje->TN) 
+                ?? $viaje->precio_total
+            }}
         </td>
         <td class="px-6 py-4">
             {{ 

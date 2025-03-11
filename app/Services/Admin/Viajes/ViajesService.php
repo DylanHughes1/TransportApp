@@ -52,6 +52,8 @@ class ViajesService
 
         $this->setPricing($viaje_inicial, $request);
 
+        $viaje_inicial->facturacion_opcion = $request->get('fac-option');
+
         $viaje_inicial->save();
 
         return $viaje_inicial;
@@ -74,7 +76,6 @@ class ViajesService
 
         return Destino::firstOrCreate(['nombre' => $nombreDestino])->id;
     }
-
 
     private function setPricing(Viajes $viaje_inicial, $request)
     {
