@@ -28,6 +28,9 @@
            {{ number_format($viaje->carga_kg, 0) }}
         </td>
         <td class="px-6 py-4">
+           {{ number_format($viaje->descarga_kg, 0) }}
+        </td>
+        <td class="px-6 py-4">
             {{$viaje->TN ?? '-' }}
         </td>
         <td class="px-6 py-4">

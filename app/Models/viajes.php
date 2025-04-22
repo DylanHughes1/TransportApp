@@ -39,4 +39,14 @@ class viajes extends Model
     {
         return $this->belongsTo(Producto::class, 'producto_id');
     }
+
+    public function viajePrincipal()
+    {
+        return $this->belongsTo(Viajes::class, 'viaje_principal_id');
+    }
+
+    public function viajesAsociados()
+    {
+        return $this->hasMany(Viajes::class, 'viaje_principal_id');
+    }
 }

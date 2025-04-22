@@ -226,6 +226,8 @@ class ViajesService
 
         $viaje = new Viajes();
 
+        $viaje->viaje_principal_id = $viajeAsociado->id;
+
         if (!empty($validatedData['opcion_seleccionada'])) {
             $viaje->origen_id = Origen::firstOrCreate([
                 'nombre' => $this->normalizeCityName($validatedData['opcion_seleccionada'])

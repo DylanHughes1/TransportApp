@@ -27,6 +27,9 @@
         Carga (kg)
     </th>
     <th scope="col" class="px-6 py-3">
+        Descarga (kg)
+    </th>
+    <th scope="col" class="px-6 py-3">
         $/TN
     </th>
     <th scope="col" class="px-6 py-3">
