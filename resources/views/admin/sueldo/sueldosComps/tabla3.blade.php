@@ -198,29 +198,29 @@
         </tr>
 
         @if(count($tabla3->nuevasFilas) > 0)
-            @foreach ($tabla3->nuevasFilas as $nuevaFila)
-                <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                    <th scope="row" class="px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        <input
-                            class="editable-rowName bg-white text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            data-field="nombre" data-id="{{$nuevaFila->id}}" name="nombre{{$nuevaFila->id}}"
-                            value="{{$nuevaFila->nombre}}">
-                    </th>
-                    <td class="px-2 py-3">
-                        <input type="number"
-                            style="border: none; background-color: transparent; width: 125px; text-align: left;"
-                            data-id="{{$nuevaFila->id}}" data-field="valor" class="py-1 text-sm editable-rowAmount"
-                            name="valor{{$nuevaFila->id}}" value="{{$nuevaFila->valor}}">
-                    </td>
-                    <td class="mr-6 py-3">
-                        -
-                    </td>
-                    <td class="px-6 py-3 col-total">
-                        {{ $nuevaFila->valor ? $nuevaFila->valor : 0 }}
-                    </td>
-                </tr>
+        @foreach ($tabla3->nuevasFilas as $nuevaFila)
+        <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+            <th scope="row" class="px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                <input
+                    class="editable-rowName bg-white text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    data-field="nombre" data-id="{{$nuevaFila->id}}" name="nombre{{$nuevaFila->id}}"
+                    value="{{$nuevaFila->nombre}}">
+            </th>
+            <td class="px-2 py-3">
+                <input type="number"
+                    style="border: none; background-color: transparent; width: 125px; text-align: left;"
+                    data-id="{{$nuevaFila->id}}" data-field="valor" class="py-1 text-sm editable-rowAmount"
+                    name="valor{{$nuevaFila->id}}" value="{{$nuevaFila->valor}}">
+            </td>
+            <td class="mr-6 py-3">
+                -
+            </td>
+            <td class="px-6 py-3 col-total">
+                {{ $nuevaFila->valor ? $nuevaFila->valor : 0 }}
+            </td>
+        </tr>
 
-            @endforeach
+        @endforeach
         @endif
 
     <tfoot>
@@ -287,12 +287,12 @@
                 <td class="px-4 py-2 text-center border-b font-bold">Subtotal:</td>
                 <td id="subtotal_extra" class="px-4 py-2 text-center border-b text-red-500 font-bold">
                     @php
-                        $subtotal = $tabla3->adelantos + $tabla3->celular + $tabla3->gastos;
+                    $subtotal = $tabla3->adelantos + $tabla3->celular + $tabla3->gastos;
                     @endphp
                     @if($subtotal !== 0.00)
-                        -{{ number_format($subtotal, 2) }}
+                    -{{ number_format($subtotal, 2) }}
                     @else
-                        -
+                    -
                     @endif
                 </td>
 
@@ -302,45 +302,57 @@
 </div>
 
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         const truckDriverId = '{{$truck_driver->id}}';
         const token = '{{ csrf_token() }}';
 
-        $('.editable-amount').on('blur', function () {
+        $('.editable-amount').on('blur', function() {
             const inputField = $(this);
             const value = parseFloat(inputField.val()) || 0;
             const field = inputField.data('field')
             const totalColumn = inputField.closest('tr').find('.col-total');
 
             updateTotalColumn(inputField, value, totalColumn);
-            sendAjaxRequest(`/admin/sueldo/actualizarValor3/${truckDriverId}`, { field, value });
+            sendAjaxRequest(`/admin/sueldo/actualizarValor3/${truckDriverId}`, {
+                field,
+                value
+            });
             updateTotalNoRemunerativo();
 
         });
 
-        $('.editable-value').on('blur', function () {
+        $('.editable-value').on('blur', function() {
             const inputField = $(this);
             const value = parseFloat(inputField.val()) || 0;
             const field = inputField.attr('name');
 
-            sendAjaxRequest(`/admin/sueldo/actualizarGastosExtra/${truckDriverId}`, { field, value });
+            sendAjaxRequest(`/admin/sueldo/actualizarGastosExtra/${truckDriverId}`, {
+                field,
+                value
+            });
             updateSubtotalColumn();
         });
 
-        $('.editable-name').on('blur', function () {
+        $('.editable-name').on('blur', function() {
             const inputField = $(this);
             const value = inputField.val().trim();
             const field = inputField.data('field');
-            sendAjaxRequest(`/admin/sueldo/actualizarNombre3/${truckDriverId}`, { field, value });
+            sendAjaxRequest(`/admin/sueldo/actualizarNombre3/${truckDriverId}`, {
+                field,
+                value
+            });
         });
-        $('.editable-rowName').on('blur', function () {
+        $('.editable-rowName').on('blur', function() {
             const inputField = $(this);
             const value = inputField.val();
             const field = inputField.data('field');
             const id = inputField.data('id');
-            sendAjaxRequest(`/admin/sueldo/actualizarNombreNuevaFila/${id}`, { field, value });
+            sendAjaxRequest(`/admin/sueldo/actualizarNombreNuevaFila/${id}`, {
+                field,
+                value
+            });
         });
-        $('.editable-rowAmount').on('blur', function () {
+        $('.editable-rowAmount').on('blur', function() {
             const inputField = $(this);
             const value = parseFloat(inputField.val()) || 0;
             const field = inputField.data('field');
@@ -348,7 +360,10 @@
             const totalColumn = inputField.closest('tr').find('.col-total');
             totalColumn.text(value.toFixed(2));
 
-            sendAjaxRequest(`/admin/sueldo/actualizarValorNuevaFila/${id}`, { field, value });
+            sendAjaxRequest(`/admin/sueldo/actualizarValorNuevaFila/${id}`, {
+                field,
+                value
+            });
             updateTotalNoRemunerativo();
         });
 
@@ -360,7 +375,9 @@
             }
             totalColumn.text(product.toFixed(2));
 
-            sendAjaxRequest(`/admin/sueldo/actualizarTotalNoRenum/${truckDriverId}`, { product });
+            sendAjaxRequest(`/admin/sueldo/actualizarTotalNoRenum/${truckDriverId}`, {
+                product
+            });
             updateTotalNoRemunerativo();
         }
 
@@ -368,17 +385,20 @@
             let subtotal = 0;
             let inasistenciasValue = 0;
 
-            $('.col-total').each(function () {
+            $('.col-total').each(function() {
                 const totalValue = parseFloat($(this).text()) || 0;
                 subtotal += totalValue;
             });
 
             $('#total_no_remun').text(subtotal.toFixed(2));
 
-            let total_final = parseFloat($('#subtotal2').text()) - subtotal;
+            let subtotal2 = parseFloat($('#subtotal2').text()) || 0;
+            let total_final = subtotal2 + subtotal;
             $('#total_final').text(total_final.toFixed(2));
 
-            sendAjaxRequest(`/admin/sueldo/actualizarTotalNoRenum/${truckDriverId}`, { subtotal });
+            sendAjaxRequest(`/admin/sueldo/actualizarTotalNoRenum/${truckDriverId}`, {
+                subtotal
+            });
 
             let subtotal_extra = parseFloat($('#subtotal_extra').text()) || 0;
 
@@ -407,11 +427,14 @@
             $.ajax({
                 url: url,
                 method: 'POST',
-                data: { _token: token, ...data },
-                success: function () {
+                data: {
+                    _token: token,
+                    ...data
+                },
+                success: function() {
                     console.log('Actualización exitosa');
                 },
-                error: function () {
+                error: function() {
                     console.log('Error al actualizar');
                 }
             });
