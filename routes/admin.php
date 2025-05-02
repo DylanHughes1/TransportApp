@@ -133,6 +133,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('planillaFiltrada/export/{id}/{fechaInicio}/{fechaFin}', [PlanillaController::class, 'exportPlanillaFiltrada'])
         ->middleware('auth:admin');
 
+    Route::get('planillaMensual/export/{id}', [PlanillaController::class, 'exportPlanillaMensual'])
+        ->middleware('auth:admin');
+
+
     // Exports
     Route::get('users/export/', [DashboardController::class, 'export']);
 
