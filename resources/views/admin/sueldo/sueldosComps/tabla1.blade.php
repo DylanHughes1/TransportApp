@@ -332,7 +332,7 @@
             $('#antig').text((subtotal1 * antiguedad * 0.01).toFixed(2));
             let total_descuento = parseFloat($('#total_descuento').text());
 
-            let subtotal2 = totalRemunerativo + total_descuento;
+            let subtotal2 = totalRemunerativo - total_descuento;
 
             $('#total_remun1').text(totalRemunerativo.toFixed(2));
 

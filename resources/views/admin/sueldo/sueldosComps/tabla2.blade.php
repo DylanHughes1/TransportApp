@@ -214,9 +214,9 @@
             $('.descuento').each(function () {
                 total_descuento += parseFloat($(this).text()) || 0;
             });
-
-            const subtotal2 = parseFloat("{{ $tabla1->total_remun1 }}") - total_descuento;
             
+            const subtotal2 = parseFloat("{{ $tabla1->total_remun1 }}") - total_descuento;
+
             $('#total_descuento').text(total_descuento.toFixed(2));
             $('#subtotal2').text(subtotal2.toFixed(2));
 
