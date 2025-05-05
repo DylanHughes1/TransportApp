@@ -29,6 +29,6 @@ class Tabla3 extends Model
 
     public function nuevasFilas()
     {
-        return $this->hasMany(nuevaFila::class, 'tabla3_id');
+        return $this->belongsToMany(nuevaFila::class, 'nueva_fila_tabla3');
     }
 }

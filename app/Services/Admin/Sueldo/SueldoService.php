@@ -185,18 +185,38 @@ class SueldoService
         } else return false;
     }
 
-
-    public function agregarNuevaFila($data, $id)
+    public function agregarNuevaFilaTabla1($data)
     {
-        $nuevaFila = new nuevaFila();
-        $nuevaFila->nombre = $data->input('nombre');
-        $nuevaFila->valor = $data->input('valor');
+        $nuevaFila = nuevaFila::create([
+            'nombre' => $data->input('nombre'),
+            'valor' => $data->input('valor'),
+        ]);
 
-        $tabla3 = Tabla3::where('truckdriver_id', $id)->first();
-        $tabla3->nuevasFilas()->save($nuevaFila);
-        $tabla3->total_remun2 += $nuevaFila->valor;
-        $tabla3->save();
+        $todasLasTabla1 = Tabla1::all();
+
+        foreach ($todasLasTabla1 as $tabla1) {
+            $tabla1->nuevasFilas()->attach($nuevaFila->id);
+            $tabla1->total_remun2 += $nuevaFila->valor;
+            $tabla1->save();
+        }
     }
+
+    public function agregarNuevaFila($data)
+    {
+        $nuevaFila = nuevaFila::create([
+            'nombre' => $data->input('nombre'),
+            'valor' => $data->input('valor'),
+        ]);
+
+        $todasLasTabla3 = Tabla3::all();
+
+        foreach ($todasLasTabla3 as $tabla3) {
+            $tabla3->nuevasFilas()->attach($nuevaFila->id);
+            $tabla3->total_remun2 += $nuevaFila->valor;
+            $tabla3->save();
+        }
+    }
+
 
     public function actualizarNombreNuevaFila($data, $id)
     {

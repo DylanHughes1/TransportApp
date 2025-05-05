@@ -13,7 +13,7 @@
                     @method('PUT')
                     @foreach($datos as $dato)
 
-                    <div class="mb-6">
+                    <div class="mb-8">
                         <h2 class="text-xl font-semibold text-left text-gray-800 border-b pb-2 mb-4">Sueldo Base</h2>
                         <div class="grid md:grid-cols-3 gap-6">
                             <x-input-field label="Sueldo Básico" name="sueldo_basico" :value="$dato->sueldo_basico" />
@@ -22,7 +22,7 @@
                         </div>
                     </div>
 
-                    <div class="mb-6">
+                    <div class="mb-8">
                         <h2 class="text-xl font-semibold text-left text-gray-800 border-b pb-2 mb-4">Remuneraciones Complementarias</h2>
                         <div class="grid md:grid-cols-3 gap-6">
                             <x-input-field label="HS.EXT.KM.RECOR" name="hs_ext_km_recorrido" :value="$dato->hs_ext_km_recorrido" />
@@ -31,7 +31,7 @@
                         </div>
                     </div>
 
-                    <div class="mb-6">
+                    <div class="mb-8">
                         <h2 class="text-xl font-semibold text-left text-gray-800 border-b pb-2 mb-4">Viáticos Corta y Local</h2>
                         <div class="grid md:grid-cols-3 gap-6">
                             <x-input-field label="Comida" name="comida" :value="$dato->comida" />
@@ -40,7 +40,7 @@
                         </div>
                     </div>
 
-                    <div class="mb-6">
+                    <div class="mb-8">
                         <h2 class="text-xl font-semibold text-left text-gray-800 border-b pb-2 mb-4">Larga Distancia</h2>
                         <div class="grid md:grid-cols-3 gap-6">
                             <x-input-field label="KMS.REC" name="kms_rec" :value="$dato->kms_rec" />

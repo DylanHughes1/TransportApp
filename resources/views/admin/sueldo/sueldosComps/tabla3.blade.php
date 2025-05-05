@@ -207,13 +207,13 @@
                     value="{{$nuevaFila->nombre}}">
             </th>
             <td class="px-2 py-3">
+                &nbsp;&nbsp;&nbsp;-
+            </td>
+            <td class="mr-6 py-3">
                 <input type="number"
                     style="border: none; background-color: transparent; width: 125px; text-align: left;"
                     data-id="{{$nuevaFila->id}}" data-field="valor" class="py-1 text-sm editable-rowAmount"
                     name="valor{{$nuevaFila->id}}" value="{{$nuevaFila->valor}}">
-            </td>
-            <td class="mr-6 py-3">
-                -
             </td>
             <td class="px-6 py-3 col-total">
                 {{ $nuevaFila->valor ? $nuevaFila->valor : 0 }}

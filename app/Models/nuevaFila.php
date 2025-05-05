@@ -10,8 +10,16 @@ class nuevaFila extends Model
 {
     public $table = "nueva_fila";
     public $timestamps = false;
-    public function tabla3()
+
+    protected $fillable = ['nombre', 'valor'];
+
+    public function tabla1s()
     {
-        return $this->belongsTo(Tabla3::class, 'tabla3_id');
+        return $this->belongsToMany(Tabla1::class, 'nueva_fila_tabla1');
+    }    
+
+    public function tabla3s()
+    {
+        return $this->belongsToMany(Tabla3::class, 'nueva_fila_tabla3');
     }
 }
