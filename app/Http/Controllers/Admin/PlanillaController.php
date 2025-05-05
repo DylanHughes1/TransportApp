@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Exception;
 use Illuminate\Support\Facades\{Log};
 use App\Services\Admin\Planilla\PlanillaService;
-use App\Exports\{PlanillaExport, PlanillaFiltradaExport, PlanillaMensualExport};
+use App\Exports\{PlanillaMensualExport, PlanillaExportMultiple};
 use Maatwebsite\Excel\Facades\Excel;
 
 class PlanillaController extends Controller
@@ -112,12 +112,12 @@ class PlanillaController extends Controller
 
     public function exportPlanilla($id)
     {
-        return Excel::download(new PlanillaExport($id), 'planilla.xlsx');
+        return Excel::download(new PlanillaExportMultiple($id), 'planilla_chofer.xlsx');
     }
 
     public function exportPlanillaFiltrada($id, $fechaInicio, $fechaFin)
     {
-        return Excel::download(new PlanillaFiltradaExport($id, $fechaInicio, $fechaFin), 'planilla.xlsx');
+        return Excel::download(new PlanillaExportMultiple($id, $fechaInicio, $fechaFin), 'planilla_filtrada.xlsx');
     }
 
     public function exportPlanillaMensual($id)
