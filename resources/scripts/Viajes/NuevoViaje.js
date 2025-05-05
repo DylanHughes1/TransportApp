@@ -46,15 +46,20 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById('input-tonelada').classList.add('hidden');
         document.getElementById('input-total').classList.add('hidden');
 
-        if (document.getElementById('option-tonelada').checked) {
-            document.getElementById('input-tonelada').classList.remove('hidden');
-        } else if (document.getElementById('option-total').checked) {
-            document.getElementById('input-total').classList.remove('hidden');
+        const selectedOption = document.querySelector('input[name="pricing-option"]:checked');
+
+        if (selectedOption) {
+            if (selectedOption.value === 'tonelada') {
+                document.getElementById('input-tonelada').classList.remove('hidden');
+            } else if (selectedOption.value === 'total') {
+                document.getElementById('input-total').classList.remove('hidden');
+            }
         }
     }
-
-    document.getElementById('option-tonelada').addEventListener('click', showInputField);
-    document.getElementById('option-total').addEventListener('click', showInputField);
+    document.querySelectorAll('input[name="pricing-option"]').forEach((input) => {
+        input.addEventListener('change', showInputField);
+    });
+    window.addEventListener('DOMContentLoaded', showInputField);
 
     //Spinner
     $(document).ready(function () {
