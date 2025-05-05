@@ -199,7 +199,7 @@
                     </h3>
                 </div>
                 <div class="p-6 space-y-6">
-                    {{ $viaje->observacion_origen }}
+                    {{ $viaje->observacion_origen ?? 'No hay observaciones'}}
                 </div>
             </div>
         </div>
@@ -225,7 +225,7 @@
                     </button>
                 </div>
                 <div class="p-6 space-y-6">
-                    {{ $viaje->observacion_destino }}
+                    {{ $viaje->observacion_destino ?? 'No hay observaciones'}}
                 </div>
             </div>
         </div>

@@ -26,7 +26,7 @@
                     value=" {{floatval($tabla2->jubilacion)}}%">
             </td>
             <td class="px-6 py-3">
-                -
+                
             </td>
             <td class="descuento px-6 py-3">
                 @php
