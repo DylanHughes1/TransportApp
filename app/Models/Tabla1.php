@@ -11,9 +11,14 @@ class Tabla1 extends Model
     public $table = "tabla1_sueldo";
     protected $fillable = ['truckdriver_id'];
     public $timestamps = false;
+
     public function truckdriver()
     {
-        return $this->belongsTo(TruckDriver::class); 
+        return $this->belongsTo(TruckDriver::class);
+    }
+
+    public function nuevasFilas()
+    {
+        return $this->belongsToMany(nuevaFila::class, 'nueva_fila_tabla1');
     }
 }
-

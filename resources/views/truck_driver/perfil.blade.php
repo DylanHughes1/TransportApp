@@ -67,6 +67,8 @@
                                                 Quitar Empresa
                                             </button>
                                         </form>
+                                        @include('components.spinner')
+                                        @vite(['resources/scripts/Spinner/Spinner.js'])
                                     </div>
                                 @endif
 

@@ -19,10 +19,15 @@ class PlanillaExport implements FromCollection, WithMapping, WithHeadings, WithS
     protected $id;
     protected $truck_driver_name;
     protected $viajes;
-    public function __construct($parametro1)
+    protected $fechaInicio;
+    protected $fechaFin;
+
+    public function __construct($parametro1, $fechaInicio = null, $fechaFin = null)
     {
         $this->id = $parametro1;
         $this->truck_driver_name = TruckDriver::find($this->id)->name;
+        $this->fechaInicio = $fechaInicio;
+        $this->fechaFin = $fechaFin;
     }
 
     /**
@@ -30,26 +35,20 @@ class PlanillaExport implements FromCollection, WithMapping, WithHeadings, WithS
      */
     public function collection()
     {
-        $viajes = viajes::where('truckdriver_id', $this->id)
+        $query = viajes::where('truckdriver_id', $this->id)
             ->where('enCurso', false)
-            ->with('combustibles')
-            ->orderBy('fecha_llegada', 'asc')
-            ->get();
+            ->with(['combustibles', 'viajesAsociados']);
+
+        if ($this->fechaInicio && $this->fechaFin) {
+            $query->whereBetween('fecha_llegada', [$this->fechaInicio, $this->fechaFin]);
+        }
+
+        $viajes = $query->orderBy('fecha_llegada', 'asc')->get();
         $this->viajes = count($viajes);
 
-        $viajesOrdenados = $viajes->sort(function ($a, $b) {
-            $fechaA = \Carbon\Carbon::parse($a->fecha_llegada);
-            $fechaB = \Carbon\Carbon::parse($b->fecha_llegada);
-            $esVacioA = $a->esVacio;
-
-            if ($fechaA->eq($fechaB)) {
-                return $esVacioA ? -1 : 1;
-            }
-
-            return $fechaA->lt($fechaB) ? -1 : 1;
+        return $viajes->sort(function ($a, $b) {
+            return \Carbon\Carbon::parse($a->fecha_llegada)->lt($b->fecha_llegada) ? -1 : 1;
         });
-
-        return $viajesOrdenados;
     }
 
     public function title(): string
@@ -58,7 +57,6 @@ class PlanillaExport implements FromCollection, WithMapping, WithHeadings, WithS
     }
     public function headings(): array
     {
-        // Puedes ajustar los encabezados según tus necesidades.
         return [
             'Fecha Salida',
             'Origen',
@@ -72,6 +70,7 @@ class PlanillaExport implements FromCollection, WithMapping, WithHeadings, WithS
             '$/TN',
             'FAC.',
             '$/KM',
+            'Km Totales (Vacío + Carga)',
         ];
     }
 
@@ -82,45 +81,56 @@ class PlanillaExport implements FromCollection, WithMapping, WithHeadings, WithS
             ? number_format((($viaje->carga_kg / 1000) * $viaje->TN) / ($viaje->km_llegada - $viaje->km_salida), 2)
             : 'N/A';
 
+        $kmTotales = 'N/A';
+
+        if (!$viaje->esVacio && $viaje->viaje_principal_id === null) {
+            $kmTotales = $viaje->km_viaje;
+
+            if ($viaje->relationLoaded('viajesAsociados')) {
+                $kmTotales += $viaje->viajesAsociados->sum('km_viaje');
+            } else {
+                $kmTotales += $viaje->viajesAsociados()->sum('km_viaje');
+            }
+        }
+
         return [
             $viaje->fecha_salida,
-            $viaje->origen,
+            $viaje->origen->nombre,
             $viaje->km_viaje,
             $viaje->km_salida,
-            $viaje->destino,
+            $viaje->destino->nombre,
             $viaje->fecha_llegada,
             $viaje->km_llegada,
-            $viaje->producto,
+            $viaje->producto?->nombre,
             $viaje->carga_kg,
             $viaje->TN,
             ($viaje->carga_kg / 1000) * $viaje->TN,
             $resultado,
+            $kmTotales,
 
         ];
     }
     public function styles(Worksheet $sheet)
-{
-    $lastRow = $this->viajes + 1;
+    {
+        $lastRow = $this->viajes + 1;
 
-    // Aplicar bordes a todas las filas
-    for ($row = 1; $row <= $lastRow; $row++) {
-        $sheet->getStyle('A' . $row . ':M' . $row)->applyFromArray([
-            'borders' => [
-                'allBorders' => [
-                    'borderStyle' => 'thin',
-                    'color' => ['argb' => '000000'],
+        for ($row = 1; $row <= $lastRow; $row++) {
+            $sheet->getStyle('A' . $row . ':N' . $row)->applyFromArray([
+                'borders' => [
+                    'allBorders' => [
+                        'borderStyle' => 'thin',
+                        'color' => ['argb' => '000000'],
+                    ],
                 ],
+            ]);
+        }
+
+        $sheet->getDefaultColumnDimension()->setWidth(15);
+
+        return [
+            1 => [
+                'font' => ['bold' => true],
             ],
-        ]);
+        ];
     }
-
-    $sheet->getDefaultColumnDimension()->setWidth(15); 
-
-    return [
-        1 => [
-            'font' => ['bold' => true],
-        ],
-    ];
-}
-
 }

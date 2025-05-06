@@ -15,7 +15,7 @@
 
                         <!-- Sección del select -->
                         <div class="w-1/2 rounded-lg border border-gray-200 p-6 rounded-md shadow-md mr-4">
-                            @component('components.planillaComps.seleccion-chofer', ['truck_drivers' => $truck_drivers])
+                            @component('admin.planilla.planillaComps.seleccion-chofer', ['truck_drivers' => $truck_drivers])
                             @endcomponent
                         </div>
 
@@ -23,7 +23,7 @@
                         <!-- Sección de la card -->
                         <div class="w-1/2 flex justify-center">
                             <a href="planillaEmpresa"
-                                class="block w-full p-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 transition-colors duration-300 ease-in-out">
+                                class="redirect-link block w-full p-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 transition-colors duration-300 ease-in-out">
                                 <div class="flex flex-col items-center">
                                     <svg class="w-14 h-14 mb-2" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -42,11 +42,12 @@
                                 </div>
                             </a>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
+        @include('components.spinner')
+        @vite(['resources/scripts/Spinner/Spinner.js'])
     </body>
 
 </x-admin-app-layout>

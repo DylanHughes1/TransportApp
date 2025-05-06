@@ -8,5 +8,15 @@
     "file": "assets/app-5d1d33a8.js",
     "isEntry": true,
     "src": "resources/js/app.js"
+  },
+  "resources/scripts/Spinner/Spinner.js": {
+    "file": "assets/Spinner-111ac6f6.js",
+    "isEntry": true,
+    "src": "resources/scripts/Spinner/Spinner.js"
+  },
+  "resources/scripts/Viajes/NuevoViaje.js": {
+    "file": "assets/NuevoViaje-01f95dd4.js",
+    "isEntry": true,
+    "src": "resources/scripts/Viajes/NuevoViaje.js"
   }
 }

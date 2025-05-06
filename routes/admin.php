@@ -9,6 +9,8 @@ use App\Http\Controllers\Admin\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Admin\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\Auth\VerifyEmailController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\ViajesController;
+use App\Http\Controllers\Admin\PlanillaController;
 use App\Http\Controllers\Admin\SueldoController;
 use Illuminate\Support\Facades\Route;
 
@@ -78,64 +80,65 @@ Route::prefix('admin')->name('admin.')->group(function () {
         ->middleware('auth:admin')
         ->name('dashboard');
 
-    Route::get('create', [DashboardController::class, 'createViajeInicial'])
-        ->middleware('auth:admin')
-        ->name('create');
+    // Viajes
 
-    Route::post('create', [DashboardController::class, 'storeViajeInicial'])
+    Route::post('create', [ViajesController::class, 'storeViajeInicial'])
         ->middleware('auth:admin')
         ->name('store');
 
-    Route::get('viajes', [DashboardController::class, 'createSolicitudes'])
+    Route::get('viajes', [ViajesController::class, 'createSolicitudes'])
         ->middleware('auth:admin')
         ->name('create2');
 
-    Route::get('viajes/{id}', [DashboardController::class, 'getInfoViajeInicial'])
+    Route::get('viajes/{id}', [ViajesController::class, 'getInfoViajeInicial'])
         ->middleware('auth:admin')
         ->name('create3');
 
-    Route::post('viajes/{id}', [DashboardController::class, 'storeSolicitudes'])
+    Route::post('viajes/{id}', [ViajesController::class, 'storeSolicitudes'])
         ->middleware('auth:admin')
         ->name('store2');
 
-    Route::get('show', [DashboardController::class, 'showViajes'])
+    Route::get('show', [ViajesController::class, 'showViajes'])
         ->middleware('auth:admin')
         ->name('show');
 
-    Route::put('update', [DashboardController::class, 'updateViaje'])
+    Route::put('update/{id}', [ViajesController::class, 'updateViaje'])
         ->middleware('auth:admin')
         ->name('update');
 
-    Route::delete('cancelar/{id}', [DashboardController::class, 'cancelarViaje'])
+    Route::delete('cancelar/{id}', [ViajesController::class, 'cancelarViaje'])
         ->middleware('auth:admin')
         ->name('cancelar');
 
-    Route::get('planilla', [DashboardController::class, 'indexPlanilla'])
+    // Planilla
+
+    Route::get('planilla', [PlanillaController::class, 'indexPlanilla'])
         ->middleware('auth:admin');
 
-    Route::get('planilla/{id}', [DashboardController::class, 'showPlanilla'])
+    Route::get('planilla/{id}', [PlanillaController::class, 'showPlanilla'])
         ->middleware('auth:admin');
 
-    Route::get('planillaMensual/{id}', [DashboardController::class, 'showPlanillaMensual'])
+    Route::get('planillaMensual/{id}', [PlanillaController::class, 'showPlanillaMensual'])
         ->middleware('auth:admin');
 
-    Route::get('planillaFiltrada/{id}', [DashboardController::class, 'showPlanillaFiltrada'])
+    Route::get('planillaFiltrada/{id}', [PlanillaController::class, 'showPlanillaFiltrada'])
         ->middleware('auth:admin');
 
-    Route::get('planillaEmpresa', [DashboardController::class, 'showPlanillaEmpresa'])
+    Route::get('planillaEmpresa', [PlanillaController::class, 'showPlanillaEmpresa'])
         ->middleware('auth:admin');
 
-    Route::get('planilla/export/{id}', [DashboardController::class, 'exportPlanilla'])
+    Route::get('planilla/export/{id}', [PlanillaController::class, 'exportPlanilla'])
         ->middleware('auth:admin');
 
-    Route::get('planillaFiltrada/export/{id}/{fechaInicio}/{fechaFin}', [DashboardController::class, 'exportPlanillaFiltrada'])
+    Route::get('planillaFiltrada/export/{id}/{fechaInicio}/{fechaFin}', [PlanillaController::class, 'exportPlanillaFiltrada'])
         ->middleware('auth:admin');
 
+    Route::get('planillaMensual/export/{id}', [PlanillaController::class, 'exportPlanillaMensual'])
+        ->middleware('auth:admin');
 
 
     // Exports
     Route::get('users/export/', [DashboardController::class, 'export']);
-
 
     // Rutas asociadas al sueldo
 
@@ -178,7 +181,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::post('sueldo/calcular/{id}', [SueldoController::class, 'updateDatos'])
         ->middleware('auth:admin');
 
-    Route::post('sueldo/calcular/{id}/4', [SueldoController::class, 'agregarNuevaFila'])
+    Route::post('sueldo/filaNuevaTabla1/{id}', [SueldoController::class, 'agregarNuevaFilaTabla1'])
+        ->middleware('auth:admin');
+
+    Route::post('sueldo/filaNuevaTabla3/{id}', [SueldoController::class, 'agregarNuevaFilaTabla3'])
         ->middleware('auth:admin');
 
     Route::post('sueldo/actualizarNombreNuevaFila/{id}', [SueldoController::class, 'actualizarNombreNuevaFila'])

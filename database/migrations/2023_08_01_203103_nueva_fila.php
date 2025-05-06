@@ -15,12 +15,9 @@ return new class extends Migration
     {
         Schema::create('nueva_fila', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('tabla3_id');
             $table->string('nombre');
             $table->decimal('valor');
             $table->timestamps();
-
-            $table->foreign('tabla3_id')->references('id')->on('tabla3_sueldo')->onDelete('cascade');
         });
     }
 

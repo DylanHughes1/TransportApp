@@ -22,18 +22,18 @@
                         </a>
                     </div>
                     <div class="mb-3">
+                        @if (!$viaje->enCurso)
                         <label for="viajeNuevo"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ingrese Imagen del Remito</label>
-                        @if (!$viaje->enCurso)
-                            <a href="/truck_driver/viajes/image/{{$viaje->id}}" class="col-md-12 text-right">
-                                <button type="button" id="nextButton"
-                                    class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Subir
-                                    Imagen</button>
-                            </a>
+                        <a href="/truck_driver/viajes/image/{{$viaje->id}}" class="col-md-12 text-right">
+                            <button type="button" id="nextButton"
+                                class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Subir
+                                Imagen</button>
+                        </a>
                         @endif
                     </div>
 
-                    @component('components.viajeComps.formulario-viaje', ['viaje' => $viaje])
+                    @component('truck_driver.viajes.viajeComps.formulario-viaje', ['viaje' => $viaje])
                     @endcomponent
 
                     <!-- Main modal -->
@@ -74,7 +74,7 @@
                                             Completar en caso de realizar un viaje vacío hacia el lugar de carga.
                                         </div>
                                     </div>
-                                    <form method="POST" action="/truck_driver/viajes/b/{{$viaje->id}}/newViaje">
+                                    <form method="POST" action="/truck_driver/viajes/newViaje/{{$viaje->id}}">
                                         @csrf
                                         @method('PUT')
                                         <div class="grid gap-6 mb-6 md:grid-cols-3">
@@ -101,7 +101,6 @@
                                                         <span id="selectedOption">Seleccionar Localidad</span>
                                                     </button>
 
-                                                    <!-- Dropdown menu -->
                                                     <div id="dropdownHover"
                                                         class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
                                                         <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
@@ -110,21 +109,19 @@
                                                                 class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                                                 data-value="Seleccionar Localidad">Seleccionar
                                                                 Localidad</a>
-                                                            @foreach ($inputs_editables as $input_editable)
-                                                                @if($input_editable->origen != null)
-                                                                    <a href="#"
-                                                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                                                                        data-value="{{ $input_editable->origen }}">{{ $input_editable->origen }}</a>
-                                                                @endif
+                                                            @foreach ($origenes as $origen)
+                                                            @if($origen != null)
+                                                            <a href="#"
+                                                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                                                data-value="{{ $origen->nombre }}">{{ $origen->nombre }}</a>
+                                                            @endif
                                                             @endforeach
                                                         </ul>
                                                     </div>
                                                     o
-                                                    <!-- Campo de formulario oculto para la opción seleccionada -->
                                                     <input type="hidden" id="selectedOptionInput"
                                                         name="opcion_seleccionada" value="">
 
-                                                    <!-- Input para agregar una localidad nueva -->
                                                     <div class="mt-4">
                                                         <input type="text" id="salida" name="salida"
                                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -132,39 +129,33 @@
                                                     </div>
 
                                                     <script>
-                                                        // Obtén una referencia a los elementos del DOM
                                                         const dropdownButton = document.getElementById("dropdownHoverButton");
                                                         const selectedOptionSpan = document.getElementById("selectedOption");
                                                         const selectedOptionInput = document.getElementById("selectedOptionInput");
                                                         const nuevaLocalidadInput = document.getElementById("salida");
 
-                                                        // Agrega un evento click al botón del dropdown
                                                         dropdownButton.addEventListener("click", () => {
                                                             document.getElementById("dropdownHover").classList.toggle("hidden");
                                                         });
 
-                                                        // Agrega un evento click a cada opción dentro del menú
                                                         const options = document.querySelectorAll("#dropdownHover a");
                                                         options.forEach(option => {
                                                             option.addEventListener("click", () => {
                                                                 const selectedValue = option.getAttribute("data-value");
                                                                 if (selectedValue === "Seleccionar Localidad") {
-                                                                    // Si se selecciona la opción en blanco, habilita el campo de "Agregar localidad nueva"
                                                                     nuevaLocalidadInput.disabled = false;
-                                                                    selectedOptionInput.value = ""; // Limpia el campo de opción seleccionada
+                                                                    selectedOptionInput.value = "";
                                                                     selectedOptionSpan.textContent = option.textContent;
                                                                 } else {
                                                                     selectedOptionSpan.textContent = option.textContent;
                                                                     selectedOptionInput.value = selectedValue;
-                                                                    nuevaLocalidadInput.value = ""; // Limpia el campo de nueva localidad
-                                                                    nuevaLocalidadInput.disabled = true; // Deshabilita el campo de nueva localidad
+                                                                    nuevaLocalidadInput.value = "";
+                                                                    nuevaLocalidadInput.disabled = true;
                                                                 }
                                                                 document.getElementById("dropdownHover").classList.add("hidden");
                                                             });
                                                         });
                                                     </script>
-
-
                                                 </div>
                                             </div>
                                             <div>
@@ -191,12 +182,12 @@
                                                                 class="block px-4 py-2 hover:bg-gray-100 dark:hover-bg-gray-600 dark:hover:text-white"
                                                                 data-value="Seleccionar Localidad 2">Seleccionar
                                                                 Localidad</a>
-                                                            @foreach ($inputs_editables as $input_editable)
-                                                                @if($input_editable->destino != null)
-                                                                    <a href="#"
-                                                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover-bg-gray-600 dark:hover:text-white"
-                                                                        data-value="{{ $input_editable->destino }}">{{ $input_editable->destino }}</a>
-                                                                @endif
+                                                            @foreach ($destinos as $destino)
+                                                            @if($destino != null)
+                                                            <a href="#"
+                                                                class="block px-4 py-2 hover:bg-gray-100 dark:hover-bg-gray-600 dark:hover:text-white"
+                                                                data-value="{{ $destino->nombre }}">{{ $destino->nombre }}</a>
+                                                            @endif
                                                             @endforeach
                                                         </ul>
                                                     </div>
@@ -204,7 +195,6 @@
                                                     <input type="hidden" id="selectedOptionInput2"
                                                         name="opcion_seleccionada2" value="">
 
-                                                    <!-- Input para agregar una localidad nueva -->
                                                     <div class="mt-4">
                                                         <input type="text" id="destino" name="destino"
                                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -239,7 +229,6 @@
                                                             });
                                                         });
                                                     </script>
-
 
                                                 </div>
                                             </div>
@@ -281,11 +270,14 @@
                                     </form>
                                 </div>
                             </div>
+                            @include('components.spinner')
+                            @vite(['resources/scripts/Spinner/Spinner.js'])
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
     </div>
     </x-truck-driver-app-layout>

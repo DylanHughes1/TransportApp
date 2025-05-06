@@ -5,15 +5,16 @@
         </h2>
     </x-slot>
 
-    <body class="text-center bg-gray-100">
+    <body class="bg-gray-100 flex items-center justify-center min-h-screen px-4">
         <div class="flex items-top justify-center min-h-screen py-4">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-2/5">
                 <div class="bg-white overflow-hidden shadow-md sm:rounded-lg p-8">
-                    <h1 class="text-3xl text-center font-bold text-gray-900 mb-8">Bienvenido</h1>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-                        <a href="show"
-                            class="block p-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 transition-colors duration-300 ease-in-out">
-                            <div class="flex flex-col items-center">
+                    <h1 class="text-4xl sm:text-5xl font-bold text-center text-blue-600 mb-12">
+                        Bienvenido
+                    </h1>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+                        <a href="show" class="group bg-white border border-gray-200 rounded-xl p-6 shadow-md hover:shadow-2xl transform hover:scale-105 transition duration-300">
+                            <div class="flex flex-col items-center text-center space-y-4">
                                 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                     <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -23,12 +24,12 @@
                                             fill="#0F0F0F"></path>
                                     </g>
                                 </svg>
-                                <h5 class="text-xl font-bold tracking-tight text-gray-900 dark:text-white">Viajes</h5>
+                                <h5 class="text-lg font-semibold text-gray-800">Viajes</h5>
                             </div>
                         </a>
                         <a href="planilla"
-                            class="block p-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 transition-colors duration-300 ease-in-out">
-                            <div class="flex flex-col items-center">
+                            class="group bg-white border border-gray-200 rounded-xl p-6 shadow-md hover:shadow-2xl transform hover:scale-105 transition duration-300">
+                            <div class="flex flex-col items text-center space-y-4">
                                 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                     <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -38,12 +39,12 @@
                                             fill="#1F2328"></path>
                                     </g>
                                 </svg>
-                                <h5 class="text-xl font-bold tracking-tight text-gray-900 dark:text-white">Planilla</h5>
+                                <h5 class="text-lg font-semibold text-gray-800">Planilla</h5>
                             </div>
                         </a>
                         <a href="sueldo"
-                            class="block p-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 transition-colors duration-300 ease-in-out">
-                            <div class="flex flex-col items-center">
+                            class="group bg-white border border-gray-200 rounded-xl p-6 shadow-md hover:shadow-2xl transform hover:scale-105 transition duration-300">
+                            <div class="flex flex-col items-center text-center space-y-4">
                                 <svg fill="#000000" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
                                     <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                     <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -62,12 +63,12 @@
                                         </path>
                                     </g>
                                 </svg>
-                                <h5 class="text-xl font-bold tracking-tight text-gray-900 dark:text-white">Sueldo</h5>
+                                <h5 class="text-lg font-semibold text-gray-800">Sueldo</h5>
                             </div>
                         </a>
                         <a href="truck-drivers"
-                            class="block p-6 bg-white border border-gray-200 rounded-lg shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 transition-colors duration-300 ease-in-out">
-                            <div class="flex flex-col items-center">
+                            class="group bg-white border border-gray-200 rounded-xl p-6 shadow-md hover:shadow-2xl transform hover:scale-105 transition duration-300">
+                            <div class="flex flex-col items-center text-center space-y-4">
                                 <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                     <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -95,12 +96,14 @@
                                             fill="#333333"></path>
                                     </g>
                                 </svg>
-                                <h5 class="text-xl font-bold tracking-tight text-gray-900 dark:text-white">Choferes</h5>
+                                <h5 class="text-lg font-semibold text-gray-800">Choferes</h5>
                             </div>
                         </a>
                     </div>
                 </div>
             </div>
         </div>
+        @include('components.spinner')
+        @vite(['resources/scripts/Spinner/Spinner.js'])
     </body>
 </x-admin-app-layout>

@@ -5,100 +5,59 @@
         </h2>
     </x-slot>
 
-    <body class="text-center">
-        <div class="relative flex items-top justify-center min-h-screen sm:items-top py-4 sm:pt-0">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 bg-white border-b border-gray-200">
-                       
-                        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-                        
-                        <form method="POST" action="/admin/sueldo/datos/">
-                            @csrf
-                            @method('PUT')
-                            @foreach($datos as $dato)
-                                <div class="grid gap-6 mb-6 md:grid-cols-3">
+    <body class="bg-gray-100 text-center">
+        <div class="min-h-screen flex items-top justify-center py-12 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-5xl w-full space-y-6">
+                <form method="POST" action="/admin/sueldo/datos/" class="bg-white p-8 shadow rounded-lg">
+                    @csrf
+                    @method('PUT')
+                    @foreach($datos as $dato)
 
-                                    <div>
-                                        <label for="Basico" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sueldo Básico</label>
-                                        <input type="text" name="sueldo_basico" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        value="{{$dato->sueldo_basico}}">
-                                    </div>
-                                    <div>
-                                        <label for="dia_camionero" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Día del Camionero</label>
-                                        <input type="text" name="dia_camionero" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        value="{{$dato->dia_camionero}}">
-                                    </div>
-                                    <div>
-                                        <label for="vacaciones_anual_x_dia" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Vacaciones Anual por Día</label>
-                                        <input type="text" name="vacaciones_anual_x_dia" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        value="{{$dato->vacaciones_anual_x_dia}}">
-                                    </div>
-
-                                    <div>      
-                                        <h2 class="text-lg font-bold dark:text-white text-center">Remuneraciones Complementarias</h2>                         
-                                        <label for="blank" class="block mb-0 text-sm font-medium text-gray-900 dark:text-white">&nbsp;</label>
-                                        
-                                        <label for="HS.EXT.KM.RECOR" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">HS.EXT.KM.RECOR</label>
-                                        <input type="text" name="hs_ext_km_recorrido" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                                        value="{{$dato->hs_ext_km_recorrido}}" required>
-                                    </div>
-                                    <div>
-                                        <h2 class="text-lg font-bold dark:text-white text-center">Viáticos Corta y Local</h2>                         
-                                        <label for="blank" class="block mb-0 text-sm font-medium text-gray-900 dark:text-white">&nbsp;</label>
-                                        
-                                        <label for="Comida" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Comida</label>
-                                        <input type="text" name="comida" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                                        value="{{$dato->comida}}"required="false">
-                                    </div>
-                                    <div>
-                                        <h2 class="text-lg font-bold dark:text-white text-center">Larga Distancia</h2>   
-                                        <label for="blank" class="block mb-0 text-sm font-medium text-gray-900 dark:text-white">&nbsp;</label>
-                                        
-                                        <label for="KMS.REC" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">KMS.REC</label>
-                                        <input type="text" name="kms_rec" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        value="{{$dato->kms_rec}}">
-                                    </div>
-                                    <div>
-                                        <label for="PERM,F/RES" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">PERM,F/RES</label>
-                                        <input type="text" name="perm_f_res" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                                        value="{{$dato->perm_f_res}}" required="false">
-                                    </div>
-                                    <div>
-                                        <label for="Especial" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Especial</label>
-                                        <input type="text" name="especial" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        value="{{$dato->especial}}">
-                                    </div>
-                                    <div>
-                                        <label for="PERM.F/RES" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">PERM.F/RES</label>
-                                        <input type="text" name="perm_f_res_larga_distancia" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        value="{{$dato->perm_f_res_larga_distancia}}">
-                                    </div>
-                                    <div>
-                                        <label for="C.DESCARGA" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">C.Descarga</label>
-                                        <input type="text" name="c_descarga" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                                        value="{{$dato->c_descarga}}" required="false">
-                                    </div>
-                                    <div>
-                                        <label for="Pernoctada" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pernoctada</label>
-                                        <input type="text" name="pernoctada" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        value="{{$dato->pernoctada}}">
-                                    </div>
-                                    <div>
-                                        <label for="Cruce Frontera" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cruce Frontera</label>
-                                        <input type="text" name="cruce_frontera" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        value="{{$dato->cruce_frontera}}">
-                                    </div>
-
-                                    <div>
-                                        <button type="submit" name="guardar"class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Guardar</button>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </form>  
-
+                    <div class="mb-8">
+                        <h2 class="text-xl font-semibold text-left text-gray-800 border-b pb-2 mb-4">Sueldo Base</h2>
+                        <div class="grid md:grid-cols-3 gap-6">
+                            <x-input-field label="Sueldo Básico" name="sueldo_basico" :value="$dato->sueldo_basico" />
+                            <x-input-field label="Día del Camionero" name="dia_camionero" :value="$dato->dia_camionero" />
+                            <x-input-field label="Vacaciones Anual por Día" name="vacaciones_anual_x_dia" :value="$dato->vacaciones_anual_x_dia" />
+                        </div>
                     </div>
-                </div>
+
+                    <div class="mb-8">
+                        <h2 class="text-xl font-semibold text-left text-gray-800 border-b pb-2 mb-4">Remuneraciones Complementarias</h2>
+                        <div class="grid md:grid-cols-3 gap-6">
+                            <x-input-field label="HS.EXT.KM.RECOR" name="hs_ext_km_recorrido" :value="$dato->hs_ext_km_recorrido" />
+                            <x-input-field label="PERM,F/RES" name="perm_f_res" :value="$dato->perm_f_res" />
+                            <x-input-field label="C.Descarga" name="c_descarga" :value="$dato->c_descarga" />
+                        </div>
+                    </div>
+
+                    <div class="mb-8">
+                        <h2 class="text-xl font-semibold text-left text-gray-800 border-b pb-2 mb-4">Viáticos Corta y Local</h2>
+                        <div class="grid md:grid-cols-3 gap-6">
+                            <x-input-field label="Comida" name="comida" :value="$dato->comida" />
+                            <x-input-field label="Especial" name="especial" :value="$dato->especial" />
+                            <x-input-field label="Pernoctada" name="pernoctada" :value="$dato->pernoctada" />
+                        </div>
+                    </div>
+
+                    <div class="mb-8">
+                        <h2 class="text-xl font-semibold text-left text-gray-800 border-b pb-2 mb-4">Larga Distancia</h2>
+                        <div class="grid md:grid-cols-3 gap-6">
+                            <x-input-field label="KMS.REC" name="kms_rec" :value="$dato->kms_rec" />
+                            <x-input-field label="PERM.F/RES Larga Distancia" name="perm_f_res_larga_distancia" :value="$dato->perm_f_res_larga_distancia" />
+                            <x-input-field label="Cruce Frontera" name="cruce_frontera" :value="$dato->cruce_frontera" />
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end">
+                        <button type="submit" name="guardar"
+                            class="inline-flex items-center px-6 py-2 bg-green-600 hover:bg-green-700 text-white text-sm font-medium rounded-lg focus:ring-4 focus:ring-green-300">
+                            Guardar
+                        </button>
+                    </div>
+
+                    @endforeach
+                </form>
             </div>
         </div>
     </body>
