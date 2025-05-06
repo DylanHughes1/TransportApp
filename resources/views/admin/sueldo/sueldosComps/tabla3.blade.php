@@ -251,7 +251,7 @@
                     <td class="px-6 py-3"></td>
 
                     <td id="total_final" class="px-6 py-3 text-center text-base">
-                        {{$tabla2->subtotal2 - $tabla3->total_remun2}}
+                        {{$tabla2->subtotal2 + $tabla3->total_remun2}}
                     </td>
                 </tr>
             </tfoot>

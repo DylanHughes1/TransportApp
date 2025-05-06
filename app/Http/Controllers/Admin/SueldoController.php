@@ -194,10 +194,21 @@ class SueldoController extends Controller
         }
     }
 
-    public function agregarNuevaFila(Request $request, $id)
+    public function agregarNuevaFilaTabla1(Request $request, $id)
     {
         try {
-            SueldoService::getInstance()->agregarNuevaFila($request, $id);
+            SueldoService::getInstance()->agregarNuevaFilaTabla1($request, $id);
+            return redirect("/admin/sueldo/calcular/$id")->with('status', 'Cambios Guardados');
+        } catch (Exception $e) {
+            Log::critical('Exception: ' . $e);
+            return response()->json(['error_controlado' => $e->getMessage()], 500);
+        }
+    }
+
+    public function agregarNuevaFilaTabla3(Request $request, $id)
+    {
+        try {
+            SueldoService::getInstance()->agregarNuevaFilaTabla3($request, $id);
             return redirect("/admin/sueldo/calcular/$id")->with('status', 'Cambios Guardados');
         } catch (Exception $e) {
             Log::critical('Exception: ' . $e);

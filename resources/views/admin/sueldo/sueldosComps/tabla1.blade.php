@@ -51,8 +51,8 @@
             </td>
             <td class="columna-total px-6 py-3">
                 @php
-                    $producto = $tabla1->hs_ext_km_recorrido * $datos->hs_ext_km_recorrido;
-                    echo $producto;
+                $producto = $tabla1->hs_ext_km_recorrido * $datos->hs_ext_km_recorrido;
+                echo $producto;
                 @endphp
             </td>
 
@@ -71,8 +71,8 @@
             </td>
             <td class="columna-total px-6 py-3">
                 @php
-                    $producto = $tabla1->hs_ext_km_recorrido_100 * $datos->hs_ext_km_recorrido;
-                    echo $producto;
+                $producto = $tabla1->hs_ext_km_recorrido_100 * $datos->hs_ext_km_recorrido;
+                echo $producto;
                 @endphp
             </td>
 
@@ -91,8 +91,8 @@
             </td>
             <td class="columna-total px-6 py-3">
                 @php
-                    $producto = $tabla1->perm_f_res * $datos->perm_f_res;
-                    echo $producto;
+                $producto = $tabla1->perm_f_res * $datos->perm_f_res;
+                echo $producto;
                 @endphp
             </td>
 
@@ -112,8 +112,8 @@
             </td>
             <td class="columna-total px-6 py-3">
                 @php
-                    $producto = $tabla1->c_descarga * $datos->c_descarga;
-                    echo $producto;
+                $producto = $tabla1->c_descarga * $datos->c_descarga;
+                echo $producto;
                 @endphp
             </td>
 
@@ -133,8 +133,8 @@
             </td>
             <td class="columna-total px-6 py-3">
                 @php
-                    $producto = $tabla1->hs_50 * $datos->hs_50;
-                    echo $producto;
+                $producto = $tabla1->hs_50 * $datos->hs_50;
+                echo $producto;
                 @endphp
             </td>
 
@@ -154,8 +154,8 @@
             </td>
             <td class="columna-total px-6 py-3">
                 @php
-                    $producto = $tabla1->hs_100 * $datos->hs_100;
-                    echo $producto;
+                $producto = $tabla1->hs_100 * $datos->hs_100;
+                echo $producto;
                 @endphp
             </td>
 
@@ -174,8 +174,8 @@
             </td>
             <td class="columna-total px-6 py-3">
                 @php
-                    $producto = ($tabla1->inasistencias_inj * ($datos->sueldo_basico / 30));
-                    echo ($producto == 0) ? '0' : $producto;
+                $producto = ($tabla1->inasistencias_inj * ($datos->sueldo_basico / 30));
+                echo ($producto == 0) ? '0' : $producto;
                 @endphp
             </td>
         </tr>
@@ -191,6 +191,32 @@
                 {{$datos->dia_camionero}}
             </td>
         </tr>
+
+        @if(count($tabla1->nuevasFilas) > 0)
+        @foreach ($tabla1->nuevasFilas as $nuevaFila)
+        <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+            <th scope="row" class="px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                <input
+                    class="editable-rowName bg-white text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    data-field="nombre" data-id="{{$nuevaFila->id}}" name="nombre{{$nuevaFila->id}}"
+                    value="{{$nuevaFila->nombre}}">
+            </th>
+            <td class="px-2 py-3">
+                &nbsp;&nbsp;&nbsp;-
+            </td>
+            <td class="columna-total px-6 py-3 col-total">
+                {{ $nuevaFila->valor ? $nuevaFila->valor : 0 }}
+            </td>
+            <td class="mr-6 py-3">
+                <input type="number"
+                    style="border: none; background-color: transparent; width: 125px; text-align: left;"
+                    data-id="{{$nuevaFila->id}}" data-field="valor" class="py-1 text-sm editable-rowAmount"
+                    name="valor{{$nuevaFila->id}}" value="{{$nuevaFila->valor}}">
+            </td>
+        </tr>
+
+        @endforeach
+        @endif
 
     <tfoot>
         <tr class="font-semibold border-b bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white">
@@ -224,8 +250,8 @@
                 </td>
                 <td id="antig" class="subtotal1 py-3">
                     @php
-                        $producto = ($tabla1->antig * $tabla1->subtotal1 * 0.01);
-                        echo $producto;
+                    $producto = ($tabla1->antig * $tabla1->subtotal1 * 0.01);
+                    echo $producto;
                     @endphp
                 </td>
 
@@ -263,13 +289,13 @@
 
 
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         let isDiaCamioneroActive = true;
         const truckDriverId = '{{$truck_driver->id}}';
         const token = '{{ csrf_token() }}';
         const sueldoBasico = parseFloat("{{ $datos->sueldo_basico }}") || 0;
 
-        $('.editable-field').on('blur', function () {
+        $('.editable-field').on('blur', function() {
             const inputField = $(this);
             const value = parseFloat(inputField.val()) || 0;
             const id = inputField.data('id');
@@ -278,12 +304,16 @@
 
             updateTotalColumn(inputField, value, field, totalColumn);
             updateSubtotal();
-            
 
-            sendAjaxRequest(`/admin/sueldo/actualizarValor/${truckDriverId}`, { id, field, value });
+
+            sendAjaxRequest(`/admin/sueldo/actualizarValor/${truckDriverId}`, {
+                id,
+                field,
+                value
+            });
         });
 
-        $('#diaCamioneroToggle').on('click', function () {
+        $('#diaCamioneroToggle').on('click', function() {
             isDiaCamioneroActive = !isDiaCamioneroActive;
             $(this)
                 .toggleClass('text-green-500 font-semibold')
@@ -308,7 +338,7 @@
             let subtotal = 0;
             let inasistenciasValue = 0;
 
-            $('.columna-total').each(function () {
+            $('.columna-total').each(function() {
                 const totalValue = parseFloat($(this).text()) || 0;
                 const isInasistencias = $(this).closest('tr').find('input').data('field') === 'inasistencias_inj';
                 const isDiaCamionero = $(this).attr('id') === 'diaCamioneroValor';
@@ -336,8 +366,14 @@
 
             $('#total_remun1').text(totalRemunerativo.toFixed(2));
 
-            sendAjaxRequest(`/admin/sueldo/actualizarTotales1/${truckDriverId}`, { subtotal1, total_remun1: totalRemunerativo });
-            sendAjaxRequest(`/admin/sueldo/actualizarSubtotal2/${truckDriverId}`, { total_descuento, subtotal2 });
+            sendAjaxRequest(`/admin/sueldo/actualizarTotales1/${truckDriverId}`, {
+                subtotal1,
+                total_remun1: totalRemunerativo
+            });
+            sendAjaxRequest(`/admin/sueldo/actualizarSubtotal2/${truckDriverId}`, {
+                total_descuento,
+                subtotal2
+            });
 
             $('#subtotal2').text(subtotal2.toFixed(2));
 
@@ -353,11 +389,14 @@
             $.ajax({
                 url: url,
                 method: 'POST',
-                data: { _token: token, ...data },
-                success: function () {
+                data: {
+                    _token: token,
+                    ...data
+                },
+                success: function() {
                     console.log('Actualización exitosa');
                 },
-                error: function () {
+                error: function() {
                     console.log('Error al actualizar');
                 }
             });

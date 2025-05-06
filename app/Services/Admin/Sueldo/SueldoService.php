@@ -149,7 +149,6 @@ class SueldoService
         Tabla3::query()->update([$field => $value]);
     }
 
-
     public function actualizarValor3($data, $id)
     {
         $tabla3 = Tabla3::where('truckdriver_id', $id)->first();
@@ -185,7 +184,7 @@ class SueldoService
         } else return false;
     }
 
-    public function agregarNuevaFilaTabla1($data)
+    public function agregarNuevaFilaTabla1($data, $id)
     {
         $nuevaFila = nuevaFila::create([
             'nombre' => $data->input('nombre'),
@@ -196,12 +195,17 @@ class SueldoService
 
         foreach ($todasLasTabla1 as $tabla1) {
             $tabla1->nuevasFilas()->attach($nuevaFila->id);
-            $tabla1->total_remun2 += $nuevaFila->valor;
+            $tabla1->subtotal1 += $nuevaFila->valor;
+            $tabla1->total_remun1 += $nuevaFila->valor;
             $tabla1->save();
         }
+
+        $tabla2 = Tabla2::where('truckdriver_id', $id)->first();
+        $tabla2->subtotal2 += $nuevaFila->valor;
+        $tabla2->save();
     }
 
-    public function agregarNuevaFila($data)
+    public function agregarNuevaFilaTabla3($data, $id)
     {
         $nuevaFila = nuevaFila::create([
             'nombre' => $data->input('nombre'),

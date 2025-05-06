@@ -181,7 +181,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::post('sueldo/calcular/{id}', [SueldoController::class, 'updateDatos'])
         ->middleware('auth:admin');
 
-    Route::post('sueldo/calcular/{id}/4', [SueldoController::class, 'agregarNuevaFila'])
+    Route::post('sueldo/filaNuevaTabla1/{id}', [SueldoController::class, 'agregarNuevaFilaTabla1'])
+        ->middleware('auth:admin');
+
+    Route::post('sueldo/filaNuevaTabla3/{id}', [SueldoController::class, 'agregarNuevaFilaTabla3'])
         ->middleware('auth:admin');
 
     Route::post('sueldo/actualizarNombreNuevaFila/{id}', [SueldoController::class, 'actualizarNombreNuevaFila'])
