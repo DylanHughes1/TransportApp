@@ -85,7 +85,7 @@
                 <td>
                     <input type="text" name="origen{{ $key }}"
                         style="border: none; background-color: transparent; width: 125px; text-align: center;"
-                        class="px-2 py-1 text-gray-900" value="{{ $viaje->origen->nombre }}">
+                        class="px-2 py-1 text-gray-900" value="{{ $viaje->origen->nombre ?? '' }}">
                 </td>
                 <td>
                     <input type="text" name="fecha_llegada{{ $key }}"
@@ -99,7 +99,7 @@
                 <td>
                     <input type="text" name="destino{{ $key }}"
                         style="border: none; background-color: transparent; width: 125px; text-align: center;"
-                        class="px-2 py-1 text-gray-900" value="{{ $viaje->destino->nombre }}">
+                        class="px-2 py-1 text-gray-900" value="{{ $viaje->destino->nombre ?? ''}}">
                 </td>
                 <td class="px-6 py-4  text-gray-900">{{ $viaje->km_salida }}</td>
                 <td class="px-6 py-4  text-gray-900">{{ $viaje->c_porte }}</td>
