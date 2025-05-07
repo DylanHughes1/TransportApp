@@ -43,7 +43,8 @@ class DashboardService
     public function eliminarChofer($id)
     {
         $truck_driver = TruckDriver::find($id);
-        $truck_driver->delete();
+        $truck_driver->empresa = null;
+        $truck_driver->save();
     }
 
     public function asignarEmpresa($data, $id)

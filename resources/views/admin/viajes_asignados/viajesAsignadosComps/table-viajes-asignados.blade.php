@@ -238,7 +238,7 @@
                         @if($viaje->observacion != null)
                         {{$viaje->observacion}}
                         @else
-                        <p>No hay gastos extra</p>
+                        <p class="text-gray-500 dark:text-gray-400 italic">No hay gastos extra</p>
                         @endif
                     </div>
                 </div>
