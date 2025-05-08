@@ -45,11 +45,12 @@
                                     </div>
                                     @include('components.spinner')
                                     <div class="overflow-x-auto">
-                                        @component('admin.viajes_asignados.viajesAsignadosComps.table-viajes-asignados', ['viajes' => $viajes, 'choferesLibres' => $choferesLibres, 'choferes' => $choferes])
-                                        @endcomponent
+                                        <div class="min-w-max">
+                                            @component('admin.viajes_asignados.viajesAsignadosComps.table-viajes-asignados', ['viajes' => $viajes, 'choferesLibres' => $choferesLibres, 'choferes' => $choferes])
+                                            @endcomponent
 
-                                        <hr class="my-4 border-gray-300">
-
+                                            <hr class="my-4 border-gray-300">
+                                        </div>
                                         <!-- Main modal -->
                                         <div id="viajeNuevoModal" tabindex="-1" aria-hidden="true"
                                             class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">

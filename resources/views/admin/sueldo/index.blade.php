@@ -8,7 +8,7 @@
     <body class="text-center">
         <div class="flex items-top justify-center min-h-screen py-4">
             <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-md sm:rounded-lg p-8">
+                <div class="bg-white overflow-visible shadow-md sm:rounded-lg p-8">
                     <h1 class="text-center text-3xl font-bold text-gray-900 mb-8">Sueldos</h1>
                     <div class="flex justify-between items-start gap-4">
 
