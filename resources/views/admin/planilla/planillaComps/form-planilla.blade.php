@@ -25,11 +25,17 @@
         {{ $viaje->producto->nombre ?? '-' }}
     </td>
     <td class="px-6 py-4">
-        {{ number_format($viaje->carga_kg, 0) }}
+        <span class="{{ $viaje->facturacion_opcion === 'carga' ? 'text-green-600 font-semibold' : '' }}">
+            {{ number_format($viaje->carga_kg, 0) }}
+        </span>
     </td>
     <td class="px-6 py-4">
-        {{ number_format($viaje->descarga_kg, 0) }}
+        <span class="{{ $viaje->facturacion_opcion === 'descarga' ? 'text-green-600 font-semibold' : '' }}">
+            {{ number_format($viaje->descarga_kg, 0) }}
+        </span>
     </td>
+
+
     <td class="px-6 py-4">
         {{$viaje->TN ?? '-' }}
     </td>
