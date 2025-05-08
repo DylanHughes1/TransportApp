@@ -101,14 +101,14 @@
                         style="border: none; background-color: transparent; width: 125px; text-align: center;"
                         class="px-2 py-1 text-gray-900" value="{{ $viaje->destino->nombre ?? ''}}">
                 </td>
-                <td class="px-6 py-4  text-gray-900">{{ $viaje->km_salida }}</td>
-                <td class="px-6 py-4  text-gray-900">{{ $viaje->c_porte }}</td>
-                <td class="px-6 py-4  text-gray-900">{{ $viaje->producto }}</td>
-                <td class="px-6 py-4  text-gray-900">{{ $viaje->carga_kg }}</td>
-                <td class="px-6 py-4  text-gray-900">{{ $viaje->descarga_kg }}</td>
-                <td class="px-6 py-4  text-gray-900">{{ $viaje->km_llegada }}</td>
-                <td class="px-6 py-4  text-gray-900">{{ $viaje->control_desc }}</td>
-                <td class="px-6 py-4  text-gray-900">{{ $viaje->km_1_2 }}</td>
+                <td class="px-6 py-4 text-gray-900">{{ $viaje->km_salida }}</td>
+                <td class="px-6 py-4 text-gray-900">{{ $viaje->c_porte }}</td>
+                <td class="px-6 py-4 text-gray-900">{{ $viaje->producto }}</td>
+                <td class="px-6 py-4 text-gray-900">{{ $viaje->carga_kg }}</td>
+                <td class="px-6 py-4 text-gray-900">{{ $viaje->descarga_kg }}</td>
+                <td class="px-6 py-4 text-gray-900">{{ $viaje->km_llegada }}</td>
+                <td class="px-6 py-4 text-gray-900">{{ $viaje->control_desc }}</td>
+                <td class="px-6 py-4 text-gray-900">{{ $viaje->km_1_2 }}</td>
                 <td>
                     <input type="text" name="p_chasis{{ $key }}"
                         style="border: none; background-color: transparent; width: 125px; text-align: center;"
@@ -125,15 +125,16 @@
                 <td class="px-6 py-4  text-gray-900"><a href="#" data-modal-toggle="modalGastos{{ $key }}"
                         class="font-medium text-blue-600 dark:text-blue-500 hover:underline" id="verMasLink2"
                         style="white-space: nowrap;">Ver más</a></td>
-                <td class="px-6 py-4  text-gray-900 flex items-center space-x-3">
-                    <button type="submit"
-                        class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Actualizar</button>
+                <td class="px-6 py-4 text-gray-900 text-center align-middle">
+                    <div class="flex items-center justify-center space-x-3">
+                        <button type="submit"
+                            class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Actualizar</button>
             </form>
 
-            <a href="#" data-modal-toggle="modalEliminar{{ $key }}"
-                class="font-medium text-red-600 dark:text-red-500 hover:underline">Eliminar</a>
-            </td>
-
+                        <a href="#" data-modal-toggle="modalEliminar{{ $key }}"
+                            class="font-medium text-red-600 dark:text-red-500 hover:underline">Eliminar</a>
+                    </div>
+                </td>
         </tr>
 
         <div id="modalEliminar{{ $key }}" data-modal-backdrop="static" tabindex="-1" aria-hidden="true"
