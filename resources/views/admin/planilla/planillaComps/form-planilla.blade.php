@@ -44,12 +44,14 @@
     </td>
     <td class="px-6 py-4">
         {{
-                $viaje->TN ?? 
-                ($viaje->facturacion_opcion === 'carga' 
-                    ? ($viaje->carga_kg / 1000) * $viaje->TN 
-                    : ($viaje->descarga_kg / 1000) * $viaje->TN) 
-                ?? $viaje->precio_total
-            }}
+        $viaje->TN !== null
+            ? (
+                $viaje->facturacion_opcion === 'carga'
+                    ? ($viaje->carga_kg / 1000) * $viaje->TN
+                    : ($viaje->descarga_kg / 1000) * $viaje->TN
+              )
+            : $viaje->precio_total
+        }}
     </td>
     <td class="px-6 py-4">
         {{
