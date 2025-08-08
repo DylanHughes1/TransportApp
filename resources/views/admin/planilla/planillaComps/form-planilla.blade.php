@@ -55,16 +55,21 @@
     </td>
     <td class="px-6 py-4">
         {{
-                number_format(
+            number_format(
                 (
                     isset($viaje->TN)
-                    ? (($viaje->carga_kg / 1000) * $viaje->TN)
-                    : $viaje->precio_total
+                        ? (
+                            $viaje->facturacion_opcion === 'carga'
+                                ? ($viaje->carga_kg / 1000) * $viaje->TN
+                                : ($viaje->descarga_kg / 1000) * $viaje->TN
+                        )
+                        : $viaje->precio_total
                 ) / max(1, ($viaje->km_llegada - $viaje->km_salida)),
                 2
-            ) 
-            }}
+            )
+        }}
     </td>
+
     <td class="px-6 py-4">
         {{
             number_format(
