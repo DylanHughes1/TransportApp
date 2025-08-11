@@ -7,6 +7,7 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithTitle;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use App\Models\viajes;
 
 class CombustibleExport implements FromCollection, WithHeadings, WithTitle, WithStyles
 {
@@ -21,7 +22,7 @@ class CombustibleExport implements FromCollection, WithHeadings, WithTitle, With
         $this->fechaInicio = $fechaInicio;
         $this->fechaFin = $fechaFin;
 
-        $query = \App\Models\Viajes::where('truckdriver_id', $this->id)
+        $query = viajes::where('truckdriver_id', $this->id)
             ->with('combustibles');
 
         if ($this->fechaInicio && $this->fechaFin) {

@@ -288,20 +288,17 @@ class ViajesService
             throw new Exception("Viaje no encontrado.");
         }
 
-        $imagenes = ['image1', 'image2', 'image3'];
         $uploadedImages = [];
 
-        foreach ($imagenes as $imagen) {
-            if ($data->hasFile($imagen)) {
-                $uploadedFile = $data->file($imagen)->storeOnCloudinary('/recibos');
+        foreach ($data->file('images') as $uploadedFile) {
+            $uploaded = $uploadedFile->storeOnCloudinary('/recibos');
 
-                $imagenViaje = new ImagenViaje();
-                $imagenViaje->image_link = $uploadedFile->getPath();
-                $imagenViaje->image_path = $uploadedFile->getPublicId();
+            $imagenViaje = new ImagenViaje();
+            $imagenViaje->image_link = $uploaded->getPath();      
+            $imagenViaje->image_path = $uploaded->getPublicId();  
 
-                $viaje->imagenesViajes()->save($imagenViaje);
-                $uploadedImages[] = $imagen;
-            }
+            $viaje->imagenesViajes()->save($imagenViaje);
+            $uploadedImages[] = $uploaded->getPublicId();
         }
 
         return count($uploadedImages) > 0

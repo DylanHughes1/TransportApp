@@ -36,7 +36,7 @@
         Precio Total
     </th>
     <th scope="col" class="px-6 py-3">
-        FAC.
+        FACTURACION
     </th>
     <th scope="col" class="px-6 py-3">
         $/KM Cargado
