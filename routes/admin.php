@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ViajesController;
 use App\Http\Controllers\Admin\PlanillaController;
 use App\Http\Controllers\Admin\SueldoController;
+use App\Http\Controllers\Admin\NominaController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -192,6 +193,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::post('sueldo/actualizarValorNuevaFila/{id}', [SueldoController::class, 'actualizarNombreNuevaFila'])
         ->middleware('auth:admin');
+
+    Route::post('/admin/nominas/{nomina}/cargar-predeterminadas', [NominaController::class, 'cargarPredeterminadas'])
+        ->name('nominas.cargarPredeterminadas')->middleware('auth:admin');;
+
+    Route::post('/nominas/{nomina}/guardar', [SueldoController::class, 'guardarNomina'])
+        ->name('nominas.guardar');
+
 
     //Rutas asociadas a los choferes
 
