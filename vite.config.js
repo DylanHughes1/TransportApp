@@ -10,6 +10,7 @@ export default defineConfig({
                 'resources/scripts/Viajes/NuevoViaje.js',
                 'resources/scripts/Spinner/Spinner.js',
                 'resources/scripts/Sueldo/nomina.js',
+                'resources/scripts/Sueldo/nuevaLinea.js',
             ],
             refresh: true,
             build: {

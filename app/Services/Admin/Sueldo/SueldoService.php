@@ -2,13 +2,13 @@
 
 namespace App\Services\Admin\Sueldo;
 
-use App\Models\{TruckDriver, viajes, nuevaFila};
 use \Carbon\Carbon;
-use App\Models\{Tabla1, Tabla2, Tabla3, DatosSueldo, AjusteSueldo, Nomina, PlantillaConcepto, LineaNomina};
+use App\Models\{TruckDriver, AjusteSueldo, Nomina, PlantillaConcepto, LineaNomina};
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 
 class SueldoService
 {
@@ -247,6 +247,21 @@ class SueldoService
         }
     }
 
+    public function agregarLinea(Nomina $nomina, array $data)
+    {
+        // Ejemplo si tenés modelo NominaLinea
+        $linea = new LineaNomina();
+        $linea->nomina_id     = $nomina->id;
+        $linea->tipo          = $data['tipo'];
+        $linea->nombre        = $data['nombre'];
+        $linea->valor_unitario = $data['valor_unitario'] ?? 0;
+        $linea->porcentaje    = $data['porcentaje'] ?? null;
+        $linea->save();
+
+        return $linea;
+    }
+
+
     public function guardarNominaCompleta(Nomina $nomina, array $payload)
     {
         $lineasPayload = Arr::get($payload, 'lineas', []);
@@ -315,8 +330,6 @@ class SueldoService
         return (float)Arr::get($payload, 'neto', 0);
     }
 
-
-
     public function showDatosBasicos()
     {
         $datos = AjusteSueldo::all();
@@ -343,153 +356,97 @@ class SueldoService
         $datos->save();
     }
 
-    public function actualizarValor($data, $id)
+    public function generarNomina(array $data): Nomina
     {
-        $tabla1 = Tabla1::where('truckdriver_id', $id)->first();
-        if (!$tabla1) {
-            return false;
-        }
+        // 1) obtener ajustes
+        $ajustes = AjusteSueldo::first();
 
-        $tabla1->{$data->field} = $data->value;
-        return $tabla1->save();
-    }
-
-    public function actualizarTotales1($data, $id)
-    {
-        $tabla1 = Tabla1::where('truckdriver_id', $id)->first();
-        if (!$tabla1) {
-            return false;
-        }
-
-        $tabla1->subtotal1 = $data->input('subtotal1');
-        $tabla1->total_remun1 = $data->input('total_remun1');
-        return $tabla1->save();
-    }
-
-    public function actualizarValorDescuento($data, $id)
-    {
-        $tabla2 = Tabla2::where('truckdriver_id', $id)->first();
-        if (!$tabla2) {
-            return false;
-        }
-        $tabla2->{$data->field} = $data->value;
-
-        return $tabla2->save();
-    }
-
-    public function actualizarSubtotal2($data, $id)
-    {
-        $tabla2 = Tabla2::where('truckdriver_id', $id)->first();
-        if (!$tabla2) {
-            return false;
-        }
-        $tabla2->total_descuento = $data->input('total_descuento');
-        $tabla2->subtotal2 = $data->input('subtotal2');
-
-        return $tabla2->save();
-    }
-
-    public function actualizarNombre3($data)
-    {
-        $field = $data->input('field');
-        $value = $data->input('value');
-        Tabla3::query()->update([$field => $value]);
-    }
-
-    public function actualizarValor3($data, $id)
-    {
-        $tabla3 = Tabla3::where('truckdriver_id', $id)->first();
-
-        if (!$tabla3) {
-            return false;
-        }
-
-        $tabla3->{$data->field} = $data->value;
-        return $tabla3->save();
-    }
-
-    public function actualizarTotalNoRenum($data, $id)
-    {
-        $tabla3 = Tabla3::where('truckdriver_id', $id)->first();
-
-        if (!$tabla3) {
-            return false;
-        }
-        $tabla3->total_remun2 = $data->input('subtotal');
-        return $tabla3->save();
-    }
-
-    public function actualizarGastosExtra($data, $id)
-    {
-        $tabla3 = Tabla3::where('truckdriver_id', $id)->first();
-        $field = $data->input('field');
-        $value = $data->input('value');
-
-        if ($tabla3 && in_array($field, ['adelantos', 'celular', 'gastos'])) {
-            $tabla3->$field = $value;
-            return $tabla3->save();
-        } else return false;
-    }
-
-    public function agregarNuevaFilaTabla1($data, $id)
-    {
-        $nuevaFila = nuevaFila::create([
-            'nombre' => $data->input('nombre'),
-            'valor' => $data->input('valor'),
+        // 2) crear nomina básica
+        $nomina = Nomina::create([
+            'truckdriver_id' => $data['truckdriver_id'],
+            'periodo_desde' => $data['periodo_desde'] ?? now(),
+            'periodo_hasta' => $data['periodo_hasta'] ?? now(),
+            'sueldo_basico_snapshot' => $ajustes->sueldo_basico ?? 0,
+            'subtotal_remunerativo' => 0,
+            'subtotal_no_remunerativo' => 0,
+            'total_descuentos' => 0,
+            'neto' => 0,
         ]);
 
-        $todasLasTabla1 = Tabla1::all();
+        // 3) crear lineas
+        $lineasInput = $data['lineas'] ?? [];
+        foreach ($lineasInput as $li) {
+            $cantidad = (float) ($li['cantidad'] ?? 0);
+            $valor_unitario = (float) ($li['valor_unitario'] ?? 0);
+            $importe = round($cantidad * $valor_unitario, 2);
 
-        foreach ($todasLasTabla1 as $tabla1) {
-            $tabla1->nuevasFilas()->attach($nuevaFila->id);
-            $tabla1->subtotal1 += $nuevaFila->valor;
-            $tabla1->total_remun1 += $nuevaFila->valor;
-            $tabla1->save();
+            $porcentaje = isset($li['porcentaje']) ? (float)$li['porcentaje'] : null;
+
+            $nomina->lineas()->create([
+                'tipo' => $li['tipo'] ?? 'remunerativo',
+                'nombre' => $li['nombre'] ?? 'Concepto',
+                'cantidad' => $cantidad,
+                'valor_unitario' => $valor_unitario,
+                'importe' => $importe,
+                'porcentaje' => $porcentaje,
+                'es_remunerativo' => ($li['tipo'] ?? 'remunerativo') === 'remunerativo',
+                'orden' => $li['orden'] ?? 0,
+            ]);
         }
 
-        $tabla2 = Tabla2::where('truckdriver_id', $id)->first();
-        $tabla2->subtotal2 += $nuevaFila->valor;
-        $tabla2->save();
-    }
+        // 4) recalcular totales
+        $lineas = $nomina->lineas()->get();
 
-    public function agregarNuevaFilaTabla3($data, $id)
-    {
-        $nuevaFila = nuevaFila::create([
-            'nombre' => $data->input('nombre'),
-            'valor' => $data->input('valor'),
-        ]);
+        $subtotalRem = $lineas->where('tipo', 'remunerativo')->sum('importe');
+        $subtotalNoRem = $lineas->where('tipo', 'no_remunerativo')->sum('importe');
 
-        $todasLasTabla3 = Tabla3::all();
-
-        foreach ($todasLasTabla3 as $tabla3) {
-            $tabla3->nuevasFilas()->attach($nuevaFila->id);
-            $tabla3->total_remun2 += $nuevaFila->valor;
-            $tabla3->save();
+        $totalDescuentos = 0;
+        foreach ($lineas->where('tipo', 'descuento') as $d) {
+            if ($d->porcentaje) {
+                $totalDescuentos += round($subtotalRem * ((float)$d->porcentaje / 100.0), 2);
+            } else {
+                $totalDescuentos += (float)$d->importe;
+            }
         }
-    }
 
+        $neto = round($subtotalRem + $subtotalNoRem - $totalDescuentos, 2);
 
-    public function actualizarNombreNuevaFila($data, $id)
-    {
-        $field = $data->input('field');
-        $value = $data->input('value');
-        $fila = NuevaFila::find($id);
+        // 5) guardar totales en la nomina
+        $nomina->subtotal_remunerativo = $subtotalRem;
+        $nomina->subtotal_no_remunerativo = $subtotalNoRem;
+        $nomina->total_descuentos = $totalDescuentos;
+        $nomina->neto = $neto;
 
-        if ($fila) {
-            $fila->{$field} = $value;
-            return $fila->save();
-        } else return false;
-    }
+        // 6) snapshot
+        $lineasSnapshot = $lineas->map(function ($l) {
+            return [
+                'id_linea' => $l->id,
+                'tipo' => $l->tipo,
+                'nombre' => $l->nombre,
+                'cantidad' => (float) $l->cantidad,
+                'valor_unitario' => (float) $l->valor_unitario,
+                'importe' => (float) $l->importe,
+                'porcentaje' => $l->porcentaje ? (float) $l->porcentaje : null,
+            ];
+        })->toArray();
 
-    public function actualizarValorNuevaFila($data, $id)
-    {
-        $field = $data->input('field');
-        $value = $data->input('value');
-        $fila = NuevaFila::find($id);
+        $snapshot = [
+            'generado_el' => now()->toDateTimeString(),
+            'usuario_id' => Auth::id() ?? null,
+            'ajustes_sueldo' => $ajustes ? $ajustes->toArray() : null,
+            'lineas' => $lineasSnapshot,
+            'totales' => [
+                'subtotal_remunerativo' => (float) $subtotalRem,
+                'subtotal_no_remunerativo' => (float) $subtotalNoRem,
+                'total_descuentos' => (float) $totalDescuentos,
+                'neto' => (float) $neto,
+            ],
+            'version_calculadora' => 'v1',
+        ];
 
-        if ($fila) {
-            $fila->{$field} = $value;
-            return $fila->save();
-        } else return false;
+        $nomina->json_snapshot = $snapshot;
+        $nomina->save();
+
+        return $nomina->load('lineas');
     }
 }
