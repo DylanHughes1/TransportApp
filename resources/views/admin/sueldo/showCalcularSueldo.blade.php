@@ -36,18 +36,14 @@
 
                         <div class="flex justify-end mb-4">
                             {{-- Aquí podés poner botones globales (ej. Generar recibo, Exportar) --}}
+                            <button id="btnAgregarLinea" data-modal-target="modalAgregarLinea" data-modal-show="modalAgregarLinea" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2">
+                                Agregar Fila
+                            </button>
                         </div>
                     </div>
 
-                    {{-- Botón Agregar fila (abre modal) --}}
-                    <div class="flex justify-end mb-4 mr-4">
-                        <button id="btnAgregarLinea" data-modal-target="modalAgregarLinea" data-modal-show="modalAgregarLinea" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2">
-                            Agregar Fila
-                        </button>
-                    </div>
-
                     {{-- Tabla 1 (componente adaptado) --}}
-                    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                    <div class="">
                         @component('admin.sueldo.sueldosComps.tabla1', [
                         'ajustes' => $ajustes,
                         'nomina' => $nomina,
@@ -61,7 +57,7 @@
                     <hr class="h-px my-8 bg-gray-200 border-0">
 
                     {{-- Tabla 2 (descuentos / retenciones) --}}
-                    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                    <div class="">
                         @component('admin.sueldo.sueldosComps.tabla2', [
                         'ajustes' => $ajustes,
                         'nomina' => $nomina,
@@ -75,7 +71,7 @@
                     <hr class="h-px my-8 bg-gray-200 border-0">
 
                     {{-- Tabla 3 (no remunerativos / viáticos) --}}
-                    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                    <div class="">
                         @component('admin.sueldo.sueldosComps.tabla3', [
                         'ajustes' => $ajustes,
                         'nomina' => $nomina,
@@ -86,55 +82,12 @@
                         @endcomponent
                     </div>
 
+                    <hr class="h-px my-8 bg-gray-200 border-0">
+
                     {{-- Descuentos adicionales (Adelantos / Celular / Gastos) --}}
-                    <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-6">
-                        <table id="tabla_descuentos_extra" class="w-full text-sm text-left text-gray-700 border border-gray-300">
-                            <thead class="bg-gray-100">
-                                <tr>
-                                    <th class="px-6 py-2">Descuentos adicionales</th>
-                                    <th class="px-6 py-2 text-right">Importe</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="px-6 py-2">Adelantos</td>
-                                    <td class="px-6 py-2 text-right">
-                                        <input
-                                            type="text"
-                                            id="otros_adelantos"
-                                            class="input-otros-descuentos w-40 text-right border rounded p-1"
-                                            value="{{ number_format($nomina->adelantos ?? 0, 2, ',', '.') }}">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="px-6 py-2">Celular</td>
-                                    <td class="px-6 py-2 text-right">
-                                        <input
-                                            type="text"
-                                            id="otros_celular"
-                                            class="input-otros-descuentos w-40 text-right border rounded p-1"
-                                            value="{{ number_format($nomina->celular ?? 0, 2, ',', '.') }}">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="px-6 py-2">Gastos</td>
-                                    <td class="px-6 py-2 text-right">
-                                        <input
-                                            type="text"
-                                            id="otros_gastos"
-                                            class="input-otros-descuentos w-40 text-right border rounded p-1"
-                                            value="{{ number_format($nomina->gastos ?? 0, 2, ',', '.') }}">
-                                    </td>
-                                </tr>
-                            </tbody>
-                            <tfoot>
-                                <tr class="font-semibold bg-gray-50">
-                                    <td class="px-6 py-3">Total otros descuentos</td>
-                                    <td class="px-6 py-3 text-right" id="total_otros_descuentos">- {{ number_format(0, 2, ',', '.') }}</td>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </div>
+
+                    @component('admin.sueldo.sueldosComps.gastos-extra', ['nomina' => $nomina])
+                    @endcomponent
 
 
                     {{-- Total a depositar --}}
@@ -157,78 +110,18 @@
                     </div>
                 </div>
             </div>
-            <button id="guardarNominaBtn" class="px-4 py-2 text-white bg-blue-600 rounded">Guardar Nómina</button>
+            <div class="py-4 flex justify-end">
+                <button id="guardarNominaBtn" class="px-4 py-2 text-white bg-blue-600 rounded hover:bg-blue-700 shadow">
+                    Guardar Nómina
+                </button>
+            </div>
         </div>
 
         <!-- Contenedor de toasts -->
         <div id="toastContainer" class="fixed top-5 right-5 z-50 flex flex-col gap-2"></div>
 
-
-        {{-- Modal: Agregar línea a la nómina --}}
-        <div id="modalAgregarLinea" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full">
-            <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
-                <div class="relative bg-white rounded-lg shadow">
-                    <div class="flex justify-between items-start p-5 rounded-t border-b">
-                        <h3 class="text-xl font-semibold text-gray-900 lg:text-2xl">
-                            Agregar Fila a la nómina
-                        </h3>
-                    </div>
-
-                    <div class="p-6 space-y-6 text-lg font-medium text-gray-800">
-                        {{-- Asumimos una ruta REST para crear lineas (adaptá si tenés otra) --}}
-                        <form id="formAgregarLinea" action="{{ url('/admin/nominas/'.$nomina->id.'/lineas') }}" method="POST">
-                            @csrf
-
-                            <div class="grid grid-cols-1 gap-4">
-                                <div>
-                                    <label class="block mb-2 text-sm font-medium text-gray-900">Tipo</label>
-                                    <select name="tipo" id="tipo" class="w-full p-2 border rounded">
-                                        <option value="remunerativo">Remunerativo</option>
-                                        <option value="no_remunerativo">No remunerativo</option>
-                                        <option value="descuento">Descuento</option>
-                                    </select>
-                                </div>
-
-                                <div>
-                                    <label class="block mb-2 text-sm font-medium text-gray-900">Nombre</label>
-                                    <input type="text" name="nombre" id="nombre" required class="w-full p-2 border rounded" placeholder="Ej: Horas extra">
-                                </div>
-
-                                <div>
-                                    <div>
-                                        <label class="block mb-2 text-sm font-medium text-gray-900">Valor unitario</label>
-                                        <input type="number" step="0.01" name="valor_unitario" id="valor_unitario" value="0" class="w-full p-2 border rounded">
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <label class="block mb-2 text-sm font-medium text-gray-900">Porcentaje (solo para descuentos)</label>
-                                    <input type="number" step="0.01" name="porcentaje" id="porcentaje" class="w-full p-2 border rounded" placeholder="11.00 (para 11%)">
-                                    <p class="text-xs text-gray-500">Si el concepto es descuento y aplicás porcentaje, completá este campo (ej 11.00 = 11%). Si el descuento es fijo deja vacío y completa el importe arriba con cantidad/valor.</p>
-                                </div>
-                            </div>
-
-                            <div class="flex justify-center mt-4 space-x-2">
-                                <button type="submit" class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700">Aceptar</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Modal confirmación eliminar -->
-        <div id="modalConfirmDelete" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-            <div class="bg-white rounded-lg shadow p-6 w-full max-w-md">
-                <h3 class="text-lg font-semibold mb-2">Confirmar eliminación</h3>
-                <p class="text-sm text-gray-600 mb-4">¿Estás seguro que querés eliminar esta fila? Esta acción no se puede deshacer.</p>
-                <div class="flex justify-end gap-2">
-                    <button id="cancelDeleteBtn" class="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300">Cancelar</button>
-                    <button id="confirmDeleteBtn" class="px-4 py-2 rounded bg-red-600 text-white hover:bg-red-700">Eliminar</button>
-                </div>
-            </div>
-        </div>
-
-
+        @include('admin.sueldo.sueldosComps.modal-new-line')
+        @include('admin.sueldo.sueldosComps.modal-confirm-delete')
 
         <div id="toast-container" class="fixed top-5 right-5 z-50 space-y-2"></div>
 

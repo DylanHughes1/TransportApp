@@ -7,8 +7,8 @@ $subtotalRemInit = ($nomina->subtotal_remunerativo ?? ($lineasRem->sum('importe'
 $lineasDesc = $lineas->where('tipo', 'descuento');
 @endphp
 
-<div class="p-4">
-    <h3 class="text-lg font-semibold mb-3">Descuentos y retenciones</h3>
+<div class="px-4">
+    <h3 class="text-xl font-semibold mb-3">Descuentos y retenciones</h3>
 
     <div class="overflow-x-auto">
         <table id="tabla_descuentos" class="w-full text-sm text-left text-gray-700 border">
@@ -16,7 +16,7 @@ $lineasDesc = $lineas->where('tipo', 'descuento');
                 <tr>
                     <th class="px-4 py-2">Concepto</th>
                     <th class="px-4 py-2 text-right">Detalle / %</th>
-                    <th class="px-4 py-2 text-right">Importe</th>
+                    <th class="px-4 py-2 text-right">Total</th>
                     <th class="px-4 py-2 text-center">Acciones</th>
                 </tr>
             </thead>
@@ -28,7 +28,7 @@ $lineasDesc = $lineas->where('tipo', 'descuento');
                 $fixed = !$porc ? (float)$desc->importe : 0;
                 @endphp
                 <tr class="border-b line-desc" data-line-id="{{ $desc->id }}" data-fixed-importe="{{ $fixed }}">
-                    <td class="px-4 py-2">{{ $desc->nombre }}</td>
+                    <td class="px-4 py-2 font-semibold">{{ $desc->nombre }}</td>
                     <td class="px-4 py-2 text-right">
                         <input type="number" step="0.01" style="border: none; background-color: transparent; width: 125px; text-align: right;"
                             class="line-cantidad py-1 text-sm"
@@ -67,22 +67,20 @@ $lineasDesc = $lineas->where('tipo', 'descuento');
             </tbody>
 
             <tfoot>
-                <tr class="font-semibold bg-gray-50">
-                    <td class="px-4 py-3">Total descuentos</td>
+                <tr class="font-semibold bg-gray-50 border-b border-gray-300">
+                    <td class="px-4 py-3 text-red-600">Total descuentos</td>
                     <td></td>
-                    <td class="px-4 py-3 text-right" id="total_descuentos">- {{ number_format(0, 2, ',', '.') }}</td>
+                    <td class="px-4 py-3 text-right text-red-600 border-r border-gray-300" id="total_descuentos">- {{ number_format(0, 2, ',', '.') }}</td>
                     <td class="bg-gray-200"></td>
                 </tr>
 
-                <!-- SUBTOTAL 2: remunerativo - descuentos -->
                 <tr class="font-semibold bg-gray-50">
-                    <td class="px-4 py-3">Subtotal 2 (Remunerativo - Descuentos)</td>
+                    <td class="px-4 py-3 font-bold">Subtotal 2 (Remunerativo - Descuentos)</td>
                     <td></td>
-                    <td class="px-4 py-3 text-right" id="subtotal2">{{ number_format(0, 2, ',', '.') }}</td>
+                    <td class="px-4 py-3 text-right border-r border-gray-300" id="subtotal2">{{ number_format(0, 2, ',', '.') }}</td>
                     <td class="bg-gray-200"></td>
                 </tr>
             </tfoot>
-
         </table>
     </div>
 </div>

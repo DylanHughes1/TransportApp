@@ -5,8 +5,8 @@
 $lineasNoRem = $lineas->where('tipo', 'no_remunerativo');
 @endphp
 
-<div class="p-4">
-    <h3 class="text-lg font-semibold mb-3">No remunerativos / Viáticos</h3>
+<div class="px-4">
+    <h3 class="text-xl font-semibold mb-3">No remunerativos / Viáticos</h3>
 
     <div class="overflow-x-auto">
         <table id="tabla_no_remunerativos" class="w-full text-sm text-left text-gray-700 border">
@@ -15,14 +15,14 @@ $lineasNoRem = $lineas->where('tipo', 'no_remunerativo');
                     <th class="px-4 py-2">Concepto</th>
                     <th class="px-4 py-2 text-right">Cantidad</th>
                     <th class="px-4 py-2 text-right">Valor (u.)</th>
-                    <th class="px-4 py-2 text-right">Importe</th>
+                    <th class="px-4 py-2 text-right">Total</th>
                     <th class="px-4 py-2 text-center">Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 @forelse($lineasNoRem as $l)
                 <tr class="border-b" data-line-id="{{ $l->id }}">
-                    <td class="px-4 py-2">{{ $l->nombre }}</td>
+                    <td class="px-4 py-2 font-semibold">{{ $l->nombre }}</td>
                     <td class="px-4 py-2 text-right">
                         <input type="number" step="0.01" style="border: none; background-color: transparent; width: 125px; text-align: right;"
                             class="line-cantidad py-1 text-sm"
@@ -58,10 +58,10 @@ $lineasNoRem = $lineas->where('tipo', 'no_remunerativo');
 
             <tfoot>
                 <tr class="font-semibold bg-gray-50">
-                    <td class="px-4 py-3">Total no remunerativo</td>
+                    <td class="px-4 py-3 font-bold">Total no remunerativo</td>
                     <td></td>
                     <td></td>
-                    <td class="px-4 py-3 text-right" id="subtotal_no_remunerativo">{{ number_format($lineasNoRem->sum('importe'), 2, ',', '.') }}</td>
+                    <td class="px-4 py-3 text-right border-r border-gray-300" id="subtotal_no_remunerativo">{{ number_format($lineasNoRem->sum('importe'), 2, ',', '.') }}</td>
                     <td class="bg-gray-200"></td>
                 </tr>
             </tfoot>

@@ -6,8 +6,8 @@ $lineasRem = $lineas->where('tipo', 'remunerativo');
 $sueldoBasico = $nomina->sueldo_basico_snapshot ?? ($ajustes->sueldo_basico ?? 0);
 @endphp
 
-<div class="p-4">
-    <h3 class="text-lg font-semibold mb-3">Remunerativos</h3>
+<div class="px-4">
+    <h3 class="text-xl font-semibold mb-3">Remunerativos</h3>
 
     <div class="overflow-x-auto">
         <table id="tabla_remunerativos" class="w-full text-sm text-left text-gray-700 border">
@@ -23,7 +23,7 @@ $sueldoBasico = $nomina->sueldo_basico_snapshot ?? ($ajustes->sueldo_basico ?? 0
             <tbody>
                 {{-- Sueldo básico (no editable cantidad por BD: lo mostramos como 1) --}}
                 <tr class="border-b">
-                    <td class="px-4 py-2">Sueldo básico</td>
+                    <td class="px-4 py-2 font-semibold">Sueldo básico</td>
                     <td class="px-4 py-2 text-right">
                         <input type="number" step="0.01" style="border: none; background-color: transparent; width: 125px; text-align: right;"
                             class="line-cantidad py-1 text-sm" value="1"
@@ -42,7 +42,7 @@ $sueldoBasico = $nomina->sueldo_basico_snapshot ?? ($ajustes->sueldo_basico ?? 0
                 @continue
                 @endif
                 <tr class="border-b" data-line-id="{{ $linea->id }}">
-                    <td class="px-4 py-2">{{ $linea->nombre }}</td>
+                    <td class="px-4 py-2 font-semibold">{{ $linea->nombre }}</td>
                     <td class="px-4 py-2 text-right">
                         <input type="number" step="0.01" style="border: none; background-color: transparent; width: 125px; text-align: right;"
                             class="line-cantidad py-1 text-sm"
@@ -78,13 +78,17 @@ $sueldoBasico = $nomina->sueldo_basico_snapshot ?? ($ajustes->sueldo_basico ?? 0
 
             <tfoot>
                 <tr class="font-semibold bg-gray-50">
-                    <td class="px-4 py-3">Subtotal remunerativo</td>
+                    <td class="px-4 py-3 font-bold">Subtotal remunerativo</td>
                     <td></td>
                     <td></td>
-                    <td class="px-4 py-3 text-right" id="subtotal_remunerativo">{{ number_format($sueldoBasico + $lineasRem->sum('importe'), 2, ',', '.') }}</td>
+                    <td class="px-4 py-3 text-right border-r border-gray-300"
+                        id="subtotal_remunerativo">
+                        {{ number_format($sueldoBasico + $lineasRem->sum('importe'), 2, ',', '.') }}
+                    </td>
                     <td class="bg-gray-200"></td>
                 </tr>
             </tfoot>
+
         </table>
     </div>
 </div>
