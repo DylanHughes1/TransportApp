@@ -252,7 +252,7 @@ class SueldoService
         $lineasPayload = Arr::get($payload, 'lineas', []);
         $totales = Arr::get($payload, 'totales', []);
 
-        // Recorrer lineas: si viene id -> actualizar, sino -> crear
+        // === 1) Guardar/actualizar líneas ===
         foreach ($lineasPayload as $lp) {
             $data = [
                 'nomina_id' => $nomina->id,
@@ -266,51 +266,30 @@ class SueldoService
             ];
 
             if (!empty($lp['id'])) {
-                // actualizar si existe
                 LineaNomina::where('id', $lp['id'])->update($data);
             } else {
-                // crear nueva linea
                 LineaNomina::create($data);
             }
         }
 
-        // Recalcular en servidor por seguridad (no confiar 100% en cliente)
-        $lineas = $nomina->lineas()->get();
+        // === 2) Extras (adelantos, celular, gastos) ===
+        $extras = Arr::get($payload, 'extras', []);
+        $adelantos = (float)Arr::get($extras, 'adelantos', 0);
+        $celular   = (float)Arr::get($extras, 'celular', 0);
+        $gastos    = (float)Arr::get($extras, 'gastos', 0);
 
-        // subtotal remunerativo: si existe 'Sueldo Básico' como linea la contamos, si no usamos snapshot
-        $tieneSueldo = $lineas->first(function ($l) {
-            return mb_strtolower(trim($l->nombre)) === 'sueldo básico';
-        }) ? true : false;
-
-        $subtotalRem = $lineas->where('tipo', 'remunerativo')->sum('importe');
-        if (! $tieneSueldo) {
-            $subtotalRem += ($nomina->sueldo_basico_snapshot ?? 0);
-        }
-
-        $subtotalNoRem = $lineas->where('tipo', 'no_remunerativo')->sum('importe');
-
-        // descuentos: calcular porcentuales sobre subtotalRem o sumar importes fijos
-        $totalDescuentos = 0;
-        foreach ($lineas->where('tipo', 'descuento') as $d) {
-            if (!empty($d->porcentaje)) {
-                $totalDescuentos += round($subtotalRem * ((float)$d->porcentaje / 100.0), 2);
-            } else {
-                $totalDescuentos += (float)$d->importe;
-            }
-        }
-
-        $subtotal2 = round($subtotalRem - $totalDescuentos, 2);
-        $neto = round($subtotal2 + $subtotalNoRem, 2);
-
-        // Guardar totales en la nómina
+        // === 3) Guardar totales desde payload ===
         $nomina->update([
-            'subtotal_remunerativo' => $subtotalRem,
-            'subtotal_no_remunerativo' => $subtotalNoRem,
-            'total_descuentos' => $totalDescuentos,
-            'neto' => $neto,
+            'subtotal_remunerativo'    => (float)Arr::get($totales, 'subtotal_remunerativo', 0),
+            'subtotal_no_remunerativo' => (float)Arr::get($totales, 'subtotal_no_remunerativo', 0),
+            'total_descuentos'         => (float)Arr::get($totales, 'total_descuentos', 0),
+            'adelantos'                => $adelantos,
+            'celular'                  => $celular,
+            'gastos'                   => $gastos,
+            'neto'                     => (float)Arr::get($totales, 'neto_final', 0),
         ]);
 
-        // Guardar snapshot JSON con detalle (opcional pero recomendado)
+        // === 4) Snapshot ===
         $lineasSnapshot = $nomina->lineas()->get()->map(function ($l) {
             return [
                 'id' => $l->id,
@@ -327,29 +306,26 @@ class SueldoService
             'generado_el' => now()->toDateTimeString(),
             'lineas' => $lineasSnapshot,
             'totales_cliente_enviado' => $totales,
-            'totales_recalculado' => [
-                'subtotal_remunerativo' => (float)$subtotalRem,
-                'total_descuentos' => (float)$totalDescuentos,
-                'subtotal_no_remunerativo' => (float)$subtotalNoRem,
-                'subtotal2' => (float)$subtotal2,
-                'neto' => (float)$neto,
-            ],
             'version' => 'v1'
         ];
 
         $nomina->json_snapshot = $snapshot;
         $nomina->save();
+
+        return (float)Arr::get($payload, 'neto', 0);
     }
+
+
 
     public function showDatosBasicos()
     {
-        $datos = DatosSueldo::all();
+        $datos = AjusteSueldo::all();
         return ['datos' => $datos];
     }
 
     public function updateDatosBasicos($data)
     {
-        $datos = DatosSueldo::all()->first();
+        $datos = AjusteSueldo::all()->first();
 
         $datos->sueldo_basico = $data->input('sueldo_basico');
         $datos->hs_ext_km_recorrido = $data->input('hs_ext_km_recorrido');

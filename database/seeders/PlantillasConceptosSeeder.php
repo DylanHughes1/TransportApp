@@ -42,7 +42,7 @@ class PlantillasConceptosSeeder extends Seeder
             ['nombre' => 'Permanencia fuera residencia habit inc. a)', 'tipo' => 'no_remunerativo'],
             ['nombre' => 'Viático KM recori 1,2', 'tipo' => 'no_remunerativo'],
             ['nombre' => 'Adicional Vacaciones Anuales 2023', 'tipo' => 'no_remunerativo'],
-            ['nombre' => 'Asignación No remuner Cuota - Acuerdo 151', 'tipo' => 'no_remunerativo'],
+            ['nombre' => 'Asignación No remuner Cuota - Acuerdo 151221', 'tipo' => 'no_remunerativo'],
         ];
 
         foreach ($conceptos as $c) {

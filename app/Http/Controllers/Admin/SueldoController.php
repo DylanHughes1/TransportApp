@@ -60,7 +60,7 @@ class SueldoController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Nómina guardada correctamente',
+                'message' => $service,
             ]);
         } catch (\Exception $e) {
             DB::rollBack();

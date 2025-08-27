@@ -18,10 +18,13 @@ class Nomina extends Model
         'subtotal_remunerativo',
         'subtotal_no_remunerativo',
         'total_descuentos',
+        'adelantos',
+        'celular',
+        'gastos',
         'neto',
         'json_snapshot',
         'created_by',
-        'aprobado_el'
+        'aprobado_el',
     ];
 
 
