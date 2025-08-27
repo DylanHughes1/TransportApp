@@ -216,6 +216,20 @@
                 </div>
             </div>
         </div>
+        <!-- Modal confirmación eliminar -->
+        <div id="modalConfirmDelete" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+            <div class="bg-white rounded-lg shadow p-6 w-full max-w-md">
+                <h3 class="text-lg font-semibold mb-2">Confirmar eliminación</h3>
+                <p class="text-sm text-gray-600 mb-4">¿Estás seguro que querés eliminar esta fila? Esta acción no se puede deshacer.</p>
+                <div class="flex justify-end gap-2">
+                    <button id="cancelDeleteBtn" class="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300">Cancelar</button>
+                    <button id="confirmDeleteBtn" class="px-4 py-2 rounded bg-red-600 text-white hover:bg-red-700">Eliminar</button>
+                </div>
+            </div>
+        </div>
+
+
+
         <div id="toast-container" class="fixed top-5 right-5 z-50 space-y-2"></div>
 
         <!-- CSS de animación (solo una vez, en tu layout o CSS global) -->
@@ -236,63 +250,11 @@
                 animation: slide-in 0.3s ease-out;
             }
         </style>
-
-        {{-- Script JS para modal y previsualizar importe --}}
-
-        <script>
-            $(document).ready(function() {
-                $('#btnAgregarLinea').on('click', function() {
-                    $('#modalAgregarLinea').removeClass('hidden');
-                });
-
-                $('#formAgregarLinea').on('submit', function(e) {
-                    e.preventDefault();
-
-                    let form = $(this);
-                    let url = form.attr('action');
-                    let data = form.serialize();
-
-                    $.post(url, data)
-                        .done(function(resp) {
-                            showToast(resp.message || "Línea agregada correctamente", "success");
-                            setTimeout(() => location.reload(), 1500); // recarga después de mostrar el toast
-                        })
-                        .fail(function(xhr) {
-                            console.error(xhr.responseText);
-                            showToast("Error al guardar la línea extra", "error");
-                        });
-
-                });
-
-                function showToast(message, type = "success") {
-                    const container = document.getElementById("toast-container");
-
-                    const colors = {
-                        success: "bg-green-500 text-white",
-                        error: "bg-red-500 text-white",
-                        info: "bg-blue-500 text-white",
-                    };
-
-                    const toast = document.createElement("div");
-                    toast.className = `px-4 py-2 rounded-lg shadow-lg ${colors[type]} animate-slide-in`;
-                    toast.innerText = message;
-
-                    container.appendChild(toast);
-
-                    // se borra solo después de 3 segundos
-                    setTimeout(() => {
-                        toast.classList.add("opacity-0", "transition", "duration-500");
-                        setTimeout(() => toast.remove(), 500);
-                    }, 3000);
-                }
-
-
-            });
-        </script>
         <script>
             window.SUELDO_APP = {
                 guardarUrl: "{{ url('/admin/nominas/' . $nomina->id . '/guardar') }}",
             };
         </script>
-        @vite(['resources/scripts/Sueldo/nomina.js', 'resources/scripts/Sueldo/nuevaLinea.js'])
+
+        @vite(['resources/scripts/Sueldo/nomina.js', 'resources/scripts/Sueldo/nuevaLinea.js', 'resources/scripts/Sueldo/eliminarLinea.js'])
 </x-admin-app-layout>

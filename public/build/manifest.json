@@ -26,6 +26,11 @@
     "isEntry": true,
     "src": "resources/scripts/Spinner/Spinner.js"
   },
+  "resources/scripts/Sueldo/eliminarLinea.js": {
+    "file": "assets/eliminarLinea-2fe7b25e.js",
+    "isEntry": true,
+    "src": "resources/scripts/Sueldo/eliminarLinea.js"
+  },
   "resources/scripts/Sueldo/nomina.js": {
     "file": "assets/nomina-1f3a89bd.js",
     "imports": [

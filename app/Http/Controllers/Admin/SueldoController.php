@@ -148,4 +148,31 @@ class SueldoController extends Controller
             return response()->json(['error_controlado' => $e->getMessage()], 500);
         }
     }
+
+    public function eliminarLinea(Request $request, Nomina $nomina, LineaNomina $linea)
+    {
+        // Verificamos pertenencia
+        if ($linea->nomina_id !== $nomina->id) {
+            return response()->json(['success' => false, 'message' => 'La línea no pertenece a esta nómina.'], 404);
+        }
+
+        DB::beginTransaction();
+        try {
+            SueldoService::getInstance()->eliminarLinea($nomina, $linea->id);
+
+            DB::commit();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Línea eliminada correctamente'
+            ]);
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            Log::error('Error eliminando línea: ' . $e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => 'Error al eliminar la línea'
+            ], 500);
+        }
+    }
 }

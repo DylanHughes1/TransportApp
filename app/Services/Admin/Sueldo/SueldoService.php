@@ -449,4 +449,75 @@ class SueldoService
 
         return $nomina->load('lineas');
     }
+
+    public function eliminarLinea(Nomina $nomina, int $lineaId): Nomina
+    {
+        // eliminamos la linea
+        $linea = LineaNomina::where('id', $lineaId)->where('nomina_id', $nomina->id)->first();
+        if (! $linea) {
+            throw new \Exception('Línea no encontrada');
+        }
+
+        $linea->delete();
+
+        // Recalcular y guardar totales + snapshot
+        return $this->recalcularTotales($nomina);
+    }
+
+    public function recalcularTotales(Nomina $nomina): Nomina
+    {
+        // refrescar lineas desde bd
+        $lineas = $nomina->lineas()->get();
+
+        $subtotalRem = $lineas->where('tipo', 'remunerativo')->sum('importe');
+        $subtotalNoRem = $lineas->where('tipo', 'no_remunerativo')->sum('importe');
+
+        $totalDescuentos = 0;
+        foreach ($lineas->where('tipo', 'descuento') as $d) {
+            if (!empty($d->porcentaje)) {
+                $totalDescuentos += round($subtotalRem * ((float)$d->porcentaje / 100.0), 2);
+            } else {
+                $totalDescuentos += (float)$d->importe;
+            }
+        }
+
+        $neto = round($subtotalRem + $subtotalNoRem - $totalDescuentos, 2);
+
+        // Guardar en la nomina
+        $nomina->subtotal_remunerativo = $subtotalRem;
+        $nomina->subtotal_no_remunerativo = $subtotalNoRem;
+        $nomina->total_descuentos = $totalDescuentos;
+        $nomina->neto = $neto;
+
+        // Reconstruir snapshot (idéntico a la lógica previa)
+        $lineasSnapshot = $lineas->map(function ($l) {
+            return [
+                'id_linea' => $l->id,
+                'tipo' => $l->tipo,
+                'nombre' => $l->nombre,
+                'cantidad' => (float) $l->cantidad,
+                'valor_unitario' => (float) $l->valor_unitario,
+                'importe' => (float) $l->importe,
+                'porcentaje' => $l->porcentaje ? (float) $l->porcentaje : null,
+            ];
+        })->toArray();
+
+        $snapshot = [
+            'generado_el' => now()->toDateTimeString(),
+            'usuario_id' => Auth::id() ?? null,
+            'lineas' => $lineasSnapshot,
+            'totales' => [
+                'subtotal_remunerativo' => (float) $subtotalRem,
+                'subtotal_no_remunerativo' => (float) $subtotalNoRem,
+                'total_descuentos' => (float) $totalDescuentos,
+                'neto' => (float) $neto,
+            ],
+            'version_calculadora' => 'v1',
+        ];
+
+        $nomina->json_snapshot = $snapshot;
+        $nomina->save();
+
+        return $nomina->fresh('lineas');
+    }
 }

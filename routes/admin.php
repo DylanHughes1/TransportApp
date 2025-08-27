@@ -155,11 +155,16 @@ Route::prefix('admin')->name('admin.')->group(function () {
         ->middleware('auth:admin');
 
     Route::post('/nominas/{nomina}/guardar', [SueldoController::class, 'guardarNomina'])
-        ->name('nominas.guardar');
+        ->name('nominas.guardar')
+        ->middleware('auth:admin');
 
     Route::post('/nominas/{nomina}/lineas', [SueldoController::class, 'agregarLinea'])
-        ->name('nominas.lineas.store');
+        ->name('nominas.lineas.store')
+        ->middleware('auth:admin');
 
+    Route::delete('/nominas/{nomina}/lineas/{linea}', [SueldoController::class, 'eliminarLinea'])
+        ->name('nominas.lineas.destroy')
+        ->middleware('auth:admin');
 
     //Rutas asociadas a los choferes
 
