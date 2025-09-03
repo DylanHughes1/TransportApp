@@ -1,11 +1,23 @@
 {
+  "__commonjsHelpers-725317a4.js": {
+    "file": "assets/_commonjsHelpers-725317a4.js"
+  },
+  "_jquery-2823516c.js": {
+    "file": "assets/jquery-2823516c.js",
+    "imports": [
+      "__commonjsHelpers-725317a4.js"
+    ]
+  },
   "resources/css/app.css": {
     "file": "assets/app-336a650a.css",
     "isEntry": true,
     "src": "resources/css/app.css"
   },
   "resources/js/app.js": {
-    "file": "assets/app-5d1d33a8.js",
+    "file": "assets/app-280ad0bb.js",
+    "imports": [
+      "__commonjsHelpers-725317a4.js"
+    ],
     "isEntry": true,
     "src": "resources/js/app.js"
   },
@@ -14,8 +26,31 @@
     "isEntry": true,
     "src": "resources/scripts/Spinner/Spinner.js"
   },
+  "resources/scripts/Sueldo/eliminarLinea.js": {
+    "file": "assets/eliminarLinea-2fe7b25e.js",
+    "isEntry": true,
+    "src": "resources/scripts/Sueldo/eliminarLinea.js"
+  },
+  "resources/scripts/Sueldo/nomina.js": {
+    "file": "assets/nomina-1f3a89bd.js",
+    "imports": [
+      "_jquery-2823516c.js",
+      "__commonjsHelpers-725317a4.js"
+    ],
+    "isEntry": true,
+    "src": "resources/scripts/Sueldo/nomina.js"
+  },
+  "resources/scripts/Sueldo/nuevaLinea.js": {
+    "file": "assets/nuevaLinea-f1525dc5.js",
+    "imports": [
+      "_jquery-2823516c.js",
+      "__commonjsHelpers-725317a4.js"
+    ],
+    "isEntry": true,
+    "src": "resources/scripts/Sueldo/nuevaLinea.js"
+  },
   "resources/scripts/Viajes/NuevoViaje.js": {
-    "file": "assets/NuevoViaje-01f95dd4.js",
+    "file": "assets/NuevoViaje-8d948769.js",
     "isEntry": true,
     "src": "resources/scripts/Viajes/NuevoViaje.js"
   }

@@ -151,47 +151,23 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::put('sueldo/datos', [SueldoController::class, 'updateDatosBasicos'])
         ->middleware('auth:admin');
 
-    Route::post('sueldo/actualizarValor/{id}', [SueldoController::class, 'actualizarValor'])
-        ->middleware('auth:admin');
-
-    Route::post('sueldo/actualizarTotales1/{id}', [SueldoController::class, 'actualizarTotales1'])
-        ->middleware('auth:admin');
-
-    Route::post('sueldo/actualizarValorDescuento/{id}', [SueldoController::class, 'actualizarValorDescuento'])
-        ->middleware('auth:admin');
-
-    Route::post('sueldo/actualizarSubtotal2/{id}', [SueldoController::class, 'actualizarSubtotal2'])
-        ->middleware('auth:admin');
-
-    Route::post('sueldo/actualizarValor3/{id}', [SueldoController::class, 'actualizarValor3'])
-        ->middleware('auth:admin');
-
-    Route::post('sueldo/actualizarNombre3/{id}', [SueldoController::class, 'actualizarNombre3'])
-        ->middleware('auth:admin');
-
-    Route::post('sueldo/actualizarTotalNoRenum/{id}', [SueldoController::class, 'actualizarTotalNoRenum'])
-        ->middleware('auth:admin');
-
-    Route::post('sueldo/actualizarGastosExtra/{id}', [SueldoController::class, 'actualizarGastosExtra'])
-        ->middleware('auth:admin');
-
     Route::get('sueldo/calcular/{id}', [SueldoController::class, 'showCalcularSueldo'])
         ->middleware('auth:admin');
 
-    Route::post('sueldo/calcular/{id}', [SueldoController::class, 'updateDatos'])
+    Route::post('/nominas/{nomina}/guardar', [SueldoController::class, 'guardarNomina'])
+        ->name('nominas.guardar')
         ->middleware('auth:admin');
 
-    Route::post('sueldo/filaNuevaTabla1/{id}', [SueldoController::class, 'agregarNuevaFilaTabla1'])
+    Route::post('/nominas/{nomina}/lineas', [SueldoController::class, 'agregarLinea'])
+        ->name('nominas.lineas.store')
         ->middleware('auth:admin');
 
-    Route::post('sueldo/filaNuevaTabla3/{id}', [SueldoController::class, 'agregarNuevaFilaTabla3'])
+    Route::delete('/nominas/{nomina}/lineas/{linea}', [SueldoController::class, 'eliminarLinea'])
+        ->name('nominas.lineas.destroy')
         ->middleware('auth:admin');
 
-    Route::post('sueldo/actualizarNombreNuevaFila/{id}', [SueldoController::class, 'actualizarNombreNuevaFila'])
-        ->middleware('auth:admin');
+    Route::get('/nominas/{nomina}/export', [SueldoController::class, 'exportExcel'])->name('nomina.export');
 
-    Route::post('sueldo/actualizarValorNuevaFila/{id}', [SueldoController::class, 'actualizarNombreNuevaFila'])
-        ->middleware('auth:admin');
 
     //Rutas asociadas a los choferes
 

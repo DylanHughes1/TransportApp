@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 use App\Services\Admin\Sueldo\SueldoService;
 use Illuminate\Support\Facades\Log;
 use Exception;
+use App\Models\{Nomina, AjusteSueldo, LineaNomina};
+use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\NominaExport;
 
 class SueldoController extends Controller
 {
@@ -44,6 +48,63 @@ class SueldoController extends Controller
         }
     }
 
+    public function guardarNomina(Request $request, Nomina $nomina)
+    {
+        $payload = $request->all();
+
+        DB::beginTransaction();
+        try {
+            // Llamamos al service para persistir todo
+            $service = SueldoService::getInstance()->guardarNominaCompleta($nomina, $payload);
+
+            DB::commit();
+
+            return response()->json([
+                'success' => true,
+                'message' => $service,
+            ]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('Error guardarNomina: ' . $e->getMessage(), ['trace' => $e->getTraceAsString()]);
+            return response()->json([
+                'success' => false,
+                'message' => 'Error al guardar la nómina: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function agregarLinea(Request $request, Nomina $nomina)
+    {
+        $validated = $request->validate([
+            'tipo'           => 'required|in:remunerativo,no_remunerativo,descuento',
+            'nombre'         => 'required|string|max:255',
+            'valor_unitario' => 'nullable|numeric',
+            'porcentaje'     => 'nullable|numeric',
+        ]);
+
+        DB::beginTransaction();
+        try {
+            $linea = SueldoService::getInstance()
+                ->agregarLinea($nomina, $validated);
+
+            DB::commit();
+
+            if ($request->ajax()) {
+                return response()->json([
+                    'success' => true,
+                    'linea'   => $linea
+                ]);
+            }
+
+            return redirect()
+                ->route('nominas.show', $nomina->id)
+                ->with('success', 'Línea agregada correctamente');
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            return back()->withErrors(['error' => $e->getMessage()]);
+        }
+    }
+
     /**
      * Muestra la tabla con los datos base para el sueldo.
      */
@@ -74,173 +135,52 @@ class SueldoController extends Controller
             return response()->json(['error_controlado' => $e->getMessage()], 500);
         }
     }
-    /**
-     * Tabla 1
-     */
-    public function actualizarValor(Request $request, $id)
+
+    public function generarNomina(Request $request)
     {
         try {
-            $actualizado = SueldoService::getInstance()->actualizarValor($request, $id);
-            if (!$actualizado) {
-                return response()->json(['error' => 'No se encontró el registro'], 404);
-            }
-            return response()->json(['message' => 'Actualizado correctamente']);
+            $nomina = SueldoService::getInstance()->generarNomina($request->all());
+
+            return response()->json([
+                'success' => true,
+                'nomina' => $nomina,
+            ], 201);
         } catch (Exception $e) {
             Log::critical('Exception: ' . $e);
             return response()->json(['error_controlado' => $e->getMessage()], 500);
         }
     }
 
-    public function actualizarTotales1(Request $request, $id)
+    public function eliminarLinea(Request $request, Nomina $nomina, LineaNomina $linea)
     {
+        // Verificamos pertenencia
+        if ($linea->nomina_id !== $nomina->id) {
+            return response()->json(['success' => false, 'message' => 'La línea no pertenece a esta nómina.'], 404);
+        }
+
+        DB::beginTransaction();
         try {
-            $actualizado = SueldoService::getInstance()->actualizarTotales1($request, $id);
-            if (!$actualizado) {
-                return response()->json(['error' => 'No se encontró el registro'], 404);
-            }
-            return response()->json(['message' => 'Actualizado correctamente']);
-        } catch (Exception $e) {
-            Log::critical('Exception: ' . $e);
-            return response()->json(['error_controlado' => $e->getMessage()], 500);
+            SueldoService::getInstance()->eliminarLinea($nomina, $linea->id);
+
+            DB::commit();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Línea eliminada correctamente'
+            ]);
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            Log::error('Error eliminando línea: ' . $e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => 'Error al eliminar la línea'
+            ], 500);
         }
     }
 
-    /**
-     * Tabla 2
-     */
-
-    public function actualizarValorDescuento(Request $request, $id)
+    public function exportExcel(Nomina $nomina)
     {
-        try {
-            $actualizado = SueldoService::getInstance()->actualizarValorDescuento($request, $id);
-            if (!$actualizado) {
-                return response()->json(['error' => 'No se encontró el registro'], 404);
-            }
-            return response()->json(['message' => 'Actualizado correctamente']);
-        } catch (Exception $e) {
-            Log::critical('Exception: ' . $e);
-            return response()->json(['error_controlado' => $e->getMessage()], 500);
-        }
-    }
-
-    public function actualizarSubtotal2(Request $request, $id)
-    {
-        try {
-            $actualizado = SueldoService::getInstance()->actualizarSubtotal2($request, $id);
-            if (!$actualizado) {
-                return response()->json(['error' => 'No se encontró el registro'], 404);
-            }
-            return response()->json(['message' => 'Actualizado correctamente']);
-        } catch (Exception $e) {
-            Log::critical('Exception: ' . $e);
-            return response()->json(['error_controlado' => $e->getMessage()], 500);
-        }
-    }
-
-    /**
-     * Tabla 3
-     */
-
-    public function actualizarNombre3(Request $request)
-    {
-        try {
-            SueldoService::getInstance()->actualizarNombre3($request);
-            return response()->json(['message' => 'Actualizado correctamente']);
-        } catch (Exception $e) {
-            Log::critical('Exception: ' . $e);
-            return response()->json(['error_controlado' => $e->getMessage()], 500);
-        }
-    }
-
-    public function actualizarValor3(Request $request, $id)
-    {
-        try {
-            $actualizado = SueldoService::getInstance()->actualizarValor3($request, $id);
-            if (!$actualizado) {
-                return response()->json(['error' => 'No se encontró el registro'], 404);
-            }
-            return response()->json(['message' => 'Actualizado correctamente']);
-        } catch (Exception $e) {
-            Log::critical('Exception: ' . $e);
-            return response()->json(['error_controlado' => $e->getMessage()], 500);
-        }
-    }
-
-    public function actualizarTotalNoRenum(Request $request, $id)
-    {
-        try {
-            $actualizado = SueldoService::getInstance()->actualizarTotalNoRenum($request, $id);
-            if (!$actualizado) {
-                return response()->json(['error' => 'No se encontró el registro'], 404);
-            }
-            return response()->json(['message' => 'Actualizado correctamente']);
-        } catch (Exception $e) {
-            Log::critical('Exception: ' . $e);
-            return response()->json(['error_controlado' => $e->getMessage()], 500);
-        }
-    }
-
-    public function actualizarGastosExtra(Request $request, $id)
-    {
-        try {
-            $actualizado = SueldoService::getInstance()->actualizarGastosExtra($request, $id);
-            if (!$actualizado) {
-                return response()->json(['error' => 'No se encontró el registro'], 404);
-            }
-            return response()->json(['message' => 'Actualizado correctamente']);
-        } catch (Exception $e) {
-            Log::critical('Exception: ' . $e);
-            return response()->json(['error_controlado' => $e->getMessage()], 500);
-        }
-    }
-
-    public function agregarNuevaFilaTabla1(Request $request, $id)
-    {
-        try {
-            SueldoService::getInstance()->agregarNuevaFilaTabla1($request, $id);
-            return redirect("/admin/sueldo/calcular/$id")->with('status', 'Cambios Guardados');
-        } catch (Exception $e) {
-            Log::critical('Exception: ' . $e);
-            return response()->json(['error_controlado' => $e->getMessage()], 500);
-        }
-    }
-
-    public function agregarNuevaFilaTabla3(Request $request, $id)
-    {
-        try {
-            SueldoService::getInstance()->agregarNuevaFilaTabla3($request, $id);
-            return redirect("/admin/sueldo/calcular/$id")->with('status', 'Cambios Guardados');
-        } catch (Exception $e) {
-            Log::critical('Exception: ' . $e);
-            return response()->json(['error_controlado' => $e->getMessage()], 500);
-        }
-    }
-
-    public function actualizarNombreNuevaFila(Request $request, $id)
-    {
-        try {
-            $actualizado = SueldoService::getInstance()->actualizarNombreNuevaFila($request, $id);
-            if (!$actualizado) {
-                return response()->json(['error' => 'No se encontró el registro'], 404);
-            }
-            return response()->json(['message' => 'Actualizado correctamente']);
-        } catch (Exception $e) {
-            Log::critical('Exception: ' . $e);
-            return response()->json(['error_controlado' => $e->getMessage()], 500);
-        }
-    }
-
-    public function actualizarValorNuevaFila(Request $request, $id)
-    {
-        try {
-            $actualizado = SueldoService::getInstance()->actualizarValorNuevaFila($request, $id);
-            if (!$actualizado) {
-                return response()->json(['error' => 'No se encontró el registro'], 404);
-            }
-            return response()->json(['message' => 'Actualizado correctamente']);
-        } catch (Exception $e) {
-            Log::critical('Exception: ' . $e);
-            return response()->json(['error_controlado' => $e->getMessage()], 500);
-        }
+        $fileName = "nomina_{$nomina->id}.xlsx";
+        return Excel::download(new NominaExport($nomina), $fileName);
     }
 }

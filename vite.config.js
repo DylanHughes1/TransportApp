@@ -8,7 +8,10 @@ export default defineConfig({
                 'resources/css/app.css',
                 'resources/js/app.js',
                 'resources/scripts/Viajes/NuevoViaje.js',
-                'resources/scripts/Spinner/Spinner.js'
+                'resources/scripts/Spinner/Spinner.js',
+                'resources/scripts/Sueldo/nomina.js',
+                'resources/scripts/Sueldo/nuevaLinea.js',
+                'resources/scripts/Sueldo/eliminarLinea.js',
             ],
             refresh: true,
             build: {

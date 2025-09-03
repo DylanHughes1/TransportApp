@@ -1,247 +1,86 @@
-<table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 border-b">
-        <tr>
-            <th scope="col" class="px-6 py-3">
-                Descuentos
-            </th>
-            <th scope="col" class="px-6 py-3">
-                Porcentaje
-            </th>
-            <th scope="col" class="px-6 py-3">
+{{-- Tabla 2: Descuentos / Retenciones --}}
+@props(['ajustes', 'nomina', 'lineas', 'plantillas', 'truck_driver'])
 
-            </th>
-            <th scope="col" class="px-6 py-3">
-                Total
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-            <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                Jubilación
-            </th>
-            <td class="px-6 py-3">
-                <input style="border: none; background-color: transparent; width: 125px; text-align: left;" data-id="1"
-                    data-field="jubilacion" class="py-1 text-sm editable-percent" name="jubilacion"
-                    value=" {{floatval($tabla2->jubilacion)}}%">
-            </td>
-            <td class="px-6 py-3">
-                
-            </td>
-            <td class="descuento px-6 py-3">
+@php
+$lineasRem = $lineas->where('tipo', 'remunerativo');
+$subtotalRemInit = ($nomina->subtotal_remunerativo ?? ($lineasRem->sum('importe') + ($nomina->sueldo_basico_snapshot ?? 0)));
+$lineasDesc = $lineas->where('tipo', 'descuento');
+@endphp
+
+<div class="px-4">
+    <h3 class="text-xl font-semibold mb-3">Descuentos y retenciones</h3>
+
+    <div class="overflow-x-auto">
+        <table id="tabla_descuentos" class="w-full text-sm text-left text-gray-700 border">
+            <thead class="bg-gray-100">
+                <tr>
+                    <th class="px-4 py-2">Concepto</th>
+                    <th class="px-4 py-2 text-right">Detalle / %</th>
+                    <th class="px-4 py-2 text-right">Total</th>
+                    <th class="px-4 py-2 text-center">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse($lineasDesc as $desc)
                 @php
-                    $producto = ($tabla2->jubilacion / 100) * $tabla1->total_remun1;
-                    echo str_replace(',', '', number_format($producto, 2));
+                // Si la linea tiene porcentaje lo usamos, si no guardamos importe fijo como fallback
+                $porc = $desc->porcentaje ? (float)$desc->porcentaje : null;
+                $fixed = !$porc ? (float)$desc->importe : 0;
                 @endphp
-            </td>
+                <tr class="border-b line-desc" data-line-id="{{ $desc->id }}" data-fixed-importe="{{ $fixed }}">
+                    <td class="px-4 py-2 font-semibold">{{ $desc->nombre }}</td>
+                    <td class="px-4 py-2 text-right">
+                        <input type="number" step="0.01" style="border: none; background-color: transparent; width: 125px; text-align: right;"
+                            class="line-cantidad py-1 text-sm"
+                            value="{{ $porc !== null ? number_format($porc,2,'.','') : '' }}"
+                            data-line-id="{{ $desc->id }}">
+                    </td>
+                    <td class="px-4 py-2 text-right line-desc-importe" data-raw="{{ $fixed }}">
+                        {{-- Si tiene porcentaje se calcula en cliente; si no, mostramos el fijo --}}
+                        @if($porc !== null)
+                        {{ number_format(round($subtotalRemInit * ($porc / 100.0),2), 2, ',', '.') }}
+                        @else
+                        {{ number_format($fixed, 2, ',', '.') }}
+                        @endif
+                    </td>
 
-        </tr>
-        <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-            <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                Obra Social
-            </th>
-            <td class="px-6 py-3">
-                <input style="border: none; background-color: transparent; width: 125px; text-align: left;" data-id="2"
-                    data-field="obra_social" class="py-1 text-sm editable-percent" name="obra_social"
-                    value=" {{floatval($tabla2->obra_social)}}%">
-            </td>
-            <td class="px-6 py-3">
+                    <td class="px-4 py-2 text-center">
+                        <button type="button"
+                            class="btn-delete-line inline-flex items-center px-3 py-1 text-sm font-medium text-red-700 bg-red-50 rounded hover:bg-red-100"
+                            data-line-id="{{ $desc->id }}"
+                            data-nomina-id="{{ $nomina->id }}">
+                            <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                <g id="SVGRepo_iconCarrier">
+                                    <path d="M18 6L17.1991 18.0129C17.129 19.065 17.0939 19.5911 16.8667 19.99C16.6666 20.3412 16.3648 20.6235 16.0011 20.7998C15.588 21 15.0607 21 14.0062 21H9.99377C8.93927 21 8.41202 21 7.99889 20.7998C7.63517 20.6235 7.33339 20.3412 7.13332 19.99C6.90607 19.5911 6.871 19.065 6.80086 18.0129L6 6M4 6H20M16 6L15.7294 5.18807C15.4671 4.40125 15.3359 4.00784 15.0927 3.71698C14.8779 3.46013 14.6021 3.26132 14.2905 3.13878C13.9376 3 13.523 3 12.6936 3H11.3064C10.477 3 10.0624 3 9.70951 3.13878C9.39792 3.26132 9.12208 3.46013 8.90729 3.71698C8.66405 4.00784 8.53292 4.40125 8.27064 5.18807L8 6M14 10V17M10 10V17" stroke="#e23636" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                </g>
+                            </svg>
+                        </button>
+                    </td>
+                </tr>
+                @empty
+                <tr>
+                    <td class="px-4 py-4 text-center text-sm text-gray-500" colspan="3">No hay descuentos configurados.</td>
+                </tr>
+                @endforelse
+            </tbody>
 
-            </td>
-            <td class="descuento px-6 py-3">
-                @php
-                    $producto = ($tabla2->obra_social / 100) * $tabla1->total_remun1;
-                    echo str_replace(',', '', number_format($producto, 2));
-                @endphp
-            </td>
+            <tfoot>
+                <tr class="font-semibold bg-gray-50 border-b border-gray-300">
+                    <td class="px-4 py-3 text-red-600">Total descuentos</td>
+                    <td></td>
+                    <td class="px-4 py-3 text-right text-red-600 border-r border-gray-300" id="total_descuentos">- {{ number_format(0, 2, ',', '.') }}</td>
+                    <td class="bg-gray-200"></td>
+                </tr>
 
-        </tr>
-        <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-            <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                Cuota Solidaria
-            </th>
-            <td class="px-6 py-3">
-                <input style="border: none; background-color: transparent; width: 125px; text-align: left;" data-id="3"
-                    data-field="cuota_solidaria" class="py-1 text-sm editable-percent" name="cuota_solidaria"
-                    value=" {{floatval($tabla2->cuota_solidaria)}}%">
-            </td>
-            <td class="px-6 py-3">
-
-            </td>
-            <td class="descuento px-6 py-3">
-                @php
-                    $producto = ($tabla2->cuota_solidaria / 100) * $tabla1->total_remun1;
-                    echo str_replace(',', '', number_format($producto, 2));
-                @endphp
-            </td>
-
-        </tr>
-        <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-            <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                Ley 19.032
-            </th>
-            <td class="px-6 py-3">
-                <input style="border: none; background-color: transparent; width: 125px; text-align: left;" data-id="4"
-                    data-field="ley_19032" class="py-1 text-sm editable-percent" name="ley_19032"
-                    value=" {{floatval($tabla2->ley_19032)}}%">
-            </td>
-            <td class="px-6 py-3">
-
-            </td>
-            <td class="descuento px-6 py-3">
-                @php
-                    $producto = ($tabla2->ley_19032 / 100) * $tabla1->total_remun1;
-                    echo str_replace(',', '', number_format($producto, 2));
-                @endphp
-            </td>
-
-        </tr>
-        <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-            <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                Seguro Sepelio
-            </th>
-            <td class="px-6 py-3">
-                <input style="border: none; background-color: transparent; width: 125px; text-align: left;" data-id="5"
-                    data-field="seguro_sepelio" class="py-1 text-sm editable-percent" name="seguro_sepelio"
-                    value=" {{floatval($tabla2->seguro_sepelio)}}%">
-            </td>
-            <td class="px-6 py-3">
-
-            </td>
-            <td class="descuento px-6 py-3">
-                @php
-                    $producto = ($tabla2->seguro_sepelio / 100) * $tabla1->total_remun1;
-                    echo str_replace(',', '', number_format($producto, 2));
-                @endphp
-            </td>
-
-        </tr>
-        <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-            <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                AJU.APO.DTO.561/19
-            </th>
-            <td class="px-6 py-3">
-                <input style="border: none; background-color: transparent; width: 125px; text-align: left;" data-id="6"
-                    data-field="aju_apo_dto" class="py-1 text-sm editable-percent" name="aju_apo_dto"
-                    value=" {{floatval($tabla2->aju_apo_dto)}}%">
-            </td>
-            <td class="px-6 py-3">
-
-            </td>
-            <td class="descuento px-6 py-3">
-                @php
-                    $producto = ($tabla2->aju_apo_dto / 100) * $tabla1->total_remun1;
-                    echo str_replace(',', '', number_format($producto, 2));
-                @endphp
-            </td>
-
-        </tr>
-        <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-            <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                ASOC.MUT.1NOV.PMOS
-            </th>
-            <td class="px-6 py-3">
-                <input style="border: none; background-color: transparent; width: 125px; text-align: left;" data-id="7"
-                    data-field="asoc_mut_1nov" class="py-1 text-sm editable-percent" name="asoc_mut_1nov"
-                    value=" {{floatval($tabla2->asoc_mut_1nov)}}%">
-            </td>
-            <td class="px-6 py-3">
-
-            </td>
-            <td class="descuento px-6 py-3">
-                @php
-                    $producto = ($tabla2->asoc_mut_1nov / 100) * $tabla1->total_remun1;
-                    echo str_replace(',', '', number_format($producto, 2));
-                @endphp
-            </td>
-
-        </tr>
-        <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-            <th scope="row" class="px-6 py-5 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                TOTAL DE DESCUENTO
-            </th>
-            <td class="px-6 py-3">
-
-            </td>
-            <td class="px-6 py-3">
-
-            </td>
-            <td id="total_descuento" class="px-6 py-3 text-red-500 font-bold">
-                {{$tabla2->total_descuento}}
-            </td>
-        </tr>
-    <tfoot>
-        <tr class="font-semibold border-b bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white">
-            <th scope="row" class="px-6 py-4 text-base">SUBTOTAL 2</th>
-            <td class="px-6 py-3"></td>
-            <td class="px-6 py-3"></td>
-            <td id="subtotal2" class="px-6 py-3">
-                {{$tabla2->subtotal2}}
-            </td>
-        </tr>
-    </tfoot>
-    </tbody>
-</table>
-
-<script>
-    $(document).ready(function () {
-        const truckDriverId = '{{$truck_driver->id}}';
-        const token = '{{ csrf_token() }}';
-        const totalRemun1 = parseFloat($('#total_remun1').text()) || 0;
-
-        $('.editable-percent').on('blur', function () {
-            const inputField = $(this);
-            const porcentaje = parseFloat(inputField.val()) || 0;
-            const field = inputField.data('field');
-            const descuento = calculateDescuento(porcentaje, totalRemun1);
-            
-            updateDescuentoColumn(inputField, descuento);
-            sendAjaxRequest(`/admin/sueldo/actualizarValorDescuento/${truckDriverId}`, { field, value: porcentaje });
-            updateTotalDescuento();
-        });
-
-        function calculateDescuento(porcentaje, total) {
-            return (porcentaje / 100) * total;
-        }
-
-        function updateDescuentoColumn(inputField, descuento) {
-            inputField.closest('tr').find('.descuento').text(descuento.toFixed(2));
-        }
-
-        function updateTotalDescuento() {
-            let total_descuento = 0;
-
-            $('.descuento').each(function () {
-                total_descuento += parseFloat($(this).text()) || 0;
-            });
-            
-            const subtotal2 = parseFloat("{{ $tabla1->total_remun1 }}") - total_descuento;
-
-            $('#total_descuento').text(total_descuento.toFixed(2));
-            $('#subtotal2').text(subtotal2.toFixed(2));
-
-            let total_final = parseFloat($('#subtotal2').text()) - parseFloat($('#total_no_remun').text());
-            $('#total_final').text(total_final.toFixed(2));
-
-            let gastos_extra = parseFloat($('#subtotal_extra').text()) || 0;
-            let total_depositar = total_final + gastos_extra;
-            $('#total_depositar').text(total_depositar.toFixed(2));
-
-            sendAjaxRequest(`/admin/sueldo/actualizarSubtotal2/${truckDriverId}`, { total_descuento, subtotal2 });
-        }
-
-        function sendAjaxRequest(url, data) {
-            $.ajax({
-                url: url,
-                method: 'POST',
-                data: { _token: token, ...data },
-                success: function () {
-                    console.log('Descuento actualizado en la base de datos');
-                },
-                error: function () {
-                    console.log('Error al actualizar el descuento');
-                }
-            });
-        }
-    });
-</script>
+                <tr class="font-semibold bg-gray-50">
+                    <td class="px-4 py-3 font-bold">Subtotal 2 (Remunerativo - Descuentos)</td>
+                    <td></td>
+                    <td class="px-4 py-3 text-right border-r border-gray-300" id="subtotal2">{{ number_format(0, 2, ',', '.') }}</td>
+                    <td class="bg-gray-200"></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
