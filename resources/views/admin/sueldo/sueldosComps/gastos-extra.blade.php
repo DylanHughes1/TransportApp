@@ -71,7 +71,7 @@ $totalOtros = round(($adelantos + $celular + $gastos), 2);
                                     data-field="gastos"
                                     style="border: none;"
                                     class="input-otros-descuentos currency-input w-24 text-right border rounded px-2 py-1"
-                                    value="{{ number_format($gastos, 2, '9,', '.') }}" />
+                                    value="{{ number_format($gastos, 2, ',', '.') }}" />
                             </div>
                         </td>
                     </tr>

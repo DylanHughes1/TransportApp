@@ -36,6 +36,9 @@
 
                         <div class="flex justify-end mb-4">
                             {{-- Aquí podés poner botones globales (ej. Generar recibo, Exportar) --}}
+                            <button id="btnDescargarExcel" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2">
+                                Descargar Planilla
+                            </button>
                             <button id="btnAgregarLinea" data-modal-target="modalAgregarLinea" data-modal-show="modalAgregarLinea" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2">
                                 Agregar Fila
                             </button>
@@ -147,6 +150,14 @@
             window.SUELDO_APP = {
                 guardarUrl: "{{ url('/admin/nominas/' . $nomina->id . '/guardar') }}",
             };
+        </script>
+
+        <script>
+            document.getElementById('btnDescargarExcel').addEventListener('click', function() {
+                // Suponiendo que tenés la variable nominaId en Blade
+                const nominaId = "{{ $nomina->id }}";
+                window.location.href = `/admin/nominas/${nominaId}/export`;
+            });
         </script>
 
         @vite(['resources/scripts/Sueldo/nomina.js', 'resources/scripts/Sueldo/nuevaLinea.js', 'resources/scripts/Sueldo/eliminarLinea.js'])

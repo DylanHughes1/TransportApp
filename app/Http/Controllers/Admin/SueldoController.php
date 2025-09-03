@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Log;
 use Exception;
 use App\Models\{Nomina, AjusteSueldo, LineaNomina};
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\NominaExport;
 
 class SueldoController extends Controller
 {
@@ -174,5 +176,11 @@ class SueldoController extends Controller
                 'message' => 'Error al eliminar la línea'
             ], 500);
         }
+    }
+
+    public function exportExcel(Nomina $nomina)
+    {
+        $fileName = "nomina_{$nomina->id}.xlsx";
+        return Excel::download(new NominaExport($nomina), $fileName);
     }
 }

@@ -166,6 +166,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
         ->name('nominas.lineas.destroy')
         ->middleware('auth:admin');
 
+    Route::get('/nominas/{nomina}/export', [SueldoController::class, 'exportExcel'])->name('nomina.export');
+
+
     //Rutas asociadas a los choferes
 
     Route::get('truck-drivers', [DashboardController::class, 'showChoferes'])
