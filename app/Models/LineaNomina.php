@@ -19,7 +19,8 @@ class LineaNomina extends Model
         'importe',
         'porcentaje',
         'es_remunerativo',
-        'orden'
+        'orden',
+        'ajuste_key',
     ];
 
 
@@ -56,4 +57,5 @@ class LineaNomina extends Model
     {
         return $query->where('tipo', 'descuento');
     }
+
 }

@@ -40,4 +40,14 @@ class Admin extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function isFullAdmin(): bool
+    {
+        return $this->subrole === 'full';
+    }
+
+    public function isLimitedAdmin(): bool
+    {
+        return $this->subrole === 'limitado';
+    }
 }

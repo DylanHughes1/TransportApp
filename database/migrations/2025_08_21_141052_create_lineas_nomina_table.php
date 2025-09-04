@@ -34,6 +34,8 @@ return new class extends Migration
 
             $table->boolean('es_remunerativo')->default(true);
             $table->integer('orden')->default(0);
+
+            $table->string('ajuste_key')->nullable();
             $table->timestamps();
         });
     }

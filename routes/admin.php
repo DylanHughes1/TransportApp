@@ -80,6 +80,18 @@ Route::prefix('admin')->name('admin.')->group(function () {
         ->middleware('auth:admin')
         ->name('dashboard');
 
+    Route::get('/permisos', [DashboardController::class, 'showPermisos'])
+        ->middleware('auth:admin', 'full_admin');
+
+    // Actualizar subrol de un admin
+    Route::put('/{id}/update-subrol', [DashboardController::class, 'updateAdminSubrol'])
+        ->middleware(['auth:admin', 'full_admin']);
+
+    // Eliminar un chofer
+    Route::delete('/{id}/truck-drivers', [DashboardController::class, 'destroyTruckDriver'])
+        ->middleware(['auth:admin', 'full_admin']);
+
+
     // Viajes
 
     Route::post('create', [ViajesController::class, 'storeViajeInicial'])
