@@ -7,7 +7,7 @@
 
     <div class="bg-gray-100 py-10">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <form method="POST" action="/admin/sueldo/datos/" class="bg-white p-10 shadow-xl rounded-2xl border border-gray-200 space-y-10">
+            <form method="POST" action="/admin/sueldo/datos" class="bg-white p-10 shadow-xl rounded-2xl border border-gray-200 space-y-10">
                 @csrf
                 @method('PUT')
                 @foreach($datos as $dato)
