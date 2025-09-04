@@ -127,6 +127,7 @@ class SueldoController extends Controller
      */
     public function updateDatosBasicos(Request $request)
     {
+        
         try {
             SueldoService::getInstance()->updateDatosBasicos($request);
             return redirect("/admin/sueldo/datos")->with('status', 'Cambios Guardados');

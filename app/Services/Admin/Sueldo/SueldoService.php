@@ -147,9 +147,9 @@ class SueldoService
             return $nomina;
         }
 
-        $ajustes = AjusteSueldo::first();
+        $ajustes = \App\Models\AjusteSueldo::first();
         if (! $ajustes) {
-            Log::warning('No existe AjusteSueldo. Se creará lineas con valor unitario 0 donde no haya porcentaje.');
+            Log::warning('No existe AjusteSueldo. Se crearán lineas con valor unitario 0 donde no haya porcentaje.');
         }
 
         // Mapa: plantilla.nombre => campo en ajustes
@@ -170,13 +170,12 @@ class SueldoService
             'Especial' => 'especial',
             'Pernoctada' => 'pernoctada',
             'Permanencia fuera residencia habit inc. a)' => 'perm_f_res_larga_distancia',
-            // agregá/ajusta más mapeos si hace falta
         ];
 
         DB::beginTransaction();
         try {
-            // 1) Remunerativos y no_remunerativos
-            $plantillas = PlantillaConcepto::whereIn('tipo', ['remunerativo', 'no_remunerativo'])->get();
+            // 1) Remunerativos + No remunerativos
+            $plantillas = \App\Models\PlantillaConcepto::whereIn('tipo', ['remunerativo', 'no_remunerativo'])->get();
 
             foreach ($plantillas as $p) {
                 $campo = $mapaAjuste[$p->nombre] ?? null;
@@ -184,7 +183,7 @@ class SueldoService
                 if ($campo && $ajustes && isset($ajustes->{$campo})) {
                     $valorUnitario = (float)$ajustes->{$campo};
                 }
-                $cantidad = $p->nombre === 'Sueldo Básico' ? 1 : 0;
+                $cantidad = (mb_strtolower(trim($p->nombre)) === 'sueldo básico') ? 1 : 0;
 
                 LineaNomina::create([
                     'nomina_id' => $nomina->id,
@@ -196,11 +195,12 @@ class SueldoService
                     'porcentaje' => null,
                     'es_remunerativo' => $p->tipo === 'remunerativo',
                     'orden' => 0,
+                    'ajuste_key' => $campo, // <-- guardar la key real (puede ser null)
                 ]);
             }
 
-            // 2) Descuentos (con porcentaje desde plantilla)
-            $plantillasDesc = PlantillaConcepto::where('tipo', 'descuento')->get();
+            // 2) Descuentos
+            $plantillasDesc = \App\Models\PlantillaConcepto::where('tipo', 'descuento')->get();
             foreach ($plantillasDesc as $p) {
                 LineaNomina::create([
                     'nomina_id' => $nomina->id,
@@ -212,18 +212,27 @@ class SueldoService
                     'porcentaje' => $p->valor_unitario_default ?? null,
                     'es_remunerativo' => false,
                     'orden' => 0,
+                    'ajuste_key' => null,
                 ]);
             }
 
             // 3) Recalcular totales y persistir
             $lineas = $nomina->lineas()->get();
-            $subtotalRem = $lineas->where('tipo', 'remunerativo')->sum('importe') + ($nomina->sueldo_basico_snapshot ?? 0);
+            $tieneSueldoLinea = $lineas->first(fn($l) => mb_strtolower(trim($l->nombre)) === 'sueldo básico');
+
+            $subtotalRem = $lineas->where('tipo', 'remunerativo')->sum('importe');
+            if (! $tieneSueldoLinea) {
+                $subtotalRem += ($nomina->sueldo_basico_snapshot ?? 0);
+            }
+
             $subtotalNoRem = $lineas->where('tipo', 'no_remunerativo')->sum('importe');
 
             $totalDescuentos = 0;
             foreach ($lineas->where('tipo', 'descuento') as $d) {
                 if (!empty($d->porcentaje)) {
-                    $totalDescuentos += round($subtotalRem * ((float)$d->porcentaje / 100.0), 2);
+                    $porcFloat = (float)$d->porcentaje;
+                    if ($porcFloat > 1) $porcFloat = $porcFloat / 100.0;
+                    $totalDescuentos += round($subtotalRem * $porcFloat, 2);
                 } else {
                     $totalDescuentos += (float)$d->importe;
                 }
@@ -246,6 +255,7 @@ class SueldoService
             throw $e;
         }
     }
+
 
     public function agregarLinea(Nomina $nomina, array $data)
     {
