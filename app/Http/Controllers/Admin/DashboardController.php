@@ -41,17 +41,17 @@ class DashboardController extends Controller
         }
     }
 
-    public function updateAdminSubrol(Request $request, $id)
+    public function updateAdminSubroles(Request $request)
     {
-
         try {
-            DashboardService::getInstance()->updateAdminSubrol($request, $id);
-            return back()->with('success', 'Subrol actualizado correctamente.');
+            DashboardService::getInstance()->updateAdminSubroles($request->input('subroles', []));
+            return back()->with('success', 'Subroles actualizados correctamente.');
         } catch (Exception $e) {
             Log::critical('Exception: ' . $e);
             return response()->json(['error_controlado' => $e->getMessage()], 500);
         }
     }
+
 
     public function destroyTruckDriver($id)
     {

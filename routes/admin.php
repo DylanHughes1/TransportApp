@@ -84,8 +84,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
         ->middleware('auth:admin', 'full_admin');
 
     // Actualizar subrol de un admin
-    Route::put('/{id}/update-subrol', [DashboardController::class, 'updateAdminSubrol'])
+    Route::put('/update-subroles', [DashboardController::class, 'updateAdminSubroles'])
         ->middleware(['auth:admin', 'full_admin']);
+
 
     // Eliminar un chofer
     Route::delete('/{id}/truck-drivers', [DashboardController::class, 'destroyTruckDriver'])

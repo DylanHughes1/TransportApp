@@ -49,12 +49,15 @@ class DashboardService
             ];
     }
 
-    public function updateAdminSubrol($data, $id)
+    public function updateAdminSubroles(array $subroles)
     {
-
-        $admin = Admin::findOrFail($id);
-        $admin->subrole = $data->subrol;
-        $admin->save();
+        foreach ($subroles as $id => $subrol) {
+            $admin = Admin::find($id);
+            if ($admin) {
+                $admin->subrole = $subrol;
+                $admin->save();
+            }
+        }
     }
 
     public function destroyTruckDriver($id)
