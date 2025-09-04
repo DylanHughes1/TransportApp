@@ -72,19 +72,6 @@ class SueldoInicialSeeder extends Seeder
             ]
         );
 
-        // 4) Poblar la nomina con las plantillas (si no tiene lineas)
-        // if ($nomina->lineas()->count() === 0) {
-        //     $sueldoService = app()->make(SueldoService::class);
-        //     if (method_exists($sueldoService, 'poblarLineasDesdePlantillas')) {
-        //         $sueldoService->poblarLineasDesdePlantillas($nomina);
-        //         $this->command->info("Nómina de ejemplo (id: {$nomina->id}) poblada desde plantillas.");
-        //     } else {
-        //         $this->command->warn('El servicio no implementa poblarLineasDesdePlantillas. Implementalo en SueldoService.');
-        //     }
-        // } else {
-        //     $this->command->info("La nómina (id: {$nomina->id}) ya tiene líneas. Se omitió el poblado.");
-        // }
-
         $this->command->info('SueldoInicialSeeder finalizado.');
     }
 }

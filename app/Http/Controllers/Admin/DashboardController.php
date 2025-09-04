@@ -27,6 +27,43 @@ class DashboardController extends Controller
         return view('admin.dashboard');
     }
 
+    public function showPermisos()
+    {
+        try {
+            $query = DashboardService::getInstance()->showPermisos();
+            if (request()->expectsJson()) {
+                return response()->json(['data' => $query], 200);
+            }
+            return view('admin.permisos', $query);
+        } catch (Exception $e) {
+            Log::critical('Exception: ' . $e);
+            return response()->json(['error_controlado' => $e->getMessage()], 500);
+        }
+    }
+
+    public function updateAdminSubrol(Request $request, $id)
+    {
+
+        try {
+            DashboardService::getInstance()->updateAdminSubrol($request, $id);
+            return back()->with('success', 'Subrol actualizado correctamente.');
+        } catch (Exception $e) {
+            Log::critical('Exception: ' . $e);
+            return response()->json(['error_controlado' => $e->getMessage()], 500);
+        }
+    }
+
+    public function destroyTruckDriver($id)
+    {
+        try {
+            DashboardService::getInstance()->destroyTruckDriver($id);
+            return redirect('/admin/dashboard');
+        } catch (Exception $e) {
+            Log::critical('Exception: ' . $e);
+            return response()->json(['error_controlado' => $e->getMessage()], 500);
+        }
+    }
+
     public function showChoferes()
     {
         try {

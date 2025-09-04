@@ -2,11 +2,7 @@
 
 namespace App\Services\Admin;
 
-use App\Models\{TruckDriver, ViajeInicial, viajes, Solicitudes};
-use Exception;
-use \Carbon\Carbon;
-use App\Models\InputsEditables;
-use Illuminate\Support\Facades\{Log, Validator};
+use App\Models\{TruckDriver, Admin};
 
 class DashboardService
 {
@@ -38,6 +34,33 @@ class DashboardService
                 'truck_drivers_B' => $truck_drivers_B,
                 'truck_drivers_sin_empresa' => $truck_drivers_sin_empresa
             ];
+    }
+
+    public function showPermisos()
+    {
+
+        $admins = Admin::select('id', 'name', 'subrole')->get();
+        $truck_drivers = TruckDriver::select('id', 'name')->get();
+
+        return
+            [
+                'admins' => $admins,
+                'truck_drivers' => $truck_drivers
+            ];
+    }
+
+    public function updateAdminSubrol($data, $id)
+    {
+
+        $admin = Admin::findOrFail($id);
+        $admin->subrole = $data->subrol;
+        $admin->save();
+    }
+
+    public function destroyTruckDriver($id)
+    {
+        $driver = TruckDriver::findOrFail($id);
+        $driver->delete();
     }
 
     public function eliminarChofer($id)

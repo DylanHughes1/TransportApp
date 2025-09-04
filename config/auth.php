@@ -89,10 +89,10 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\Admin::class,
         ],
-        'administrators' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Administrator::class,
-        ],
+        // 'administrators' => [
+        //     'driver' => 'eloquent',
+        //     'model' => App\Models\Administrator::class,
+        // ],
     ],
 
     /*
